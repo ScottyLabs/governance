@@ -51,10 +51,10 @@ Create a new TOML file in `teams/` with the team name as the filename, e.g. `cmu
 ```toml
 name = "cmucourses"
 members = [
-    "your-username"
+    "your-username" # >= 1 member (yourself)
 ]
 repos = [
-    "cmucourses"
+    "cmucourses" # >= 1 repo
 ]
 ```
 
