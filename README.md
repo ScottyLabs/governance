@@ -23,11 +23,11 @@ In this document, 'ScottyLabs' will refer to the GitHub organization at https://
 
 ### Joining as a contributor
 
-Create a new TOML file in `contributors/` with your GitHub username as the filename, e.g. `your-username.toml`:
+Create a new TOML file in `contributors/` with your GitHub username as the filename, e.g. `your-github-username.toml`:
 
 ```toml
 name = "Your Name"
-github = "your-username"
+github = "your-github-username"
 ```
 
 > [!WARNING]
@@ -51,7 +51,7 @@ Create a new TOML file in `teams/` with the team name as the filename, e.g. `cmu
 ```toml
 name = "cmucourses"
 members = [
-    "your-username"
+    "your-github-username"
 ]
 repos = [
     "cmucourses"
