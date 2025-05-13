@@ -1,0 +1,65 @@
+name: Visualize
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "contributors/**"
+      - "repos/**"
+      - "teams/**"
+      - "meta/visualizer/**"
+  pull_request:
+    paths:
+      - "contributors/**"
+      - "repos/**"
+      - "teams/**"
+      - "meta/visualizer/**"
+  workflow_dispatch:
+
+jobs:
+  build-website:
+    name: Build Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build visualizer
+        run: |
+          cd meta/visualizer
+          cargo build --release
+          cargo run --release
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "meta/visualizer/dist"
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build-website
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v3
