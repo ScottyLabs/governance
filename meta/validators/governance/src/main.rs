@@ -1,12 +1,10 @@
 mod checks;
-mod loader;
-mod model;
 
 use anyhow::{Result, anyhow};
 use checks::{validate_cross_references, validate_file_names, validate_github_users};
 use colored::Colorize;
-use loader::{load_contributors, load_repos, load_teams};
-use model::{
+use governance::loader::{load_contributors, load_repos, load_teams};
+use governance::model::{
     FileValidationMessages, ValidationError, ValidationReport, ValidationStatistics,
     ValidationWarning,
 };

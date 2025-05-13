@@ -3,10 +3,9 @@ use std::collections::HashMap;
 use anyhow::{Result, anyhow};
 use colored::Colorize;
 use futures::{StreamExt, stream::FuturesUnordered};
+use governance::model::{Contributor, Repo, Team, ValidationError, ValidationWarning};
 use log::info;
 use reqwest::{Client, StatusCode};
-
-use crate::model::{Contributor, Repo, Team, ValidationError, ValidationWarning};
 
 pub fn validate_file_names(
     contributors: &HashMap<String, Contributor>,
