@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ScottyLabs Governance Visualizer" />
+
+    <title>Visualizer</title>
+    <script src="https://unpkg.com/d3@7"></script>
+    <script src="https://unpkg.com/force-graph"></script>
+
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #graph {
+            width: 100%;
+            height: 100vh;
+        }
+
+        #view-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="graph"></div>
+    <div id="view-selector">
+        <select id="relationship-filter">
+            <option value="default" selected>Contributors & Teams</option>
+            <option value="contributorsRepos">Contributors & Repos</option>
+            <option value="teamsRepos">Teams & Repos</option>
+        </select>
+    </div>
+
+    <script>
+        const datasets = {{ graph_data | json | safe }};
+
+        const OFFSET = 10;
+        const NODE_COLORS = {
+            Contributor: "#4CAF50", // Green
+            Team: "#2196F3",        // Blue
+            Repo: "#F44336"         // Red
+        };
+
+        // Initialize with default graph
+        const graph = ForceGraph()
+            (document.getElementById("graph"))
+            .nodeColor(node => NODE_COLORS[node.nodeType])
+            .nodeVal(node => {
+                // Size node based on number of connections
+                const links = graph.graphData().links;
+                const connectionCount = links.filter(link =>
+                    link.source.id === node.id || link.target.id === node.id
+                ).length;
+                return 4 + connectionCount * 1.5;
+            });
+
+        // Prevent node overlap
+        graph.d3Force('collide', d3.forceCollide().radius(n => graph.nodeVal()(n) + OFFSET));
+
+        // Add links
+        graph.onNodeClick(node => {
+            const n = encodeURIComponent(node.id);
+            let url = '';
+
+            switch (node.nodeType) {
+                case "Contributor":
+                    url = `https://github.com/orgs/ScottyLabs/people/${n}`;
+                    break;
+                case "Team":
+                    url = `https://github.com/orgs/ScottyLabs/teams/${n}`;
+                    break;
+                case "Repo":
+                    url = `https://github.com/ScottyLabs/${n}`;
+                    break;
+            }
+
+            if (url) window.open(url, "_blank");
+        });
+
+        graph.onNodeHover(node => {
+            document.body.style.cursor = node ? 'pointer' : '';
+        });
+
+        // Initial render + select listener
+        function updateGraph(datasetKey) {
+            graph.graphData(datasets[datasetKey]);
+        }
+
+        updateGraph("default");
+
+        document.getElementById("relationship-filter").addEventListener("change", function (e) {
+            updateGraph(e.target.value);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["meta/validators/*"]
+members = ["meta/validators/*", "meta/visualizer"]
 
 [workspace.package]
 license = "Apache-2.0"
