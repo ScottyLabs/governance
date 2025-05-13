@@ -9,13 +9,11 @@ on:
       - "repos/**"
       - "teams/**"
       - "meta/visualizer/**"
-  pull_request:
-    paths:
-      - "contributors/**"
-      - "repos/**"
-      - "teams/**"
-      - "meta/visualizer/**"
   workflow_dispatch:
+
+permissions:
+  pages: write
+  id-token: write
 
 jobs:
   build-website:
@@ -38,10 +36,7 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Build visualizer
-        run: |
-          cd meta/visualizer
-          cargo build --release
-          cargo run --release
+        run: cargo run --release --bin visualizer
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -49,19 +44,17 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "meta/visualizer/dist"
+          path: "./dist"
 
   deploy:
     name: Deploy to GitHub Pages
     needs: build-website
-    permissions:
-      pages: write
-      id-token: write
+    runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
