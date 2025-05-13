@@ -2,9 +2,6 @@ name: Validate PR Requirements
 
 on:
   pull_request:
-    paths:
-      - "contributors/**"
-      - "teams/**"
 
 jobs:
   validate-requirements:
