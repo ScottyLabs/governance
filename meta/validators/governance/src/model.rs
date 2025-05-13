@@ -14,11 +14,14 @@ pub struct Team {
     pub repos: Vec<String>,
 }
 
+// we do not care about enforcing website vs. websites exclusivity here
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Repo {
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub website: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub websites: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
