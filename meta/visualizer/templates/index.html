@@ -69,7 +69,7 @@
 
         // Prevent node overlap
         graph.d3Force("collide", d3.forceCollide().radius(n => graph.nodeVal()(n) + OFFSET));
-        graph.d3Force('link').strength(0.25);
+        graph.d3Force("link").strength(0.25);
         graph.d3VelocityDecay(0.2);
 
         // Add links
