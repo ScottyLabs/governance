@@ -4,7 +4,7 @@ use askama::Template;
 use governance::loader::{load_contributors, load_repos, load_teams};
 use graph::build_graph_data;
 use serde_json::Value;
-use std::{error::Error, fs, path::Path};
+use std::{error::Error, fs, path::Path, process};
 
 #[derive(Template)]
 #[template(path = "index.html")]
@@ -13,6 +13,12 @@ struct GovernanceTemplate {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
+    // Ensure this is being run from the workspace root
+    if !Path::new("contributors").exists() {
+        eprintln!("Please run this binary from the workspace root.");
+        process::exit(1);
+    }
+
     // Create output directory
     let dist_dir = Path::new("dist");
     fs::create_dir_all(dist_dir)?;

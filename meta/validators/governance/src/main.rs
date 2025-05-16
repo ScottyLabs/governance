@@ -8,8 +8,9 @@ use governance::model::{
     FileValidationMessages, ValidationError, ValidationReport, ValidationStatistics,
     ValidationWarning,
 };
+use log::error;
 use reqwest::Client;
-use std::collections::HashMap;
+use std::{collections::HashMap, path::Path, process};
 
 fn insert_error(files: &mut HashMap<String, FileValidationMessages>, error: ValidationError) {
     files
@@ -30,6 +31,12 @@ fn insert_warning(files: &mut HashMap<String, FileValidationMessages>, warning: 
 #[tokio::main]
 async fn main() -> Result<()> {
     env_logger::init();
+
+    // Ensure this is being run from the workspace root
+    if !Path::new("contributors").exists() {
+        error!("Please run this binary from the workspace root.");
+        process::exit(1);
+    }
 
     // Load data from files
     let contributors = load_contributors()?;
