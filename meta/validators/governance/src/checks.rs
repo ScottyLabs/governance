@@ -3,40 +3,40 @@ use std::collections::HashMap;
 use anyhow::{Result, anyhow};
 use colored::Colorize;
 use futures::{StreamExt, stream::FuturesUnordered};
-use governance::model::{Contributor, Repo, Team, ValidationError, ValidationWarning};
+use governance::model::{Contributor, EntityKey, Repo, Team, ValidationError, ValidationWarning};
 use log::info;
 use reqwest::{Client, StatusCode};
 
 pub fn validate_file_names(
-    contributors: &HashMap<String, Contributor>,
-    teams: &HashMap<String, Team>,
-    repos: &HashMap<String, Repo>,
+    contributors: &HashMap<EntityKey, Contributor>,
+    teams: &HashMap<EntityKey, Team>,
+    repos: &HashMap<EntityKey, Repo>,
 ) -> Vec<ValidationError> {
     info!("Validating file names...");
     let mut errors = Vec::new();
 
     // Validate contributor filenames match GitHub usernames
-    for (file_name, contributor) in contributors {
-        if file_name != &contributor.github {
+    for (key, contributor) in contributors {
+        if key.name != contributor.github_username {
             errors.push(ValidationError {
-                file: format!("contributors/{}.toml", file_name),
+                file: format!("contributors/{}.toml", key),
                 message: format!(
                     "Contributor file name '{}' doesn't match GitHub username '{}'",
-                    file_name.red().bold(),
-                    contributor.github.red().bold()
+                    key.name.red().bold(),
+                    contributor.github_username.red().bold()
                 ),
             });
         }
     }
 
     // Validate team filenames match team names
-    for (file_name, team) in teams {
-        if file_name != &team.name {
+    for (key, team) in teams {
+        if key.name != team.name {
             errors.push(ValidationError {
-                file: format!("teams/{}.toml", file_name),
+                file: format!("teams/{}.toml", key),
                 message: format!(
                     "Team file name '{}' doesn't match team name '{}'",
-                    file_name.red().bold(),
+                    key.name.red().bold(),
                     team.name.red().bold()
                 ),
             });
@@ -44,13 +44,13 @@ pub fn validate_file_names(
     }
 
     // Validate repo filenames match repo names
-    for (file_name, repo) in repos {
-        if file_name != &repo.name {
+    for (key, repo) in repos {
+        if key.name != repo.name {
             errors.push(ValidationError {
-                file: format!("repos/{}.toml", file_name),
+                file: format!("repos/{}.toml", key),
                 message: format!(
                     "Repo file name '{}' doesn't match repo name '{}'",
-                    file_name.red().bold(),
+                    key.name.red().bold(),
                     repo.name.red().bold()
                 ),
             });
@@ -61,22 +61,27 @@ pub fn validate_file_names(
 }
 
 pub fn validate_cross_references(
-    contributors: &HashMap<String, Contributor>,
-    teams: &HashMap<String, Team>,
-    repos: &HashMap<String, Repo>,
+    contributors: &HashMap<EntityKey, Contributor>,
+    teams: &HashMap<EntityKey, Team>,
+    repos: &HashMap<EntityKey, Repo>,
 ) -> Vec<ValidationError> {
     info!("Validating cross-references...");
     let mut errors = Vec::new();
 
     // Check that all team members exist in contributors
-    for (team_name, team) in teams {
+    for (team_key, team) in teams {
         for member in &team.members {
-            if !contributors.contains_key(member) {
+            let key = EntityKey {
+                kind: "contributor".to_string(),
+                name: member.clone(),
+            };
+
+            if !contributors.contains_key(&key) {
                 errors.push(ValidationError {
-                    file: format!("teams/{}.toml", team_name),
+                    file: format!("teams/{}.toml", team_key),
                     message: format!(
                         "Team '{}' references non-existent contributor: {}",
-                        team_name.red().bold(),
+                        team_key.name.red().bold(),
                         member.red().bold()
                     ),
                 });
@@ -85,14 +90,19 @@ pub fn validate_cross_references(
     }
 
     // Check that all team repos exist in repos
-    for (team_name, team) in teams {
+    for (team_key, team) in teams {
         for repo in &team.repos {
-            if !repos.contains_key(repo) {
+            let key = EntityKey {
+                kind: "repo".to_string(),
+                name: repo.clone(),
+            };
+
+            if !repos.contains_key(&key) {
                 errors.push(ValidationError {
-                    file: format!("teams/{}.toml", team_name),
+                    file: format!("teams/{}.toml", team_key),
                     message: format!(
                         "Team '{}' references non-existent repo: {}",
-                        team_name.red().bold(),
+                        team_key.name.red().bold(),
                         repo.red().bold()
                     ),
                 });
@@ -125,7 +135,7 @@ async fn check_github_user_exists(github_username: &str, client: &Client) -> Res
 }
 
 pub async fn validate_github_users(
-    contributors: &HashMap<String, Contributor>,
+    contributors: &HashMap<EntityKey, Contributor>,
     client: &Client,
 ) -> (Vec<ValidationError>, Vec<ValidationWarning>) {
     let mut errors = Vec::new();
@@ -135,8 +145,8 @@ pub async fn validate_github_users(
 
     for (contributor_id, contributor) in contributors {
         futures.push(async move {
-            let result = check_github_user_exists(&contributor.github, client).await;
-            (contributor_id, &contributor.github, result)
+            let result = check_github_user_exists(&contributor.github_username, client).await;
+            (contributor_id, &contributor.github_username, result)
         });
     }
 

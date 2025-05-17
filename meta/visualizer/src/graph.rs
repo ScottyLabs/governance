@@ -1,4 +1,4 @@
-use governance::model::{Contributor, Repo, Team};
+use governance::model::{Contributor, EntityKey, Repo, Team};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use std::{
@@ -6,25 +6,27 @@ use std::{
     error::Error,
 };
 
-#[derive(Serialize, Deserialize)]
-struct GraphNode {
-    id: String,
-    name: String,
-    #[serde(rename = "nodeType")]
-    node_type: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    github: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    description: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    website: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    websites: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    members: Option<Vec<String>>,
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(tag = "nodeType")]
+enum GraphNode {
+    Contributor {
+        id: String,
+        #[serde(flatten)]
+        inner: Contributor,
+    },
+    Team {
+        id: String,
+        #[serde(flatten)]
+        inner: Team,
+    },
+    Repo {
+        id: String,
+        #[serde(flatten)]
+        inner: Repo,
+    },
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 struct GraphLink {
     source: String,
     target: String,
@@ -32,194 +34,177 @@ struct GraphLink {
     link_type: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 struct GraphData {
     nodes: Vec<GraphNode>,
     links: Vec<GraphLink>,
 }
 
-fn build_contributors_teams_graph(
-    contributors: &HashMap<String, Contributor>,
-    teams: &HashMap<String, Team>,
-) -> Result<Value, Box<dyn Error>> {
-    let mut nodes = Vec::new();
-    let mut links = Vec::new();
+struct GraphBuilder<'a> {
+    contributors: &'a HashMap<EntityKey, Contributor>,
+    teams: &'a HashMap<EntityKey, Team>,
+    repos: &'a HashMap<EntityKey, Repo>,
+}
 
-    // Add contributor nodes
-    for (id, contributor) in contributors {
-        nodes.push(GraphNode {
-            id: id.clone(),
-            name: contributor.name.clone(),
-            node_type: "Contributor".to_string(),
-            github: Some(contributor.github.clone()),
-            description: None,
-            website: None,
-            websites: None,
-            members: None,
-        });
-    }
-
-    // Add team nodes and team-member links
-    for (id, team) in teams {
-        nodes.push(GraphNode {
-            id: id.clone(),
-            name: team.name.clone(),
-            node_type: "Team".to_string(),
-            github: None,
-            description: None,
-            website: None,
-            websites: None,
-            members: Some(team.members.clone()),
-        });
-
-        for member_id in &team.members {
-            links.push(GraphLink {
-                source: id.clone(),
-                target: member_id.clone(),
-                link_type: "team-member".to_string(),
-            });
+impl<'a> GraphBuilder<'a> {
+    fn new(
+        contributors: &'a HashMap<EntityKey, Contributor>,
+        teams: &'a HashMap<EntityKey, Team>,
+        repos: &'a HashMap<EntityKey, Repo>,
+    ) -> Self {
+        Self {
+            contributors,
+            teams,
+            repos,
         }
     }
 
-    Ok(json!({
-        "nodes": nodes,
-        "links": links
-    }))
-}
+    fn build_contributors_teams_graph(&self) -> GraphData {
+        let mut nodes = Vec::new();
+        let mut links = Vec::new();
 
-fn build_teams_repos_graph(
-    teams: &HashMap<String, Team>,
-    repos: &HashMap<String, Repo>,
-) -> Result<Value, Box<dyn Error>> {
-    let mut nodes = Vec::new();
-    let mut links = Vec::new();
-
-    // Add team nodes
-    for (id, team) in teams {
-        nodes.push(GraphNode {
-            id: id.clone(),
-            name: team.name.clone(),
-            node_type: "Team".to_string(),
-            github: None,
-            description: None,
-            website: None,
-            websites: None,
-            members: Some(team.members.clone()),
-        });
-    }
-
-    // Add repo nodes
-    for (id, repo) in repos {
-        nodes.push(GraphNode {
-            id: id.clone(),
-            name: repo.name.clone(),
-            node_type: "Repo".to_string(),
-            github: None,
-            description: repo.description.clone(),
-            website: repo.website.clone(),
-            websites: repo.websites.clone(),
-            members: None,
-        });
-    }
-
-    // Add team-repo links
-    for (team_id, team) in teams {
-        for repo_id in &team.repos {
-            links.push(GraphLink {
-                source: team_id.clone(),
-                target: repo_id.clone(),
-                link_type: "team-repo".to_string(),
+        // Add contributor nodes
+        for (id, contributor) in self.contributors {
+            nodes.push(GraphNode::Contributor {
+                id: id.scoped_id(),
+                inner: contributor.clone(),
             });
         }
-    }
 
-    Ok(json!({
-        "nodes": nodes,
-        "links": links
-    }))
-}
+        // Add team nodes and links
+        for (id, team) in self.teams {
+            nodes.push(GraphNode::Team {
+                id: id.scoped_id(),
+                inner: team.clone(),
+            });
 
-fn build_contributors_repos_graph(
-    contributors: &HashMap<String, Contributor>,
-    teams: &HashMap<String, Team>,
-    repos: &HashMap<String, Repo>,
-) -> Result<Value, Box<dyn Error>> {
-    let mut nodes = Vec::new();
-    let mut links = Vec::new();
+            for member_id in &team.members {
+                let target_id = EntityKey {
+                    kind: "contributor".to_string(),
+                    name: member_id.clone(),
+                };
 
-    // Map to track which repos each contributor is connected to (via teams)
-    let mut contributor_to_repos: HashMap<String, HashSet<String>> = HashMap::new();
-
-    // Build the contributor-team-repo connection map
-    for team in teams.values() {
-        for member_id in &team.members {
-            for repo_id in &team.repos {
-                contributor_to_repos
-                    .entry(member_id.clone())
-                    .or_default()
-                    .insert(repo_id.clone());
+                links.push(GraphLink {
+                    source: id.scoped_id(),
+                    target: target_id.scoped_id(),
+                    link_type: "team-member".to_string(),
+                });
             }
         }
+
+        GraphData { nodes, links }
     }
 
-    // Add contributor nodes
-    for (id, contributor) in contributors {
-        nodes.push(GraphNode {
-            id: id.clone(),
-            name: contributor.name.clone(),
-            node_type: "Contributor".to_string(),
-            github: Some(contributor.github.clone()),
-            description: None,
-            website: None,
-            websites: None,
-            members: None,
-        });
-    }
+    fn build_teams_repos_graph(&self) -> GraphData {
+        let mut nodes = Vec::new();
+        let mut links = Vec::new();
 
-    // Add repo nodes
-    for (id, repo) in repos {
-        nodes.push(GraphNode {
-            id: id.clone(),
-            name: repo.name.clone(),
-            node_type: "Repo".to_string(),
-            github: None,
-            description: repo.description.clone(),
-            website: repo.website.clone(),
-            websites: repo.websites.clone(),
-            members: None,
-        });
-    }
-
-    // Add contributor-repo links
-    for (contributor_id, repo_ids) in contributor_to_repos {
-        for repo_id in repo_ids {
-            links.push(GraphLink {
-                source: contributor_id.clone(),
-                target: repo_id.clone(),
-                link_type: "contributor-repo".to_string(),
+        // Add team nodes
+        for (id, team) in self.teams {
+            nodes.push(GraphNode::Team {
+                id: id.scoped_id(),
+                inner: team.clone(),
             });
         }
+
+        // Add repo nodes
+        for (id, repo) in self.repos {
+            nodes.push(GraphNode::Repo {
+                id: id.scoped_id(),
+                inner: repo.clone(),
+            });
+        }
+
+        // Add team-repo links
+        for (team_id, team) in self.teams {
+            for repo_id in &team.repos {
+                let target_id = EntityKey {
+                    kind: "repo".to_string(),
+                    name: repo_id.clone(),
+                };
+
+                links.push(GraphLink {
+                    source: team_id.scoped_id(),
+                    target: target_id.scoped_id(),
+                    link_type: "team-repo".to_string(),
+                });
+            }
+        }
+
+        GraphData { nodes, links }
     }
 
-    Ok(json!({
-        "nodes": nodes,
-        "links": links
-    }))
+    fn build_contributors_repos_graph(&self) -> GraphData {
+        let mut nodes = Vec::new();
+        let mut links = Vec::new();
+
+        // Map to track which repos each contributor is connected to (via teams)
+        let mut contributor_to_repos: HashMap<String, HashSet<String>> = HashMap::new();
+
+        // Build the contributor-team-repo connection map
+        for team in self.teams.values() {
+            for member_id in &team.members {
+                for repo_id in &team.repos {
+                    contributor_to_repos
+                        .entry(member_id.clone())
+                        .or_default()
+                        .insert(repo_id.clone());
+                }
+            }
+        }
+
+        // Add contributor nodes
+        for (id, contributor) in self.contributors {
+            nodes.push(GraphNode::Contributor {
+                id: id.scoped_id(),
+                inner: contributor.clone(),
+            });
+        }
+
+        // Add repo nodes
+        for (id, repo) in self.repos {
+            nodes.push(GraphNode::Repo {
+                id: id.scoped_id(),
+                inner: repo.clone(),
+            });
+        }
+
+        // Add contributor-repo links
+        for (contributor_id, repo_ids) in contributor_to_repos {
+            for repo_id in repo_ids {
+                let source_id = EntityKey {
+                    kind: "contributor".to_string(),
+                    name: contributor_id.clone(),
+                };
+
+                let target_id = EntityKey {
+                    kind: "repo".to_string(),
+                    name: repo_id.clone(),
+                };
+
+                links.push(GraphLink {
+                    source: source_id.scoped_id(),
+                    target: target_id.scoped_id(),
+                    link_type: "contributor-repo".to_string(),
+                });
+            }
+        }
+
+        GraphData { nodes, links }
+    }
 }
 
 pub fn build_graph_data(
-    contributors: HashMap<String, Contributor>,
-    teams: HashMap<String, Team>,
-    repos: HashMap<String, Repo>,
+    contributors: HashMap<EntityKey, Contributor>,
+    teams: HashMap<EntityKey, Team>,
+    repos: HashMap<EntityKey, Repo>,
 ) -> Result<Value, Box<dyn Error>> {
     // Build filtered views
-    let default = build_contributors_teams_graph(&contributors, &teams)?;
-    let teams_repos = build_teams_repos_graph(&teams, &repos)?;
-    let contributors_repos = build_contributors_repos_graph(&contributors, &teams, &repos)?;
+    let builder = GraphBuilder::new(&contributors, &teams, &repos);
 
     Ok(json!({
-        "default": default,
-        "teamsRepos": teams_repos,
-        "contributorsRepos": contributors_repos
+        "default": builder.build_contributors_teams_graph(),
+        "teamsRepos": builder.build_teams_repos_graph(),
+        "contributorsRepos": builder.build_contributors_repos_graph(),
     }))
 }

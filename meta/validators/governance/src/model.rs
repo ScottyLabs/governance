@@ -1,21 +1,26 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::fmt::{Display, Formatter, Result};
+use std::hash::{Hash, Hasher};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all(deserialize = "kebab-case", serialize = "snake_case"))]
 pub struct Contributor {
-    pub name: String,
-    pub github: String,
+    pub full_name: String,
+    pub github_username: String,
+    pub slack_member_id: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all(deserialize = "kebab-case", serialize = "snake_case"))]
 pub struct Team {
     pub name: String,
     pub members: Vec<String>,
     pub repos: Vec<String>,
+    pub slack_channel_ids: Vec<String>,
 }
 
-// we do not care about enforcing website vs. websites exclusivity here
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Repo {
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -24,6 +29,38 @@ pub struct Repo {
     pub websites: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct EntityKey {
+    pub kind: String, // "repo", "team", "contributor"
+    pub name: String, // file_stem
+}
+
+impl EntityKey {
+    pub fn scoped_id(&self) -> String {
+        format!("{}:{}", self.kind, self.name)
+    }
+}
+
+impl PartialEq for EntityKey {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}
+
+impl Eq for EntityKey {}
+
+impl Hash for EntityKey {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.name.hash(state);
+    }
+}
+
+impl Display for EntityKey {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+        write!(f, "{}", self.name)
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
