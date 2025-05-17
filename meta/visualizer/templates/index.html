@@ -101,18 +101,20 @@
 
         // Add links
         graph.onNodeClick(node => {
-            const n = encodeURIComponent(node.id);
+            const username = encodeURIComponent(node.github_username);
+            const name = encodeURIComponent(node.name);
+
             let url = '';
 
             switch (node.nodeType) {
                 case "Contributor":
-                    url = `https://github.com/orgs/ScottyLabs/people/${n}`;
+                    url = `https://github.com/orgs/ScottyLabs/people/${username}`;
                     break;
                 case "Team":
-                    url = `https://github.com/orgs/ScottyLabs/teams/${n}`;
+                    url = `https://github.com/orgs/ScottyLabs/teams/${name}`;
                     break;
                 case "Repo":
-                    url = `https://github.com/ScottyLabs/${n}`;
+                    url = `https://github.com/ScottyLabs/${name}`;
                     break;
             }
 
