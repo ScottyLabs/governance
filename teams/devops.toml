@@ -1,0 +1,10 @@
+name = "devops"
+members = [
+    "ap-1",
+]
+repos = [
+    "governance",
+]
+slack-channel-ids = [
+    "C08K3Q77ZQF",
+]

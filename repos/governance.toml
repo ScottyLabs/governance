@@ -1,0 +1,5 @@
+name = "governance"
+description = "Documentation and automation for the ScottyLabs GitHub organization's governance model"
+websites = [
+    "https://gov.scottylabs.org/",
+]
