@@ -31,17 +31,31 @@
             right: 20px;
             z-index: 10;
         }
+
+        #legend {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
     </style>
 </head>
 
 <body>
     <div id="graph"></div>
+
     <div id="view-selector">
         <select id="relationship-filter">
             <option value="default" selected>Contributors & Teams</option>
             <option value="contributorsRepos">Contributors & Repos</option>
             <option value="teamsRepos">Teams & Repos</option>
         </select>
+    </div>
+
+    <div id="legend">
+        <span style="color:#4CAF50;">● Contributor</span><br />
+        <span style="color:#2196F3;">● Team</span><br />
+        <span style="color:#F44336;">● Repo</span>
     </div>
 
     <script>
@@ -112,6 +126,7 @@
         // Initial render + select listener
         function updateGraph(datasetKey) {
             graph.graphData(datasets[datasetKey]);
+            graph.d3ReheatSimulation();
         }
 
         updateGraph("default");
