@@ -4,7 +4,7 @@ use std::fmt::{Display, Formatter, Result};
 use std::hash::{Hash, Hasher};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
-#[serde(rename_all(deserialize = "kebab-case", serialize = "snake_case"))]
+#[serde(rename_all(deserialize = "kebab-case", serialize = "camelCase"))]
 pub struct Contributor {
     pub full_name: String,
     pub github_username: String,
@@ -12,7 +12,7 @@ pub struct Contributor {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
-#[serde(rename_all(deserialize = "kebab-case", serialize = "snake_case"))]
+#[serde(rename_all(deserialize = "kebab-case", serialize = "camelCase"))]
 pub struct Team {
     pub name: String,
     pub members: Vec<String>,

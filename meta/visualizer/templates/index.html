@@ -76,7 +76,7 @@
                 // Don't use the scoped id for nodes
                 switch (node.nodeType) {
                     case "Contributor":
-                        return node.full_name;
+                        return node.fullName;
                     case "Team":
                         return node.name;
                     case "Repo":
@@ -101,7 +101,7 @@
 
         // Add links
         graph.onNodeClick(node => {
-            const username = encodeURIComponent(node.github_username);
+            const username = encodeURIComponent(node.githubUsername);
             const name = encodeURIComponent(node.name);
 
             let url = '';
