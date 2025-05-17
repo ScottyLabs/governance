@@ -1,15 +1,20 @@
 {
     "type": "object",
     "required": [
-        "name",
-        "github"
+        "full-name",
+        "github-username",
+        "slack-member-id"
     ],
     "properties": {
-        "name": {
+        "full-name": {
             "type": "string"
         },
-        "github": {
+        "github-username": {
             "type": "string"
+        },
+        "slack-member-id": {
+            "type": "string",
+            "pattern": "^U[A-Z0-9]+$"
         }
     },
     "additionalProperties": false

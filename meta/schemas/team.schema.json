@@ -3,7 +3,8 @@
     "required": [
         "name",
         "members",
-        "repos"
+        "repos",
+        "slack-channel-ids"
     ],
     "properties": {
         "name": {
@@ -22,6 +23,13 @@
                 "type": "string"
             },
             "minItems": 1
+        },
+        "slack-channel-ids": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[CG][A-Z0-9]+$"
+            }
         }
     },
     "additionalProperties": false

@@ -27,8 +27,9 @@ In this document, 'ScottyLabs' will refer to the GitHub organization at https://
 Create a new TOML file in `contributors/` with your GitHub username as the filename, e.g. `your-github-username.toml`:
 
 ```toml
-name = "Your Name"
-github = "your-github-username"
+full-name = "Your Name"
+github-username = "your-github-username"
+slack-member-id = "U07FPJKFB5E"
 ```
 
 > [!WARNING]
@@ -40,9 +41,8 @@ Create a new TOML file in `repos/` with the repository name as the filename, e.g
 
 ```toml
 name = "cmucourses"
-description = "..." # Optional
-website = "..." # Optional (but mutually exclusive with 'websites' if present)
-websites = ["...", "..."] # Optional
+description = "..." # Empty string if no description
+websites = ["..."] # Empty array if no websites
 ```
 
 ### Adding a team
@@ -57,6 +57,9 @@ members = [
 repos = [
     "cmucourses" # >= 1 repo
 ]
+slack-channel-ids = [
+    "C0150RGAG1L" # Empty array if no associated channels
+]
 ```
 
 > [!WARNING]
@@ -68,7 +71,7 @@ We enforce [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/
 
 This repository also includes several other checks to ensure integrity:
 
--   File names must match the content (the `name` field for repos and teams, the `github` field for contributors)
+-   File names must match the content (the `full-name` field for repos and teams, the `github-username` field for contributors)
 -   Cross-references must be valid (team members must exist as contributors, team repos must exist as repos)
 -   GitHub users must exist
 
