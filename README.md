@@ -71,7 +71,7 @@ We enforce [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/
 
 This repository also includes several other checks to ensure integrity:
 
--   File names must match the content (the `full-name` field for repos and teams, the `github-username` field for contributors)
+-   File names must match the content (the `name` field for repos and teams, the `github-username` field for contributors)
 -   Cross-references must be valid (team members must exist as contributors, team repos must exist as repos)
 -   GitHub users must exist
 
