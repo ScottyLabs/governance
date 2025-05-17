@@ -1,9 +1,0 @@
-name = "terrier"
-members = [
-    "ap-1",
-    "Adrastopoulos",
-]
-repos = [
-    "terrier",
-    "terrier-frontend",
-]

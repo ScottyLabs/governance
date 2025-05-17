@@ -1,6 +1,0 @@
-name = "cmumaps"
-description = "CMU Maps"
-websites = [
-    "https://cmumaps.com/",
-    "https://floorplans.scottylabs.org/",
-]
