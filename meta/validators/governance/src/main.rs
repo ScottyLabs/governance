@@ -1,8 +1,11 @@
 mod checks;
 
 use anyhow::{Result, anyhow};
-use checks::{validate_cross_references, validate_file_names, validate_github_users};
+use checks::{
+    validate_cross_references, validate_file_names, validate_github_users, validate_slack_ids,
+};
 use colored::Colorize;
+use dotenv::dotenv;
 use governance::loader::{load_contributors, load_repos, load_teams};
 use governance::model::{
     FileValidationMessages, ValidationError, ValidationReport, ValidationStatistics,
@@ -76,14 +79,22 @@ async fn main() -> Result<()> {
         insert_error(&mut file_messages, error);
     }
 
-    // Validate GitHub users
     let client = Client::new();
-    let (errors, warnings) = validate_github_users(&contributors, &client).await;
 
+    // Validate GitHub users
+    let (errors, warnings) = validate_github_users(&contributors, &client).await;
     for error in errors {
         insert_error(&mut file_messages, error);
     }
+    for warning in warnings {
+        insert_warning(&mut file_messages, warning);
+    }
 
+    // Validate Slack IDs
+    let (errors, warnings) = validate_slack_ids(&contributors, &teams, &client).await;
+    for error in errors {
+        insert_error(&mut file_messages, error);
+    }
     for warning in warnings {
         insert_warning(&mut file_messages, warning);
     }
