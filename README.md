@@ -9,6 +9,7 @@ In this document, 'ScottyLabs' will refer to the GitHub organization at https://
 ```
 .
 ├── contributors   # Individual contributor definitions
+├── docs           # Specific instructions for all three file types
 ├── meta
 │   ├── infra      # Terraform code for applying changes
 │   ├── schemas    # JSON schemas for validation
@@ -22,61 +23,20 @@ In this document, 'ScottyLabs' will refer to the GitHub organization at https://
 -   **Teams** - Groups of contributors working on specific projects
 -   **Repositories** - Code repositories owned by teams
 
-### Joining as a contributor
-
-Create a new TOML file in `contributors/` with your GitHub username as the filename, e.g. `your-github-username.toml`:
-
-```toml
-full-name = "Your Name"
-github-username = "your-github-username"
-slack-member-id = "U07FPJKFB5E"
-```
-
-> [!WARNING]
-> Pull requests adding a new contributor must be submitted by the contributor themselves. This self-nomination approach promotes ownership, helps maintain the integrity of our contributor list, and encourages active participation with our governance process and the organization. PRs in violation will be automatically rejected.
-
-### Adding a repository
-
-Create a new TOML file in `repos/` with the repository name as the filename, e.g. `cmucourses.toml`:
-
-```toml
-name = "cmucourses"
-description = "..." # Empty string if no description
-websites = ["..."] # Empty array if no websites
-```
-
-### Adding a team
-
-Create a new TOML file in `teams/` with the team name as the filename, e.g. `cmucourses.toml`:
-
-```toml
-name = "cmucourses"
-members = [
-    "your-github-username" # >= 1 member (yourself)
-]
-repos = [
-    "cmucourses", # >= 1 repo
-    "courses-backend"
-]
-slack-channel-ids = [
-    "C0150RGAG1L" # Empty array if no associated channels
-]
-```
-
-> [!WARNING]
-> The repos and members included in this file must already exist. You may add the repos in the same PR, but members must have already been added in previous PRs due to the earlier requirement on adding contributors. For similar reasons, you must be a member of any team you create.
+Depending on what you are trying to register, follow the respective guide under `docs/`.
 
 ## Validation
 
-We enforce [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+We enforce [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). In addition, the extensions listed in `.vscode/extensions.json` are essential in making sure you abide by style guidelines and other rules.
 
 This repository also includes several other checks to ensure integrity:
 
 -   File names must match the content (the `name` field for repos and teams, the `github-username` field for contributors)
 -   Cross-references must be valid (team members must exist as contributors, team repos must exist as repos)
 -   GitHub users must exist
+-   Slack member IDs and channel IDs must be valid
 
-Validation runs automatically through GitHub Actions on PRs and pushes to main. However, you can also test validators locally.
+Validation runs automatically through GitHub Actions on PRs and pushes to main. However, you can also test validators locally:
 
 1. Make sure you are in the root of the repository.
 
