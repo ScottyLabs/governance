@@ -30,6 +30,7 @@ fn insert_warning(files: &mut HashMap<String, FileValidationMessages>, warning: 
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    dotenv().ok();
     env_logger::init();
 
     // Ensure this is being run from the workspace root
