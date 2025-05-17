@@ -58,6 +58,19 @@
         const graph = ForceGraph()
             (document.getElementById("graph"))
             .nodeColor(node => NODE_COLORS[node.nodeType])
+            .nodeLabel(node => {
+                // Don't use the scoped id for nodes
+                switch (node.nodeType) {
+                    case "Contributor":
+                        return node.full_name;
+                    case "Team":
+                        return node.name;
+                    case "Repo":
+                        return node.name;
+                    default:
+                        return node.id;
+                }
+            })
             .nodeVal(node => {
                 // Size node based on number of connections
                 const links = graph.graphData().links;
