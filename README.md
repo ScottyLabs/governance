@@ -55,7 +55,8 @@ members = [
     "your-github-username" # >= 1 member (yourself)
 ]
 repos = [
-    "cmucourses" # >= 1 repo
+    "cmucourses", # >= 1 repo
+    "courses-backend"
 ]
 slack-channel-ids = [
     "C0150RGAG1L" # Empty array if no associated channels
