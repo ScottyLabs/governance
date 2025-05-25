@@ -1,0 +1,5 @@
+name = "cmueats"
+description = "CMUEats is your one-stop-shop for finding out what campus dining locations are open right now."
+websites = [
+    "https://cmueats.com/",
+]
