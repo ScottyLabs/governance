@@ -1,4 +1,4 @@
-### Adding a team
+# Adding a team
 
 > [!NOTE]
 > This is for Tech Leads and team members seeking to register their team under governance.

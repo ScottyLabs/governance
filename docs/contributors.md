@@ -1,4 +1,4 @@
-### Joining as a contributor
+# Joining as a contributor
 
 > [!NOTE]
 > This is for individuals seeking to register themselves as a contributor under governance.
@@ -9,9 +9,10 @@ Create a new TOML file in `contributors/` with your GitHub username as the filen
 full-name = "Your Name"
 github-username = "your-github-username"
 slack-member-id = "U07FPJKFB5E"
+email = "you@andrew.cmu.edu"
 ```
 
-All of these fields are required.
+All of these fields are required. In particular, your email should be your Andrew email address (ending in `@andrew.cmu.edu`).
 
 To find your `slack-member-id`, follow these steps:
 

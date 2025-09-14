@@ -3,7 +3,8 @@
     "required": [
         "full-name",
         "github-username",
-        "slack-member-id"
+        "slack-member-id",
+        "email"
     ],
     "properties": {
         "full-name": {
@@ -15,6 +16,11 @@
         "slack-member-id": {
             "type": "string",
             "pattern": "^U[A-Z0-9]+$"
+        },
+        "email": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^[^@]+@andrew\\.cmu\\.edu$"
         }
     },
     "additionalProperties": false
