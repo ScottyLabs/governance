@@ -8,7 +8,7 @@ on:
       - "contributors/**"
       - "repos/**"
       - "teams/**"
-      - "meta/visualizer/**"
+      - "__meta/visualizer/**"
   workflow_dispatch:
 
 permissions:

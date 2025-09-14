@@ -19,7 +19,8 @@
         },
         "email": {
             "type": "string",
-            "format": "email"
+            "format": "email",
+            "pattern": "^[^@]+@andrew\\.cmu\\.edu$"
         }
     },
     "additionalProperties": false

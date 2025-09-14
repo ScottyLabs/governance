@@ -1,4 +1,4 @@
-### Adding a repository
+# Adding a repository
 
 > [!NOTE]
 > Any individual is welcome to register repositories under governance.
