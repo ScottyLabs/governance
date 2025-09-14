@@ -17,19 +17,19 @@ column_width = 12
 include = ["contributors/*.toml"]
 
 [rule.schema]
-path = "./meta/schemas/contributor.schema.json"
+path = "./__meta/schemas/contributor.schema.json"
 enabled = true
 
 [[rule]]
 include = ["repos/*.toml"]
 
 [rule.schema]
-path = "./meta/schemas/repo.schema.json"
+path = "./__meta/schemas/repo.schema.json"
 enabled = true
 
 [[rule]]
 include = ["teams/*.toml"]
 
 [rule.schema]
-path = "./meta/schemas/team.schema.json"
+path = "./__meta/schemas/team.schema.json"
 enabled = true
