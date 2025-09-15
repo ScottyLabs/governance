@@ -114,6 +114,67 @@ pub fn validate_cross_references(
     errors
 }
 
+async fn check_github_team_exists(team_slug: &str, org: &str, client: &Client) -> Result<bool> {
+    let token = std::env::var("GITHUB_TOKEN").unwrap_or_default();
+    let mut request = client
+        .get(format!(
+            "https://api.github.com/orgs/{}/teams/{}",
+            org, team_slug
+        ))
+        .header("User-Agent", "ScottyLabs-Governance-Validator");
+
+    if !token.is_empty() {
+        request = request.bearer_auth(token);
+    }
+
+    let response = request.send().await?;
+    let status = response.status();
+
+    match status {
+        StatusCode::OK => Ok(true),
+        StatusCode::NOT_FOUND => Ok(false),
+        StatusCode::FORBIDDEN => Err(anyhow!("Rate limit exceeded or access forbidden")),
+        _ => Err(anyhow!("Unexpected status {}", status)),
+    }
+}
+
+pub async fn validate_github_teams(
+    teams: &HashMap<EntityKey, Team>,
+    client: &Client,
+) -> (Vec<ValidationError>, Vec<ValidationWarning>) {
+    let mut errors = Vec::new();
+    let mut warnings = Vec::new();
+
+    let mut futures = FuturesUnordered::new();
+
+    for (team_key, team) in teams {
+        futures.push(async move {
+            let result = check_github_team_exists(&team.github_team, "ScottyLabs", client).await;
+            (team_key, &team.github_team, result)
+        });
+    }
+
+    while let Some((team_key, github_team, result)) = futures.next().await {
+        match result {
+            Ok(true) => {}
+            Ok(false) => errors.push(ValidationError {
+                file: format!("teams/{}.toml", team_key),
+                message: format!("GitHub team does not exist: {}", github_team.red().bold()),
+            }),
+            Err(e) => warnings.push(ValidationWarning {
+                file: format!("teams/{}.toml", team_key),
+                message: format!(
+                    "Failed to check GitHub team {}: {}",
+                    github_team.yellow().bold(),
+                    e
+                ),
+            }),
+        }
+    }
+
+    (errors, warnings)
+}
+
 async fn check_github_user_exists(github_username: &str, client: &Client) -> Result<bool> {
     let token = std::env::var("GITHUB_TOKEN").unwrap_or_default();
     let mut request = client

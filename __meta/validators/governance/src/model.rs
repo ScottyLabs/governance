@@ -15,6 +15,7 @@ pub struct Contributor {
 #[serde(rename_all(deserialize = "kebab-case", serialize = "camelCase"))]
 pub struct Team {
     pub name: String,
+    pub github_team: String,
     pub members: Vec<String>,
     pub repos: Vec<String>,
     pub slack_channel_ids: Vec<String>,
