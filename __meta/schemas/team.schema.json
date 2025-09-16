@@ -2,12 +2,16 @@
     "type": "object",
     "required": [
         "name",
+        "github-team",
         "members",
         "repos",
         "slack-channel-ids"
     ],
     "properties": {
         "name": {
+            "type": "string"
+        },
+        "github-team": {
             "type": "string"
         },
         "members": {

@@ -7,6 +7,7 @@ Create a new TOML file in `teams/` with the team name as the filename, e.g. `cmu
 
 ```toml
 name = "cmucourses"
+github-team = "CMU Courses"
 members = [
     "your-github-username" # >= 1 member (yourself)
 ]
