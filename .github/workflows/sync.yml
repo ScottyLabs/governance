@@ -1,0 +1,20 @@
+name: Run Sync Script
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Sync
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python Setup
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Run Sync Script
+        run: python3 scripts/sync.py
