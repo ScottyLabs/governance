@@ -3,6 +3,7 @@
     "required": [
         "name",
         "github-team",
+        "leads",
         "members",
         "repos",
         "slack-channel-ids"
@@ -13,6 +14,13 @@
         },
         "github-team": {
             "type": "string"
+        },
+        "leads": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1
         },
         "members": {
             "type": "array",

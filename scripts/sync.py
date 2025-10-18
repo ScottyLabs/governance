@@ -9,6 +9,9 @@ class SyncManager:
         self.contributors = dict()
         self.load_contributors()
 
+        self.teams = dict()
+        self.load_teams()
+
     def load_contributors(self):
         for file in os.listdir("contributors"):
             if file.endswith(".toml"):
@@ -16,8 +19,16 @@ class SyncManager:
                     username = file.replace(".toml", "")
                     self.contributors[username] = tomllib.loads(f.read())
 
+    def load_teams(self):
+        for file in os.listdir("teams"):
+            if file.endswith(".toml"):
+                with open(os.path.join("teams", file), "r") as f:
+                    team_name = file.replace(".toml", "")
+                    self.teams[team_name] = tomllib.loads(f.read())
+
     def sync(self):
         GithubManager().sync_contributors(self.contributors)
+        GithubManager().sync_teams(self.teams)
 
 
 if __name__ == "__main__":
