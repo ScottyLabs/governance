@@ -1,3 +1,4 @@
+import traceback
 from github import Github
 from github import Auth
 import os
@@ -7,8 +8,11 @@ dotenv.load_dotenv()
 
 
 class GithubManager:
-    def __init__(self):
+    def __init__(self, contributors, teams):
         print("Initializing GithubManager")
+        self.contributors = contributors
+        self.teams = teams
+
         self.auth = Auth.Token(os.getenv("GITHUB_TOKEN"))
         self.g = Github(auth=self.auth)
         self.org = self.g.get_organization("ScottyLabs")
@@ -16,6 +20,10 @@ class GithubManager:
         print(
             f"GithubManager initialized with {len(self.existing_members)} existing members"
         )
+
+    def sync(self):
+        self.sync_contributors(self.contributors)
+        self.sync_teams(self.teams)
 
     def sync_contributors(self, contributors):
         for github_username, contributor in contributors.items():
@@ -30,8 +38,10 @@ class GithubManager:
                 github_team = self.org.get_team_by_slug(team["github-team"])
                 self.sync_leads(github_team, team)
                 self.sync_members(github_team, team)
+                self.sync_repos(github_team, team)
             except Exception as e:
                 print(f"Error syncing team {team_name}: {e}")
+                traceback.print_exc()
 
     def sync_leads(self, github_team, team):
         leads = set(team["leads"])
@@ -66,3 +76,18 @@ class GithubManager:
                 print(f"Removing {member} from {github_team.name}")
                 user = self.g.get_user(member)
                 github_team.remove_membership(user)
+
+    def sync_repos(self, github_team, team):
+        repos = set(team["repos"])
+        github_repos = github_team.get_repos()
+        github_repos = set([repo.full_name for repo in github_repos])
+
+        for repo in repos:
+            if repo not in github_repos:
+                print(f"Adding {repo} as a repo to {github_team.name}")
+                github_team.add_to_repos(repo)
+
+        for repo in github_repos:
+            if repo not in repos:
+                print(f"Removing {repo} from {github_team.name}")
+                github_team.remove_from_repos(repo)

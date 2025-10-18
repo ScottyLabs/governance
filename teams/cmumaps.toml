@@ -11,7 +11,7 @@ members = [
     "SLin24",
 ]
 repos = [
-    "cmumaps",
+    "ScottyLabs/cmumaps",
 ]
 slack-channel-ids = [
     "C05T7QRN4LF",

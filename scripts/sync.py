@@ -27,8 +27,7 @@ class SyncManager:
                     self.teams[team_name] = tomllib.loads(f.read())
 
     def sync(self):
-        GithubManager().sync_contributors(self.contributors)
-        GithubManager().sync_teams(self.teams)
+        GithubManager(self.contributors, self.teams).sync()
 
 
 if __name__ == "__main__":
