@@ -7,6 +7,16 @@ jobs:
   sync:
     name: Sync
     runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      KEYCLOAK_SERVER_URL: ${{ secrets.KEYCLOAK_SERVER_URL }}
+      KEYCLOAK_USERNAME: ${{ secrets.KEYCLOAK_USERNAME }}
+      KEYCLOAK_PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
+      KEYCLOAK_REALM: ${{ secrets.KEYCLOAK_REALM }}
+      KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+      KEYCLOAK_USER_REALM: ${{ secrets.KEYCLOAK_USER_REALM }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,4 +27,4 @@ jobs:
           python-version: '3.12'
 
       - name: Run Sync Script
-        run: python3 scripts/sync.py
+        run: pip3 install -r requirements.txt && python3 scripts/sync.py
