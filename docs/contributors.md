@@ -9,10 +9,10 @@ Create a new TOML file in `contributors/` with your GitHub username as the filen
 full-name = "Your Name"
 github-username = "your-github-username"
 slack-member-id = "U07FPJKFB5E"
-email = "you@andrew.cmu.edu"
+andrew-id = "your-andrew-id"
 ```
 
-All of these fields are required. In particular, your email should be your Andrew email address (ending in `@andrew.cmu.edu`).
+All of these fields are required.
 
 To find your `slack-member-id`, follow these steps:
 

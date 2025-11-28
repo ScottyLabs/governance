@@ -17,10 +17,9 @@
             "type": "string",
             "pattern": "^U[A-Z0-9]+$"
         },
-        "email": {
+        "andrew-id": {
             "type": "string",
-            "format": "email",
-            "pattern": "^[^@]+@andrew\\.cmu\\.edu$"
+            "pattern": "^[a-z0-9]+$"
         }
     },
     "additionalProperties": false
