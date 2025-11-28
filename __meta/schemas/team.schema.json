@@ -12,9 +12,6 @@
         "name": {
             "type": "string"
         },
-        "github-team": {
-            "type": "string"
-        },
         "leads": {
             "type": "array",
             "items": {
