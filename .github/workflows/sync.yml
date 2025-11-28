@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SYNC_GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_TOKEN }}
       KEYCLOAK_SERVER_URL: ${{ secrets.KEYCLOAK_SERVER_URL }}
       KEYCLOAK_USERNAME: ${{ secrets.KEYCLOAK_USERNAME }}
       KEYCLOAK_PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
