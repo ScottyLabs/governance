@@ -1,7 +1,7 @@
 import os
 import tomllib
 
-from scripts.sync_github import GithubManager
+from sync_github import GithubManager
 
 
 class SyncManager:

@@ -73,6 +73,70 @@ Validation runs automatically through GitHub Actions on PRs and pushes to main, 
     cargo run --bin governance
     ```
 
+## Python Sync Script Development
+
+The [sync workflow](../.github/workflows/sync.yml) will run the [sync script](scripts/sync.py) on every push to the `main` branch to sync the teams and members from the `contributors/` and `teams/` directories to GitHub and Keycloak.
+
+### Github
+
+- Invite all contributors to the [ScottyLabs](https://github.com/ScottyLabs) Github organization.
+
+- Create the Github teams if they do not exist.
+  - The team name will be the same as the team name in the `teams/` directory.
+  - An admin team will also be created as the subteam of the main team with the same name and the suffix "-admins".
+
+- Add the repository to the Github team. Give team developers write access and team leads admins access to the repository.
+
+- Add team members to the corresponding Github main team as members.
+
+- Add team leads to the corresponding Github admin team as members.
+  - No one should be a maintainer of the GitHub team since membership is managed by Governance.
+
+- Delete any unknown member from the Github team.
+
+### Keycloak
+
+#### Clients
+
+- Create the Keycloak clients if they do not exist.
+  - There will be 4 clients, for local, dev, staging, and prod.
+
+#### Hashicorp Vault
+
+- Create the Keycloak groups if they do not exist.
+  - An admin group will be created with the suffix "-admins".
+  - A developer group will also be created with the suffix "-devs".
+
+- Add team members to the Keycloak cmumaps-devs team.
+  - Able to view any local secrets.
+
+- Add team leads to the Keycloak cmumaps-admins team.
+  - Able to view and edit any secrets.
+
+- Create Hashicorp groups and necessary policies for secrets management.
+
+## Validations
+
+### Github
+
+Check that you are added to the [CMU Maps](https://github.com/orgs/ScottyLabs/teams/cmu-maps) Github team.
+
+### Keycloak
+
+Make sure you have the right permissions by logging into the [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc) and trying to access the secrets links in the corresponding folder section.
+
+## Troubleshooting
+
+- Check the [workflow output logs](https://github.com/ScottyLabs/governance/actions/workflows/sync.yml) to see if your user is added to the services.
+
+- If your user is not found in Keycloak, try logging into the [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc) to create your account and then ask to rerun the workflow.
+
+### Running the script locally
+
+```zsh
+python3 scripts/sync.py
+```
+
 ## License
 
 This project is licensed under `Apache-2.0`, and is heavily inspired by [Concourse's governance](https://github.com/concourse/governance).
