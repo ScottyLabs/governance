@@ -8,7 +8,8 @@
                 "charliermarsh.ruff",
                 "davidanson.vscode-markdownlint",
                 "tamasfe.even-better-toml",
-                "editorconfig.editorconfig"
+                "editorconfig.editorconfig",
+                "redhat.vscode-yaml"
             ],
             "settings": {
                 "editor.formatOnSave": true,
@@ -23,6 +24,9 @@
                 },
                 "[python]": {
                     "editor.defaultFormatter": "charliermarsh.ruff"
+                },
+                "[yaml]": {
+                    "editor.defaultFormatter": "redhat.vscode-yaml"
                 },
                 "files.associations": {
                     ".env.*": "properties"
