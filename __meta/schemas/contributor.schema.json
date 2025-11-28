@@ -4,7 +4,7 @@
         "full-name",
         "github-username",
         "slack-member-id",
-        "email"
+        "andrew-id"
     ],
     "properties": {
         "full-name": {
