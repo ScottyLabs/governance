@@ -8,13 +8,12 @@ dotenv.load_dotenv()
 
 
 class GithubManager:
+    # Initialize the GithubManager with GitHub org and existing members
     def __init__(self, contributors, teams):
         print("Initializing GithubManager")
         self.contributors = contributors
         self.teams = teams
-
-        self.auth = Auth.Token(os.getenv("GITHUB_TOKEN"))
-        self.g = Github(auth=self.auth)
+        self.g = Github(auth=Auth.Token(os.getenv("GITHUB_TOKEN")))
         self.org = self.g.get_organization("ScottyLabs")
         self.existing_members = set(member.login for member in self.org.get_members())
         print(
@@ -22,11 +21,13 @@ class GithubManager:
         )
 
     def sync(self):
-        self.sync_contributors(self.contributors)
-        self.sync_teams(self.teams)
+        print("Syncing Github")
+        self.sync_contributors()
+        # self.sync_team()
+        print("Github sync complete")
 
-    def sync_contributors(self, contributors):
-        for github_username, contributor in contributors.items():
+    def sync_contributors(self):
+        for github_username, _ in self.contributors.items():
             if github_username not in self.existing_members:
                 print(f"Adding {github_username} to GitHub organization")
                 user = self.g.get_user(github_username)
