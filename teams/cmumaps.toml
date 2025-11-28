@@ -1,13 +1,10 @@
 name = "cmumaps"
 leads = [
     "Yuxiang-Huang",
-    "luke992",
+    "tsurbs",
 ]
 devs = [
-    "ellylai",
-    "Nicolapps",
     "JettChenT",
-    "SLin24",
 ]
 repos = [
     "ScottyLabs/cmumaps",
