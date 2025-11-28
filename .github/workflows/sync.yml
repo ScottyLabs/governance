@@ -17,7 +17,6 @@ jobs:
       KEYCLOAK_USERNAME: ${{ secrets.KEYCLOAK_USERNAME }}
       KEYCLOAK_PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
       KEYCLOAK_REALM: ${{ secrets.KEYCLOAK_REALM }}
-      KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
       KEYCLOAK_USER_REALM: ${{ secrets.KEYCLOAK_USER_REALM }}
 
     steps:
@@ -30,4 +29,4 @@ jobs:
           python-version: "3.12"
 
       - name: Run Sync Script
-        run: pip3 install -r requirements.txt && python3 scripts/sync.py
+        run: pip3 install -r scripts/requirements.txt && python3 scripts/sync.py
