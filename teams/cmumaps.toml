@@ -1,10 +1,9 @@
 name = "cmumaps"
-github-team = "cmu-maps"
 leads = [
     "Yuxiang-Huang",
     "luke992",
 ]
-members = [
+devs = [
     "ellylai",
     "Nicolapps",
     "JettChenT",
