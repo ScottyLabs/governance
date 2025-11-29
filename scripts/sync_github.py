@@ -48,15 +48,18 @@ class GithubManager:
                 github_team, admin_team_name
             )
 
-            # Sync the team leads and members to the Github team
+            # Sync the team leads to the GitHub admin team
             leads = set(team["leads"])
-            devs = set(team["devs"])
-            self.sync_github_team(github_admin_team, leads)
+            current_members = {
+                member.login for member in github_admin_team.get_members()
+            }
+            self.sync_github_team(github_admin_team, current_members, leads)
 
-            # Also need to include leads so they are not removed from the parent team
-            # since when retrieving the members of a parent team in GitHub,
-            # the members of its child teams are also included
-            self.sync_github_team(github_team, leads.union(devs))
+            # Sync the team leads and devs to the GitHub main team
+            devs = set(team["devs"])
+            current_members = {member.login for member in github_team.get_members()}
+            current_members = current_members.difference(leads)
+            self.sync_github_team(github_team, current_members, leads.union(devs))
 
             # Sync the repositories to the Github team
             repos = set(team["repos"])
@@ -86,9 +89,9 @@ class GithubManager:
             )
 
     # Sync the team members to the Github team
-    def sync_github_team(self, github_team, desired_members: set[str]):
-        current_members = {member.login for member in github_team.get_members()}
-
+    def sync_github_team(
+        self, github_team, current_members: set[str], desired_members: set[str]
+    ):
         # --- Add new members ---
         for username in desired_members - current_members:
             print(f"Adding {username} to the {github_team.name} GitHub team")
