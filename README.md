@@ -82,17 +82,17 @@ The [sync workflow](../.github/workflows/sync.yml) will run the [sync script](sc
 - Invite all contributors to the [ScottyLabs](https://github.com/ScottyLabs) Github organization.
 
 - Create the Github teams if they do not exist.
-  - The team name will be the same as the team name in the `teams/` directory.
-  - An admin team will also be created as the subteam of the main team with the same name and the suffix "-admins".
+  - The team name will be the same as the team name specified in the `teams/` directory.
+  - An admin team will also be created as the subteam of the main team with the same name and the suffix " Admins".
 
 - Add the repository to the Github team. Give team developers write access and team leads admins access to the repository.
 
 - Add team members to the corresponding Github main team as members.
 
-- Add team leads to the corresponding Github admin team as members.
+- Add team leads to the corresponding Github main team and admin team as members.
   - No one should be a maintainer of the GitHub team since membership is managed by Governance.
 
-- Delete any unknown member from the Github team.
+- Delete any unknown member from the Github teams.
 
 ### Keycloak
 

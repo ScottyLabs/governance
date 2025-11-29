@@ -8,6 +8,8 @@ dotenv.load_dotenv()
 
 
 class GithubManager:
+    ADMIN_SUFFIX = " Admins"
+
     # Initialize the GithubManager with GitHub org
     def __init__(self, contributors, teams):
         print("Initializing GithubManager")
@@ -44,7 +46,7 @@ class GithubManager:
 
             # Get or create the team and the admin team
             github_team = self.get_or_create_team(team_name)
-            admin_team_name = f"{team_name} Admins"
+            admin_team_name = f"{team_name}{self.ADMIN_SUFFIX}"
             github_admin_team = self.get_or_create_admin_team(
                 github_team, admin_team_name
             )
