@@ -3,11 +3,12 @@
 > [!NOTE]
 > This is for Tech Leads and team members seeking to register their team under governance.
 
-Create a new TOML file in `teams/` with the team name as the filename, e.g. `cmucourses.toml`:
+Decide on a team slug and name. The slug will be used for internal references, and the name will be used for any public‑facing or display contexts (e.g. the GitHub team name and outreach posters).
+
+Create a new TOML file in `teams/` with the team slug as the filename, e.g. `cmucourses.toml`:
 
 ```toml
-name = "cmucourses"
-github-team = "CMU Courses"
+name = "CMU Courses"
 devs = [
     "your-github-username" # >= 1 member (yourself)
 ]
