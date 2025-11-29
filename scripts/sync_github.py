@@ -8,87 +8,113 @@ dotenv.load_dotenv()
 
 
 class GithubManager:
-    # Initialize the GithubManager with GitHub org and existing members
+    # Initialize the GithubManager with GitHub org
     def __init__(self, contributors, teams):
         print("Initializing GithubManager")
         self.contributors = contributors
         self.teams = teams
         self.g = Github(auth=Auth.Token(os.getenv("SYNC_GITHUB_TOKEN")))
         self.org = self.g.get_organization("ScottyLabs")
-        self.existing_members = set(member.login for member in self.org.get_members())
-        print(
-            f"GithubManager initialized with {len(self.existing_members)} existing members"
-        )
 
     def sync(self):
         print("Syncing Github")
         self.sync_contributors()
-        # self.sync_team()
+        for team_name, team in self.teams.items():
+            self.sync_team(team_name, team)
         print("Github sync complete")
 
+    # Sync contributors to the GitHub organization
     def sync_contributors(self):
+        # Get all existing members
+        self.existing_members = set(member.login for member in self.org.get_members())
+        print(f"There are {len(self.existing_members)} existing members")
+
+        # Invite new contributors to the GitHub organization
         for github_username, _ in self.contributors.items():
             if github_username not in self.existing_members:
                 print(f"Adding {github_username} to GitHub organization")
                 user = self.g.get_user(github_username)
                 self.org.invite_user(user=user, role="direct_member")
 
-    def sync_teams(self, teams):
-        for team_name, team in teams.items():
-            try:
-                github_team = self.org.get_team_by_slug(team["github-team"])
-                self.sync_leads(github_team, team)
-                self.sync_members(github_team, team)
-                self.sync_repos(github_team, team)
-            except Exception as e:
-                print(f"Error syncing team {team_name}: {e}")
-                traceback.print_exc()
+    # Sync the team leads and members to the Github team
+    def sync_team(self, team_name, team):
+        try:
+            print(f"Syncing team {team_name}")
 
-    def sync_leads(self, github_team, team):
-        leads = set(team["leads"])
-        github_leads = github_team.get_members(role="maintainer")
-        github_leads = set([member.login for member in github_leads])
+            # Get or create the team and the admin team
+            github_team = self.get_or_create_team(team_name)
+            admin_team_name = f"{team_name}-admins"
+            github_admin_team = self.get_or_create_admin_team(
+                github_team, admin_team_name
+            )
 
-        for lead in leads:
-            if lead not in github_leads:
-                print(f"Adding {lead} as a lead to {github_team.name}")
-                user = self.g.get_user(lead)
-                github_team.add_membership(user, role="maintainer")
+            # Sync the team leads and members to the Github team
+            leads = set(team["leads"])
+            devs = set(team["devs"])
+            self.sync_github_team(github_admin_team, leads)
 
-        for lead in github_leads:
-            if lead not in team["leads"]:
-                print(f"Removing {lead} from {github_team.name}")
-                user = self.g.get_user(lead)
-                github_team.remove_membership(user)
+            # Also need to include leads so they are not removed from the parent team
+            # since when retrieving the members of a parent team in GitHub,
+            # the members of its child teams are also included
+            self.sync_github_team(github_team, leads.union(devs))
 
-    def sync_members(self, github_team, team):
-        members = set(team["members"])
-        github_members = github_team.get_members(role="member")
-        github_members = set([member.login for member in github_members])
+            # Sync the repositories to the Github team
+            repos = set(team["repos"])
+            self.sync_repos(github_team, github_admin_team, repos)
+        except Exception as e:
+            print(f"Error syncing team {team['name']}: {e}")
+            traceback.print_exc()
 
-        for member in members:
-            if member not in github_members:
-                print(f"Adding {member} as a member to {github_team.name}")
-                user = self.g.get_user(member)
-                github_team.add_membership(user, role="member")
+    # Get or create the Github main team, which is a subteam of the main team
+    def get_or_create_team(self, team_name):
+        try:
+            return self.org.get_team_by_slug(team_name)
+        except Exception:
+            print(f"Creating {team_name} GitHub team")
+            return self.org.create_team(name=team_name, privacy="closed")
 
-        for member in github_members:
-            if member not in members:
-                print(f"Removing {member} from {github_team.name}")
-                user = self.g.get_user(member)
-                github_team.remove_membership(user)
+    # Get or create the Github admin team
+    def get_or_create_admin_team(self, github_team, admin_team_name):
+        try:
+            return self.org.get_team_by_slug(admin_team_name)
+        except Exception:
+            print(f"Creating {admin_team_name} GitHub team")
+            return self.org.create_team(
+                name=admin_team_name,
+                parent_team_id=github_team.id,
+                privacy="closed",
+            )
 
-    def sync_repos(self, github_team, team):
-        repos = set(team["repos"])
+    # Sync the team members to the Github team
+    def sync_github_team(self, github_team, desired_members: set[str]):
+        current_members = {member.login for member in github_team.get_members()}
+
+        # --- Add new members ---
+        for username in desired_members - current_members:
+            print(f"Adding {username} to the {github_team.name} GitHub team")
+            user = self.g.get_user(username)
+            github_team.add_membership(user, role="member")
+
+        # --- Remove extra members ---
+        for username in current_members - desired_members:
+            print(f"Removing {username} from {github_team.name} GitHub team")
+            user = self.g.get_user(username)
+            github_team.remove_membership(user)
+
+    # Sync the repositories to the Github team
+    # Give team devs write access and team leads admin access
+    def sync_repos(self, github_team, github_admin_team, repos):
         github_repos = github_team.get_repos()
-        github_repos = set([repo.full_name for repo in github_repos])
+        github_repos_names = set([repo.full_name for repo in github_repos])
 
-        for repo in repos:
-            if repo not in github_repos:
-                print(f"Adding {repo} as a repo to {github_team.name}")
-                github_team.add_to_repos(repo)
-
-        for repo in github_repos:
+        # Remove any repositories from the Github team that are not in the team list
+        for repo in github_repos_names:
             if repo not in repos:
-                print(f"Removing {repo} from {github_team.name}")
+                print(f"Removing {repo} from {github_team.name} Github team")
                 github_team.remove_from_repos(repo)
+
+        # Give team devs write access and team leads admin access to the repository
+        for repo in repos:
+            github_team.add_to_repos(repo)
+            github_team.update_team_repository(repo, "push")
+            github_admin_team.update_team_repository(repo, "admin")

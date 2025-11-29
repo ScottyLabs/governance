@@ -73,7 +73,7 @@ Validation runs automatically through GitHub Actions on PRs and pushes to main, 
     cargo run --bin governance
     ```
 
-## Python Sync Script Development
+## Python Sync Script
 
 The [sync workflow](../.github/workflows/sync.yml) will run the [sync script](scripts/sync.py) on every push to the `main` branch to sync the teams and members from the `contributors/` and `teams/` directories to GitHub and Keycloak.
 
@@ -131,7 +131,9 @@ Make sure you have the right permissions by logging into the [vault](https://sec
 
 - If your user is not found in Keycloak, try logging into the [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc) to create your account and then ask to rerun the workflow.
 
-### Running the script locally
+### Local Development
+
+Open in devcontainer and run the following command:
 
 ```zsh
 python3 scripts/sync.py

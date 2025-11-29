@@ -3,8 +3,7 @@
     "required": [
         "full-name",
         "github-username",
-        "slack-member-id",
-        "andrew-id"
+        "slack-member-id"
     ],
     "properties": {
         "full-name": {

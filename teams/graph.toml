@@ -1,0 +1,11 @@
+name = "graph"
+leads = [
+    "Yuxiang-Huang",
+]
+devs = []
+repos = [
+    "ScottyLabs/graph",
+]
+slack-channel-ids = [
+    "C0A03GYAP3R",
+]
