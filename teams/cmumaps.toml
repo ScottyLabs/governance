@@ -2,6 +2,7 @@ name = "CMU Maps"
 leads = [
     "Yuxiang-Huang",
     "tsurbs",
+    "romycyy",
 ]
 devs = [
     "JettChenT",

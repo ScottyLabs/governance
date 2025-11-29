@@ -53,11 +53,9 @@ class GithubManager:
             leads = set(team["leads"])
             self.sync_github_team(github_admin_team, leads)
 
-            # Add the team leads to the GitHub main team
-            direct_members = {member.login for member in github_team.get_members()} - {
-                member.login for member in github_admin_team.get_members()
-            }
-            for lead in leads - direct_members:
+            # There is no easy way to get direct members of a team,
+            # so we will add leads even if they might already be in the team.
+            for lead in leads:
                 self.add_member_to_team(github_team, lead)
 
             # Sync the devs to the GitHub main team
