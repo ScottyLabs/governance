@@ -17,6 +17,7 @@ jobs:
       KEYCLOAK_USERNAME: ${{ secrets.KEYCLOAK_USERNAME }}
       KEYCLOAK_PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
       KEYCLOAK_REALM: ${{ secrets.KEYCLOAK_REALM }}
+      KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
       KEYCLOAK_USER_REALM: ${{ secrets.KEYCLOAK_USER_REALM }}
 
     steps:
