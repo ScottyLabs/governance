@@ -50,16 +50,16 @@ class GithubManager:
 
             # Sync the team leads to the GitHub admin team
             leads = set(team["leads"])
-            current_members = {
-                member.login for member in github_admin_team.get_members()
-            }
-            self.sync_github_team(github_admin_team, current_members, leads)
+            self.sync_github_team(github_admin_team, leads)
 
-            # Sync the team leads and devs to the GitHub main team
-            devs = set(team["devs"])
+            # Add the team leads to the GitHub main team
             current_members = {member.login for member in github_team.get_members()}
-            current_members = current_members.difference(leads)
-            self.sync_github_team(github_team, current_members, leads.union(devs))
+            for lead in leads - current_members:
+                self.add_member_to_team(github_team, lead)
+
+            # Sync the devs to the GitHub main team
+            devs = set(team["devs"])
+            self.sync_github_team(github_team, leads.union(devs))
 
             # Sync the repositories to the Github team
             repos = set(team["repos"])
@@ -89,20 +89,25 @@ class GithubManager:
             )
 
     # Sync the team members to the Github team
-    def sync_github_team(
-        self, github_team, current_members: set[str], desired_members: set[str]
-    ):
+    def sync_github_team(self, github_team, desired_members: set[str]):
+        current_members = {member.login for member in github_team.get_members()}
         # --- Add new members ---
         for username in desired_members - current_members:
-            print(f"Adding {username} to the {github_team.name} GitHub team")
-            user = self.g.get_user(username)
-            github_team.add_membership(user, role="member")
+            self.add_member_to_team(github_team, username)
 
         # --- Remove extra members ---
         for username in current_members - desired_members:
-            print(f"Removing {username} from {github_team.name} GitHub team")
-            user = self.g.get_user(username)
-            github_team.remove_membership(user)
+            self.remove_member_from_team(github_team, username)
+
+    def add_member_to_team(self, github_team, username):
+        print(f"Adding {username} to the {github_team.name} GitHub team")
+        user = self.g.get_user(username)
+        github_team.add_membership(user, role="member")
+
+    def remove_member_from_team(self, github_team, username):
+        print(f"Removing {username} from the {github_team.name} GitHub team")
+        user = self.g.get_user(username)
+        github_team.remove_membership(user)
 
     # Sync the repositories to the Github team
     # Give team devs write access and team leads admin access
