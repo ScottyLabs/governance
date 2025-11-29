@@ -47,11 +47,7 @@ class KeycloakManager:
         return andrew_ids
 
     def sync_group(self, group_path: str, target_andrew_ids: set[str]):
-        group = self.keycloak_admin.get_group_by_path(group_path)
-        if "error" in group:
-            print(f"Group {group_path} not found in Keycloak")
-            return
-
+        group = self.get_or_create_group(group_path)
         group_id = group["id"]
         group_name = group["name"]
 
@@ -73,6 +69,14 @@ class KeycloakManager:
             if andrew_id not in target_andrew_ids:
                 print(f"Removing {andrew_id} from Keycloak {group_name}")
                 self.keycloak_admin.group_user_remove(member["id"], group_id)
+
+    def get_or_create_group(self, group_path: str):
+        group = self.keycloak_admin.get_group_by_path(group_path)
+        if "error" in group:
+            print(f"Group {group_path} not found in Keycloak, creating...")
+            group = self.keycloak_admin.create_group(payload={"name": group_path})
+            group = self.keycloak_admin.get_group_by_path(group_path)
+        return group
 
     # Get the user ID by email
     def get_user_id_by_andrew_id(self, andrew_id: str):
