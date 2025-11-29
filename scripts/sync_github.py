@@ -19,8 +19,8 @@ class GithubManager:
     def sync(self):
         print("Syncing Github")
         self.sync_contributors()
-        for team_name, team in self.teams.items():
-            self.sync_team(team_name, team)
+        for _, team in self.teams.items():
+            self.sync_team(team)
         print("Github sync complete")
 
     # Sync contributors to the GitHub organization
@@ -37,13 +37,14 @@ class GithubManager:
                 self.org.invite_user(user=user, role="direct_member")
 
     # Sync the team leads and members to the Github team
-    def sync_team(self, team_name, team):
+    def sync_team(self, team):
         try:
+            team_name = team["name"]
             print(f"Syncing team {team_name}")
 
             # Get or create the team and the admin team
             github_team = self.get_or_create_team(team_name)
-            admin_team_name = f"{team_name}-admins"
+            admin_team_name = f"{team_name} Admins"
             github_admin_team = self.get_or_create_admin_team(
                 github_team, admin_team_name
             )
@@ -53,8 +54,10 @@ class GithubManager:
             self.sync_github_team(github_admin_team, leads)
 
             # Add the team leads to the GitHub main team
-            current_members = {member.login for member in github_team.get_members()}
-            for lead in leads - current_members:
+            direct_members = {member.login for member in github_team.get_members()} - {
+                member.login for member in github_admin_team.get_members()
+            }
+            for lead in leads - direct_members:
                 self.add_member_to_team(github_team, lead)
 
             # Sync the devs to the GitHub main team
@@ -71,7 +74,8 @@ class GithubManager:
     # Get or create the Github main team, which is a subteam of the main team
     def get_or_create_team(self, team_name):
         try:
-            return self.org.get_team_by_slug(team_name)
+            team_slug = self.get_team_slug(team_name)
+            return self.org.get_team_by_slug(team_slug)
         except Exception:
             print(f"Creating {team_name} GitHub team")
             return self.org.create_team(name=team_name, privacy="closed")
@@ -79,7 +83,8 @@ class GithubManager:
     # Get or create the Github admin team
     def get_or_create_admin_team(self, github_team, admin_team_name):
         try:
-            return self.org.get_team_by_slug(admin_team_name)
+            team_slug = self.get_team_slug(admin_team_name)
+            return self.org.get_team_by_slug(team_slug)
         except Exception:
             print(f"Creating {admin_team_name} GitHub team")
             return self.org.create_team(
@@ -87,6 +92,10 @@ class GithubManager:
                 parent_team_id=github_team.id,
                 privacy="closed",
             )
+
+    # https://docs.github.com/en/rest/teams/teams?apiVersion=2022-11-28#get-a-team-by-name
+    def get_team_slug(self, team_name):
+        return team_name.replace(" ", "-").lower()
 
     # Sync the team members to the Github team
     def sync_github_team(self, github_team, desired_members: set[str]):
