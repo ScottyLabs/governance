@@ -2,6 +2,7 @@ import os
 import tomllib
 
 from sync_github import GithubManager
+from sync_keycloak import KeycloakManager
 
 
 class SyncManager:
@@ -28,6 +29,7 @@ class SyncManager:
 
     def sync(self):
         GithubManager(self.contributors, self.teams).sync()
+        KeycloakManager(self.contributors, self.teams).sync()
 
 
 if __name__ == "__main__":
