@@ -139,6 +139,10 @@ class GithubManager:
 
         # Give team devs write access and team leads admin access to the repository
         for repo in repos:
-            github_team.add_to_repos(repo)
-            github_team.update_team_repository(repo, "push")
-            github_admin_team.update_team_repository(repo, "admin")
+            try:
+                github_team.add_to_repos(repo)
+                github_team.update_team_repository(repo, "push")
+                github_admin_team.update_team_repository(repo, "admin")
+            except Exception as e:
+                print(f"Error adding {repo} to {github_team.name} Github team: {e}")
+                traceback.print_exc()
