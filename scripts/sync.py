@@ -28,7 +28,7 @@ class SyncManager:
                     self.teams[team_name] = tomllib.loads(f.read())
 
     def sync(self):
-        GithubManager(self.contributors, self.teams).sync()
+        # GithubManager(self.contributors, self.teams).sync()
         KeycloakManager(self.contributors, self.teams).sync()
 
 
