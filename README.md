@@ -96,24 +96,22 @@ The [sync workflow](../.github/workflows/sync.yml) will run the [sync script](sc
 
 ### Keycloak
 
-#### Clients
-
-- Create the Keycloak clients if they do not exist.
+- TODO: Create the Keycloak clients if they do not exist.
   - There will be 4 clients, for local, dev, staging, and prod.
-
-#### Hashicorp Vault
 
 - Create the Keycloak groups if they do not exist.
   - An admin group will be created with the suffix "-admins".
   - A developer group will also be created with the suffix "-devs".
 
-- Add team members to the Keycloak cmumaps-devs team.
-  - Able to view any local secrets.
+- Add team members to the Keycloak devs team.
 
-- Add team leads to the Keycloak cmumaps-admins team.
-  - Able to view and edit any secrets.
+- Add team leads to the Keycloak admins team.
 
-- Create Hashicorp groups and necessary policies for secrets management.
+#### Hashicorp Vault
+
+- Create Hashicorp groups and necessary policies and aliases to integrate with Keycloak for authentication.
+  - Dev groups can read the local secrets.
+  - Admin groups can read and edit all secrets.
 
 ## Validations
 
