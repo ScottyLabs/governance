@@ -1,0 +1,11 @@
+name = "CMU Search"
+leads = [
+    "Yuxiang-Huang",
+    "tsurbs",
+]
+devs = []
+repos = [
+    "ScottyLabs/cmusearch",
+]
+slack-channel-ids = [
+]
