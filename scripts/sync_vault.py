@@ -57,7 +57,7 @@ class VaultManager:
     # Create the policy for the dev group
     # Devs can read and list the local secrets
     def create_dev_policy(self, team_slug):
-        policy_name = f"{team_slug}-dev"
+        policy_name = f"{team_slug}{self.DEV_GROUP_SUFFIX}"
         policy_rules = f"""\
 path "/ScottyLabs/data/{team_slug}/local/*" {{
     capabilities = ["read", "list"]
@@ -71,7 +71,7 @@ path "/ScottyLabs/data/{team_slug}/local/*" {{
     # Create the policy for the admin group
     # Admins can read, create, update, delete, list, and sudo the secrets
     def create_admin_policy(self, team_slug):
-        policy_name = f"{team_slug}-admin"
+        policy_name = f"{team_slug}{self.ADMIN_GROUP_SUFFIX}"
         policy_rules = f"""\
 path "/ScottyLabs/data/{team_slug}/*" {{
     capabilities = ["create", "read", "update", "delete", "list", "sudo"]
