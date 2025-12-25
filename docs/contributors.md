@@ -12,7 +12,7 @@ slack-member-id = "U07FPJKFB5E"
 andrew-id = "your-andrew-id"
 ```
 
-All of these fields are required.
+All of these fields are required except for `andrew-id`.
 
 To find your `slack-member-id`, follow these steps:
 

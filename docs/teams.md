@@ -9,8 +9,14 @@ Create a new TOML file in `teams/` with the team slug as the filename, e.g. `cmu
 
 ```toml
 name = "CMU Courses"
+leads = [
+    "your-github-username" # >= 1 lead
+]
 devs = [
-    "your-github-username" # >= 1 member (yourself)
+    "your-github-username"
+]
+admins = [
+    "andrew-id"
 ]
 repos = [
     "cmucourses", # >= 1 repo
@@ -21,7 +27,7 @@ slack-channel-ids = [
 ]
 ```
 
-All of these fields are required; however, `slack-channel-ids` is allowed to be `[]` if the team has no channels on the Slack.
+All of these fields are required; however, `devs`, `admins`, and `slack-channel-ids` are allowed to be `[]`. Admins are external individuals who need admin access to the app (e.g. orientation staffs for O-Quest) but are not involved in development.
 
 To find a Slack channel's ID, follow these steps:
 
@@ -32,4 +38,4 @@ To find a Slack channel's ID, follow these steps:
 This value should begin with a `C` for public channels and `G` for private channels.
 
 > [!WARNING]
-> The repos and members included in this file must already exist. You may add the repos in the same PR, but members must have already been added in previous PRs due to the earlier requirement on adding contributors. For similar reasons, you must be a member of any team you create.
+> The members included in this file must already exist.

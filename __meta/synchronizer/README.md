@@ -1,7 +1,7 @@
 
 # Synchronizer
 
-The [sync workflow](../.github/workflows/sync.yml) will run the [sync script](scripts/sync.py) on every push to the `main` branch to sync the teams and members from the `contributors/` and `teams/` directories to GitHub and Keycloak.
+The [sync workflow](../../.github/workflows/sync.yml) will run the [sync script](sync.py) on every push to the `main` branch to synchronize the teams and members from the `contributors/` and `teams/` directories to GitHub and Keycloak.
 
 ## Github
 
@@ -22,24 +22,27 @@ The [sync workflow](../.github/workflows/sync.yml) will run the [sync script](sc
 
 ## Keycloak
 
-- TODO: Create the Keycloak clients if they do not exist.
+- Create the Keycloak clients if they do not exist.
   - There will be 4 clients, for local, dev, staging, and prod.
 
 - Create the Keycloak groups if they do not exist.
-  - An admin group will be created with the suffix "-admins".
+  - A lead group will also be created with the suffix "-leads".
   - A developer group will also be created with the suffix "-devs".
+  - An admin group will be created with the suffix "-admins".
 
-- Add team members to the Keycloak devs team.
+- Add team leads to the Keycloak lead group.
 
-- Add team leads to the Keycloak admins team.
+- Add team devs to the Keycloak developer group.
+
+- Add team admins to the Keycloak admin group.
 
 ### Hashicorp Vault
 
 - Create Hashicorp groups and necessary policies and aliases to integrate with Keycloak for authentication.
   - Dev groups can read the local secrets.
-  - Admin groups can read and edit all secrets.
+  - Lead groups can read and edit all secrets.
 
-## Validations
+## Manual Validations
 
 ### Github
 
