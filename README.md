@@ -1,6 +1,6 @@
 # ScottyLabs Governance
 
-This repository defines the organizational structure, team membership, and project ownership for ScottyLabs' Tech Committee. It serves as the source of truth for our GitHub organization's governance model.
+This repository defines the organizational structure, team membership, and project ownership for ScottyLabs. It serves as the source of truth for our GitHub organization's governance model.
 
 In this document, 'ScottyLabs' will refer to the GitHub organization at <https://github.com/ScottyLabs>, and not the club itself.
 
@@ -9,14 +9,14 @@ In this document, 'ScottyLabs' will refer to the GitHub organization at <https:/
 ```py
 .
 ├── __meta
-│   ├── infra      # Terraform code for applying changes
-│   ├── schemas    # JSON schemas for validation
-│   ├── validators # Rust-based validation tools
-│   └── visualizer # Force graph for visualizing relationships
-├── contributors   # Individual contributor definitions
-├── docs           # Specific instructions for all three file types
-├── repos          # Team definitions with members and repos
-└── teams          # Repository definitions with metadata
+│   ├── schemas      # JSON schemas for validation
+│   ├── synchronizer # Python-based permission synchronizer
+│   ├── validators   # Rust-based validation tools
+│   └── visualizer   # Force graph for visualizing relationships
+├── contributors     # Individual contributor definitions
+├── docs             # Specific instructions for all three file types
+├── repos            # Team definitions with members and repos
+└── teams            # Repository definitions with metadata
 ```
 
 - **Contributors** - Individuals who participate in ScottyLabs projects
@@ -134,7 +134,7 @@ Make sure you have the right permissions by logging into the [vault](https://sec
 Open in devcontainer and run the following command:
 
 ```zsh
-python3 synchronizer/sync.py
+python3 __meta/synchronizer/sync.py
 ```
 
 ## License

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-pip3 install -r synchronizer/requirements.txt
+pip3 install -r __meta/synchronizer/requirements.txt
 
 # Install xdg-utils for Vault login
 sudo apt-get update -y
