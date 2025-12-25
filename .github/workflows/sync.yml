@@ -20,6 +20,7 @@ jobs:
       KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
       KEYCLOAK_USER_REALM: ${{ secrets.KEYCLOAK_USER_REALM }}
       VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+      SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
     steps:
       - name: Checkout

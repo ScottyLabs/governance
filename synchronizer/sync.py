@@ -4,6 +4,7 @@ import tomllib
 from sync_github import GithubManager
 from sync_keycloak import KeycloakManager
 from sync_vault import VaultManager
+from sync_slack import SlackManager
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -35,6 +36,7 @@ class SyncManager:
         GithubManager(self.contributors, self.teams).sync()
         KeycloakManager(self.contributors, self.teams).sync()
         VaultManager(self.teams).sync()
+        SlackManager(self.contributors, self.teams).sync()
 
 
 if __name__ == "__main__":
