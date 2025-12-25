@@ -2,9 +2,6 @@ import traceback
 from github import Github
 from github import Auth
 import os
-import dotenv
-
-dotenv.load_dotenv()
 
 
 class GithubManager:
@@ -19,11 +16,10 @@ class GithubManager:
         self.org = self.g.get_organization("ScottyLabs")
 
     def sync(self):
-        print("Syncing Github")
+        print("\nSyncing Github...")
         self.sync_contributors()
-        for _, team in self.teams.items():
+        for team in self.teams.values():
             self.sync_team(team)
-        print("Github sync complete")
 
     # Sync contributors to the GitHub organization
     def sync_contributors(self):

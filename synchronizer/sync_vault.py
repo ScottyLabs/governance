@@ -1,8 +1,5 @@
 import hvac
 import os
-import dotenv
-
-dotenv.load_dotenv()
 
 
 class VaultManager:
@@ -23,10 +20,9 @@ class VaultManager:
         self.oidc_mount = auth_methods.get("oidc/")["accessor"]
 
     def sync(self):
-        print("Syncing Vault")
-        for team_slug, team in self.teams.items():
+        print("\nSyncing Vault...")
+        for team_slug in self.teams.keys():
             self.sync_team(team_slug)
-        print("Vault sync complete")
 
     # Sync the dev and admin groups for a team
     def sync_team(self, team_slug):

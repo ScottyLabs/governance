@@ -1,8 +1,5 @@
 from keycloak import KeycloakAdmin
-from dotenv import load_dotenv
 import os
-
-load_dotenv()
 
 
 class KeycloakManager:
@@ -23,8 +20,7 @@ class KeycloakManager:
         )
 
     def sync(self):
-        print("Syncing Keycloak")
-
+        print("\nSyncing Keycloak...")
         for team_slug, team in self.teams.items():
             # Sync the team leads to the Keycloak admins group
             admin_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
@@ -35,8 +31,6 @@ class KeycloakManager:
             member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
             members_andrew_ids = self.get_andrew_ids(team["devs"])
             self.sync_group(member_group_name, members_andrew_ids)
-
-        print("Keycloak sync complete")
 
     def get_andrew_ids(self, members: list[str]):
         andrew_ids = set()

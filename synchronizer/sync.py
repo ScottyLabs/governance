@@ -4,6 +4,9 @@ import tomllib
 from sync_github import GithubManager
 from sync_keycloak import KeycloakManager
 from sync_vault import VaultManager
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class SyncManager:
