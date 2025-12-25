@@ -38,7 +38,7 @@ class GithubManager:
                 github_username not in self.existing_members
                 and github_username not in invited
             ):
-                print(f"Adding {github_username} to GitHub organization")
+                print(f"Adding {github_username} to GitHub organization...")
                 user = self.g.get_user(github_username)
                 self.org.invite_user(user=user, role="direct_member")
 

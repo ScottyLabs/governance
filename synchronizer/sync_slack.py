@@ -26,7 +26,7 @@ class SlackManager:
                     self.sync_channel(team, channel_id, desired_members)
 
     def sync_channel(self, team, channel_id, desired_members):
-        print(f"\nSyncing {team['name']} Slack channel: {channel_id}")
+        print(f"\nSyncing {team['name']} Slack channel: {channel_id}...")
 
         # Join the channel so the bot can invite users
         try:

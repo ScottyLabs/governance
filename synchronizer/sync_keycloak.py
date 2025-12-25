@@ -24,6 +24,8 @@ class KeycloakManager:
     def sync(self):
         with Styler("Keycloak"):
             for team_slug, team in self.teams.items():
+                print(f"\nSyncing team {team_slug}...")
+
                 # Sync the team leads to the Keycloak admins group
                 lead_group_name = f"{team_slug}{self.LEAD_SUFFIX}"
                 lead_andrew_ids = self.get_andrew_ids(team["leads"])
