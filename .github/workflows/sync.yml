@@ -31,4 +31,4 @@ jobs:
           python-version: "3.12"
 
       - name: Run Sync Script
-        run: pip3 install -r scripts/requirements.txt && python3 scripts/sync.py
+        run: pip3 install -r synchronizer/requirements.txt && python3 synchronizer/sync.py
