@@ -1,11 +1,12 @@
 import hvac
 import os
+from styler import Styler
 
 
 class VaultManager:
     VAULT_URL = "https://secrets.scottylabs.org"
+    LEAD_GROUP_SUFFIX = "-leads"
     DEV_GROUP_SUFFIX = "-devs"
-    ADMIN_GROUP_SUFFIX = "-admins"
 
     def __init__(self, teams):
         self.teams = teams
@@ -20,12 +21,14 @@ class VaultManager:
         self.oidc_mount = auth_methods.get("oidc/")["accessor"]
 
     def sync(self):
-        print("\nSyncing Vault...")
-        for team_slug in self.teams.keys():
-            self.sync_team(team_slug)
+        with Styler("Vault"):
+            for team_slug in self.teams.keys():
+                self.sync_team(team_slug)
 
-    # Sync the dev and admin groups for a team
+    # Sync the dev and lead groups for a team
     def sync_team(self, team_slug):
+        print(f"\nSyncing team {team_slug}...")
+
         self.sync_group(
             team_slug,
             f"{team_slug}{self.DEV_GROUP_SUFFIX}",
@@ -33,14 +36,14 @@ class VaultManager:
         )
         self.sync_group(
             team_slug,
-            f"{team_slug}{self.ADMIN_GROUP_SUFFIX}",
-            create_policy=self.create_admin_policy,
+            f"{team_slug}{self.LEAD_GROUP_SUFFIX}",
+            create_policy=self.create_lead_policy,
         )
 
     # If a group does not exist, create it and add the policy and alias to it
     def sync_group(self, team_slug, group_name, create_policy):
         if group_name not in self.groups_names:
-            print(f"Creating group {group_name}")
+            print(f"Creating group {group_name}...")
             policy_name = create_policy(team_slug)
             group = self.client.secrets.identity.create_or_update_group(
                 name=group_name, group_type="external", policies=[policy_name]
@@ -64,10 +67,10 @@ path "/ScottyLabs/data/{team_slug}/local/*" {{
         )
         return policy_name
 
-    # Create the policy for the admin group
-    # Admins can read, create, update, delete, list, and sudo the secrets
-    def create_admin_policy(self, team_slug):
-        policy_name = f"{team_slug}{self.ADMIN_GROUP_SUFFIX}"
+    # Create the policy for the lead group
+    # Leads can read, create, update, delete, list, and sudo the secrets
+    def create_lead_policy(self, team_slug):
+        policy_name = f"{team_slug}{self.LEAD_GROUP_SUFFIX}"
         policy_rules = f"""\
 path "/ScottyLabs/data/{team_slug}/*" {{
     capabilities = ["create", "read", "update", "delete", "list", "sudo"]

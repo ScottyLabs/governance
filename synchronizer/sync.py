@@ -12,6 +12,7 @@ load_dotenv()
 
 class SyncManager:
     def __init__(self):
+        print("Initializing SyncManager...")
         self.contributors = dict()
         self.load_contributors()
 

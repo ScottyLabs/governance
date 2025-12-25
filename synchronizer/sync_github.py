@@ -1,7 +1,7 @@
-import traceback
 from github import Github
 from github import Auth
 import os
+from styler import Styler, error
 
 
 class GithubManager:
@@ -9,23 +9,22 @@ class GithubManager:
 
     # Initialize the GithubManager with GitHub org
     def __init__(self, contributors, teams):
-        print("Initializing GithubManager")
         self.contributors = contributors
         self.teams = teams
         self.g = Github(auth=Auth.Token(os.getenv("SYNC_GITHUB_TOKEN")))
         self.org = self.g.get_organization("ScottyLabs")
 
     def sync(self):
-        print("\nSyncing Github...")
-        self.sync_contributors()
-        for team in self.teams.values():
-            self.sync_team(team)
+        with Styler("Github"):
+            self.sync_contributors()
+            for team in self.teams.values():
+                self.sync_team(team)
 
     # Sync contributors to the GitHub organization
     def sync_contributors(self):
         # Get all existing members
         self.existing_members = set(member.login for member in self.org.get_members())
-        print(f"There are {len(self.existing_members)} existing members")
+        print(f"There are {len(self.existing_members)} existing members.")
 
         # Get all invited contributors
         invitations = self.org.invitations()
@@ -47,7 +46,7 @@ class GithubManager:
     def sync_team(self, team):
         try:
             team_name = team["name"]
-            print(f"Syncing team {team_name}")
+            print(f"\nSyncing team {team_name}...")
 
             # Get or create the team and the admin team
             github_team = self.get_or_create_team(team_name)
@@ -68,8 +67,7 @@ class GithubManager:
             repos = set(team["repos"])
             self.sync_repos(github_team, github_admin_team, repos)
         except Exception as e:
-            print(f"Error syncing team {team['name']}: {e}")
-            traceback.print_exc()
+            error(f"Error syncing team {team['name']}: {e}")
 
     # Get or create the Github main team, which is a subteam of the main team
     def get_or_create_team(self, team_name):
@@ -77,7 +75,7 @@ class GithubManager:
             team_slug = self.get_team_slug(team_name)
             return self.org.get_team_by_slug(team_slug)
         except Exception:
-            print(f"Creating {team_name} GitHub team")
+            print(f"Creating {team_name} GitHub team...")
             return self.org.create_team(name=team_name, privacy="closed")
 
     # Get or create the Github admin team
@@ -86,7 +84,7 @@ class GithubManager:
             team_slug = self.get_team_slug(admin_team_name)
             return self.org.get_team_by_slug(team_slug)
         except Exception:
-            print(f"Creating {admin_team_name} GitHub team")
+            print(f"Creating {admin_team_name} GitHub team...")
             return self.org.create_team(
                 name=admin_team_name,
                 parent_team_id=github_team.id,
@@ -121,12 +119,12 @@ class GithubManager:
             self.remove_member_from_team(github_admin_team, username)
 
     def add_member_to_team(self, github_team, username):
-        print(f"Adding {username} to the {github_team.name} GitHub team")
+        print(f"Adding {username} to the {github_team.name} GitHub team...")
         user = self.g.get_user(username)
         github_team.add_membership(user, role="member")
 
     def remove_member_from_team(self, github_team, username):
-        print(f"Removing {username} from the {github_team.name} GitHub team")
+        print(f"Removing {username} from the {github_team.name} GitHub team...")
         user = self.g.get_user(username)
         github_team.remove_membership(user)
 
@@ -139,7 +137,7 @@ class GithubManager:
         # Remove any repositories from the Github team that are not in the team list
         for repo in github_repos_names:
             if repo not in repos:
-                print(f"Removing {repo} from {github_team.name} Github team")
+                print(f"Removing {repo} from {github_team.name} Github team...")
                 github_team.remove_from_repos(repo)
 
         # Give team devs write access and team leads admin access to the repository
@@ -149,5 +147,4 @@ class GithubManager:
                 github_team.update_team_repository(repo, "push")
                 github_admin_team.update_team_repository(repo, "admin")
             except Exception as e:
-                print(f"Error adding {repo} to {github_team.name} Github team: {e}")
-                traceback.print_exc()
+                error(f"Error adding {repo} to {github_team.name} Github team: {e}")

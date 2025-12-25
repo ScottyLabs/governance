@@ -1,8 +1,10 @@
 from keycloak import KeycloakAdmin
 import os
+from styler import Styler, error
 
 
 class KeycloakManager:
+    LEAD_SUFFIX = "-leads"
     ADMIN_SUFFIX = "-admins"
     MEMBER_SUFFIX = "-devs"
 
@@ -20,17 +22,17 @@ class KeycloakManager:
         )
 
     def sync(self):
-        print("\nSyncing Keycloak...")
-        for team_slug, team in self.teams.items():
-            # Sync the team leads to the Keycloak admins group
-            admin_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
-            admins_andrew_ids = self.get_andrew_ids(team["leads"])
-            self.sync_group(admin_group_name, admins_andrew_ids)
+        with Styler("Keycloak"):
+            for team_slug, team in self.teams.items():
+                # Sync the team leads to the Keycloak admins group
+                lead_group_name = f"{team_slug}{self.LEAD_SUFFIX}"
+                lead_andrew_ids = self.get_andrew_ids(team["leads"])
+                self.sync_group(lead_group_name, lead_andrew_ids)
 
-            # Sync team members to Keycloak devs group
-            member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
-            members_andrew_ids = self.get_andrew_ids(team["devs"])
-            self.sync_group(member_group_name, members_andrew_ids)
+                # Sync team devs to Keycloak devs group
+                member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
+                members_andrew_ids = self.get_andrew_ids(team["devs"])
+                self.sync_group(member_group_name, members_andrew_ids)
 
     def get_andrew_ids(self, members: list[str]):
         andrew_ids = set()
@@ -54,14 +56,14 @@ class KeycloakManager:
             if andrew_id not in current_andrew_ids:
                 user_id = self.get_user_id_by_andrew_id(andrew_id)
                 if user_id:
-                    print(f"Adding {andrew_id} to Keycloak {group_name}")
+                    print(f"Adding {andrew_id} to Keycloak {group_name}...")
                     self.keycloak_admin.group_user_add(user_id, group_id)
 
         # --- Remove extra users ---
         for member in members:
             andrew_id = member["username"]
             if andrew_id not in target_andrew_ids:
-                print(f"Removing {andrew_id} from Keycloak {group_name}")
+                print(f"Removing {andrew_id} from Keycloak {group_name}...")
                 self.keycloak_admin.group_user_remove(member["id"], group_id)
 
     def get_or_create_group(self, group_path: str):
@@ -77,11 +79,13 @@ class KeycloakManager:
         users = self.keycloak_admin.get_users(query={"username": andrew_id})
 
         if not users:
-            print(f"User {andrew_id} not found in Keycloak")
+            error(f"User {andrew_id} not found in Keycloak!", print_traceback=False)
             return False
 
         if len(users) > 1:
-            print(f"Multiple users found for {andrew_id}: {users}")
+            error(
+                f"Multiple users found for {andrew_id}: {users}!", print_traceback=False
+            )
             return False
 
         return users[0]["id"]
