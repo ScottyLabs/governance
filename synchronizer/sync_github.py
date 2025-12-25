@@ -31,9 +31,18 @@ class GithubManager:
         self.existing_members = set(member.login for member in self.org.get_members())
         print(f"There are {len(self.existing_members)} existing members")
 
+        # Get all invited contributors
+        invitations = self.org.invitations()
+        invited = set()
+        for invite in invitations:
+            invited.add(invite.login)
+
         # Invite new contributors to the GitHub organization
         for github_username, _ in self.contributors.items():
-            if github_username not in self.existing_members:
+            if (
+                github_username not in self.existing_members
+                and github_username not in invited
+            ):
                 print(f"Adding {github_username} to GitHub organization")
                 user = self.g.get_user(github_username)
                 self.org.invite_user(user=user, role="direct_member")
