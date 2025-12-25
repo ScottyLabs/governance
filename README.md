@@ -134,7 +134,7 @@ Make sure you have the right permissions by logging into the [vault](https://sec
 Open in devcontainer and run the following command:
 
 ```zsh
-python3 scripts/sync.py
+python3 synchronizer/sync.py
 ```
 
 ## License
