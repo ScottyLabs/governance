@@ -34,6 +34,11 @@ class KeycloakManager:
                 members_andrew_ids = self.get_andrew_ids(team["devs"])
                 self.sync_group(member_group_name, members_andrew_ids)
 
+                # Sync team admins to Keycloak admins group
+                admin_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
+                admins_andrew_ids = set(team["admins"])
+                self.sync_group(admin_group_name, admins_andrew_ids)
+
     def get_andrew_ids(self, members: list[str]):
         andrew_ids = set()
         for member in members:

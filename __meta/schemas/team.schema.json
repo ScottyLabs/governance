@@ -4,6 +4,7 @@
         "name",
         "leads",
         "devs",
+        "admins",
         "repos",
         "slack-channel-ids"
     ],
@@ -19,6 +20,12 @@
             "minItems": 1
         },
         "devs": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "admins": {
             "type": "array",
             "items": {
                 "type": "string"

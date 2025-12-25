@@ -4,6 +4,7 @@ leads = [
     "tsurbs",
 ]
 devs = []
+admins = []
 repos = [
     "ScottyLabs/cmusearch",
 ]

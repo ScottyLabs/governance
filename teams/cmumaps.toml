@@ -9,6 +9,7 @@ devs = [
     "JettChenT",
     "Nicolapps",
 ]
+admins = []
 repos = [
     "ScottyLabs/cmumaps",
 ]
