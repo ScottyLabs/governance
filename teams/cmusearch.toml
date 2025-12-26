@@ -1,4 +1,5 @@
 name = "CMU Search"
+website-slug = "search"
 leads = [
     "Yuxiang-Huang",
     "tsurbs",

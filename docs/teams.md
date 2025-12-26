@@ -3,12 +3,13 @@
 > [!NOTE]
 > This is for Tech Leads and team members seeking to register their team under governance.
 
-Decide on a team slug and name. The slug will be used for internal references, and the name will be used for any public‑facing or display contexts (e.g. the GitHub team name and outreach posters).
+Decide on a team slug, website slug, and name. The slug will be used for internal references, the website slug will be used for the website (e.g. courses.scottylabs.org), and the name will be used for any public‑facing or display contexts (e.g. the GitHub team name and outreach posters).
 
 Create a new TOML file in `teams/` with the team slug as the filename, e.g. `cmucourses.toml`:
 
 ```toml
 name = "CMU Courses"
+website-slug = "courses"
 leads = [
     "your-github-username" # >= 1 lead
 ]

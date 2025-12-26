@@ -1,4 +1,5 @@
 name = "CMU Maps"
+website-slug = "maps"
 leads = [
     "Yuxiang-Huang",
     "tsurbs",
