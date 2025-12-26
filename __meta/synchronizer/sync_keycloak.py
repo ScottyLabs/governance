@@ -4,8 +4,8 @@ from utils import Styler, error, ENVS
 
 
 class KeycloakManager:
-    LEAD_SUFFIX = "-leads"
     ADMIN_SUFFIX = "-admins"
+    EXTERNAL_ADMIN_SUFFIX = "-ext-admins"
     MEMBER_SUFFIX = "-devs"
 
     def __init__(self, contributors, teams):
@@ -34,7 +34,7 @@ class KeycloakManager:
                     self.ensure_client(team_slug, team["website-slug"], env)
 
                 # Sync the team leads to the Keycloak admins group
-                lead_group_name = f"{team_slug}{self.LEAD_SUFFIX}"
+                lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
                 lead_andrew_ids = self.get_andrew_ids(team["leads"])
                 self.sync_group(lead_group_name, lead_andrew_ids)
 
@@ -44,8 +44,8 @@ class KeycloakManager:
                 self.sync_group(member_group_name, members_andrew_ids)
 
                 # Sync team admins to Keycloak admins group
-                admin_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
-                admins_andrew_ids = set(team["admins"])
+                admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
+                admins_andrew_ids = set(team["ext-admins"])
                 self.sync_group(admin_group_name, admins_andrew_ids)
 
     def ensure_client(self, team_slug: str, website_slug: str, env: str):

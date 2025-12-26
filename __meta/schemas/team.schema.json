@@ -5,7 +5,7 @@
         "website-slug",
         "leads",
         "devs",
-        "admins",
+        "ext-admins",
         "repos",
         "slack-channel-ids"
     ],
@@ -29,7 +29,7 @@
                 "type": "string"
             }
         },
-        "admins": {
+        "ext-admins": {
             "type": "array",
             "items": {
                 "type": "string"

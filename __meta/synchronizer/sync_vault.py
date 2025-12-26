@@ -5,7 +5,7 @@ from utils import Styler
 
 class VaultManager:
     VAULT_URL = "https://secrets.scottylabs.org"
-    LEAD_GROUP_SUFFIX = "-leads"
+    ADMIN_GROUP_SUFFIX = "-admins"
     DEV_GROUP_SUFFIX = "-devs"
 
     def __init__(self, teams):
@@ -36,8 +36,8 @@ class VaultManager:
         )
         self.sync_group(
             team_slug,
-            f"{team_slug}{self.LEAD_GROUP_SUFFIX}",
-            create_policy=self.create_lead_policy,
+            f"{team_slug}{self.ADMIN_GROUP_SUFFIX}",
+            create_policy=self.create_admin_policy,
         )
 
     # If a group does not exist, create it and add the policy and alias to it
@@ -69,8 +69,8 @@ path "/ScottyLabs/data/{team_slug}/local/*" {{
 
     # Create the policy for the lead group
     # Leads can read, create, update, delete, list, and sudo the secrets
-    def create_lead_policy(self, team_slug):
-        policy_name = f"{team_slug}{self.LEAD_GROUP_SUFFIX}"
+    def create_admin_policy(self, team_slug):
+        policy_name = f"{team_slug}{self.ADMIN_GROUP_SUFFIX}"
         policy_rules = f"""\
 path "/ScottyLabs/data/{team_slug}/*" {{
     capabilities = ["create", "read", "update", "delete", "list", "sudo"]

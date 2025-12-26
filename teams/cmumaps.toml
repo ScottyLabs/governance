@@ -10,7 +10,8 @@ devs = [
     "JettChenT",
     "Nicolapps",
 ]
-admins = []
+ext-admins = [
+]
 repos = [
     "ScottyLabs/cmumaps",
 ]

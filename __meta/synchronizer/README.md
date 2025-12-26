@@ -26,21 +26,21 @@ The [sync workflow](../../.github/workflows/sync.yml) will run the [sync script]
   - There will be 4 clients, for local, dev, staging, and prod.
 
 - Create the Keycloak groups if they do not exist.
-  - A lead group will also be created with the suffix "-leads".
+  - A lead group will also be created with the suffix "-admins".
   - A developer group will also be created with the suffix "-devs".
-  - An admin group will be created with the suffix "-admins".
+  - An admin group will be created with the suffix "-ext-admins".
 
-- Add team leads to the Keycloak lead group.
+- Add team leads to the Keycloak admin group.
 
 - Add team devs to the Keycloak developer group.
 
-- Add team admins to the Keycloak admin group.
+- Add team external admins to the Keycloak ext-admins group.
 
 ### Hashicorp Vault
 
 - Create Hashicorp groups and necessary policies and aliases to integrate with Keycloak for authentication.
   - Dev groups can read the local secrets.
-  - Lead groups can read and edit all secrets.
+  - Admin groups can read and edit all secrets.
 
 ## Manual Validations
 

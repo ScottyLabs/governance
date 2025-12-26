@@ -4,7 +4,8 @@ leads = [
     "Yuxiang-Huang",
 ]
 devs = []
-admins = []
+ext-admins = [
+]
 repos = [
     "ScottyLabs/graph",
 ]

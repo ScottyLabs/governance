@@ -16,7 +16,7 @@ leads = [
 devs = [
     "your-github-username"
 ]
-admins = [
+ext-admins = [
     "andrew-id"
 ]
 repos = [
@@ -28,7 +28,9 @@ slack-channel-ids = [
 ]
 ```
 
-All of these fields are required; however, `devs`, `admins`, and `slack-channel-ids` are allowed to be `[]`. Admins are external individuals who need admin access to the app (e.g. orientation staffs for O-Quest) but are not involved in development.
+All of these fields are required; however, `devs`, `ext-admins`, and `slack-channel-ids` are allowed to be `[]`.
+`ext-admins` are external individuals who need admin access to the app (e.g. orientation staffs for O-Quest)
+but are not involved in development.
 
 To find a Slack channel's ID, follow these steps:
 
