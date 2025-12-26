@@ -15,26 +15,15 @@ pub struct Contributor {
 #[serde(rename_all(deserialize = "kebab-case", serialize = "camelCase"))]
 pub struct Team {
     pub name: String,
-    pub github_team: String,
-    pub members: Vec<String>,
+    pub leads: Vec<String>,
+    pub devs: Vec<String>,
     pub repos: Vec<String>,
     pub slack_channel_ids: Vec<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct Repo {
-    pub name: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub website: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub websites: Option<Vec<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-}
-
 #[derive(Debug, Clone)]
 pub struct EntityKey {
-    pub kind: String, // "repo", "team", "contributor"
+    pub kind: String, // "team" | "contributor"
     pub name: String, // file_stem
 }
 
@@ -88,7 +77,6 @@ pub struct FileValidationMessages {
 pub struct ValidationStatistics {
     pub contributors_count: usize,
     pub teams_count: usize,
-    pub repos_count: usize,
     pub valid_files_count: usize,
     pub invalid_files_count: usize,
     pub total_errors: usize,

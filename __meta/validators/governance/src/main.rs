@@ -2,12 +2,11 @@ mod checks;
 
 use anyhow::{Result, anyhow};
 use checks::{
-    validate_cross_references, validate_file_names, validate_github_teams, validate_github_users,
-    validate_slack_ids,
+    validate_cross_references, validate_file_names, validate_github_users, validate_slack_ids,
 };
 use colored::Colorize;
 use dotenv::dotenv;
-use governance::loader::{load_contributors, load_repos, load_teams};
+use governance::loader::{load_contributors, load_teams};
 use governance::model::{
     FileValidationMessages, ValidationError, ValidationReport, ValidationStatistics,
     ValidationWarning,
@@ -46,7 +45,6 @@ async fn main() -> Result<()> {
     // Load data from files
     let contributors = load_contributors()?;
     let teams = load_teams()?;
-    let repos = load_repos()?;
 
     let mut file_messages = contributors
         .keys()
@@ -62,34 +60,19 @@ async fn main() -> Result<()> {
                 FileValidationMessages::default(),
             )
         }))
-        .chain(repos.keys().map(|k| {
-            (
-                format!("repos/{}.toml", k),
-                FileValidationMessages::default(),
-            )
-        }))
         .collect::<HashMap<_, _>>();
 
     // Validate file names
-    for error in validate_file_names(&contributors, &teams, &repos) {
+    for error in validate_file_names(&contributors) {
         insert_error(&mut file_messages, error);
     }
 
     // Validate cross-references
-    for error in validate_cross_references(&contributors, &teams, &repos) {
+    for error in validate_cross_references(&contributors, &teams) {
         insert_error(&mut file_messages, error);
     }
 
     let client = Client::new();
-
-    // Validate GitHub teams
-    let (errors, warnings) = validate_github_teams(&teams, &client).await;
-    for error in errors {
-        insert_error(&mut file_messages, error);
-    }
-    for warning in warnings {
-        insert_warning(&mut file_messages, warning);
-    }
 
     // Validate GitHub users
     let (errors, warnings) = validate_github_users(&contributors, &client).await;
@@ -125,7 +108,6 @@ async fn main() -> Result<()> {
     let stats = ValidationStatistics {
         contributors_count: contributors.len(),
         teams_count: teams.len(),
-        repos_count: repos.len(),
         valid_files_count,
         invalid_files_count,
         total_errors,
@@ -142,7 +124,6 @@ async fn main() -> Result<()> {
     println!("{}", "===== SUMMARY =====".blue().bold());
     println!("Contributors: {}", report.stats.contributors_count);
     println!("Teams: {}", report.stats.teams_count);
-    println!("Repos: {}", report.stats.repos_count);
     println!("Valid files: {}", report.stats.valid_files_count);
     println!("Invalid files: {}", report.stats.invalid_files_count);
     println!("Total errors: {}", report.stats.total_errors);
