@@ -1,4 +1,4 @@
-name: Run Sync Script
+name: Synchronize
 
 on:
   push:
