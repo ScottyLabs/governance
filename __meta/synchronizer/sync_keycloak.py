@@ -53,27 +53,31 @@ class KeycloakManager:
         if client_id not in self.existing_clients:
             print(f"Creating client {client_id}...")
 
-            # Generate the redirect URIs for the client
-            redirectUris = []
-            webOrigins = []
+            # Generate the URIs for the client
+            rootUrl = None
             match env:
-                case "local":
-                    redirectUris = ["*"]
-                    webOrigins = ["*"]
                 case "dev":
-                    redirectUris = [f"https://{website_slug}.slabs-dev.org/*"]
-                    webOrigins = [f"https://{website_slug}.slabs-dev.org"]
+                    rootUrl = f"https://{website_slug}.slabs-dev.org"
                 case "staging":
-                    redirectUris = [f"https://{website_slug}.slabs-staging.org/*"]
-                    webOrigins = [f"https://{website_slug}.slabs-staging.org"]
+                    rootUrl = f"https://{website_slug}.slabs-staging.org"
                 case "prod":
-                    redirectUris = [f"https://{website_slug}.scottylabs.org/*"]
-                    webOrigins = [f"https://{website_slug}.scottylabs.org"]
+                    rootUrl = f"https://{website_slug}.scottylabs.org"
+
+            if env == "local":
+                baseUrl = None
+                redirectUris = ["*"]
+                webOrigins = ["*"]
+            else:
+                baseUrl = "/"
+                redirectUris = ["/*"]
+                webOrigins = ["+"]  # Permit all origins of Valid Redirect URIs
 
             # Create the client
             self.keycloak_admin.create_client(
                 payload={
                     "clientId": client_id,
+                    "rootUrl": rootUrl,
+                    "baseUrl": baseUrl,
                     "redirectUris": redirectUris,
                     "webOrigins": webOrigins,
                     "publicClient": True,
