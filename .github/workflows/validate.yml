@@ -25,7 +25,7 @@ jobs:
           fallback: none
 
       - name: Check EditorConfig Compliance
-        run: editorconfig-checker --exclude '^(LICENSE|README\.md)$'
+        run: editorconfig-checker --exclude '(^LICENSE$|README\.md$)'
 
   validate-toml:
     name: Validate TOML Files
@@ -70,5 +70,4 @@ jobs:
       - name: Run Governance Validator
         run: RUST_LOG=info cargo run --release --bin governance
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
