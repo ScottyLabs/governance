@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - "contributors/**"
-      - "repos/**"
       - "teams/**"
       - "__meta/visualizer/**"
   workflow_dispatch:

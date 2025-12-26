@@ -44,18 +44,9 @@
 <body>
     <div id="graph"></div>
 
-    <div id="view-selector">
-        <select id="relationship-filter">
-            <option value="default" selected>Contributors & Teams</option>
-            <option value="contributorsRepos">Contributors & Repos</option>
-            <option value="teamsRepos">Teams & Repos</option>
-        </select>
-    </div>
-
     <div id="legend">
         <span style="color:#4CAF50;">● Contributor</span><br />
         <span style="color:#2196F3;">● Team</span><br />
-        <span style="color:#F44336;">● Repo</span>
     </div>
 
     <script>
@@ -65,7 +56,6 @@
         const NODE_COLORS = {
             Contributor: "#4CAF50", // Green
             Team: "#2196F3",        // Blue
-            Repo: "#F44336"         // Red
         };
 
         // Initialize with default graph
@@ -78,8 +68,6 @@
                     case "Contributor":
                         return node.fullName;
                     case "Team":
-                        return node.name;
-                    case "Repo":
                         return node.name;
                     default:
                         return node.id;
@@ -111,10 +99,8 @@
                     url = `https://github.com/orgs/ScottyLabs/people/${username}`;
                     break;
                 case "Team":
-                    url = `https://github.com/orgs/ScottyLabs/teams/${name}`;
-                    break;
-                case "Repo":
-                    url = `https://github.com/ScottyLabs/${name}`;
+                    const slug = node.name.replace(" ", "-").toLowerCase();
+                    url = `https://github.com/orgs/ScottyLabs/teams/${slug}`;
                     break;
             }
 
