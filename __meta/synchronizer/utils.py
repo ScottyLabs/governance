@@ -1,5 +1,7 @@
 import traceback
 
+ENVS = ["local", "dev", "staging", "prod"]
+
 
 class Styler:
     def __init__(self, section):

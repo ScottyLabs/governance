@@ -1,6 +1,6 @@
 import hvac
 import os
-from styler import Styler
+from utils import Styler
 
 
 class VaultManager:

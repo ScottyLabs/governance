@@ -1,7 +1,7 @@
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 import os
-from styler import Styler, error
+from utils import Styler, error
 
 
 class SlackManager:

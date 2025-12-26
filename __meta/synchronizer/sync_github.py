@@ -1,7 +1,7 @@
 from github import Github
 from github import Auth
 import os
-from styler import Styler, error
+from utils import Styler, error
 
 
 class GithubManager:

@@ -1,6 +1,6 @@
 from keycloak import KeycloakAdmin
 import os
-from styler import Styler, error
+from utils import Styler, error, ENVS
 
 
 class KeycloakManager:
@@ -20,11 +20,18 @@ class KeycloakManager:
             user_realm_name=os.getenv("KEYCLOAK_USER_REALM"),
             verify=True,
         )
+        self.existing_clients = [
+            c["clientId"] for c in self.keycloak_admin.get_clients()
+        ]
 
     def sync(self):
         with Styler("Keycloak"):
             for team_slug, team in self.teams.items():
                 print(f"\nSyncing team {team_slug}...")
+
+                # Create the client if it does not exist
+                for env in ENVS:
+                    self.ensure_client(team_slug, team["website-slug"], env)
 
                 # Sync the team leads to the Keycloak admins group
                 lead_group_name = f"{team_slug}{self.LEAD_SUFFIX}"
@@ -40,6 +47,53 @@ class KeycloakManager:
                 admin_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
                 admins_andrew_ids = set(team["admins"])
                 self.sync_group(admin_group_name, admins_andrew_ids)
+
+    def ensure_client(self, team_slug: str, website_slug: str, env: str):
+        client_id = f"{team_slug}-{env}"
+        if client_id not in self.existing_clients:
+            print(f"Creating client {client_id}...")
+
+            # Generate the redirect URIs for the client
+            redirectUris = []
+            webOrigins = []
+            match env:
+                case "local":
+                    redirectUris = ["*"]
+                    webOrigins = ["*"]
+                case "dev":
+                    redirectUris = [f"https://{website_slug}.slabs-dev.org/*"]
+                    webOrigins = [f"https://{website_slug}.slabs-dev.org"]
+                case "staging":
+                    redirectUris = [f"https://{website_slug}.slabs-staging.org/*"]
+                    webOrigins = [f"https://{website_slug}.slabs-staging.org"]
+                case "prod":
+                    redirectUris = [f"https://{website_slug}.scottylabs.org/*"]
+                    webOrigins = [f"https://{website_slug}.scottylabs.org"]
+
+            # Create the client
+            self.keycloak_admin.create_client(
+                payload={
+                    "clientId": client_id,
+                    "redirectUris": redirectUris,
+                    "webOrigins": webOrigins,
+                    "publicClient": True,
+                    "frontchannelLogout": True,
+                    # Add the groups claim to the token
+                    "protocolMappers": [
+                        {
+                            "name": "groups",
+                            "protocol": "openid-connect",
+                            "protocolMapper": "oidc-group-membership-mapper",
+                            "config": {
+                                "claim.name": "groups",
+                                "userinfo.token.claim": "true",
+                                "id.token.claim": "true",
+                                "access.token.claim": "true",
+                            },
+                        }
+                    ],
+                }
+            )
 
     def get_andrew_ids(self, members: list[str]):
         andrew_ids = set()
