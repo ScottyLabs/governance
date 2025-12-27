@@ -23,7 +23,12 @@ The [sync workflow](../../.github/workflows/sync.yml) will run the [sync script]
 ## Keycloak
 
 - Create the Keycloak clients if they do not exist.
-  - There will be 4 clients, for local, dev, staging, and prod.
+  - There will be 4 clients, for local, dev, staging, and prod, named as `<team-slug>-<env>`.
+  - The default whitelisted redirect URIs are:
+    - Local: `http://localhost:3000/*`
+    - Dev: `https://<website-slug>.slabs-dev.org/*`
+    - Staging: `https://<website-slug>.slabs-staging.org/*`
+    - Prod: `https://<website-slug>.scottylabs.org/*`
 
 - Create the Keycloak groups if they do not exist.
   - A lead group will also be created with the suffix "-admins".
