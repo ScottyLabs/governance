@@ -65,8 +65,8 @@ class KeycloakManager:
 
             if env == "local":
                 baseUrl = None
-                redirectUris = ["*"]
-                webOrigins = ["*"]
+                redirectUris = ["http://localhost:3000/*"]
+                webOrigins = ["http://localhost:3000"]
             else:
                 baseUrl = "/"
                 redirectUris = ["/*"]
