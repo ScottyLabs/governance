@@ -30,8 +30,8 @@ class KeycloakManager:
                 print(f"\nSyncing team {team_slug}...")
 
                 # Create the client if it does not exist
-                for env in ENVS:
-                    self.ensure_client(team_slug, team["website-slug"], env)
+                # for env in ENVS:
+                #     self.ensure_client(team_slug, team["website-slug"], env)
 
                 # Sync the team leads to the Keycloak admins group
                 lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
