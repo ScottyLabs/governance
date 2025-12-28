@@ -51,7 +51,9 @@ The [sync workflow](../../.github/workflows/sync.yml) will run the [sync script]
 
 ### Github
 
-Check that you are added to the [CMU Maps](https://github.com/orgs/ScottyLabs/teams/cmu-maps) Github team.
+- Check that you received an email invitation to the ScottyLabs Github organization.
+
+- Check that you are added to the corresponding Github team after accepting the invitation.
 
 ### Keycloak
 
