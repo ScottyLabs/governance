@@ -25,6 +25,7 @@ fn main() {
             eprintln!("Examples:");
             eprintln!("  feat: add user authentication");
             eprintln!("  fix(api): handle edge case in login flow");
+            eprintln!("See https://www.conventionalcommits.org/en/v1.0.0/ for more information.");
             process::exit(1);
         }
     }
