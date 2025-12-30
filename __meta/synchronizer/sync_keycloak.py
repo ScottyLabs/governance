@@ -1,7 +1,7 @@
 import os
 
 from keycloak import KeycloakAdmin
-from utils import log_operation, log_team_sync, print_section, warn
+from utils import ENVS, log_operation, log_team_sync, print_section, warn
 
 
 class KeycloakManager:
@@ -36,10 +36,10 @@ class KeycloakManager:
         team_slug = team["slug"]
 
         # Create the client if it does not exist
-        # for env in ENVS:
-        #     client_id = f"{team_slug}-{env}"
-        #     if client_id not in self.existing_clients:
-        #         self.create_client(team["slug"], team["website-slug"], env)
+        for env in ENVS:
+            client_id = f"{team_slug}-{env}"
+            if client_id not in self.existing_clients:
+                self.create_client(team_slug, team["website-slug"], env)
 
         # Sync the team leads to the Keycloak admins group
         lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
@@ -69,29 +69,33 @@ class KeycloakManager:
             match env:
                 case "dev":
                     rootUrl = f"https://{website_slug}.slabs-dev.org"
+                    serverUrl = f"https://api.{website_slug}.slabs-dev.org"
                 case "staging":
                     rootUrl = f"https://{website_slug}.slabs-staging.org"
+                    serverUrl = f"https://api.{website_slug}.slabs-staging.org"
                 case "prod":
                     rootUrl = f"https://{website_slug}.scottylabs.org"
+                    serverUrl = f"https://api.{website_slug}.scottylabs.org"
 
             if env == "local":
-                baseUrl = None
-                redirectUris = ["http://localhost:3000/*"]
-                webOrigins = ["http://localhost:3000"]
+                redirectUris = ["http://localhost/auth/callback"]
+                post_logout_redirect_uris = "http://localhost:3000/*"
             else:
-                baseUrl = "/"
-                redirectUris = ["/*"]
-                webOrigins = ["+"]  # Permit all origins of Valid Redirect URIs
+                redirectUris = [f"{serverUrl}/auth/callback"]
+                # Permit any post-logout redirect URI with the same origin
+                post_logout_redirect_uris = "/*"
 
             # Create the client
             self.keycloak_admin.create_client(
                 payload={
                     "clientId": client_id,
                     "rootUrl": rootUrl,
-                    "baseUrl": baseUrl,
                     "redirectUris": redirectUris,
-                    "webOrigins": webOrigins,
-                    "publicClient": True,
+                    # https://github.com/keycloak/keycloak/discussions/19087#discussioncomment-5338785
+                    "attributes": {
+                        "post.logout.redirect.uris": post_logout_redirect_uris,
+                    },
+                    "serviceAccountsEnabled": True,
                     "frontchannelLogout": True,
                     # Add the groups claim to the token
                     "protocolMappers": [
