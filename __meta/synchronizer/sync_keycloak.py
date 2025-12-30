@@ -7,6 +7,7 @@ class KeycloakManager:
     ADMIN_SUFFIX = "-admins"
     EXTERNAL_ADMIN_SUFFIX = "-ext-admins"
     MEMBER_SUFFIX = "-devs"
+    APPLICANT_SUFFIX = "-applicants"
 
     def __init__(self, contributors, teams):
         self.contributors = contributors
@@ -47,6 +48,11 @@ class KeycloakManager:
             admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
             admins_andrew_ids = set(team["ext-admins"])
             self.sync_group(admin_group_name, admins_andrew_ids)
+
+            if "applicants" in team:
+                applicant_group_name = f"{team_slug}{self.APPLICANT_SUFFIX}"
+                applicants_andrew_ids = self.get_andrew_ids(team["applicants"])
+                self.sync_group(applicant_group_name, applicants_andrew_ids)
 
     def ensure_client(self, team_slug: str, website_slug: str, env: str):
         client_id = f"{team_slug}-{env}"
