@@ -1,3 +1,4 @@
+slug = "cmumaps"
 name = "CMU Maps"
 website-slug = "maps"
 leads = [
@@ -9,6 +10,8 @@ leads = [
 devs = [
     "JettChenT",
     "Nicolapps",
+]
+applicants = [
 ]
 ext-admins = [
 ]

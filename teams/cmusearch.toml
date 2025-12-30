@@ -1,3 +1,4 @@
+slug = "cmusearch"
 name = "CMU Search"
 website-slug = "search"
 leads = [
@@ -5,6 +6,8 @@ leads = [
     "tsurbs",
 ]
 devs = []
+applicants = [
+]
 ext-admins = [
 ]
 repos = [
