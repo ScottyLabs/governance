@@ -1,5 +1,6 @@
 import os
 import tomllib
+from colorama import Fore, init
 from utils import info
 
 from sync_github import GithubManager
@@ -10,6 +11,9 @@ from sync_slack import SlackManager
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Ensures reset after each print
+init(autoreset=True, strip=False)
 
 
 class SyncManager:
