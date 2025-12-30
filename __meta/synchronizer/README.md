@@ -1,7 +1,9 @@
 
 # Synchronizer
 
-The [sync workflow](../../.github/workflows/sync.yml) will run the [sync script](sync.py) on every push to the `main` branch to synchronize the teams and members from the `contributors/` and `teams/` directories to GitHub and Keycloak.
+The [sync workflow](../../.github/workflows/sync.yml) will run the [sync script](sync.py)
+on every push to the `main` branch to synchronize the teams and members from the `contributors/` and `teams/`
+directories to GitHub, Keycloak, Vault, and Slack.
 
 ## Github
 
@@ -47,6 +49,10 @@ The [sync workflow](../../.github/workflows/sync.yml) will run the [sync script]
   - Dev groups can read the local secrets.
   - Admin groups can read and edit all secrets.
 
+## Slack
+
+- Add team members to the corresponding Slack channels.
+
 ## Manual Validations
 
 ### Github
@@ -58,6 +64,10 @@ The [sync workflow](../../.github/workflows/sync.yml) will run the [sync script]
 ### Keycloak
 
 Make sure you have the right permissions by logging into the [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc) and trying to access the secrets links in the corresponding folder section.
+
+### Slack
+
+- Check that you are added to the corresponding Slack channels.
 
 ## Troubleshooting
 
