@@ -18,7 +18,7 @@ init(autoreset=True, strip=False)
 
 class SyncManager:
     def __init__(self):
-        info(Fore.BLUE + "Initializing SyncManager...")
+        info("Initializing SyncManager...")
         self.contributors = dict()
         self.load_contributors()
 

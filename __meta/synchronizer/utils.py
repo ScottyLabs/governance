@@ -1,5 +1,6 @@
 import traceback
 from colorama import Fore, Style
+import os
 
 ENVS = ["local", "dev", "staging", "prod"]
 
@@ -12,13 +13,22 @@ def print_section(section):
 
 
 def info(message):
-    print(Fore.BLUE + message)
+    if os.getenv("GITHUB_ACTIONS"):
+        print("::notice::" + message)
+    else:
+        print(Fore.BLUE + message)
 
 
 def warn(message):
-    print(Fore.YELLOW + message)
+    if os.getenv("GITHUB_ACTIONS"):
+        print("::warning::" + message)
+    else:
+        print(Fore.YELLOW + message)
 
 
 def error(message):
-    print(Fore.RED + message)
+    if os.getenv("GITHUB_ACTIONS"):
+        print("::error::" + message)
+    else:
+        print(Fore.RED + message)
     traceback.print_exc()
