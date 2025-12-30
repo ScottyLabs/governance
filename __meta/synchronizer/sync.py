@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Ensures reset after each print
-init(autoreset=True)
+init(autoreset=True, strip=False)
 
 
 class SyncManager:
