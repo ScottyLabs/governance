@@ -8,10 +8,14 @@ ENVS = ["local", "dev", "staging", "prod"]
 
 
 def print_section(section):
-    print(Style.BRIGHT + "=" * 50)
-    print(Style.BRIGHT + f"Syncing {section}...")
-    print(Style.BRIGHT + "=" * 50)
+    bold("=" * 50)
+    bold(f"Syncing {section}...")
+    bold("=" * 50)
     print()
+
+
+def bold(message):
+    print(Style.BRIGHT + message)
 
 
 def debug(message):
@@ -53,7 +57,7 @@ def log_team_sync():
         @wraps(func)
         def wrapper(*args, **kwargs):
             # team is always the second argument
-            print(f"Syncing team {args[1]['name']}...")
+            bold(f"Syncing team {args[1]['name']}...")
             result = func(*args, **kwargs)
             print()
             return result
