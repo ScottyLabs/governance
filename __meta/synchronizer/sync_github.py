@@ -1,7 +1,7 @@
 import os
 
 from github import Auth, Github
-from utils import error, info, print_section
+from utils import debug, log_operation, log_team_sync, print_section
 
 
 class GithubManager:
@@ -24,7 +24,7 @@ class GithubManager:
     def sync_contributors(self):
         # Get all existing members
         self.existing_members = set(member.login for member in self.org.get_members())
-        print(f"There are {len(self.existing_members)} existing members.")
+        debug(f"There are {len(self.existing_members)} existing members.\n")
 
         # Get all invited contributors
         invitations = self.org.invitations()
@@ -38,36 +38,32 @@ class GithubManager:
                 github_username not in self.existing_members
                 and github_username not in invited
             ):
-                print(f"Adding {github_username} to GitHub organization...")
-                user = self.g.get_user(github_username)
-                self.org.invite_user(user=user, role="direct_member")
+                log_message = f"add {github_username} to GitHub organization"
+                with log_operation(log_message):
+                    user = self.g.get_user(github_username)
+                    self.org.invite_user(user=user, role="direct_member")
 
     # Sync the team leads and members to the Github team
+    @log_team_sync()
     def sync_team(self, team):
-        try:
-            team_name = team["name"]
-            info(f"\nSyncing team {team_name}...")
+        team_name = team["name"]
 
-            # Get or create the team and the admin team
-            github_team = self.get_or_create_team(team_name)
-            admin_team_name = f"{team_name}{self.ADMIN_SUFFIX}"
-            github_admin_team = self.get_or_create_admin_team(
-                github_team, admin_team_name
-            )
+        # Get or create the team and the admin team
+        github_team = self.get_or_create_team(team_name)
+        admin_team_name = f"{team_name}{self.ADMIN_SUFFIX}"
+        github_admin_team = self.get_or_create_admin_team(github_team, admin_team_name)
 
-            # Sync the team leads to the GitHub main team and admin team
-            leads = set(team["leads"])
-            self.sync_github_admin_team(github_admin_team, github_team, leads)
+        # Sync the team leads to the GitHub main team and admin team
+        leads = set(team["leads"])
+        self.sync_github_admin_team(github_admin_team, github_team, leads)
 
-            # Sync the devs to the GitHub main team
-            devs = set(team["devs"])
-            self.sync_github_main_team(github_team, leads.union(devs))
+        # Sync the devs to the GitHub main team
+        devs = set(team["devs"])
+        self.sync_github_main_team(github_team, leads.union(devs))
 
-            # Sync the repositories to the Github team
-            repos = set(team["repos"])
-            self.sync_repos(github_team, github_admin_team, repos)
-        except Exception as e:
-            error(f"Error syncing team {team['name']}: {e}")
+        # Sync the repositories to the Github team
+        repos = set(team["repos"])
+        self.sync_repos(github_team, github_admin_team, repos)
 
     # Get or create the Github main team, which is a subteam of the main team
     def get_or_create_team(self, team_name):
@@ -75,8 +71,8 @@ class GithubManager:
             team_slug = self.get_team_slug(team_name)
             return self.org.get_team_by_slug(team_slug)
         except Exception:
-            print(f"Creating {team_name} GitHub team...")
-            return self.org.create_team(name=team_name, privacy="closed")
+            with log_operation(f"create {team_name} GitHub team"):
+                return self.org.create_team(name=team_name, privacy="closed")
 
     # Get or create the Github admin team
     def get_or_create_admin_team(self, github_team, admin_team_name):
@@ -84,12 +80,12 @@ class GithubManager:
             team_slug = self.get_team_slug(admin_team_name)
             return self.org.get_team_by_slug(team_slug)
         except Exception:
-            print(f"Creating {admin_team_name} GitHub team...")
-            return self.org.create_team(
-                name=admin_team_name,
-                parent_team_id=github_team.id,
-                privacy="closed",
-            )
+            with log_operation(f"create {admin_team_name} GitHub team"):
+                return self.org.create_team(
+                    name=admin_team_name,
+                    parent_team_id=github_team.id,
+                    privacy="closed",
+                )
 
     # https://docs.github.com/en/rest/teams/teams?apiVersion=2022-11-28#get-a-team-by-name
     def get_team_slug(self, team_name):
@@ -119,14 +115,14 @@ class GithubManager:
             self.remove_member_from_team(github_admin_team, username)
 
     def add_member_to_team(self, github_team, username):
-        print(f"Adding {username} to the {github_team.name} GitHub team...")
-        user = self.g.get_user(username)
-        github_team.add_membership(user, role="member")
+        with log_operation(f"add {username} to {github_team.name} GitHub team"):
+            user = self.g.get_user(username)
+            github_team.add_membership(user, role="member")
 
     def remove_member_from_team(self, github_team, username):
-        print(f"Removing {username} from the {github_team.name} GitHub team...")
-        user = self.g.get_user(username)
-        github_team.remove_membership(user)
+        with log_operation(f"remove {username} from {github_team.name} GitHub team"):
+            user = self.g.get_user(username)
+            github_team.remove_membership(user)
 
     # Sync the repositories to the Github team
     # Give team devs write access and team leads admin access
@@ -137,14 +133,17 @@ class GithubManager:
         # Remove any repositories from the Github team that are not in the team list
         for repo in github_repos_names:
             if repo not in repos:
-                print(f"Removing {repo} from {github_team.name} Github team...")
-                github_team.remove_from_repos(repo)
+                log_message = f"remove {repo} from {github_team.name} Github team"
+                with log_operation(log_message):
+                    github_team.remove_from_repos(repo)
 
         # Give team devs write access and team leads admin access to the repository
         for repo in repos:
-            try:
-                github_team.add_to_repos(repo)
-                github_team.update_team_repository(repo, "push")
-                github_admin_team.update_team_repository(repo, "admin")
-            except Exception as e:
-                error(f"Error adding {repo} to {github_team.name} Github team: {e}")
+            if repo not in github_repos_names:
+                log_message = f"add {repo} to {github_team.name} Github team"
+                with log_operation(log_message):
+                    github_team.add_to_repos(repo)
+
+            # Always update the team repository permissions, idempotent and cheap
+            github_team.update_team_repository(repo, "push")
+            github_admin_team.update_team_repository(repo, "admin")

@@ -1,7 +1,7 @@
 import os
 
 from keycloak import KeycloakAdmin
-from utils import ENVS, info, print_section, warn
+from utils import log_operation, log_team_sync, print_section, warn
 
 
 class KeycloakManager:
@@ -28,38 +28,42 @@ class KeycloakManager:
 
     def sync(self):
         print_section("Keycloak")
-        for team_slug, team in self.teams.items():
-            info(f"\nSyncing team {team_slug}...")
+        for team in self.teams.values():
+            self.sync_team(team)
 
-            # Create the client if it does not exist
-            # for env in ENVS:
-            #     self.ensure_client(team_slug, team["website-slug"], env)
+    @log_team_sync()
+    def sync_team(self, team):
+        team_slug = team["slug"]
 
-            # Sync the team leads to the Keycloak admins group
-            lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
-            lead_andrew_ids = self.get_andrew_ids(team["leads"])
-            self.sync_group(lead_group_name, lead_andrew_ids)
+        # Create the client if it does not exist
+        # for env in ENVS:
+        #     client_id = f"{team_slug}-{env}"
+        #     if client_id not in self.existing_clients:
+        #         self.create_client(team["slug"], team["website-slug"], env)
 
-            # Sync team devs to Keycloak devs group
-            member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
-            members_andrew_ids = self.get_andrew_ids(team["devs"])
-            self.sync_group(member_group_name, members_andrew_ids)
+        # Sync the team leads to the Keycloak admins group
+        lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
+        lead_andrew_ids = self.get_andrew_ids(team["leads"])
+        self.sync_group(lead_group_name, lead_andrew_ids)
 
-            # Sync team admins to Keycloak admins group
-            admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
-            admins_andrew_ids = set(team["ext-admins"])
-            self.sync_group(admin_group_name, admins_andrew_ids)
+        # Sync team devs to Keycloak devs group
+        member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
+        members_andrew_ids = self.get_andrew_ids(team["devs"])
+        self.sync_group(member_group_name, members_andrew_ids)
 
-            if "applicants" in team:
-                applicant_group_name = f"{team_slug}{self.APPLICANT_SUFFIX}"
-                applicants_andrew_ids = self.get_andrew_ids(team["applicants"])
-                self.sync_group(applicant_group_name, applicants_andrew_ids)
+        # Sync team admins to Keycloak admins group
+        admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
+        admins_andrew_ids = set(team["ext-admins"])
+        self.sync_group(admin_group_name, admins_andrew_ids)
 
-    def ensure_client(self, team_slug: str, website_slug: str, env: str):
+        if "applicants" in team:
+            applicant_group_name = f"{team_slug}{self.APPLICANT_SUFFIX}"
+            applicants_andrew_ids = self.get_andrew_ids(team["applicants"])
+            self.sync_group(applicant_group_name, applicants_andrew_ids)
+
+    def create_client(self, team_slug: str, website_slug: str, env: str):
         client_id = f"{team_slug}-{env}"
-        if client_id not in self.existing_clients:
-            print(f"Creating client {client_id}...")
-
+        with log_operation(f"create Keycloak client {client_id}"):
             # Generate the URIs for the client
             rootUrl = None
             match env:
@@ -127,24 +131,28 @@ class KeycloakManager:
         for andrew_id in target_andrew_ids:
             if andrew_id not in current_andrew_ids:
                 user_id = self.get_user_id_by_andrew_id(andrew_id)
-                if user_id:
-                    print(f"Adding {andrew_id} to Keycloak {group_name}...")
+                if not user_id:
+                    continue
+
+                with log_operation(f"add {andrew_id} to Keycloak group {group_name}"):
                     self.keycloak_admin.group_user_add(user_id, group_id)
 
         # Remove extra users
         for member in members:
             andrew_id = member["username"]
-            if andrew_id not in target_andrew_ids:
-                print(f"Removing {andrew_id} from Keycloak {group_name}...")
+            if andrew_id in target_andrew_ids:
+                continue
+
+            with log_operation(f"remove {andrew_id} from Keycloak group {group_name}"):
                 self.keycloak_admin.group_user_remove(member["id"], group_id)
 
     def get_or_create_group(self, group_path: str):
         try:
             return self.keycloak_admin.get_group_by_path(group_path)
         except Exception:
-            print(f"Group {group_path} not found in Keycloak, creating...")
-            self.keycloak_admin.create_group(payload={"name": group_path})
-            return self.keycloak_admin.get_group_by_path(group_path)
+            with log_operation(f"create Keycloak group {group_path}"):
+                self.keycloak_admin.create_group(payload={"name": group_path})
+                return self.keycloak_admin.get_group_by_path(group_path)
 
     # Get the user ID by email
     def get_user_id_by_andrew_id(self, andrew_id: str):

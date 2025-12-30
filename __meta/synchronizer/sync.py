@@ -17,7 +17,7 @@ init(autoreset=True, strip=False)
 
 class SyncManager:
     def __init__(self):
-        info("Initializing SyncManager...")
+        info("Initializing SyncManager...\n")
         self.contributors = dict()
         self.load_contributors()
 

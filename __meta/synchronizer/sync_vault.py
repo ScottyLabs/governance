@@ -1,7 +1,7 @@
 import os
 
 import hvac
-from utils import info, print_section
+from utils import log_operation, log_team_sync, print_section
 
 
 class VaultManager:
@@ -23,13 +23,13 @@ class VaultManager:
 
     def sync(self):
         print_section("Vault")
-        for team_slug in self.teams.keys():
-            self.sync_team(team_slug)
+        for team in self.teams.values():
+            self.sync_team(team)
 
     # Sync the dev and lead groups for a team
-    def sync_team(self, team_slug):
-        info(f"\nSyncing team {team_slug}...")
-
+    @log_team_sync()
+    def sync_team(self, team):
+        team_slug = team["slug"]
         self.sync_group(
             team_slug,
             f"{team_slug}{self.DEV_GROUP_SUFFIX}",
@@ -44,15 +44,22 @@ class VaultManager:
     # If a group does not exist, create it and add the policy and alias to it
     def sync_group(self, team_slug, group_name, create_policy):
         if group_name not in self.groups_names:
-            print(f"Creating group {group_name}...")
-            policy_name = create_policy(team_slug)
-            group = self.client.secrets.identity.create_or_update_group(
-                name=group_name, group_type="external", policies=[policy_name]
-            )
-            group_id = group["data"]["id"]
-            self.client.secrets.identity.create_or_update_group_alias(
-                name=group_name, canonical_id=group_id, mount_accessor=self.oidc_mount
-            )
+            with log_operation(f"create Vault group {group_name}"):
+                # Create the policy
+                policy_name = create_policy(team_slug)
+
+                # Create the group
+                group = self.client.secrets.identity.create_or_update_group(
+                    name=group_name, group_type="external", policies=[policy_name]
+                )
+
+                # Create the group alias
+                group_id = group["data"]["id"]
+                self.client.secrets.identity.create_or_update_group_alias(
+                    name=group_name,
+                    canonical_id=group_id,
+                    mount_accessor=self.oidc_mount,
+                )
 
     # Create the policy for the dev group
     # Devs can read and list the local secrets
