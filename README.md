@@ -19,9 +19,31 @@ In this document, 'ScottyLabs' will refer to the GitHub organization at <https:/
 └── teams            # Team definitions with members and repos
 ```
 
-## Adding a new contributor or team
+## Adding a New Contributor
 
-Please follow the instructions in the `docs/` directory to make a PR to add a new contributor or team. Make sure the PR passes the validation checks. See [validation README](__meta/validators/README.md) for more details. After the PR is merged, permissions will be automatically synchronized. See [synchronizer README](__meta/synchronizer/README.md) for more details.
+1. Follow the instructions in [docs/contributors.md](docs/contributors.md) to submit
+a PR adding yourself as a new contributor.
+
+2. In the same PR, include yourself in the team(s) you want to join under the `teams/` directory:
+   - If the team file has an `applicants` field, add yourself there.
+   - Otherwise, add yourself to the `devs` field.
+
+3. Review each project's repo's `CONTRIBUTING.md` file to understand any team-specific
+contribution guidelines (for example, required Google Form submissions).
+
+4. Request the first tech lead of each team you want to join as a reviewer to the PR.
+
+5. If no response:
+   - After 24 hours: ping the reviewer.
+   - After 48 hours: ping the tech director (@Yuxiang-Huang).
+
+## Adding a New Team
+
+1. Follow the instructions in [docs/teams.md](docs/teams.md) to submit a PR creating the new team.
+
+2. Request the tech director (@Yuxiang-Huang) as a reviewer to the PR.
+
+3. If there is no response within 24 hours, ping the tech director.
 
 ## License
 

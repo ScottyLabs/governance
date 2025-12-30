@@ -12,7 +12,7 @@ slack-member-id = "U07FPJKFB5E"
 andrew-id = "your-andrew-id"
 ```
 
-All of these fields are required except for `andrew-id`.
+Visit the [contributor schema](../__meta/schemas/contributor.schema.json) to learn more about the fields.
 
 To find your `slack-member-id`, follow these steps:
 

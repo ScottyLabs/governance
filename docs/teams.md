@@ -1,23 +1,25 @@
 # Adding a team
 
 > [!NOTE]
-> This is for Tech Leads and team members seeking to register their team under governance.
+> This is for tech leads and team members seeking to register their team under governance.
 
-Decide on a team slug, website slug, and name. The slug will be used for internal references, the website slug will be used for the website (e.g. courses.scottylabs.org), and the name will be used for any public‑facing or display contexts (e.g. the GitHub team name and outreach posters).
-
-Create a new TOML file in `teams/` with the team slug as the filename, e.g. `cmucourses.toml`:
+Create a new TOML file in `teams/` with the slug as the filename, e.g. `cmucourses.toml`:
 
 ```toml
+slug = "cmucourses"
 name = "CMU Courses"
 website-slug = "courses"
 leads = [
     "your-github-username" # >= 1 lead
 ]
 devs = [
-    "your-github-username"
+    "your-github-username" # empty array if no developers
+]
+applicants = [
+    "your-github-username" # empty array if no applicants
 ]
 ext-admins = [
-    "andrew-id"
+    "andrew-id" # empty array if no external admins
 ]
 repos = [
     "cmucourses", # >= 1 repo
@@ -28,9 +30,7 @@ slack-channel-ids = [
 ]
 ```
 
-All of these fields are required; however, `devs`, `ext-admins`, and `slack-channel-ids` are allowed to be `[]`.
-`ext-admins` are external individuals who need admin access to the app (e.g. orientation staffs for O-Quest)
-but are not involved in development.
+Visit the [team schema](../__meta/schemas/team.schema.json) to learn more about the fields.
 
 To find a Slack channel's ID, follow these steps:
 
@@ -41,4 +41,4 @@ To find a Slack channel's ID, follow these steps:
 This value should begin with a `C` for public channels and `G` for private channels.
 
 > [!WARNING]
-> The members included in this file must already exist.
+> The members included in this file must already exis as contributors in the `contributors/` directory.
