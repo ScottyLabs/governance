@@ -138,12 +138,12 @@ class KeycloakManager:
                 self.keycloak_admin.group_user_remove(member["id"], group_id)
 
     def get_or_create_group(self, group_path: str):
-        group = self.keycloak_admin.get_group_by_path(group_path)
-        if "error" in group:
+        try:
+            return self.keycloak_admin.get_group_by_path(group_path)
+        except Exception:
             print(f"Group {group_path} not found in Keycloak, creating...")
-            group = self.keycloak_admin.create_group(payload={"name": group_path})
-            group = self.keycloak_admin.get_group_by_path(group_path)
-        return group
+            self.keycloak_admin.create_group(payload={"name": group_path})
+            return self.keycloak_admin.get_group_by_path(group_path)
 
     # Get the user ID by email
     def get_user_id_by_andrew_id(self, andrew_id: str):
