@@ -1,0 +1,1 @@
+APPLICANTS_FOLDER_NAME = "applicants"
