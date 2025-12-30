@@ -15,7 +15,7 @@ def print_section(section):
 
 
 def debug(message):
-    print(Style.DIM + message)
+    print(Fore.LIGHTBLACK_EX + message)
 
 
 def info(message):
