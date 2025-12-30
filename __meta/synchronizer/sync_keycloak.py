@@ -1,6 +1,7 @@
-from keycloak import KeycloakAdmin
 import os
-from utils import info, print_section, warn, ENVS
+
+from keycloak import KeycloakAdmin
+from utils import ENVS, info, print_section, warn
 
 
 class KeycloakManager:

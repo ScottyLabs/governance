@@ -1,7 +1,8 @@
+import os
+
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
-import os
-from utils import info, print_section, error
+from utils import error, info, print_section
 
 
 class SlackManager:

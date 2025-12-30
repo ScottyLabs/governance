@@ -1,7 +1,7 @@
-from github import Github
-from github import Auth
 import os
-from utils import info, print_section, error
+
+from github import Auth, Github
+from utils import error, info, print_section
 
 
 class GithubManager:

@@ -1,6 +1,7 @@
-import traceback
-from colorama import Fore, Style
 import os
+import traceback
+
+from colorama import Fore, Style
 
 ENVS = ["local", "dev", "staging", "prod"]
 

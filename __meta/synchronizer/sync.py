@@ -1,14 +1,13 @@
 import os
-import tomllib
-from colorama import Fore, init
-from utils import info
 
+import tomllib
+from colorama import init
+from dotenv import load_dotenv
 from sync_github import GithubManager
 from sync_keycloak import KeycloakManager
-from sync_vault import VaultManager
 from sync_slack import SlackManager
-
-from dotenv import load_dotenv
+from sync_vault import VaultManager
+from utils import info
 
 load_dotenv()
 
