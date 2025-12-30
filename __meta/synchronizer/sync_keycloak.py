@@ -97,8 +97,8 @@ class KeycloakManager:
                     },
                     "serviceAccountsEnabled": True,
                     "frontchannelLogout": True,
-                    # Add the groups claim to the token
                     "protocolMappers": [
+                        # Add the groups claim to the token
                         {
                             "name": "groups",
                             "protocol": "openid-connect",
@@ -109,11 +109,23 @@ class KeycloakManager:
                                 "id.token.claim": "true",
                                 "access.token.claim": "true",
                             },
-                        }
+                        },
+                        # Add the audience claim to the token
+                        {
+                            "name": "audience",
+                            "protocol": "openid-connect",
+                            "protocolMapper": "oidc-audience-mapper",
+                            "config": {
+                                "included.client.audience": client_id,
+                                "access.token.claim": "true",
+                                "token.introspection.claim": "true",
+                            },
+                        },
                     ],
                 }
             )
 
+    # The andrew ids are the usernames in Keycloak
     def get_andrew_ids(self, members: list[str]):
         andrew_ids = set()
         for member in members:
