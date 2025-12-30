@@ -1,6 +1,6 @@
 import hvac
 import os
-from utils import Styler
+from utils import info, print_section
 
 
 class VaultManager:
@@ -21,13 +21,13 @@ class VaultManager:
         self.oidc_mount = auth_methods.get("oidc/")["accessor"]
 
     def sync(self):
-        with Styler("Vault"):
-            for team_slug in self.teams.keys():
-                self.sync_team(team_slug)
+        print_section("Vault")
+        for team_slug in self.teams.keys():
+            self.sync_team(team_slug)
 
     # Sync the dev and lead groups for a team
     def sync_team(self, team_slug):
-        print(f"\nSyncing team {team_slug}...")
+        info(f"\nSyncing team {team_slug}...")
 
         self.sync_group(
             team_slug,

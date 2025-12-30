@@ -3,3 +3,4 @@ python-dotenv
 python-keycloak
 hvac
 slack_sdk
+colorama

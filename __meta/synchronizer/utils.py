@@ -1,22 +1,24 @@
 import traceback
+from colorama import Fore, Style
 
 ENVS = ["local", "dev", "staging", "prod"]
 
 
-class Styler:
-    def __init__(self, section):
-        self.section = section
-
-    def __enter__(self):
-        print()
-        print("-" * 50)
-        print(f"Syncing {self.section}...")
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        pass
+def print_section(section):
+    print()
+    print(Style.BRIGHT + "=" * 50)
+    print(Style.BRIGHT + f"Syncing {section}...")
+    print(Style.BRIGHT + "=" * 50)
 
 
-def error(message, print_traceback=True):
-    print(f"\033[91m{message}\033[0m")
-    if print_traceback:
-        traceback.print_exc()
+def info(message):
+    print(Fore.BLUE + message)
+
+
+def warn(message):
+    print(Fore.YELLOW + message)
+
+
+def error(message):
+    print(Fore.RED + message)
+    traceback.print_exc()

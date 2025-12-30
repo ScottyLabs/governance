@@ -1,7 +1,7 @@
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 import os
-from utils import Styler, error
+from utils import info, print_section, error
 
 
 class SlackManager:
@@ -11,22 +11,22 @@ class SlackManager:
         self.client = WebClient(token=os.getenv("SLACK_TOKEN"))
 
     def sync(self):
-        with Styler("Slack"):
-            for team in self.teams.values():
-                # Get the desired members for the team
-                desired_members = set(
-                    [
-                        self.contributors[member]["slack-member-id"]
-                        for member in team["leads"] + team["devs"]
-                    ]
-                )
+        print_section("Slack")
+        for team in self.teams.values():
+            # Get the desired members for the team
+            desired_members = set(
+                [
+                    self.contributors[member]["slack-member-id"]
+                    for member in team["leads"] + team["devs"]
+                ]
+            )
 
-                # Sync each channel
-                for channel_id in team["slack-channel-ids"]:
-                    self.sync_channel(team, channel_id, desired_members)
+            # Sync each channel
+            for channel_id in team["slack-channel-ids"]:
+                self.sync_channel(team, channel_id, desired_members)
 
     def sync_channel(self, team, channel_id, desired_members):
-        print(f"\nSyncing {team['name']} Slack channel: {channel_id}...")
+        info(f"\nSyncing {team['name']} Slack channel: {channel_id}...")
 
         # Join the channel so the bot can invite users
         try:

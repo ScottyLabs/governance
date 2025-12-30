@@ -1,18 +1,24 @@
 import os
 import tomllib
+from colorama import Fore, init
+from utils import info
 
 from sync_github import GithubManager
 from sync_keycloak import KeycloakManager
 from sync_vault import VaultManager
 from sync_slack import SlackManager
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# Ensures reset after each print
+init(autoreset=True)
+
 
 class SyncManager:
     def __init__(self):
-        print("Initializing SyncManager...")
+        info(Fore.BLUE + "Initializing SyncManager...")
         self.contributors = dict()
         self.load_contributors()
 

@@ -1,6 +1,6 @@
 from keycloak import KeycloakAdmin
 import os
-from utils import Styler, error, ENVS
+from utils import info, print_section, warn, ENVS
 
 
 class KeycloakManager:
@@ -25,28 +25,28 @@ class KeycloakManager:
         ]
 
     def sync(self):
-        with Styler("Keycloak"):
-            for team_slug, team in self.teams.items():
-                print(f"\nSyncing team {team_slug}...")
+        print_section("Keycloak")
+        for team_slug, team in self.teams.items():
+            info(f"\nSyncing team {team_slug}...")
 
-                # Create the client if it does not exist
-                # for env in ENVS:
-                #     self.ensure_client(team_slug, team["website-slug"], env)
+            # Create the client if it does not exist
+            # for env in ENVS:
+            #     self.ensure_client(team_slug, team["website-slug"], env)
 
-                # Sync the team leads to the Keycloak admins group
-                lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
-                lead_andrew_ids = self.get_andrew_ids(team["leads"])
-                self.sync_group(lead_group_name, lead_andrew_ids)
+            # Sync the team leads to the Keycloak admins group
+            lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
+            lead_andrew_ids = self.get_andrew_ids(team["leads"])
+            self.sync_group(lead_group_name, lead_andrew_ids)
 
-                # Sync team devs to Keycloak devs group
-                member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
-                members_andrew_ids = self.get_andrew_ids(team["devs"])
-                self.sync_group(member_group_name, members_andrew_ids)
+            # Sync team devs to Keycloak devs group
+            member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
+            members_andrew_ids = self.get_andrew_ids(team["devs"])
+            self.sync_group(member_group_name, members_andrew_ids)
 
-                # Sync team admins to Keycloak admins group
-                admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
-                admins_andrew_ids = set(team["ext-admins"])
-                self.sync_group(admin_group_name, admins_andrew_ids)
+            # Sync team admins to Keycloak admins group
+            admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
+            admins_andrew_ids = set(team["ext-admins"])
+            self.sync_group(admin_group_name, admins_andrew_ids)
 
     def ensure_client(self, team_slug: str, website_slug: str, env: str):
         client_id = f"{team_slug}-{env}"
@@ -116,7 +116,7 @@ class KeycloakManager:
         members = self.keycloak_admin.get_group_members(group_id)
         current_andrew_ids = {m["username"].lower() for m in members}
 
-        # --- Add missing users ---
+        # Add missing users
         for andrew_id in target_andrew_ids:
             if andrew_id not in current_andrew_ids:
                 user_id = self.get_user_id_by_andrew_id(andrew_id)
@@ -124,7 +124,7 @@ class KeycloakManager:
                     print(f"Adding {andrew_id} to Keycloak {group_name}...")
                     self.keycloak_admin.group_user_add(user_id, group_id)
 
-        # --- Remove extra users ---
+        # Remove extra users
         for member in members:
             andrew_id = member["username"]
             if andrew_id not in target_andrew_ids:
@@ -144,13 +144,11 @@ class KeycloakManager:
         users = self.keycloak_admin.get_users(query={"username": andrew_id})
 
         if not users:
-            error(f"User {andrew_id} not found in Keycloak!", print_traceback=False)
+            warn(f"User {andrew_id} not found in Keycloak!")
             return False
 
         if len(users) > 1:
-            error(
-                f"Multiple users found for {andrew_id}: {users}!", print_traceback=False
-            )
+            warn(f"Multiple users found for {andrew_id}: {users}!")
             return False
 
         return users[0]["id"]
