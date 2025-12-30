@@ -8,7 +8,10 @@ use log::info;
 use reqwest::{Client, StatusCode};
 use serde_json::Value;
 
-pub fn validate_file_names(contributors: &HashMap<EntityKey, Contributor>) -> Vec<ValidationError> {
+pub fn validate_file_names(
+    contributors: &HashMap<EntityKey, Contributor>,
+    teams: &HashMap<EntityKey, Team>,
+) -> Vec<ValidationError> {
     info!("Validating file names...");
     let mut errors = Vec::new();
 
@@ -21,6 +24,20 @@ pub fn validate_file_names(contributors: &HashMap<EntityKey, Contributor>) -> Ve
                     "Contributor file name '{}' doesn't match GitHub username '{}'",
                     key.name.red().bold(),
                     contributor.github_username.red().bold()
+                ),
+            });
+        }
+    }
+
+    // Validate team filenames match slug
+    for (key, team) in teams {
+        if key.name != team.slug {
+            errors.push(ValidationError {
+                file: format!("teams/{}.toml", key),
+                message: format!(
+                    "Team file name '{}' doesn't match slug '{}'",
+                    key.name.red().bold(),
+                    team.slug.red().bold()
                 ),
             });
         }
@@ -43,6 +60,7 @@ pub fn validate_cross_references(
             .leads
             .iter()
             .chain(team.devs.iter())
+            .chain(team.applicants.iter().flatten())
             .collect::<Vec<_>>();
 
         for member in &members {

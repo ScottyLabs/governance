@@ -63,7 +63,7 @@ async fn main() -> Result<()> {
         .collect::<HashMap<_, _>>();
 
     // Validate file names
-    for error in validate_file_names(&contributors) {
+    for error in validate_file_names(&contributors, &teams) {
         insert_error(&mut file_messages, error);
     }
 
