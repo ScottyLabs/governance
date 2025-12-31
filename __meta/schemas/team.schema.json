@@ -91,5 +91,33 @@
       "default": "multi"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "$comment": "Require 'website-slug' when 'create-oidc-clients' is missing or true.",
+      "if": {
+        "anyOf": [
+          {
+            "not": {
+              "required": [
+                "create-oidc-clients"
+              ]
+            }
+          },
+          {
+            "properties": {
+              "create-oidc-clients": {
+                "const": true
+              }
+            }
+          }
+        ]
+      },
+      "then": {
+        "required": [
+          "website-slug"
+        ]
+      }
+    }
+  ]
 }
