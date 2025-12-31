@@ -1,14 +1,15 @@
 import argparse
 import os
-
 import tomllib
+
+import utils
 from colorama import init
 from dotenv import load_dotenv
 from sync_github import GithubManager
 from sync_keycloak import KeycloakManager
 from sync_slack import SlackManager
 from sync_vault import VaultManager
-from utils import info
+from utils import error, info
 
 load_dotenv()
 
@@ -88,3 +89,8 @@ if __name__ == "__main__":
     # Sync the services
     for service_name in args.services:
         service_name_to_function[service_name]()
+
+    # Exit with code 1 if any error occured
+    if not utils.OK:
+        error("One or more services failed to sync. Check the logs for details.")
+        exit(1)

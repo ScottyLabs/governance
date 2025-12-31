@@ -4,6 +4,10 @@ from functools import wraps
 
 from colorama import Fore, Style
 
+# Tracks whether the script finishes without errors
+OK = True
+
+# List of environments
 ENVS = ["local", "dev", "staging", "prod"]
 
 
@@ -31,6 +35,9 @@ def warn(message):
 
 
 def error(message):
+    global OK
+    OK = False
+    print(OK)
     print(Fore.RED + message)
 
 
