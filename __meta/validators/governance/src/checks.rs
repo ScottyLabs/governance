@@ -86,9 +86,13 @@ pub fn validate_cross_references(
 }
 
 async fn check_github_user_exists(github_username: &str, client: &Client) -> Result<bool> {
+    // GitHub API has rate limiting, so we use a token from the environment if possible.
+    let token = std::env::var("SYNC_GITHUB_TOKEN").unwrap_or_default();
+
     let request = client
         .get(format!("https://api.github.com/users/{}", github_username))
-        .header("User-Agent", "ScottyLabs-Governance-Validator");
+        .header("User-Agent", "ScottyLabs-Governance-Validator")
+        .bearer_auth(token);
 
     let response = request.send().await?;
     let status = response.status();
@@ -150,9 +154,13 @@ async fn check_github_repository_exists(
     repository: &str,
     client: &Client,
 ) -> Result<RepoCheckResult> {
+    // GitHub API has rate limiting, so we use a token from the environment if possible.
+    let token = std::env::var("SYNC_GITHUB_TOKEN").unwrap_or_default();
+
     let request = client
         .get(format!("https://api.github.com/repos/{}", repository))
-        .header("User-Agent", "ScottyLabs-Governance-Validator");
+        .header("User-Agent", "ScottyLabs-Governance-Validator")
+        .bearer_auth(token);
 
     let response = request.send().await?;
     let status = response.status();
