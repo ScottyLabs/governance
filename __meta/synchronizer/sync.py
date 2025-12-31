@@ -39,12 +39,6 @@ class SyncManager:
                     team_name = file.replace(".toml", "")
                     self.teams[team_name] = tomllib.loads(f.read())
 
-    def sync(self):
-        self.sync_github()
-        self.sync_keycloak()
-        self.sync_vault()
-        self.sync_slack()
-
     def sync_github(self):
         GithubManager(self.contributors, self.teams).sync()
 

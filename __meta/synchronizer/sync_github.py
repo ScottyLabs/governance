@@ -7,8 +7,8 @@ from utils import debug, log_operation, log_team_sync, print_section
 class GithubManager:
     ADMIN_SUFFIX = " Admins"
 
-    # Initialize the GithubManager with GitHub org
     def __init__(self, contributors, teams):
+        """Initialize the GithubManager with GitHub org."""
         self.contributors = contributors
         self.teams = teams
         self.g = Github(auth=Auth.Token(os.getenv("SYNC_GITHUB_TOKEN")))
@@ -59,6 +59,7 @@ class GithubManager:
 
         # Sync the devs to the GitHub main team
         devs = set(team["devs"])
+        # Need to include both leads and devs so the leads won't be removed from the main team.
         self.sync_github_main_team(github_team, leads.union(devs))
 
         # Sync the repositories to the Github team
@@ -103,10 +104,13 @@ class GithubManager:
             self.remove_member_from_team(github_team, username)
 
     def sync_github_admin_team(self, github_admin_team, github_team, desired_members):
+        """Sync the team leads to the GitHub main team and admin team."""
         current_members = {member.login for member in github_admin_team.get_members()}
         # Add new members
         for username in desired_members - current_members:
-            # Add leads to both the main team and admin team
+            # Members of the admin subteam team are also members of the main team
+            # but doesn't show up in GitHub UI, so we have to explicitly add
+            # the leads to the main team here.
             self.add_member_to_team(github_team, username)
             self.add_member_to_team(github_admin_team, username)
 
@@ -124,9 +128,11 @@ class GithubManager:
             user = self.g.get_user(username)
             github_team.remove_membership(user)
 
-    # Sync the repositories to the Github team
-    # Give team devs write access and team leads admin access
     def sync_repos(self, github_team, github_admin_team, repos):
+        """Sync the repositories to the Github team.
+
+        Give main team write access and admin team admin access to the repository.
+        """
         github_repos = github_team.get_repos()
         github_repos_names = set([repo.full_name for repo in github_repos])
 
