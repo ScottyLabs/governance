@@ -24,7 +24,8 @@ directories to GitHub, Keycloak, Vault, and Slack.
 
 ## Keycloak
 
-- Create the Keycloak clients if they do not exist.
+- Create the Keycloak oidc clients if they do not exist. The team can opt out
+by setting the `create-oidc-clients` field to `false` in the team file.
   - There will be 4 clients, for local, dev, staging, and prod, named as `<team-slug>-<env>`.
   - The default whitelisted redirect URIs are:
     - Local: `http://localhost:3000/*`
@@ -33,15 +34,22 @@ directories to GitHub, Keycloak, Vault, and Slack.
     - Prod: `https://<website-slug>.scottylabs.org/*`
 
 - Create the Keycloak groups if they do not exist.
+
   - A lead group will also be created with the suffix "-admins".
+
+    - The team leads and service accounts (if the oidc clients are created) will be added to this group.
+
   - A developer group will also be created with the suffix "-devs".
-  - An admin group will be created with the suffix "-ext-admins".
 
-- Add team leads to the Keycloak admin group.
+    - The team devs will be added to this group.
 
-- Add team devs to the Keycloak developer group.
+  - An external admin group will be created with the suffix "-ext-admins".
 
-- Add team external admins to the Keycloak ext-admins group.
+    - The team external admins will be added to this group.
+
+  - An applicant group will be created with the suffix "-applicants".
+
+    - The team applicants will be added to this group.
 
 ### Hashicorp Vault
 
