@@ -26,12 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Python Setup
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
 
       - name: Run Sync Script
         run: |
-          pip3 install -r __meta/synchronizer/requirements.txt
-          python3 __meta/synchronizer/sync.py
+          uv sync --project __meta/synchronizer/pyproject.toml
+          uv run __meta/synchronizer/sync.py

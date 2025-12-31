@@ -1,0 +1,14 @@
+[project]
+name = "synchronizer"
+version = "0.1.0"
+description = "Synchronize the teams and members from the `contributors/` and `teams/` directories to ScottyLabs services"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "colorama>=0.4.6",
+    "hvac>=2.4.0",
+    "pygithub>=2.8.1",
+    "python-dotenv>=1.2.1",
+    "python-keycloak>=6.0.0",
+    "slack-sdk>=3.39.0",
+]
