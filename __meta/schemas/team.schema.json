@@ -1,97 +1,95 @@
 {
-    "type": "object",
-    "required": [
-        "slug",
-        "name",
-        "website-slug",
-        "leads",
-        "devs",
-        "ext-admins",
-        "repos",
-        "slack-channel-ids"
-    ],
-    "properties": {
-        "slug": {
-            "type": "string",
-            "description": "Used for internal references (e.g. OIDC client ID)."
-        },
-        "name": {
-            "type": "string",
-            "description": "Used for any public-facing or display contexts (e.g. the GitHub team name)."
-        },
-        "website-slug": {
-            "type": "string",
-            "description": "Used in website URLs (e.g. <website-slug>.scottylabs.org)."
-        },
-        "leads": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "minItems": 1,
-            "description": "The github usernames of the tech leads of the team."
-        },
-        "devs": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "description": "The github usernames of the developers of the team."
-        },
-        "applicants": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "description": "The github usernames of the applicants of the team."
-        },
-        "ext-admins": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "description": "External individuals who need admin access to the app (e.g. orientation staffs for O-Quest) but are not involved in development."
-        },
-        "repos": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "minItems": 1,
-            "description": "The github repositories of the team, in the format of 'ScottyLabs/<repo-name>'."
-        },
-        "slack-channel-ids": {
-            "type": "array",
-            "items": {
-                "type": "string",
-                "pattern": "^[CG][A-Z0-9]+$"
-            },
-            "description": "The Slack channel IDs of the team."
-        },
-        "create-oidc-clients": {
-            "type": "boolean",
-            "description": "Whether to create OIDC clients for the team.",
-            "default": true
-        },
-        "secrets-population-layout": {
-            "type": "string",
-            "description": "The secrets folder layout when populating secrets to HashiCorp Vault.",
-            "oneOf": [
-                {
-                    "const": "single",
-                    "description": "single: Populate secrets to a single folder."
-                },
-                {
-                    "const": "multi",
-                    "description": "multi: Populate secrets to multiple folders, one for each app (e.g. one for web and one for server)."
-                },
-                {
-                    "const": "none",
-                    "description": "none: No secrets population."
-                }
-            ],
-            "default": "multi"
-        }
+  "type": "object",
+  "required": [
+    "slug",
+    "name",
+    "leads",
+    "devs",
+    "repos",
+    "slack-channel-ids"
+  ],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "Used for internal references (e.g. OIDC client ID)."
     },
-    "additionalProperties": false
+    "name": {
+      "type": "string",
+      "description": "Used for any public-facing or display contexts (e.g. the GitHub team name)."
+    },
+    "website-slug": {
+      "type": "string",
+      "description": "Used in website URLs (e.g. <website-slug>.scottylabs.org)."
+    },
+    "leads": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "The github usernames of the tech leads of the team."
+    },
+    "devs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The github usernames of the developers of the team."
+    },
+    "applicants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The github usernames of the applicants of the team."
+    },
+    "ext-admins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "External individuals who need admin access to the app (e.g. orientation staffs for O-Quest) but are not involved in development."
+    },
+    "repos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "The github repositories of the team, in the format of 'ScottyLabs/<repo-name>'."
+    },
+    "slack-channel-ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[CG][A-Z0-9]+$"
+      },
+      "description": "The Slack channel IDs of the team."
+    },
+    "create-oidc-clients": {
+      "type": "boolean",
+      "description": "Whether to create OIDC clients for the team.",
+      "default": true
+    },
+    "secrets-population-layout": {
+      "type": "string",
+      "description": "The secrets folder layout when populating secrets to HashiCorp Vault.",
+      "oneOf": [
+        {
+          "const": "single",
+          "description": "single: Populate secrets to a single folder."
+        },
+        {
+          "const": "multi",
+          "description": "multi: Populate secrets to multiple folders, one for each app (e.g. one for web and one for server)."
+        },
+        {
+          "const": "none",
+          "description": "none: No secrets population."
+        }
+      ],
+      "default": "multi"
+    }
+  },
+  "additionalProperties": false
 }

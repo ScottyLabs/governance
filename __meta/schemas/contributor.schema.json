@@ -1,25 +1,25 @@
 {
-    "type": "object",
-    "required": [
-        "full-name",
-        "github-username",
-        "slack-member-id"
-    ],
-    "properties": {
-        "full-name": {
-            "type": "string"
-        },
-        "github-username": {
-            "type": "string"
-        },
-        "slack-member-id": {
-            "type": "string",
-            "pattern": "^U[A-Z0-9]+$"
-        },
-        "andrew-id": {
-            "type": "string",
-            "pattern": "^[a-z0-9]+$"
-        }
+  "type": "object",
+  "required": [
+    "full-name",
+    "github-username",
+    "slack-member-id"
+  ],
+  "properties": {
+    "full-name": {
+      "type": "string"
     },
-    "additionalProperties": false
+    "github-username": {
+      "type": "string"
+    },
+    "slack-member-id": {
+      "type": "string",
+      "pattern": "^U[A-Z0-9]+$"
+    },
+    "andrew-id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+$"
+    }
+  },
+  "additionalProperties": false
 }
