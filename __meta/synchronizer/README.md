@@ -26,8 +26,17 @@ directories to GitHub, Keycloak, Vault, and Slack.
 
 - Create the Keycloak oidc clients if they do not exist. The team can opt out
 by setting the `create-oidc-clients` field to `false` in the team file.
-  - There will be 4 clients, for local, dev, staging, and prod, named as `<team-slug>-<env>`.
+
+  - There will be 4 clients, for local, dev, staging, and prod, named
+  as `<team-slug>-<env>`.
+
   - The default whitelisted redirect URIs are:
+    - Local: `http://localhost/auth/callback`
+    - Dev: `https://api.<website-slug>.slabs-dev.org/auth/callback`
+    - Staging: `https://api.<website-slug>.slabs-staging.org/auth/callback`
+    - Prod: `https://api.<website-slug>.scottylabs.org/auth/callback`
+
+  - The default post-logout redirect URIs are:
     - Local: `http://localhost:3000/*`
     - Dev: `https://<website-slug>.slabs-dev.org/*`
     - Staging: `https://<website-slug>.slabs-staging.org/*`
@@ -41,20 +50,16 @@ by setting the `create-oidc-clients` field to `false` in the team file.
 
   - A developer group will also be created with the suffix "-devs".
 
-    - The team devs will be added to this group.
+  - An external admin group will be created with the suffix "-ext-admins"
+    if the `ext-admins` field is present in the team file.
 
-  - An external admin group will be created with the suffix "-ext-admins".
-
-    - The team external admins will be added to this group.
-
-  - An applicant group will be created with the suffix "-applicants".
-
-    - The team applicants will be added to this group.
+  - An applicant group will be created with the suffix "-applicants"
+    if the `applicants` field is present in the team file.
 
 ### Hashicorp Vault
 
 - Create Hashicorp groups and necessary policies and aliases to integrate with Keycloak for authentication.
-  - Dev groups can read the local secrets.
+  - Dev groups can read the secrets in the `local` folder.
   - Admin groups can read and edit all secrets.
 
 - Populate the secrets for the team. The team can opt out by setting the `secrets-population-layout`

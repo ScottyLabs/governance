@@ -67,9 +67,10 @@ class KeycloakManager:
         self.sync_group(member_group_name, members_usernames)
 
         # Sync team admins to Keycloak admins group
-        admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
-        admins_usernames = set(team["ext-admins"])
-        self.sync_group(admin_group_name, admins_usernames)
+        if "ext-admins" in team:
+            admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
+            admins_usernames = set(team["ext-admins"])
+            self.sync_group(admin_group_name, admins_usernames)
 
         if "applicants" in team:
             applicant_group_name = f"{team_slug}{self.APPLICANT_SUFFIX}"
@@ -201,12 +202,12 @@ class KeycloakManager:
         )
 
         if not users:
-            warn(f"User {username} not found in Keycloak!")
+            warn(f"User {username} not found in Keycloak!\n")
             return False
 
         # Used `exact` = True, so this technically should never happen
         if len(users) > 1:
-            warn(f"Multiple users found for {username}: {users}!")
+            warn(f"Multiple users found for {username}: {users}!\n")
             return False
 
         return users[0]["id"]
