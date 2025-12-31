@@ -7,6 +7,7 @@ from colorama import init
 from dotenv import load_dotenv
 from sync_github import GithubManager
 from sync_keycloak import KeycloakManager
+from sync_secrets import SecretsManager
 from sync_slack import SlackManager
 from sync_vault import VaultManager
 from utils import error, info
@@ -52,6 +53,9 @@ class SyncManager:
     def sync_slack(self):
         SlackManager(self.contributors, self.teams).sync()
 
+    def sync_secrets(self):
+        SecretsManager(self.teams).sync()
+
 
 def args_parser():
     parser = argparse.ArgumentParser(
@@ -60,12 +64,12 @@ def args_parser():
     parser.add_argument(
         "--services",
         nargs="+",
-        choices=["github", "keycloak", "vault", "slack"],
-        default=["github", "keycloak", "vault", "slack"],
+        choices=["github", "keycloak", "vault", "slack", "secrets"],
+        default=["github", "keycloak", "vault", "slack", "secrets"],
         metavar="SERVICE",
         help=(
             "One or more services to sync "
-            "(choices: github, keycloak, vault, slack). "
+            "(choices: github, keycloak, vault, slack, secrets). "
             "Defaults to syncing all."
         ),
     )
@@ -84,6 +88,7 @@ if __name__ == "__main__":
         "keycloak": sync_manager.sync_keycloak,
         "vault": sync_manager.sync_vault,
         "slack": sync_manager.sync_slack,
+        "secrets": sync_manager.sync_secrets,
     }
 
     # Sync the services

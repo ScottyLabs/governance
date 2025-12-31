@@ -70,71 +70,70 @@ class KeycloakManager:
         for env in ENVS:
             client_id = f"{team_slug}-{env}"
             if client_id not in self.existing_clients:
-                self.create_client(team_slug, team["website-slug"], env)
+                with log_operation(f"create Keycloak client {client_id}"):
+                    self.create_client(client_id, team["website-slug"], env)
 
-    def create_client(self, team_slug: str, website_slug: str, env: str):
-        client_id = f"{team_slug}-{env}"
-        with log_operation(f"create Keycloak client {client_id}"):
-            # Generate the URIs for the client
-            rootUrl = None
-            match env:
-                case "dev":
-                    rootUrl = f"https://{website_slug}.slabs-dev.org"
-                    serverUrl = f"https://api.{website_slug}.slabs-dev.org"
-                case "staging":
-                    rootUrl = f"https://{website_slug}.slabs-staging.org"
-                    serverUrl = f"https://api.{website_slug}.slabs-staging.org"
-                case "prod":
-                    rootUrl = f"https://{website_slug}.scottylabs.org"
-                    serverUrl = f"https://api.{website_slug}.scottylabs.org"
+    def create_client(self, client_id: str, website_slug: str, env: str):
+        # Generate the URIs for the client
+        rootUrl = None
+        match env:
+            case "dev":
+                rootUrl = f"https://{website_slug}.slabs-dev.org"
+                serverUrl = f"https://api.{website_slug}.slabs-dev.org"
+            case "staging":
+                rootUrl = f"https://{website_slug}.slabs-staging.org"
+                serverUrl = f"https://api.{website_slug}.slabs-staging.org"
+            case "prod":
+                rootUrl = f"https://{website_slug}.scottylabs.org"
+                serverUrl = f"https://api.{website_slug}.scottylabs.org"
 
-            if env == "local":
-                redirectUris = ["http://localhost/auth/callback"]
-                post_logout_redirect_uris = "http://localhost:3000/*"
-            else:
-                redirectUris = [f"{serverUrl}/auth/callback"]
-                # Permit any post-logout redirect URI with the same origin
-                post_logout_redirect_uris = "/*"
+        if env == "local":
+            redirectUris = ["http://localhost/auth/callback"]
+            post_logout_redirect_uris = "http://localhost:3000/*"
+        else:
+            redirectUris = [f"{serverUrl}/auth/callback"]
+            # Permit any post-logout redirect URI with the same origin
+            post_logout_redirect_uris = "/*"
 
-            # Create the client
-            self.keycloak_admin.create_client(
-                payload={
-                    "clientId": client_id,
-                    "rootUrl": rootUrl,
-                    "redirectUris": redirectUris,
-                    # https://github.com/keycloak/keycloak/discussions/19087#discussioncomment-5338785
-                    "attributes": {
-                        "post.logout.redirect.uris": post_logout_redirect_uris,
+        # Create the client
+        self.keycloak_admin.create_client(
+            payload={
+                "clientId": client_id,
+                "rootUrl": rootUrl,
+                "redirectUris": redirectUris,
+                # https://github.com/keycloak/keycloak/discussions/19087#discussioncomment-5338785
+                "attributes": {
+                    "post.logout.redirect.uris": post_logout_redirect_uris,
+                },
+                "serviceAccountsEnabled": True,
+                "frontchannelLogout": True,
+                "protocolMappers": [
+                    # Add the groups claim to the token
+                    {
+                        "name": "groups",
+                        "protocol": "openid-connect",
+                        "protocolMapper": "oidc-group-membership-mapper",
+                        "config": {
+                            "claim.name": "groups",
+                            "userinfo.token.claim": "true",
+                            "id.token.claim": "true",
+                            "access.token.claim": "true",
+                        },
                     },
-                    "serviceAccountsEnabled": True,
-                    "frontchannelLogout": True,
-                    "protocolMappers": [
-                        # Add the groups claim to the token
-                        {
-                            "name": "groups",
-                            "protocol": "openid-connect",
-                            "protocolMapper": "oidc-group-membership-mapper",
-                            "config": {
-                                "claim.name": "groups",
-                                "userinfo.token.claim": "true",
-                                "id.token.claim": "true",
-                                "access.token.claim": "true",
-                            },
+                    # Add the audience claim to the token
+                    {
+                        "name": "audience",
+                        "protocol": "openid-connect",
+                        "protocolMapper": "oidc-audience-mapper",
+                        "config": {
+                            "included.client.audience": client_id,
+                            "access.token.claim": "true",
+                            "token.introspection.claim": "true",
                         },
-                        # Add the audience claim to the token
-                        {
-                            "name": "audience",
-                            "protocol": "openid-connect",
-                            "protocolMapper": "oidc-audience-mapper",
-                            "config": {
-                                "included.client.audience": client_id,
-                                "access.token.claim": "true",
-                                "token.introspection.claim": "true",
-                            },
-                        },
-                    ],
-                }
-            )
+                    },
+                ],
+            }
+        )
 
     def get_usernames(self, members: list[str]):
         usernames = set()

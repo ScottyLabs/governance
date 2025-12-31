@@ -1,0 +1,116 @@
+import os
+import traceback
+
+import hvac
+from keycloak import KeycloakAdmin
+from utils import ENVS, debug, error, log_operation, log_team_sync, print_section
+
+
+class SecretsManager:
+    VAULT_URL = "https://secrets.scottylabs.org"
+    MOUNT_POINT = "ScottyLabs"
+
+    def __init__(self, teams):
+        self.teams = teams
+        self.vault_client = hvac.Client(
+            url=self.VAULT_URL, token=os.getenv("VAULT_TOKEN")
+        )
+        self.keycloak_client = KeycloakAdmin(
+            server_url=os.getenv("KEYCLOAK_SERVER_URL"),
+            username=os.getenv("KEYCLOAK_USERNAME"),
+            password=os.getenv("KEYCLOAK_PASSWORD"),
+            realm_name=os.getenv("KEYCLOAK_REALM"),
+            client_id=os.getenv("KEYCLOAK_CLIENT_ID"),
+            user_realm_name=os.getenv("KEYCLOAK_USER_REALM"),
+            verify=True,
+        )
+
+    def sync(self):
+        print_section("Secrets")
+        for team in self.teams.values():
+            self.sync_team(team)
+
+    @log_team_sync()
+    def sync_team(self, team):
+        # Skip if the team does not want to populate secrets
+        secrets_population_layout = team.get("secrets-population-layout", "multi")
+        if secrets_population_layout == "none":
+            return
+
+        # Skip if the team already has secrets
+        if self.has_secrets(team["slug"]):
+            debug(f"Team {team['slug']} already has secrets, skipping...")
+            return
+
+        # Get the create-oidc-clients flag
+        create_oidc_clients = team.get("create-oidc-clients", True)
+
+        # Sync the secrets
+        if secrets_population_layout == "single":
+            # Skip if the create-oidc-clients flag is false for a single app project.
+            # Probably a script project like event-scraper that does not need auto secret sync.
+            if not create_oidc_clients:
+                debug(
+                    f"There is no secrets to populate for single app project with no OIDC clients, skipping team {team['slug']}..."
+                )
+                return
+
+            self.sync_single_app_secrets(team)
+
+        elif secrets_population_layout == "multi":
+            self.sync_multi_apps_secrets(team, create_oidc_clients)
+
+    def has_secrets(self, team_slug):
+        """Check if the team has secrets in the vault based on path to team-slug folder."""
+        for check in (
+            # Check if the team has a folder
+            self.vault_client.secrets.kv.v2.list_secrets,
+            # Check if the team has a secret file
+            self.vault_client.secrets.kv.v2.read_secret_metadata,
+        ):
+            try:
+                check(path=team_slug, mount_point=self.MOUNT_POINT)
+                return True
+            except hvac.exceptions.InvalidPath:
+                continue
+            except Exception as e:
+                error(f"Failed to check secrets for {team_slug}: {e}")
+                traceback.print_exc()
+                return False
+
+        return False
+
+    def sync_single_app_secrets(self, team):
+        """Sync the secrets for a single app project."""
+        # Get the team slug
+        team_slug = team["slug"]
+
+        # Sync the secrets for each environment
+        for env in ENVS:
+            with log_operation(f"sync single app secrets for {team_slug} {env}"):
+                secret = self.get_single_app_secret(team_slug, env)
+                self.vault_client.secrets.kv.v2.create_or_update_secret(
+                    path=f"{team_slug}/{env}",
+                    mount_point=self.MOUNT_POINT,
+                    secret=secret,
+                )
+
+    def get_single_app_secret(self, team_slug, env):
+        """Include auth secrets for the single app project."""
+        client_id = f"{team_slug}-{env}"
+        internal_client_id = self.keycloak_client.get_client_id(client_id)
+        client_secrets = self.keycloak_client.get_client_secrets(internal_client_id)
+        client_secret = client_secrets["value"]
+        issuer = (
+            f"{os.getenv('KEYCLOAK_SERVER_URL')}/realms/{os.getenv('KEYCLOAK_REALM')}"
+        )
+        jwks_uri = f"{issuer}/protocol/openid-connect/certs"
+        return {
+            "AUTH_CLIENT_ID": client_id,
+            "AUTH_CLIENT_SECRET": client_secret,
+            "AUTH_ISSUER": issuer,
+            "AUTH_JWKS_URI": jwks_uri,
+        }
+
+    def sync_multi_apps_secrets(self, team, create_oidc_clients):
+        pass

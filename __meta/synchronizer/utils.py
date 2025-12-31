@@ -37,7 +37,6 @@ def warn(message):
 def error(message):
     global OK
     OK = False
-    print(OK)
     print(Fore.RED + message)
 
 
