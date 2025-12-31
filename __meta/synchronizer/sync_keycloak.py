@@ -1,7 +1,17 @@
 import os
 
 from keycloak import KeycloakAdmin
-from utils import ENVS, log_operation, log_team_sync, print_section, warn
+from utils import (
+    ENVS,
+    get_dev_server_url,
+    get_local_server_url,
+    get_prod_server_url,
+    get_staging_server_url,
+    log_operation,
+    log_team_sync,
+    print_section,
+    warn,
+)
 
 
 class KeycloakManager:
@@ -79,16 +89,16 @@ class KeycloakManager:
         match env:
             case "dev":
                 rootUrl = f"https://{website_slug}.slabs-dev.org"
-                serverUrl = f"https://api.{website_slug}.slabs-dev.org"
+                serverUrl = get_dev_server_url(website_slug)
             case "staging":
                 rootUrl = f"https://{website_slug}.slabs-staging.org"
-                serverUrl = f"https://api.{website_slug}.slabs-staging.org"
+                serverUrl = get_staging_server_url(website_slug)
             case "prod":
                 rootUrl = f"https://{website_slug}.scottylabs.org"
-                serverUrl = f"https://api.{website_slug}.scottylabs.org"
+                serverUrl = get_prod_server_url(website_slug)
 
         if env == "local":
-            redirectUris = ["http://localhost/auth/callback"]
+            redirectUris = [f"{get_local_server_url()}/auth/callback"]
             post_logout_redirect_uris = "http://localhost:3000/*"
         else:
             redirectUris = [f"{serverUrl}/auth/callback"]

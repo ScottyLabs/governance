@@ -73,3 +73,31 @@ def log_team_sync():
         return wrapper
 
     return decorator
+
+
+def get_server_url(website_slug, env):
+    match env:
+        case "local":
+            return get_local_server_url()
+        case "dev":
+            return get_dev_server_url(website_slug)
+        case "staging":
+            return get_staging_server_url(website_slug)
+        case "prod":
+            return get_prod_server_url(website_slug)
+
+
+def get_local_server_url():
+    return "http://localhost"
+
+
+def get_dev_server_url(website_slug):
+    return f"https://api.{website_slug}.slabs-dev.org"
+
+
+def get_staging_server_url(website_slug):
+    return f"https://api.{website_slug}.slabs-staging.org"
+
+
+def get_prod_server_url(website_slug):
+    return f"https://api.{website_slug}.scottylabs.org"

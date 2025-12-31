@@ -1,9 +1,18 @@
+import base64
 import os
 import traceback
 
 import hvac
 from keycloak import KeycloakAdmin
-from utils import ENVS, debug, error, log_operation, log_team_sync, print_section
+from utils import (
+    ENVS,
+    debug,
+    error,
+    get_server_url,
+    log_operation,
+    log_team_sync,
+    print_section,
+)
 
 
 class SecretsManager:
@@ -81,7 +90,6 @@ class SecretsManager:
         return False
 
     def sync_single_app_secrets(self, team):
-        """Sync the secrets for a single app project."""
         # Get the team slug
         team_slug = team["slug"]
 
@@ -96,21 +104,103 @@ class SecretsManager:
                 )
 
     def get_single_app_secret(self, team_slug, env):
+        """Include only auth secrets for the single app project."""
+        return self.get_auth_secrets(team_slug, env)
+
+    def get_auth_secrets(self, team_slug, env):
         """Include auth secrets for the single app project."""
+        # Get the client id and client secret from the Keycloak client
         client_id = f"{team_slug}-{env}"
         internal_client_id = self.keycloak_client.get_client_id(client_id)
         client_secrets = self.keycloak_client.get_client_secrets(internal_client_id)
         client_secret = client_secrets["value"]
+
+        # Construct the issuer and JWKS uri
         issuer = (
             f"{os.getenv('KEYCLOAK_SERVER_URL')}/realms/{os.getenv('KEYCLOAK_REALM')}"
         )
         jwks_uri = f"{issuer}/protocol/openid-connect/certs"
+
+        # Generate a random 48-byte string and encode it as base64 (64 characters) for the auth session secret
+        auth_session_secret = base64.b64encode(os.urandom(48)).decode("utf-8")
+
         return {
             "AUTH_CLIENT_ID": client_id,
             "AUTH_CLIENT_SECRET": client_secret,
             "AUTH_ISSUER": issuer,
             "AUTH_JWKS_URI": jwks_uri,
+            "AUTH_SESSION_SECRET": auth_session_secret,
         }
 
     def sync_multi_apps_secrets(self, team, create_oidc_clients):
-        pass
+        # Get the team slug
+        team_slug = team["slug"]
+
+        # Sync the secrets for each environment
+        for env in ENVS:
+            with log_operation(f"sync single app secrets for {team_slug} {env}"):
+                web_secret, server_secret = self.get_multi_apps_secret(
+                    team_slug, env, create_oidc_clients
+                )
+                self.vault_client.secrets.kv.v2.create_or_update_secret(
+                    path=f"{team_slug}/{env}/web",
+                    mount_point=self.MOUNT_POINT,
+                    secret=web_secret,
+                )
+                self.vault_client.secrets.kv.v2.create_or_update_secret(
+                    path=f"{team_slug}/{env}/server",
+                    mount_point=self.MOUNT_POINT,
+                    secret=server_secret,
+                )
+
+    def get_multi_apps_secret(self, team_slug, env, create_oidc_clients):
+        """Include auth secrets for the multi apps project."""
+        # Get the server url and populate the secrets
+        server_url = get_server_url(team_slug, env)
+        web_secret = {"VITE_SERVER_URL": server_url}
+        server_secret = {"SERVER_URL": server_url}
+
+        # Populate the Redis and Database URLs
+        if env == "local":
+            server_secret["REDIS_URL"] = "redis://redis:6379"
+            server_secret["DATABASE_URL"] = (
+                f"postgresql://postgres:donotuseinprod@postgres:5432/{team_slug}"
+            )
+        else:
+            server_secret["REDIS_URL"] = "${{REDIS.REDIS_URL}}"
+            server_secret["DATABASE_URL"] = "${{Postgres.DATABASE_URL}}"
+            server_secret["RAILWAY_DOCKERFILE_PATH"] = "/apps/server/Dockerfile"
+
+        # Allow any https prefix
+        # Note that we need the
+        HTTPS_ORIGIN_PREFIX = "^https:\/\/([a-z0-9-]+\.)*"
+
+        # Populate the allowed origins regex
+        match env:
+            case "local":
+                # Allow all origins for local development
+                server_secret["ALLOWED_ORIGINS_REGEX"] = "^https?:\/\/localhost:\d{4}$"
+            case "dev":
+                # Allow all ScottyLabs dev subdomains for dev development and
+                # any vercel preview domains (https://<team-slug>-<random-string of 9 characters>-scottylabs.vercel.app)
+                server_secret["ALLOWED_ORIGINS_REGEX"] = (
+                    f"{HTTPS_ORIGIN_PREFIX}slabs-dev\.org$,"
+                    f"^https:\/\/{team_slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
+                )
+            case "staging":
+                # Allow all ScottyLabs staging subdomains for staging development
+                server_secret["ALLOWED_ORIGINS_REGEX"] = (
+                    f"{HTTPS_ORIGIN_PREFIX}slabs-staging\.org$"
+                )
+            case "prod":
+                # Allow all ScottyLabs production subdomains for production
+                server_secret["ALLOWED_ORIGINS_REGEX"] = (
+                    f"{HTTPS_ORIGIN_PREFIX}scottylabs\.org$"
+                )
+
+        # Populate the auth secrets if the create-oidc-clients flag is true
+        if create_oidc_clients:
+            auth_secrets = self.get_single_app_secret(team_slug, env)
+            server_secret.update(auth_secrets)
+
+        return web_secret, server_secret
