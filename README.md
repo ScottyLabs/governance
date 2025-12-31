@@ -45,6 +45,17 @@ contribution guidelines (for example, required Google Form submissions).
 
 3. If there is no response within 24 hours, ping the tech director.
 
+## Validations
+
+Check the [validators README](__meta/validators/README.md) for more information on the checks
+your PR must pass before it can be merged. A reviewer will approve the workflow to
+run after verifying that the pull request contains no malicious code.
+
+## Synchronization
+
+Check the [synchronizer README](__meta/synchronizer/README.md) for more information
+on the synchronization process, including what permissions are granted.
+
 ## License
 
 This project is licensed under `Apache-2.0`, and is heavily inspired by [Concourse's governance](https://github.com/concourse/governance).
