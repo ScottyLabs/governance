@@ -21,6 +21,3 @@ To find your `slack-member-id`, follow these steps:
 3. Select "Copy member ID"
 
 This value should begin with a `U`.
-
-> [!WARNING]
-> Pull requests adding a new contributor must be submitted by the contributor themselves. This self-nomination approach promotes ownership, helps maintain the integrity of our contributor list, and encourages active participation with our governance process and the organization. PRs in violation will be automatically rejected.

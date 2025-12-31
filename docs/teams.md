@@ -39,6 +39,3 @@ To find a Slack channel's ID, follow these steps:
 3. Locate "Channel ID: ..." at the bottom and press copy
 
 This value should begin with a `C` for public channels and `G` for private channels.
-
-> [!WARNING]
-> The members included in this file must already exis as contributors in the `contributors/` directory.
