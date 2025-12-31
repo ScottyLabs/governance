@@ -9,6 +9,7 @@ class KeycloakManager:
     EXTERNAL_ADMIN_SUFFIX = "-ext-admins"
     MEMBER_SUFFIX = "-devs"
     APPLICANT_SUFFIX = "-applicants"
+    SERVICE_ACCOUNT_PREFIX = "service-account-"
 
     def __init__(self, contributors, teams):
         self.contributors = contributors
@@ -41,25 +42,28 @@ class KeycloakManager:
             if client_id not in self.existing_clients:
                 self.create_client(team_slug, team["website-slug"], env)
 
-        # Sync the team leads to the Keycloak admins group
+        # Sync the team leads and service accounts to the Keycloak admins group
         lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
-        lead_andrew_ids = self.get_andrew_ids(team["leads"])
-        self.sync_group(lead_group_name, lead_andrew_ids)
+        lead_usernames = self.get_usernames(team["leads"])
+        lead_usernames = lead_usernames.union(
+            self.get_service_account_usernames(team_slug)
+        )
+        self.sync_group(lead_group_name, lead_usernames)
 
         # Sync team devs to Keycloak devs group
         member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
-        members_andrew_ids = self.get_andrew_ids(team["devs"])
-        self.sync_group(member_group_name, members_andrew_ids)
+        members_usernames = self.get_usernames(team["devs"])
+        self.sync_group(member_group_name, members_usernames)
 
         # Sync team admins to Keycloak admins group
         admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
-        admins_andrew_ids = set(team["ext-admins"])
-        self.sync_group(admin_group_name, admins_andrew_ids)
+        admins_usernames = set(team["ext-admins"])
+        self.sync_group(admin_group_name, admins_usernames)
 
         if "applicants" in team:
             applicant_group_name = f"{team_slug}{self.APPLICANT_SUFFIX}"
-            applicants_andrew_ids = self.get_andrew_ids(team["applicants"])
-            self.sync_group(applicant_group_name, applicants_andrew_ids)
+            applicants_usernames = self.get_usernames(team["applicants"])
+            self.sync_group(applicant_group_name, applicants_usernames)
 
     def create_client(self, team_slug: str, website_slug: str, env: str):
         client_id = f"{team_slug}-{env}"
@@ -125,41 +129,46 @@ class KeycloakManager:
                 }
             )
 
-    # The andrew ids are the usernames in Keycloak
-    def get_andrew_ids(self, members: list[str]):
-        andrew_ids = set()
+    def get_usernames(self, members: list[str]):
+        usernames = set()
         for member in members:
             # Validation check guarantees that members will always be a contributor
             if "andrew-id" in self.contributors[member]:
-                andrew_ids.add(self.contributors[member]["andrew-id"])
-        return andrew_ids
+                # The andrew id is the username in Keycloak
+                usernames.add(self.contributors[member]["andrew-id"])
+        return usernames
 
-    def sync_group(self, group_path: str, target_andrew_ids: set[str]):
+    def get_service_account_usernames(self, team_slug: str):
+        # The service account usernames should all follow the pattern
+        # "service-account-<team-slug>-<env>" (e.g. "service-account-graph-local")
+        return set([f"{self.SERVICE_ACCOUNT_PREFIX}{team_slug}-{env}" for env in ENVS])
+
+    def sync_group(self, group_path: str, target_usernames: set[str]):
         group = self.get_or_create_group(group_path)
         group_id = group["id"]
         group_name = group["name"]
 
-        # Get the andrew ids of the current members in the Keycloak group
+        # Get the usernames of the current members in the Keycloak group
         members = self.keycloak_admin.get_group_members(group_id)
-        current_andrew_ids = {m["username"].lower() for m in members}
+        current_usernames = {m["username"].lower() for m in members}
 
         # Add missing users
-        for andrew_id in target_andrew_ids:
-            if andrew_id not in current_andrew_ids:
-                user_id = self.get_user_id_by_andrew_id(andrew_id)
+        for username in target_usernames:
+            if username not in current_usernames:
+                user_id = self.get_user_id_by_username(username)
                 if not user_id:
                     continue
 
-                with log_operation(f"add {andrew_id} to Keycloak group {group_name}"):
+                with log_operation(f"add {username} to Keycloak group {group_name}"):
                     self.keycloak_admin.group_user_add(user_id, group_id)
 
         # Remove extra users
         for member in members:
-            andrew_id = member["username"]
-            if andrew_id in target_andrew_ids:
+            username = member["username"]
+            if username in target_usernames:
                 continue
 
-            with log_operation(f"remove {andrew_id} from Keycloak group {group_name}"):
+            with log_operation(f"remove {username} from Keycloak group {group_name}"):
                 self.keycloak_admin.group_user_remove(member["id"], group_id)
 
     def get_or_create_group(self, group_path: str):
@@ -170,15 +179,18 @@ class KeycloakManager:
                 self.keycloak_admin.create_group(payload={"name": group_path})
                 return self.keycloak_admin.get_group_by_path(group_path)
 
-    def get_user_id_by_andrew_id(self, andrew_id: str):
-        users = self.keycloak_admin.get_users(query={"username": andrew_id})
+    def get_user_id_by_username(self, username: str):
+        users = self.keycloak_admin.get_users(
+            query={"username": username, "exact": True}
+        )
 
         if not users:
-            warn(f"User {andrew_id} not found in Keycloak!")
+            warn(f"User {username} not found in Keycloak!")
             return False
 
+        # Used `exact` = True, so this technically should never happen
         if len(users) > 1:
-            warn(f"Multiple users found for {andrew_id}: {users}!")
+            warn(f"Multiple users found for {username}: {users}!")
             return False
 
         return users[0]["id"]
