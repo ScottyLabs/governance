@@ -31,5 +31,5 @@ jobs:
 
       - name: Run Sync Script
         run: |
-          uv sync --project __meta/synchronizer/pyproject.toml
+          uv sync
           uv run __meta/synchronizer/sync.py

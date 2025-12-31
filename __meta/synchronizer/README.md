@@ -77,8 +77,8 @@ Make sure you have the right permissions by logging into the [vault](https://sec
 
 ### Local Development
 
-Open in devcontainer and run the following command in `__meta/synchronizer/`:
+Open in devcontainer and run the following command in the root directory:
 
 ```zsh
-uv run sync.py
+uv run __meta/synchronizer/sync.py
 ```

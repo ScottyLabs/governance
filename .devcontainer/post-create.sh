@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-uv sync --project __meta/synchronizer/pyproject.toml
 
 # Install xdg-utils for Vault login
 sudo apt-get update -y
