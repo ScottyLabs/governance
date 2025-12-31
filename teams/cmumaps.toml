@@ -13,8 +13,6 @@ devs = [
 ]
 applicants = [
 ]
-ext-admins = [
-]
 repos = [
     "ScottyLabs/cmumaps",
 ]

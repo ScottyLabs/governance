@@ -6,10 +6,6 @@ leads = [
     "tsurbs",
 ]
 devs = []
-applicants = [
-]
-ext-admins = [
-]
 repos = [
     "ScottyLabs/cmusearch",
 ]
