@@ -57,6 +57,16 @@ by setting the `create-oidc-clients` field to `false` in the team file.
   - Dev groups can read the local secrets.
   - Admin groups can read and edit all secrets.
 
+- Populate the secrets for the team. The team can opt out by setting the `secrets-population-layout`
+field to `none` in the team file.
+
+  - The secrets will be populated in the following layout:
+    - `single`: A folder for each environment (e.g. `local`, `dev`, `staging`, `prod`).
+    - `multi`: A folder for each environment and a subfolder for each app
+    (e.g. `local/web`, `local/server`, `dev/web`, `dev/server`, `staging/web`, `staging/server`, `prod/web`, `prod/server`).
+
+  - The secrets will include the OIDC client secrets if they are created.
+
 ## Slack
 
 - Add team members to the corresponding Slack channels.
