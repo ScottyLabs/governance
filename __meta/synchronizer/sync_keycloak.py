@@ -36,18 +36,19 @@ class KeycloakManager:
     def sync_team(self, team):
         team_slug = team["slug"]
 
-        # Create the client if it does not exist
-        for env in ENVS:
-            client_id = f"{team_slug}-{env}"
-            if client_id not in self.existing_clients:
-                self.create_client(team_slug, team["website-slug"], env)
+        # Create the OIDC clients for the team if the team wants
+        create_oidc_clients = team.get("create-oidc-clients", True)
+        if create_oidc_clients:
+            self.create_clients(team_slug, team)
 
         # Sync the team leads and service accounts to the Keycloak admins group
         lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
         lead_usernames = self.get_usernames(team["leads"])
-        lead_usernames = lead_usernames.union(
-            self.get_service_account_usernames(team_slug)
-        )
+        # Add the service accounts to the leads only if the OIDC clients are created
+        if create_oidc_clients:
+            lead_usernames = lead_usernames.union(
+                self.get_service_account_usernames(team_slug)
+            )
         self.sync_group(lead_group_name, lead_usernames)
 
         # Sync team devs to Keycloak devs group
@@ -64,6 +65,12 @@ class KeycloakManager:
             applicant_group_name = f"{team_slug}{self.APPLICANT_SUFFIX}"
             applicants_usernames = self.get_usernames(team["applicants"])
             self.sync_group(applicant_group_name, applicants_usernames)
+
+    def create_clients(self, team_slug, team):
+        for env in ENVS:
+            client_id = f"{team_slug}-{env}"
+            if client_id not in self.existing_clients:
+                self.create_client(team_slug, team["website-slug"], env)
 
     def create_client(self, team_slug: str, website_slug: str, env: str):
         client_id = f"{team_slug}-{env}"
