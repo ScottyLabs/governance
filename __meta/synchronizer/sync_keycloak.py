@@ -170,7 +170,6 @@ class KeycloakManager:
                 self.keycloak_admin.create_group(payload={"name": group_path})
                 return self.keycloak_admin.get_group_by_path(group_path)
 
-    # Get the user ID by email
     def get_user_id_by_andrew_id(self, andrew_id: str):
         users = self.keycloak_admin.get_users(query={"username": andrew_id})
 

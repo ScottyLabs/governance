@@ -51,12 +51,14 @@ def log_operation(operation_name):
 
 
 def log_team_sync():
-    """Decorator to log around a team sync. Team should always be the second argument."""
-
     def decorator(func):
+        """Decorate a team sync function to log around it.
+
+        Team should always be the second argument of the team sync function.
+        """
+
         @wraps(func)
         def wrapper(*args, **kwargs):
-            # team is always the second argument
             bold(f"Syncing team {args[1]['name']}...")
             result = func(*args, **kwargs)
             print()

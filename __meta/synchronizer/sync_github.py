@@ -20,8 +20,8 @@ class GithubManager:
         for team in self.teams.values():
             self.sync_team(team)
 
-    # Sync contributors to the GitHub organization
     def sync_contributors(self):
+        """Sync contributors to the GitHub organization."""
         # Get all existing members
         self.existing_members = set(member.login for member in self.org.get_members())
         debug(f"There are {len(self.existing_members)} existing members.\n")
@@ -43,9 +43,9 @@ class GithubManager:
                     user = self.g.get_user(github_username)
                     self.org.invite_user(user=user, role="direct_member")
 
-    # Sync the team leads and members to the Github team
     @log_team_sync()
     def sync_team(self, team):
+        """Sync the team to the GitHub organization."""
         team_name = team["name"]
 
         # Get or create the team and the admin team
@@ -66,8 +66,8 @@ class GithubManager:
         repos = set(team["repos"])
         self.sync_repos(github_team, github_admin_team, repos)
 
-    # Get or create the Github main team, which is a subteam of the main team
     def get_or_create_team(self, team_name):
+        """Get or create the Github main team."""
         try:
             team_slug = self.get_team_slug(team_name)
             return self.org.get_team_by_slug(team_slug)
@@ -75,8 +75,8 @@ class GithubManager:
             with log_operation(f"create {team_name} GitHub team"):
                 return self.org.create_team(name=team_name, privacy="closed")
 
-    # Get or create the Github admin team
     def get_or_create_admin_team(self, github_team, admin_team_name):
+        """Get or create the Github admin team, which is a subteam of the main team."""
         try:
             team_slug = self.get_team_slug(admin_team_name)
             return self.org.get_team_by_slug(team_slug)
@@ -85,15 +85,16 @@ class GithubManager:
                 return self.org.create_team(
                     name=admin_team_name,
                     parent_team_id=github_team.id,
-                    privacy="closed",
+                    # We can have all teams visible to all members of the organization.
+                    privacy="closed",  # one of "secret" | "closed"
                 )
 
     # https://docs.github.com/en/rest/teams/teams?apiVersion=2022-11-28#get-a-team-by-name
     def get_team_slug(self, team_name):
         return team_name.replace(" ", "-").lower()
 
-    # Sync the team members to the Github team
     def sync_github_main_team(self, github_team, desired_members):
+        """Sync the team members to the Github main team."""
         current_members = {member.login for member in github_team.get_members()}
         # Add new members
         for username in desired_members - current_members:
