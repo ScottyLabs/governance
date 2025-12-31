@@ -138,6 +138,96 @@ pub async fn validate_github_users(
     (errors, warnings)
 }
 
+enum RepoCheckResult {
+    ExistsInOrg,
+    ExistsOutsideOrg(String),
+    NotFound,
+}
+
+const SCOTTYLABS_ORG: &str = "ScottyLabs";
+
+async fn check_github_repository_exists(
+    repository: &str,
+    client: &Client,
+) -> Result<RepoCheckResult> {
+    let request = client
+        .get(format!("https://api.github.com/repos/{}", repository))
+        .header("User-Agent", "ScottyLabs-Governance-Validator");
+
+    let response = request.send().await?;
+    let status = response.status();
+
+    match status {
+        StatusCode::OK => {
+            // Make sure the repository is in the ScottyLabs organization.
+            let json = response.json::<Value>().await?;
+            if let Some(org_value) = json["organization"]["login"].as_str() {
+                if org_value == "ScottyLabs" {
+                    Ok(RepoCheckResult::ExistsInOrg)
+                } else {
+                    Ok(RepoCheckResult::ExistsOutsideOrg(org_value.to_string()))
+                }
+            } else {
+                Ok(RepoCheckResult::ExistsOutsideOrg("<no org>".to_string()))
+            }
+        }
+        StatusCode::NOT_FOUND => Ok(RepoCheckResult::NotFound),
+        StatusCode::FORBIDDEN => Err(anyhow!("Rate limit exceeded or access forbidden",)),
+        _ => Err(anyhow!("Unexpected status {}", status,)),
+    }
+}
+
+pub async fn validate_github_repositories(
+    teams: &HashMap<EntityKey, Team>,
+    client: &Client,
+) -> (Vec<ValidationError>, Vec<ValidationWarning>) {
+    let mut errors = Vec::new();
+    let mut warnings = Vec::new();
+
+    let mut futures = FuturesUnordered::new();
+
+    for (team_key, team) in teams {
+        for repository in &team.repos {
+            futures.push(async move {
+                let result = check_github_repository_exists(repository, client).await;
+                (team_key, repository, result)
+            });
+        }
+    }
+
+    while let Some((team_key, repository, result)) = futures.next().await {
+        match result {
+            Ok(RepoCheckResult::ExistsInOrg) => {}
+            Ok(RepoCheckResult::ExistsOutsideOrg(organization)) => errors.push(ValidationError {
+                file: format!("teams/{}.toml", team_key),
+                message: format!(
+                    "GitHub repository {} is not in the \"{}\" organization. It is in the {} organization.",
+                    repository.red().bold(),
+                    SCOTTYLABS_ORG,
+                    organization.red().bold()
+                ),
+            }),
+            Ok(RepoCheckResult::NotFound) => errors.push(ValidationError {
+                file: format!("teams/{}.toml", team_key),
+                message: format!(
+                    "GitHub repository does not exist: {}",
+                    repository.red().bold()
+                ),
+            }),
+            Err(e) => warnings.push(ValidationWarning {
+                file: format!("teams/{}.toml", team_key),
+                message: format!(
+                    "Failed to check GitHub repository {}: {}",
+                    repository.yellow().bold(),
+                    e
+                ),
+            }),
+        }
+    }
+
+    (errors, warnings)
+}
+
 async fn check_slack_id_exists(slack_id: &str, client: &Client) -> Result<bool> {
     let token = std::env::var("SLACK_TOKEN").unwrap_or_default();
 

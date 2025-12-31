@@ -6,9 +6,9 @@ We also include several other checks to ensure integrity:
 
 - The `github-username` field for contributors must match the filename.
 - The `slug` field for teams must match the filename.
-- Cross-references must be valid (team members must exist as contributors)
-- GitHub users must exist
-- Slack member IDs and channel IDs must be valid
+- Cross-references must be valid (team members must exist as contributors).
+- GitHub users and repositories must exist.
+- Slack member IDs and channel IDs must be valid.
 
 ## Development
 

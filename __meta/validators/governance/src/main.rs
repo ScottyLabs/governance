@@ -2,7 +2,8 @@ mod checks;
 
 use anyhow::{Result, anyhow};
 use checks::{
-    validate_cross_references, validate_file_names, validate_github_users, validate_slack_ids,
+    validate_cross_references, validate_file_names, validate_github_repositories,
+    validate_github_users, validate_slack_ids,
 };
 use colored::Colorize;
 use dotenv::dotenv;
@@ -76,6 +77,15 @@ async fn main() -> Result<()> {
 
     // Validate GitHub users
     let (errors, warnings) = validate_github_users(&contributors, &client).await;
+    for error in errors {
+        insert_error(&mut file_messages, error);
+    }
+    for warning in warnings {
+        insert_warning(&mut file_messages, warning);
+    }
+
+    // Validate GitHub repositories
+    let (errors, warnings) = validate_github_repositories(&teams, &client).await;
     for error in errors {
         insert_error(&mut file_messages, error);
     }
