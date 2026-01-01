@@ -109,8 +109,23 @@ class GithubManager:
     ):
         """Sync the team leads as maintainers to the GitHub admin team."""
         current_members = {member.login for member in github_admin_team.get_members()}
-        # Add new members
-        for username in desired_members - current_members:
+
+        # Calculate new members
+        new_members = desired_members - current_members
+        debug(
+            f"Found {len(new_members)} new maintainers for the {github_admin_team.name} team."
+        )
+
+        # Calculate uninvited new members
+        new_uninvited_members = self.subtract_invited_members(
+            new_members, github_admin_team
+        )
+        debug(
+            f"Found {len(new_uninvited_members)} new uninvited maintainers for the {github_admin_team.name} team."
+        )
+
+        # Add uninvited new members
+        for username in new_uninvited_members:
             self.add_or_update_member_to_team(github_admin_team, username, "maintainer")
 
         # Remove extra members if the team want to remove unlisted members
@@ -120,8 +135,8 @@ class GithubManager:
 
     def sync_github_main_team(self, github_team, leads, devs, remove_unlisted):
         """Sync the team members to the Github main team."""
-        self.sync_members_to_team(github_team, devs, "member")
         self.sync_members_to_team(github_team, leads, "maintainer")
+        self.sync_members_to_team(github_team, devs, "member")
 
         # Remove extra members if the team want to remove unlisted members
         if remove_unlisted:
@@ -132,7 +147,19 @@ class GithubManager:
         self, github_team, members, role: Literal["member", "maintainer"]
     ):
         """Sync the members to the Github team as the given role."""
-        for username in members:
+        # Calculate new members
+        current_members = {member.login for member in github_team.get_members()}
+        new_members = members - current_members
+        debug(f"Found {len(new_members)} new {role}s for the {github_team.name} team.")
+
+        # Calculate uninvited new members
+        new_uninvited_members = self.subtract_invited_members(new_members, github_team)
+        debug(
+            f"Found {len(new_uninvited_members)} new uninvited {role}s for the {github_team.name} team."
+        )
+
+        # Add new uninvited members
+        for username in self.subtract_invited_members(members, github_team):
             try:
                 current_role = github_team.get_team_membership(username).role
                 if current_role != role:
@@ -146,6 +173,17 @@ class GithubManager:
                     f"Error syncing {username} to {github_team.name} GitHub team: {e}"
                 )
                 traceback.print_exc()
+
+    def subtract_invited_members(self, members, github_team):
+        """Subtract the invited members from the members list.
+
+        We avoid sending duplicate invitations, even if the member might not have the correct role,
+        because the invitation role cannot be easily obtained and the role can
+        be corrected during the sync after the invitation is accepted anyways.
+        """
+        invitations = github_team.invitations()
+        invited_members = set([invitation.login for invitation in invitations])
+        return members - invited_members
 
     def remove_unlisted_members_from_main_team(self, github_team, desired_members):
         """Remove unlisted members from the Github main team."""
