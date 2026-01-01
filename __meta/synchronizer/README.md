@@ -14,13 +14,16 @@ directories to GitHub, Keycloak, Vault, and Slack.
   - An admin team will also be created as the subteam of the main team with the same name and the suffix " Admins".
 
 - Add the repository to the Github team. Give team developers write access and team leads admins access to the repository.
+  The unlisted repos will be removed from the Github team by default, but the team
+  can keep unlisted repos by setting the `remove-unlisted` field to `false` in the team file.
 
 - Add team members to the corresponding Github main team as members.
 
 - Add team leads to the corresponding Github main team and admin team as members.
   - No one should be a maintainer of the GitHub team since membership is managed by Governance.
 
-- Delete any unknown member from the Github teams.
+- Delete any unlisted member from the Github teams. The team can keep unlisted
+  members by setting the `remove-unlisted` field to `false` in the team file.
 
 ## Keycloak
 
@@ -55,6 +58,9 @@ by setting the `create-oidc-clients` field to `false` in the team file.
 
   - An applicant group will be created with the suffix "-applicants"
     if the `applicants` field is present in the team file.
+
+- Delete any unlisted member from the Keycloak groups. The team can keep unlisted
+  members by setting the `remove-unlisted` field to `false` in the team file.
 
 ### Hashicorp Vault
 

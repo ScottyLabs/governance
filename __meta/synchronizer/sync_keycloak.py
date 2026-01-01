@@ -45,6 +45,7 @@ class KeycloakManager:
     @log_team_sync()
     def sync_team(self, team):
         team_slug = team["slug"]
+        remove_unlisted = team.get("remove-unlisted", True)
 
         # Create the OIDC clients for the team if the team wants
         create_oidc_clients = team.get("create-oidc-clients", True)
@@ -59,23 +60,23 @@ class KeycloakManager:
             lead_usernames = lead_usernames.union(
                 self.get_service_account_usernames(team_slug)
             )
-        self.sync_group(lead_group_name, lead_usernames)
+        self.sync_group(lead_group_name, lead_usernames, remove_unlisted)
 
         # Sync team devs to Keycloak devs group
         member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
         members_usernames = self.get_usernames(team["devs"])
-        self.sync_group(member_group_name, members_usernames)
+        self.sync_group(member_group_name, members_usernames, remove_unlisted)
 
         # Sync team admins to Keycloak admins group
         if "ext-admins" in team:
             admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
             admins_usernames = set(team["ext-admins"])
-            self.sync_group(admin_group_name, admins_usernames)
+            self.sync_group(admin_group_name, admins_usernames, remove_unlisted)
 
         if "applicants" in team:
             applicant_group_name = f"{team_slug}{self.APPLICANT_SUFFIX}"
             applicants_usernames = self.get_usernames(team["applicants"])
-            self.sync_group(applicant_group_name, applicants_usernames)
+            self.sync_group(applicant_group_name, applicants_usernames, remove_unlisted)
 
     def create_clients(self, team_slug, team):
         for env in ENVS:
@@ -160,7 +161,7 @@ class KeycloakManager:
         # "service-account-<team-slug>-<env>" (e.g. "service-account-graph-local")
         return set([f"{self.SERVICE_ACCOUNT_PREFIX}{team_slug}-{env}" for env in ENVS])
 
-    def sync_group(self, group_path: str, target_usernames: set[str]):
+    def sync_group(self, group_path: str, target_usernames, remove_unlisted):
         group = self.get_or_create_group(group_path)
         group_id = group["id"]
         group_name = group["name"]
@@ -179,14 +180,16 @@ class KeycloakManager:
                 with log_operation(f"add {username} to Keycloak group {group_name}"):
                     self.keycloak_admin.group_user_add(user_id, group_id)
 
-        # Remove extra users
-        for member in members:
-            username = member["username"]
-            if username in target_usernames:
-                continue
+        # Remove extra users if the team want to remove unlisted members
+        if remove_unlisted:
+            for member in members:
+                username = member["username"]
+                if username in target_usernames:
+                    continue
 
-            with log_operation(f"remove {username} from Keycloak group {group_name}"):
-                self.keycloak_admin.group_user_remove(member["id"], group_id)
+                log_message = f"remove {username} from Keycloak group {group_name}"
+                with log_operation(log_message):
+                    self.keycloak_admin.group_user_remove(member["id"], group_id)
 
     def get_or_create_group(self, group_path: str):
         try:

@@ -66,6 +66,11 @@
       },
       "description": "The Slack channel IDs of the team."
     },
+    "remove-unlisted": {
+      "type": "boolean",
+      "description": "Whether to remove unlisted members from the team.",
+      "default": true
+    },
     "create-oidc-clients": {
       "type": "boolean",
       "description": "Whether to create OIDC clients for the team.",

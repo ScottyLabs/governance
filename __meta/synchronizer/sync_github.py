@@ -47,6 +47,7 @@ class GithubManager:
     def sync_team(self, team):
         """Sync the team to the GitHub organization."""
         team_name = team["name"]
+        remove_unlisted = team.get("remove-unlisted", True)
 
         # Get or create the team and the admin team
         github_team = self.get_or_create_team(team_name)
@@ -55,16 +56,18 @@ class GithubManager:
 
         # Sync the team leads to the GitHub main team and admin team
         leads = set(team["leads"])
-        self.sync_github_admin_team(github_admin_team, github_team, leads)
+        self.sync_github_admin_team(
+            github_admin_team, github_team, leads, remove_unlisted
+        )
 
         # Sync the devs to the GitHub main team
         devs = set(team["devs"])
         # Need to include both leads and devs so the leads won't be removed from the main team.
-        self.sync_github_main_team(github_team, leads.union(devs))
+        self.sync_github_main_team(github_team, leads.union(devs), remove_unlisted)
 
         # Sync the repositories to the Github team
         repos = set(team["repos"])
-        self.sync_repos(github_team, github_admin_team, repos)
+        self.sync_repos(github_team, github_admin_team, repos, remove_unlisted)
 
     def get_or_create_team(self, team_name):
         """Get or create the Github main team."""
@@ -93,18 +96,21 @@ class GithubManager:
     def get_team_slug(self, team_name):
         return team_name.replace(" ", "-").lower()
 
-    def sync_github_main_team(self, github_team, desired_members):
+    def sync_github_main_team(self, github_team, desired_members, remove_unlisted):
         """Sync the team members to the Github main team."""
         current_members = {member.login for member in github_team.get_members()}
         # Add new members
         for username in desired_members - current_members:
             self.add_member_to_team(github_team, username)
 
-        # Remove extra members
-        for username in current_members - desired_members:
-            self.remove_member_from_team(github_team, username)
+        # Remove extra members if the team want to remove unlisted members
+        if remove_unlisted:
+            for username in current_members - desired_members:
+                self.remove_member_from_team(github_team, username)
 
-    def sync_github_admin_team(self, github_admin_team, github_team, desired_members):
+    def sync_github_admin_team(
+        self, github_admin_team, github_team, desired_members, remove_unlisted
+    ):
         """Sync the team leads to the GitHub main team and admin team."""
         current_members = {member.login for member in github_admin_team.get_members()}
         # Add new members
@@ -115,9 +121,11 @@ class GithubManager:
             self.add_member_to_team(github_team, username)
             self.add_member_to_team(github_admin_team, username)
 
-        # Remove extra members
-        for username in current_members - desired_members:
-            self.remove_member_from_team(github_admin_team, username)
+        # Remove extra members if the team want to remove unlisted members
+        if remove_unlisted:
+            for username in current_members - desired_members:
+                self.remove_member_from_team(github_admin_team, username)
+                self.remove_member_from_team(github_team, username)
 
     def add_member_to_team(self, github_team, username):
         with log_operation(f"add {username} to {github_team.name} GitHub team"):
@@ -129,7 +137,7 @@ class GithubManager:
             user = self.g.get_user(username)
             github_team.remove_membership(user)
 
-    def sync_repos(self, github_team, github_admin_team, repos):
+    def sync_repos(self, github_team, github_admin_team, repos, remove_unlisted):
         """Sync the repositories to the Github team.
 
         Give main team write access and admin team admin access to the repository.
@@ -138,11 +146,13 @@ class GithubManager:
         github_repos_names = set([repo.full_name for repo in github_repos])
 
         # Remove any repositories from the Github team that are not in the team list
-        for repo in github_repos_names:
-            if repo not in repos:
-                log_message = f"remove {repo} from {github_team.name} Github team"
-                with log_operation(log_message):
-                    github_team.remove_from_repos(repo)
+        # if the team want to remove unlisted repos.
+        if remove_unlisted:
+            for repo in github_repos_names:
+                if repo not in repos:
+                    log_message = f"remove {repo} from {github_team.name} Github team"
+                    with log_operation(log_message):
+                        github_team.remove_from_repos(repo)
 
         # Give team devs write access and team leads admin access to the repository
         for repo in repos:
