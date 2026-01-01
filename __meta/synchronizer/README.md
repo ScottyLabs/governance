@@ -13,14 +13,22 @@ directories to GitHub, Keycloak, Vault, and Slack.
   - The team name will be the same as the team name specified in the `teams/` directory.
   - An admin team will also be created as the subteam of the main team with the same name and the suffix " Admins".
 
-- Add the repository to the Github team. Give team developers write access and team leads admins access to the repository.
-  The unlisted repos will be removed from the Github team by default, but the team
-  can keep unlisted repos by setting the `remove-unlisted` field to `false` in the team file.
+- Add the repos to the Github team. Give team developers write access and team leads admins access to the repos.
+
+- The respos not listed in the team file will be removed from the Github team by default,
+  but the team can keep unlisted repos by setting the `remove-unlisted` field to `false` in the team file.
 
 - Add team members to the corresponding Github main team as members.
 
-- Add team leads to the corresponding Github main team and admin team as members.
-  - No one should be a maintainer of the GitHub team since membership is managed by Governance.
+- Add team leads to the corresponding Github main team and admin team as maintainers.
+
+  - While this allows the team leads to add and remove members from the team directly,
+    members who not listed in Governance will be removed on the next Governance sync.
+
+  - You can set the `remove-unlisted` field to `false` in the team file to keep unlisted members.
+    This option is useful for quickly adding members as the team migrates to use Governance,
+    but it is **recommended** to eventually list all members in the team file
+    and remove the `remove-unlisted` field override.
 
 - Delete any unlisted member from the Github teams. The team can keep unlisted
   members by setting the `remove-unlisted` field to `false` in the team file.

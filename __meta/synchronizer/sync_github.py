@@ -1,7 +1,10 @@
 import os
+import traceback
+from typing import Literal
 
 from github import Auth, Github
-from utils import debug, log_operation, log_team_sync, print_section
+from github.GithubException import UnknownObjectException
+from utils import debug, error, log_operation, log_team_sync, print_section
 
 
 class GithubManager:
@@ -47,31 +50,26 @@ class GithubManager:
     def sync_team(self, team):
         """Sync the team to the GitHub organization."""
         team_name = team["name"]
-        leads = set(team["leads"])
-        devs = set(team["devs"])
         remove_unlisted = team.get("remove-unlisted", True)
 
         # Get or create the team and the admin team
-        github_team = self.get_or_create_team(team_name)
+        github_team = self.get_or_create_main_team(team_name)
         admin_team_name = f"{team_name}{self.ADMIN_SUFFIX}"
         github_admin_team = self.get_or_create_admin_team(github_team, admin_team_name)
 
-        # Sync the leads and devs to the GitHub main team
-        # Members of the admin subteam team are also members of the main team but
-        # doesn't show up in GitHub UI, so we need to add the leads to the main team first.
-        # This does mean that if a lead is in the admin team but not in the main team,
-        # they will be not be added to the main team automatically. There is no
-        # difference in permissions and only affects the visibility in GitHub UI.
-        self.sync_github_main_team(github_team, leads.union(devs), remove_unlisted)
-
         # Sync the team leads to the GitHub admin team
+        leads = set(team["leads"])
         self.sync_github_admin_team(github_admin_team, leads, remove_unlisted)
+
+        # Sync the team leads and devs to the GitHub main team
+        devs = set(team["devs"])
+        self.sync_github_main_team(github_team, leads, devs, remove_unlisted)
 
         # Sync the repositories to the Github team
         repos = set(team["repos"])
         self.sync_repos(github_team, github_admin_team, repos, remove_unlisted)
 
-    def get_or_create_team(self, team_name):
+    def get_or_create_main_team(self, team_name):
         """Get or create the Github main team."""
         try:
             team_slug = self.get_team_slug(team_name)
@@ -98,36 +96,63 @@ class GithubManager:
     def get_team_slug(self, team_name):
         return team_name.replace(" ", "-").lower()
 
-    def sync_github_main_team(self, github_team, desired_members, remove_unlisted):
-        """Sync the team members to the Github main team."""
-        current_members = {member.login for member in github_team.get_members()}
-        # Add new members
-        for username in desired_members - current_members:
-            self.add_member_to_team(github_team, username)
-
-        # Remove extra members if the team want to remove unlisted members
-        if remove_unlisted:
-            for username in current_members - desired_members:
-                self.remove_member_from_team(github_team, username)
-
     def sync_github_admin_team(
         self, github_admin_team, desired_members, remove_unlisted
     ):
-        """Sync the team leads to the GitHub main team and admin team."""
+        """Sync the team leads as maintainers to the GitHub admin team."""
         current_members = {member.login for member in github_admin_team.get_members()}
         # Add new members
         for username in desired_members - current_members:
-            self.add_member_to_team(github_admin_team, username)
+            self.add_member_to_team(github_admin_team, username, "maintainer")
 
         # Remove extra members if the team want to remove unlisted members
         if remove_unlisted:
             for username in current_members - desired_members:
                 self.remove_member_from_team(github_admin_team, username)
 
-    def add_member_to_team(self, github_team, username):
-        with log_operation(f"add {username} to {github_team.name} GitHub team"):
+    def sync_github_main_team(self, github_team, leads, devs, remove_unlisted):
+        """Sync the team members to the Github main team."""
+        self.sync_members_to_team(github_team, devs, "member")
+        self.sync_members_to_team(github_team, leads, "maintainer")
+
+        # Remove extra members if the team want to remove unlisted members
+        if remove_unlisted:
+            desired_members = leads.union(devs)
+            self.remove_unlisted_members_from_main_team(github_team, desired_members)
+
+    def sync_members_to_team(
+        self, github_team, members, role: Literal["member", "maintainer"]
+    ):
+        """Sync the members to the Github team as the given role."""
+        for username in members:
+            try:
+                current_role = github_team.get_team_membership(username).role
+                if current_role != role:
+                    self.add_member_to_team(github_team, username, role)
+
+            except UnknownObjectException:
+                self.add_member_to_team(github_team, username, role)
+
+            except Exception as e:
+                error(
+                    f"Error syncing {username} to {github_team.name} GitHub team: {e}"
+                )
+                traceback.print_exc()
+
+    def remove_unlisted_members_from_main_team(self, github_team, desired_members):
+        """Remove unlisted members from the Github main team."""
+        current_members = {member.login for member in github_team.get_members()}
+        for username in current_members - desired_members:
+            self.remove_member_from_team(github_team, username)
+
+    def add_or_update_member_to_team(
+        self, github_team, username, role: Literal["member", "maintainer"]
+    ):
+        with log_operation(
+            f"add/update {username} as a {role} to {github_team.name} GitHub team"
+        ):
             user = self.g.get_user(username)
-            github_team.add_membership(user, role="member")
+            github_team.add_membership(user, role=role)
 
     def remove_member_from_team(self, github_team, username):
         with log_operation(f"remove {username} from {github_team.name} GitHub team"):

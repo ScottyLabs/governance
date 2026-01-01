@@ -30,9 +30,13 @@ slack-channel-ids = [
 ]
 ```
 
-Key configurations settable:
+Key configuration settings:
 
-- Set the `remove-unlisted` field to `false` if you want to keep unlisted members in the team.
+- Set the `remove-unlisted` field to `false` if you want to keep unlisted members and repos
+  in the GitHub team and unlisted members in the Keycloak groups.
+  - This setting is useful when not all members have been added to Governance
+    yet. However, it is **recommended** to remove this override once everyone has
+    been added to the team through Governance.
 - Set the `create-oidc-clients` field to `false` if the team does not need OIDC clients.
   - In this case, you also don't need to set the `website-slug` field.
 - Set the `secrets-population-layout` field to `none` if the team does not want automatic secrets population.
