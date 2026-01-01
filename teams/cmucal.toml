@@ -1,0 +1,15 @@
+slug = "cmucal"
+name = "CMU Cal"
+website-slug = "cal"
+leads = [
+    "qianxuege",
+]
+devs = []
+repos = [
+    "ScottyLabs/cmucal",
+]
+slack-channel-ids = [
+]
+remove-unlisted = false
+create-oidc-clients = false
+secrets-population-layout = "none"
