@@ -25,7 +25,7 @@ jobs:
           fallback: none
 
       - name: Check EditorConfig Compliance
-        run: editorconfig-checker --exclude '(^LICENSE$|README\.md$)'
+        run: editorconfig-checker --exclude LICENSE
 
   validate-toml:
     name: Validate TOML Files
