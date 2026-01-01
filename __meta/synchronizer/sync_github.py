@@ -10,6 +10,9 @@ from utils import debug, error, log_operation, log_team_sync, print_section
 class GithubManager:
     ADMIN_SUFFIX = " Admins"
 
+    # We can have all teams visible to all members of the organization.
+    TEAM_PRIVACY = "closed"  # one of "secret" | "closed"
+
     def __init__(self, contributors, teams):
         """Initialize the GithubManager with GitHub org."""
         self.contributors = contributors
@@ -71,26 +74,31 @@ class GithubManager:
 
     def get_or_create_main_team(self, team_name):
         """Get or create the Github main team."""
-        try:
-            team_slug = self.get_team_slug(team_name)
-            return self.org.get_team_by_slug(team_slug)
-        except Exception:
-            with log_operation(f"create {team_name} GitHub team"):
-                return self.org.create_team(name=team_name, privacy="closed")
+        return self.get_or_create_team(
+            team_name,
+            lambda name: self.org.create_team(name=name, privacy=self.TEAM_PRIVACY),
+        )
 
     def get_or_create_admin_team(self, github_team, admin_team_name):
         """Get or create the Github admin team, which is a subteam of the main team."""
+        return self.get_or_create_team(
+            admin_team_name,
+            lambda name: self.org.create_team(
+                name=name, parent_team_id=github_team.id, privacy=self.TEAM_PRIVACY
+            ),
+        )
+
+    def get_or_create_team(self, team_name, create_team_func):
+        """Get or create the Github team."""
+        team_slug = self.get_team_slug(team_name)
         try:
-            team_slug = self.get_team_slug(admin_team_name)
             return self.org.get_team_by_slug(team_slug)
-        except Exception:
-            with log_operation(f"create {admin_team_name} GitHub team"):
-                return self.org.create_team(
-                    name=admin_team_name,
-                    parent_team_id=github_team.id,
-                    # We can have all teams visible to all members of the organization.
-                    privacy="closed",  # one of "secret" | "closed"
-                )
+        except UnknownObjectException:
+            with log_operation(f"create {team_name} GitHub team"):
+                return create_team_func(team_name)
+        except Exception as e:
+            error(f"Error getting {team_slug} GitHub team: {e}")
+            traceback.print_exc()
 
     # https://docs.github.com/en/rest/teams/teams?apiVersion=2022-11-28#get-a-team-by-name
     def get_team_slug(self, team_name):
@@ -103,7 +111,7 @@ class GithubManager:
         current_members = {member.login for member in github_admin_team.get_members()}
         # Add new members
         for username in desired_members - current_members:
-            self.add_member_to_team(github_admin_team, username, "maintainer")
+            self.add_or_update_member_to_team(github_admin_team, username, "maintainer")
 
         # Remove extra members if the team want to remove unlisted members
         if remove_unlisted:
@@ -131,7 +139,7 @@ class GithubManager:
                     self.add_member_to_team(github_team, username, role)
 
             except UnknownObjectException:
-                self.add_member_to_team(github_team, username, role)
+                self.add_or_update_member_to_team(github_team, username, role)
 
             except Exception as e:
                 error(
