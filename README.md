@@ -29,13 +29,12 @@ a PR adding yourself as a new contributor.
    - Otherwise, add yourself to the `devs` field.
 
 3. Review each project's repo's `CONTRIBUTING.md` file to understand any team-specific
-contribution guidelines (for example, required Google Form submissions).
+   contribution guidelines (for example, some teams might require you submit a Google Form).
 
 4. Request the first tech lead of each team you want to join as a reviewer to the PR.
 
-5. If no response:
-   - After 24 hours: ping the reviewer.
-   - After 48 hours: ping the tech director (@Yuxiang-Huang).
+5. Feel free to ping the reviewer if there is no response after a few days.
+   If there is still no update after a week, ping the tech director (@Yuxiang-Huang).
 
 ## Adding a New Team
 

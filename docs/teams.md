@@ -30,6 +30,13 @@ slack-channel-ids = [
 ]
 ```
 
+Key configurations settable:
+
+- Set the `remove-unlisted` field to `false` if you want to keep unlisted members in the team.
+- Set the `create-oidc-clients` field to `false` if the team does not need OIDC clients.
+  - In this case, you also don't need to set the `website-slug` field.
+- Set the `secrets-population-layout` field to `none` if the team does not want automatic secrets population.
+
 Visit the [team schema](../__meta/schemas/team.schema.json) to learn more about the fields.
 
 To find a Slack channel's ID, follow these steps:
