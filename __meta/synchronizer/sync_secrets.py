@@ -95,7 +95,7 @@ class SecretsManager:
 
         # Sync the secrets for each environment
         for env in ENVS:
-            with log_operation(f"sync single app secrets for {team_slug} {env}"):
+            with log_operation(f"sync single-app secrets for {team_slug} {env}"):
                 secret = self.get_single_app_secret(team_slug, env)
                 self.vault_client.secrets.kv.v2.create_or_update_secret(
                     path=f"{team_slug}/{env}",
@@ -138,7 +138,7 @@ class SecretsManager:
 
         # Sync the secrets for each environment
         for env in ENVS:
-            with log_operation(f"sync single app secrets for {team_slug} {env}"):
+            with log_operation(f"sync multi-apps secrets for {team_slug} {env}"):
                 web_secret, server_secret = self.get_multi_apps_secret(
                     team_slug, env, create_oidc_clients
                 )

@@ -23,6 +23,7 @@
         "editor.codeActionsOnSave": {
           "source.fixAll": "explicit"
         },
+        "python.defaultInterpreterPath": ".venv/bin/python3",
         "[json]": {
           "editor.defaultFormatter": "vscode.json-language-features"
         },

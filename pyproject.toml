@@ -12,3 +12,10 @@ dependencies = [
     "python-keycloak>=6.0.0",
     "slack-sdk>=3.39.0",
 ]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "types-colorama>=0.4.15.20250801",
+    "types-hvac>=2.4.0.20251115",
+]

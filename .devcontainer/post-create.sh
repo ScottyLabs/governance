@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+set -e
+
+# Install Python dependencies
+uv sync
 
 # Install xdg-utils for Vault login
 sudo apt-get update -y
