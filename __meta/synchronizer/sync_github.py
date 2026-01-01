@@ -163,7 +163,7 @@ class GithubManager:
             try:
                 current_role = github_team.get_team_membership(username).role
                 if current_role != role:
-                    self.add_member_to_team(github_team, username, role)
+                    self.add_or_update_member_to_team(github_team, username, role)
 
             except UnknownObjectException:
                 self.add_or_update_member_to_team(github_team, username, role)

@@ -173,29 +173,29 @@ class SecretsManager:
 
         # Allow any https prefix
         # Note that we need the
-        HTTPS_ORIGIN_PREFIX = "^https:\/\/([a-z0-9-]+\.)*"
+        HTTPS_ORIGIN_PREFIX = r"^https:\/\/([a-z0-9-]+\.)*"
 
         # Populate the allowed origins regex
         match env:
             case "local":
                 # Allow all origins for local development
-                server_secret["ALLOWED_ORIGINS_REGEX"] = "^https?:\/\/localhost:\d{4}$"
+                server_secret["ALLOWED_ORIGINS_REGEX"] = r"^https?:\/\/localhost:\d{4}$"
             case "dev":
                 # Allow all ScottyLabs dev subdomains for dev development and
                 # any vercel preview domains (https://<team-slug>-<random-string of 9 characters>-scottylabs.vercel.app)
                 server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    f"{HTTPS_ORIGIN_PREFIX}slabs-dev\.org$,"
-                    f"^https:\/\/{team_slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
+                    rf"{HTTPS_ORIGIN_PREFIX}slabs-dev\.org$,"
+                    rf"^https:\/\/{team_slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
                 )
             case "staging":
                 # Allow all ScottyLabs staging subdomains for staging development
                 server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    f"{HTTPS_ORIGIN_PREFIX}slabs-staging\.org$"
+                    rf"{HTTPS_ORIGIN_PREFIX}slabs-staging\.org$"
                 )
             case "prod":
                 # Allow all ScottyLabs production subdomains for production
                 server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    f"{HTTPS_ORIGIN_PREFIX}scottylabs\.org$"
+                    rf"{HTTPS_ORIGIN_PREFIX}scottylabs\.org$"
                 )
 
         # Populate the auth secrets if the create-oidc-clients flag is true

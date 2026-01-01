@@ -15,7 +15,8 @@
         "tamasfe.even-better-toml",
         "editorconfig.editorconfig",
         "redhat.vscode-yaml",
-        "rust-lang.rust-analyzer"
+        "rust-lang.rust-analyzer",
+        "matangover.mypy"
       ],
       "settings": {
         "editor.formatOnSave": true,
