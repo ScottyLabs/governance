@@ -88,7 +88,7 @@ def args_parser() -> argparse.ArgumentParser:
     return parser
 
 
-if __name__ == "__main__":
+def main() -> None:
     # Parse the arguments
     parser = args_parser()
     args = parser.parse_args()
@@ -111,3 +111,7 @@ if __name__ == "__main__":
     if not synchronizer.utils.OK:
         error("One or more services failed to sync. Check the logs for details.")
         sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

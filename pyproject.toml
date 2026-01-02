@@ -21,6 +21,9 @@ dev = [
     "types-hvac>=2.4.0.20251115",
 ]
 
+[project.scripts]
+sync = "synchronizer.main:main"
+
 [tool.setuptools.packages.find]
 where = ["__meta/synchronizer"]
 include = ["synchronizer*"]

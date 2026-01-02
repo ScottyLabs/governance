@@ -117,8 +117,9 @@ Make sure you have the right permissions by logging into the [vault](https://sec
 Open in devcontainer and run the following command in the root directory:
 
 ```zsh
+uv sync
 uv pip install -e .
-uv run python -m synchronizer.sync
+uv run sync
 ```
 
 #### Linting
