@@ -41,10 +41,15 @@ class KeycloakManager:
     @log_team_sync()
     def sync_team(self, team: Team) -> None:
         team_slug = team["slug"]
-        remove_unlisted = team["remove-unlisted"] or True
+        remove_unlisted = team.get("remove-unlisted")
+        if remove_unlisted is None:
+            remove_unlisted = True
 
         # Create the OIDC clients for the team if the team wants
-        create_oidc_clients = team["create-oidc-clients"] or True
+        create_oidc_clients = team.get("create-oidc-clients")
+        if create_oidc_clients is None:
+            create_oidc_clients = True
+
         if create_oidc_clients:
             self.create_clients(team_slug, team)
 
@@ -68,7 +73,7 @@ class KeycloakManager:
         )
 
         # Sync team admins to Keycloak admins group
-        ext_admins = team["ext-admins"]
+        ext_admins = team.get("ext-admins")
         if ext_admins is not None:
             admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
             admins_usernames = set(ext_admins)
@@ -78,7 +83,7 @@ class KeycloakManager:
                 remove_unlisted=remove_unlisted,
             )
 
-        applicants = team["applicants"]
+        applicants = team.get("applicants")
         if applicants is not None:
             applicant_group_name = f"{team_slug}{self.APPLICANT_SUFFIX}"
             applicants_usernames = self.get_usernames(applicants)
@@ -170,7 +175,7 @@ class KeycloakManager:
         usernames = set()
         for member in members:
             # Validation check guarantees that members will always be a contributor
-            andrew_id = self.contributors[member]["andrew-id"]
+            andrew_id = self.contributors[member].get("andrew-id")
             if andrew_id is not None:
                 # The andrew id is the username in Keycloak
                 usernames.add(andrew_id)

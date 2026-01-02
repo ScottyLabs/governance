@@ -59,7 +59,9 @@ class SecretsManager:
             return
 
         # Get the create-oidc-clients flag
-        create_oidc_clients = team["create-oidc-clients"] or True
+        create_oidc_clients = team.get("create-oidc-clients")
+        if create_oidc_clients is None:
+            create_oidc_clients = True
 
         # Sync the secrets
         if secrets_population_layout == "single":

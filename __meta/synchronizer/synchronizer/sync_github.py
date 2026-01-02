@@ -69,7 +69,9 @@ class GithubManager:
     def sync_team(self, team: Team) -> None:
         """Sync the team to the GitHub organization."""
         team_name = team["name"]
-        remove_unlisted = team["remove-unlisted"] or True
+        remove_unlisted = team.get("remove-unlisted")
+        if remove_unlisted is None:
+            remove_unlisted = True
 
         # Get or create the team and the admin team
         github_team = self.get_or_create_main_team(team_name)
