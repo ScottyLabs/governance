@@ -1,9 +1,7 @@
-import os
-
-from keycloak import KeycloakAdmin
 from utils import (
     ENVS,
     get_dev_server_url,
+    get_keycloak_admin,
     get_local_server_url,
     get_prod_server_url,
     get_staging_server_url,
@@ -24,15 +22,7 @@ class KeycloakManager:
     def __init__(self, contributors, teams):
         self.contributors = contributors
         self.teams = teams
-        self.keycloak_admin = KeycloakAdmin(
-            server_url=os.getenv("KEYCLOAK_SERVER_URL"),
-            username=os.getenv("KEYCLOAK_USERNAME"),
-            password=os.getenv("KEYCLOAK_PASSWORD"),
-            realm_name=os.getenv("KEYCLOAK_REALM"),
-            client_id=os.getenv("KEYCLOAK_CLIENT_ID"),
-            user_realm_name=os.getenv("KEYCLOAK_USER_REALM"),
-            verify=True,
-        )
+        self.keycloak_admin = get_keycloak_admin()
         self.existing_clients = [
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]

@@ -3,11 +3,12 @@ import os
 import traceback
 
 import hvac
-from keycloak import KeycloakAdmin
+from hvac.exceptions import InvalidPath
 from utils import (
     ENVS,
     debug,
     error,
+    get_keycloak_admin,
     get_server_url,
     log_operation,
     log_team_sync,
@@ -20,19 +21,19 @@ class SecretsManager:
     MOUNT_POINT = "ScottyLabs"
 
     def __init__(self, teams):
+        realm_name = os.getenv("KEYCLOAK_REALM")
+        if not realm_name:
+            raise ValueError("KEYCLOAK_REALM is not set")
+
+        client_id = os.getenv("KEYCLOAK_CLIENT_ID")
+        if not client_id:
+            raise ValueError("KEYCLOAK_CLIENT_ID is not set")
+
         self.teams = teams
         self.vault_client = hvac.Client(
             url=self.VAULT_URL, token=os.getenv("VAULT_TOKEN")
         )
-        self.keycloak_client = KeycloakAdmin(
-            server_url=os.getenv("KEYCLOAK_SERVER_URL"),
-            username=os.getenv("KEYCLOAK_USERNAME"),
-            password=os.getenv("KEYCLOAK_PASSWORD"),
-            realm_name=os.getenv("KEYCLOAK_REALM"),
-            client_id=os.getenv("KEYCLOAK_CLIENT_ID"),
-            user_realm_name=os.getenv("KEYCLOAK_USER_REALM"),
-            verify=True,
-        )
+        self.keycloak_client = get_keycloak_admin()
 
     def sync(self):
         print_section("Secrets")
@@ -80,7 +81,7 @@ class SecretsManager:
             try:
                 check(path=team_slug, mount_point=self.MOUNT_POINT)
                 return True
-            except hvac.exceptions.InvalidPath:
+            except InvalidPath:
                 continue
             except Exception as e:
                 error(f"Failed to check secrets for {team_slug}: {e}")

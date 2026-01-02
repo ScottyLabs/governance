@@ -19,3 +19,6 @@ dev = [
     "types-colorama>=0.4.15.20250801",
     "types-hvac>=2.4.0.20251115",
 ]
+
+[tool.mypy]
+check_untyped_defs = true

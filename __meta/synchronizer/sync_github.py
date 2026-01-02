@@ -4,6 +4,8 @@ from typing import Literal
 
 from github import Auth, Github
 from github.GithubException import UnknownObjectException
+from github.NamedUser import NamedUser
+from github.Team import Team
 from utils import debug, error, log_operation, log_team_sync, print_section
 
 
@@ -15,9 +17,13 @@ class GithubManager:
 
     def __init__(self, contributors, teams):
         """Initialize the GithubManager with GitHub org."""
+        github_token = os.getenv("SYNC_GITHUB_TOKEN")
+        if not github_token:
+            raise ValueError("SYNC_GITHUB_TOKEN is not set")
+
         self.contributors = contributors
         self.teams = teams
-        self.g = Github(auth=Auth.Token(os.getenv("SYNC_GITHUB_TOKEN")))
+        self.g = Github(auth=Auth.Token(github_token))
         self.org = self.g.get_organization("ScottyLabs")
 
     def sync(self):
@@ -47,6 +53,9 @@ class GithubManager:
                 log_message = f"add {github_username} to GitHub organization"
                 with log_operation(log_message):
                     user = self.g.get_user(github_username)
+                    if not isinstance(user, NamedUser):
+                        error(f"User {github_username} is not a valid GitHub user")
+                        continue
                     self.org.invite_user(user=user, role="direct_member")
 
     @log_team_sync()
@@ -205,7 +214,9 @@ class GithubManager:
             user = self.g.get_user(username)
             github_team.remove_membership(user)
 
-    def sync_repos(self, github_team, github_admin_team, repos, remove_unlisted):
+    def sync_repos(
+        self, github_team: Team, github_admin_team: Team, repos, remove_unlisted
+    ):
         """Sync the repositories to the Github team.
 
         Give main team write access and admin team admin access to the repository.

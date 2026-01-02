@@ -1,8 +1,10 @@
+import os
 import traceback
 from contextlib import contextmanager
 from functools import wraps
 
 from colorama import Fore, Style
+from keycloak import KeycloakAdmin
 
 # Tracks whether the script finishes without errors
 OK = True
@@ -101,3 +103,23 @@ def get_staging_server_url(website_slug):
 
 def get_prod_server_url(website_slug):
     return f"https://api.{website_slug}.scottylabs.org"
+
+
+def get_keycloak_admin():
+    realm_name = os.getenv("KEYCLOAK_REALM")
+    if not realm_name:
+        raise ValueError("KEYCLOAK_REALM is not set")
+
+    client_id = os.getenv("KEYCLOAK_CLIENT_ID")
+    if not client_id:
+        raise ValueError("KEYCLOAK_CLIENT_ID is not set")
+
+    return KeycloakAdmin(
+        server_url=os.getenv("KEYCLOAK_SERVER_URL"),
+        username=os.getenv("KEYCLOAK_USERNAME"),
+        password=os.getenv("KEYCLOAK_PASSWORD"),
+        realm_name=realm_name,
+        client_id=client_id,
+        user_realm_name=os.getenv("KEYCLOAK_USER_REALM"),
+        verify=True,
+    )
