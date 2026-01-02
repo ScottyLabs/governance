@@ -16,9 +16,17 @@ dependencies = [
 [dependency-groups]
 dev = [
     "mypy>=1.19.1",
+    "ruff>=0.14.10",
     "types-colorama>=0.4.15.20250801",
     "types-hvac>=2.4.0.20251115",
 ]
 
 [tool.mypy]
 check_untyped_defs = true
+
+# Supported rules https://github.com/charliermarsh/ruff/#supported-rules
+[tool.ruff]
+lint.select = ["ALL"]
+
+# Do not require documentation for every single function/method.
+ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107"]
