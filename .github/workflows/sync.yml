@@ -32,4 +32,5 @@ jobs:
       - name: Run Sync Script
         run: |
           uv sync
-          uv run __meta/synchronizer/sync.py
+          cd __meta/synchronizer
+          uv run python -m synchronizer.sync

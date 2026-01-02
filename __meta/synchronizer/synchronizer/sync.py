@@ -35,7 +35,7 @@ class SyncManager:
         self.load_teams()
 
     def load_contributors(self) -> None:
-        for file_path in Path("contributors").iterdir():
+        for file_path in Path("../../contributors").iterdir():
             if file_path.suffix == ".toml":
                 with file_path.open() as f:
                     username = file_path.stem
@@ -43,7 +43,7 @@ class SyncManager:
                     self.contributors[username] = cast("Contributor", data)
 
     def load_teams(self) -> None:
-        for file_path in Path("teams").iterdir():
+        for file_path in Path("../../teams").iterdir():
             if file_path.suffix == ".toml":
                 with file_path.open() as f:
                     team_name = file_path.stem
