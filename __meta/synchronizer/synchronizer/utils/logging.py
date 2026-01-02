@@ -13,18 +13,25 @@ from synchronizer.models.team import Team
 P = ParamSpec("P")
 R = TypeVar("R")
 
-# Register the success log level
+# Register the success and print log levels
 SUCCESS_LEVEL = 25
 logging.addLevelName(SUCCESS_LEVEL, "SUCCESS")
 
+PRINT_LEVEL = 5
+logging.addLevelName(PRINT_LEVEL, "PRINT")
 
-# Custom logger class that adds a .success() method
+
+# Custom logger class that adds a .success() method and .print() method
 class AppLogger(logging.Logger):
     """Custom logger that adds a .success() method."""
 
     def success(self, msg: str, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
         if self.isEnabledFor(SUCCESS_LEVEL):
             self._log(SUCCESS_LEVEL, msg, args, **kwargs)
+
+    def print(self, msg: str, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
+        if self.isEnabledFor(PRINT_LEVEL):
+            self._log(PRINT_LEVEL, msg, args, **kwargs)
 
 
 # Set the custom logger class
@@ -54,6 +61,7 @@ def setup_logging() -> None:
     # Color formatter for the logger
     class ColorFormatter(logging.Formatter):
         COLOR_MAP: ClassVar = {
+            PRINT_LEVEL: Style.BRIGHT,
             logging.DEBUG: Fore.LIGHTBLACK_EX,
             logging.INFO: Fore.BLUE,
             SUCCESS_LEVEL: Fore.GREEN,
@@ -64,8 +72,13 @@ def setup_logging() -> None:
 
         def format(self, record: logging.LogRecord) -> str:
             color = self.COLOR_MAP.get(record.levelno, "")
-            message = super().format(record)
-            return f"{color}{message}{Style.RESET_ALL}"
+            base = super().format(record)
+
+            # Strip the [PRINT] prefix for PRINT level
+            if record.levelno == PRINT_LEVEL:
+                return f"{color}{record.getMessage()}{Style.RESET_ALL}"
+
+            return f"{color}{base}{Style.RESET_ALL}"
 
     # Color handler for the logger
     handler = logging.StreamHandler()
@@ -74,7 +87,7 @@ def setup_logging() -> None:
     # Create the logger
     app_logger = logging.getLogger(__name__)
     app_logger.addHandler(handler)
-    app_logger.setLevel(logging.DEBUG)
+    app_logger.setLevel(PRINT_LEVEL)
 
     # Add the filter to the logger
     app_logger.addFilter(ErrorFlagFilter())
@@ -92,14 +105,10 @@ def get_logger() -> AppLogger:
 
 
 def print_section(section: str) -> None:
-    bold("=" * 50)
-    bold(f"Syncing {section}...")
-    bold("=" * 50)
-    print()  # noqa: T201
-
-
-def bold(message: str) -> None:
-    print(Style.BRIGHT + message)  # noqa: T201
+    logger = get_logger()
+    logger.print("=" * 50)
+    logger.print("Syncing %s...", section)
+    logger.print("=" * 50 + "\n")
 
 
 @contextmanager
@@ -130,9 +139,10 @@ def log_team_sync() -> Callable[[Callable[P, R]], Callable[P, R]]:
                 msg = "Second argument must be a Team"
                 raise TypeError(msg)
 
-            bold(f"Syncing team {team.name}...\n")
+            logger = get_logger()
+            logger.print("Syncing team %s...\n", team.name)
             result = func(*args, **kwargs)
-            print()  # noqa: T201
+            logger.print("")
             return result
 
         return wrapper
