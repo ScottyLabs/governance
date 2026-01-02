@@ -33,4 +33,4 @@ jobs:
         run: |
           uv sync
           uv pip install -e .
-          uv run python -m synchronizer.sync
+          uv run python -m synchronizer.main
