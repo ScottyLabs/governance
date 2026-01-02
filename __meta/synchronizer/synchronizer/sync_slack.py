@@ -5,7 +5,13 @@ from slack_sdk.errors import SlackApiError
 
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
-from synchronizer.utils import debug, error, log_operation, log_team_sync, print_section
+from synchronizer.utils.logging import (
+    debug,
+    error,
+    log_operation,
+    log_team_sync,
+    print_section,
+)
 
 
 class SlackManager:
@@ -62,7 +68,7 @@ class SlackManager:
         current_members = set(response["members"])
         users = list(desired_members - current_members)
         if not users:
-            debug(f"No users to invite to {team.name} Slack channel.")
+            debug(f"No users to invite to {team.name} Slack channel.", new_line=False)
             return
 
         try:

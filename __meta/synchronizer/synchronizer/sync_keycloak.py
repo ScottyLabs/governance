@@ -1,15 +1,17 @@
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
-from synchronizer.utils import (
+from synchronizer.utils.env_urls import (
     ENVS,
     ENVS_LITERAL,
-    debug,
-    error,
     get_dev_server_url,
-    get_keycloak_admin,
     get_local_server_url,
     get_prod_server_url,
     get_staging_server_url,
+)
+from synchronizer.utils.keycloak_client import KeycloakClient
+from synchronizer.utils.logging import (
+    debug,
+    error,
     log_operation,
     log_team_sync,
     print_section,
@@ -28,7 +30,7 @@ class KeycloakManager:
     ) -> None:
         self.contributors = contributors
         self.teams = teams
-        self.keycloak_admin = get_keycloak_admin()
+        self.keycloak_admin = KeycloakClient().admin
         self.existing_clients = [
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]

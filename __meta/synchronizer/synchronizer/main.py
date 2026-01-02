@@ -7,7 +7,7 @@ from typing import Any
 from colorama import init
 from dotenv import load_dotenv
 
-import synchronizer.utils
+import synchronizer.utils.logging
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
 from synchronizer.sync_github import GithubManager
@@ -15,7 +15,7 @@ from synchronizer.sync_keycloak import KeycloakManager
 from synchronizer.sync_secrets import SecretsManager
 from synchronizer.sync_slack import SlackManager
 from synchronizer.sync_vault import VaultManager
-from synchronizer.utils import error, info
+from synchronizer.utils.logging import error, info
 
 load_dotenv()
 
@@ -106,7 +106,7 @@ def main() -> None:
         service_name_to_function[service_name]()
 
     # Exit with code 1 if any error occured
-    if not synchronizer.utils.OK:
+    if not synchronizer.utils.logging.OK:
         error("One or more services failed to sync. Check the logs for details.")
         sys.exit(1)
 

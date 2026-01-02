@@ -6,13 +6,11 @@ import hvac
 from hvac.exceptions import InvalidPath
 
 from synchronizer.models.team import Team
-from synchronizer.utils import (
-    ENVS,
-    ENVS_LITERAL,
+from synchronizer.utils.env_urls import ENVS, ENVS_LITERAL, get_server_url
+from synchronizer.utils.keycloak_client import KeycloakClient
+from synchronizer.utils.logging import (
     debug,
     error,
-    get_keycloak_admin,
-    get_server_url,
     log_operation,
     log_team_sync,
     print_section,
@@ -39,7 +37,7 @@ class SecretsManager:
             url=self.VAULT_URL,
             token=os.getenv("VAULT_TOKEN"),
         )
-        self.keycloak_client = get_keycloak_admin()
+        self.keycloak_client = KeycloakClient().admin
 
     def sync(self) -> None:
         print_section("Secrets")

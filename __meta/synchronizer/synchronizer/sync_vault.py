@@ -4,7 +4,12 @@ from collections.abc import Callable
 import hvac
 
 from synchronizer.models.team import Team
-from synchronizer.utils import debug, log_operation, log_team_sync, print_section
+from synchronizer.utils.logging import (
+    debug,
+    log_operation,
+    log_team_sync,
+    print_section,
+)
 
 
 class VaultManager:
