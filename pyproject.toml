@@ -21,6 +21,10 @@ dev = [
     "types-hvac>=2.4.0.20251115",
 ]
 
+[tool.setuptools.packages.find]
+where = ["__meta/synchronizer"]
+include = ["synchronizer*"]
+
 [tool.mypy]
 check_untyped_defs = true
 

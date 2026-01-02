@@ -117,5 +117,13 @@ Make sure you have the right permissions by logging into the [vault](https://sec
 Open in devcontainer and run the following command in the root directory:
 
 ```zsh
-uv run __meta/synchronizer/sync.py
+uv pip install -e .
+uv run python -m synchronizer.sync
+```
+
+#### Linting
+
+```zsh
+uv run mypy .
+uv run ruff check .
 ```
