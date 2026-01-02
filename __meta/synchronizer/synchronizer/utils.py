@@ -33,15 +33,11 @@ def bold(message: str) -> None:
 
 
 def debug(message: str) -> None:
-    print(Fore.LIGHTBLACK_EX + message)
+    print(Fore.LIGHTBLACK_EX + message + "\n")
 
 
 def info(message: str) -> None:
     print(Fore.BLUE + message)
-
-
-def warn(message: str) -> None:
-    print(Fore.YELLOW + message)
 
 
 def error(message: str) -> None:

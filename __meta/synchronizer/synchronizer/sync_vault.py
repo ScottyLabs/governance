@@ -4,7 +4,7 @@ from collections.abc import Callable
 import hvac
 
 from synchronizer.models.team import Team
-from synchronizer.utils import log_operation, log_team_sync, print_section
+from synchronizer.utils import debug, log_operation, log_team_sync, print_section
 
 
 class VaultManager:
@@ -56,25 +56,28 @@ class VaultManager:
         create_policy: Callable[[str], str],
     ) -> None:
         """Create the Vault group if it does not exist."""
-        if group_name not in self.groups_names:
-            with log_operation(f"create Vault group {group_name}"):
-                # Create the policy
-                policy_name = create_policy(team_slug)
+        if group_name in self.groups_names:
+            debug(f"Vault group {group_name} already exists, skipping...")
+            return
 
-                # Create the group
-                group = self.client.secrets.identity.create_or_update_group(
-                    name=group_name,
-                    group_type="external",
-                    policies=[policy_name],
-                )
+        with log_operation(f"create Vault group {group_name}"):
+            # Create the policy
+            policy_name = create_policy(team_slug)
 
-                # Create the group alias
-                group_id = group["data"]["id"]
-                self.client.secrets.identity.create_or_update_group_alias(
-                    name=group_name,
-                    canonical_id=group_id,
-                    mount_accessor=self.oidc_mount,
-                )
+            # Create the group
+            group = self.client.secrets.identity.create_or_update_group(
+                name=group_name,
+                group_type="external",
+                policies=[policy_name],
+            )
+
+            # Create the group alias
+            group_id = group["data"]["id"]
+            self.client.secrets.identity.create_or_update_group_alias(
+                name=group_name,
+                canonical_id=group_id,
+                mount_accessor=self.oidc_mount,
+            )
 
     def create_admin_policy(self, team_slug: str) -> str:
         """

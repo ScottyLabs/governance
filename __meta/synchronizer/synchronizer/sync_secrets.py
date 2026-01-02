@@ -51,6 +51,7 @@ class SecretsManager:
         # Skip if the team does not want to populate secrets
         secrets_population_layout = team.secrets_population_layout
         if secrets_population_layout == "none":
+            debug(f"Team {team.name} opt out of secrets population, skipping...")
             return
 
         # Skip if the team already has secrets

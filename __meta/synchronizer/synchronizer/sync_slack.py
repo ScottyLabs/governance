@@ -29,6 +29,10 @@ class SlackManager:
             for member in team.leads + team.devs
         }
 
+        if len(team.slack_channel_ids) == 0:
+            debug(f"No Slack channels to sync for {team.name}, skipping...")
+            return
+
         # Sync each channel
         for channel_id in team.slack_channel_ids:
             with log_operation(f"sync {team.name} Slack channel: {channel_id}"):

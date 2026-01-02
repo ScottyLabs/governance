@@ -16,3 +16,6 @@ insert_final_newline = true
 # inside an ordered list, the indentation is determined by the level of the
 # list item, which might not be a multiple of the indent size.
 indent_size = unset
+
+[*.py]
+indent_size = 4

@@ -43,7 +43,7 @@ class GithubManager:
         """Sync contributors to the GitHub organization."""
         # Get all existing members
         self.existing_members = {member.login for member in self.org.get_members()}
-        debug(f"There are {len(self.existing_members)} existing members.\n")
+        debug(f"There are {len(self.existing_members)} existing members.")
 
         # Get all invited contributors
         invitations = self.org.invitations()
@@ -189,6 +189,11 @@ class GithubManager:
         if remove_unlisted:
             desired_members = leads.union(devs)
             self.remove_unlisted_members_from_main_team(github_team, desired_members)
+        else:
+            debug(
+                f"Team {github_team.name} opted out of removing unlisted members, "
+                "skipping..."
+            )
 
     def sync_members_to_team(
         self,
