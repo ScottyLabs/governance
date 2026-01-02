@@ -15,6 +15,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "jsonschema-gentypes>=2.13.0",
     "mypy>=1.19.1",
     "ruff>=0.14.10",
     "types-colorama>=0.4.15.20250801",
@@ -27,6 +28,19 @@ check_untyped_defs = true
 # Supported rules https://github.com/charliermarsh/ruff/#supported-rules
 [tool.ruff]
 lint.select = ["ALL"]
-
-# Do not require documentation for every single function/method.
-ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107"]
+lint.ignore = [
+    # Do not require documentation for every single function/method.
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    # Prefer higher number when rules are at conflict
+    "D203",
+    "D212",
+    # May cause conflicts when used with the formatter
+    "COM812",
+]
