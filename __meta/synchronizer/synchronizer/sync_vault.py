@@ -1,7 +1,9 @@
 import os
+from collections.abc import Callable
 
 import hvac
 
+from synchronizer.types.team import Team
 from synchronizer.utils import log_operation, log_team_sync, print_section
 
 
@@ -12,7 +14,7 @@ class VaultManager:
     APPLICANT_GROUP_SUFFIX = "-applicants"
     APPLICANTS_FOLDER_NAME = "applicants"
 
-    def __init__(self, teams):
+    def __init__(self, teams: dict[str, Team]) -> None:
         self.teams = teams
         self.client = hvac.Client(url=self.VAULT_URL, token=os.getenv("VAULT_TOKEN"))
 
@@ -24,13 +26,13 @@ class VaultManager:
         auth_methods = self.client.sys.list_auth_methods()
         self.oidc_mount = auth_methods.get("oidc/")["accessor"]
 
-    def sync(self):
+    def sync(self) -> None:
         print_section("Vault")
         for team in self.teams.values():
             self.sync_team(team)
 
     @log_team_sync()
-    def sync_team(self, team):
+    def sync_team(self, team: Team) -> None:
         team_slug = team["slug"]
         self.sync_group(
             team_slug,
@@ -48,7 +50,12 @@ class VaultManager:
             create_policy=self.create_applicant_policy,
         )
 
-    def sync_group(self, team_slug, group_name, create_policy):
+    def sync_group(
+        self,
+        team_slug: str,
+        group_name: str,
+        create_policy: Callable[[str], str],
+    ) -> None:
         """Create the Vault group if it does not exist."""
         if group_name not in self.groups_names:
             with log_operation(f"create Vault group {group_name}"):
@@ -70,8 +77,9 @@ class VaultManager:
                     mount_accessor=self.oidc_mount,
                 )
 
-    def create_admin_policy(self, team_slug):
-        """Create the policy for the admin group.
+    def create_admin_policy(self, team_slug: str) -> str:
+        """
+        Create the policy for the admin group.
 
         Leads can read, create, update, delete, list, and sudo the secrets.
         """
@@ -91,8 +99,9 @@ path "/ScottyLabs/metadata/{team_slug}/*" {{
         )
         return policy_name
 
-    def create_dev_policy(self, team_slug):
-        """Create the policy for the dev group.
+    def create_dev_policy(self, team_slug: str) -> str:
+        """
+        Create the policy for the dev group.
 
         Devs can read and list the local secrets.
         """
@@ -108,8 +117,9 @@ path "/ScottyLabs/data/{team_slug}/local/*" {{
         )
         return policy_name
 
-    def create_applicant_policy(self, team_slug):
-        """Create the policy for the applicant group.
+    def create_applicant_policy(self, team_slug: str) -> str:
+        """
+        Create the policy for the applicant group.
 
         Applicants can read and list the applicant secrets.
         """

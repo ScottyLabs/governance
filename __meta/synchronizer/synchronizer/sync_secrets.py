@@ -5,8 +5,10 @@ import traceback
 import hvac
 from hvac.exceptions import InvalidPath
 
+from synchronizer.types.team import Team
 from synchronizer.utils import (
     ENVS,
+    ENVS_LITERAL,
     debug,
     error,
     get_keycloak_admin,
@@ -21,14 +23,16 @@ class SecretsManager:
     VAULT_URL = "https://secrets.scottylabs.org"
     MOUNT_POINT = "ScottyLabs"
 
-    def __init__(self, teams):
+    def __init__(self, teams: dict[str, Team]) -> None:
         realm_name = os.getenv("KEYCLOAK_REALM")
         if not realm_name:
-            raise ValueError("KEYCLOAK_REALM is not set")
+            msg = "KEYCLOAK_REALM is not set"
+            raise ValueError(msg)
 
         client_id = os.getenv("KEYCLOAK_CLIENT_ID")
         if not client_id:
-            raise ValueError("KEYCLOAK_CLIENT_ID is not set")
+            msg = "KEYCLOAK_CLIENT_ID is not set"
+            raise ValueError(msg)
 
         self.teams = teams
         self.vault_client = hvac.Client(
@@ -37,13 +41,13 @@ class SecretsManager:
         )
         self.keycloak_client = get_keycloak_admin()
 
-    def sync(self):
+    def sync(self) -> None:
         print_section("Secrets")
         for team in self.teams.values():
             self.sync_team(team)
 
     @log_team_sync()
-    def sync_team(self, team):
+    def sync_team(self, team: Team) -> None:
         # Skip if the team does not want to populate secrets
         secrets_population_layout = team.get("secrets-population-layout", "multi")
         if secrets_population_layout == "none":
@@ -55,25 +59,26 @@ class SecretsManager:
             return
 
         # Get the create-oidc-clients flag
-        create_oidc_clients = team.get("create-oidc-clients", True)
+        create_oidc_clients = team["create-oidc-clients"] or True
 
         # Sync the secrets
         if secrets_population_layout == "single":
             # Skip if the create-oidc-clients flag is false for a single app project.
-            # Probably a script project like event-scraper that does not need auto secret sync.
+            # (e.g: a project like event-scraper that does not need auto secret sync)
             if not create_oidc_clients:
                 debug(
-                    f"There is no secrets to populate for single app project with no OIDC clients, skipping team {team['slug']}...",
+                    "There is no secrets to populate for single app project with "
+                    f"no OIDC clients, skipping team {team['slug']}...",
                 )
                 return
 
             self.sync_single_app_secrets(team)
 
         elif secrets_population_layout == "multi":
-            self.sync_multi_apps_secrets(team, create_oidc_clients)
+            self.sync_multi_apps_secrets(team, create_oidc_clients=create_oidc_clients)
 
-    def has_secrets(self, team_slug):
-        """Check if the team has secrets in the vault based on path to team-slug folder."""
+    def has_secrets(self, team_slug: str) -> bool:
+        """Check if the team has secrets in the vault based on folder path."""
         for check in (
             # Check if the team has a folder
             self.vault_client.secrets.kv.v2.list_secrets,
@@ -82,17 +87,18 @@ class SecretsManager:
         ):
             try:
                 check(path=team_slug, mount_point=self.MOUNT_POINT)
-                return True
             except InvalidPath:
                 continue
             except Exception as e:
                 error(f"Failed to check secrets for {team_slug}: {e}")
                 traceback.print_exc()
                 return False
+            else:
+                return True
 
         return False
 
-    def sync_single_app_secrets(self, team):
+    def sync_single_app_secrets(self, team: Team) -> None:
         # Get the team slug
         team_slug = team["slug"]
 
@@ -100,21 +106,32 @@ class SecretsManager:
         for env in ENVS:
             with log_operation(f"sync single-app secrets for {team_slug} {env}"):
                 secret = self.get_single_app_secret(team_slug, env)
+                if secret is None:
+                    continue
+
                 self.vault_client.secrets.kv.v2.create_or_update_secret(
                     path=f"{team_slug}/{env}",
                     mount_point=self.MOUNT_POINT,
                     secret=secret,
                 )
 
-    def get_single_app_secret(self, team_slug, env):
+    def get_single_app_secret(
+        self, team_slug: str, env: ENVS_LITERAL
+    ) -> dict[str, str] | None:
         """Include only auth secrets for the single app project."""
         return self.get_auth_secrets(team_slug, env)
 
-    def get_auth_secrets(self, team_slug, env):
+    def get_auth_secrets(
+        self, team_slug: str, env: ENVS_LITERAL
+    ) -> dict[str, str] | None:
         """Include auth secrets for the single app project."""
         # Get the client id and client secret from the Keycloak client
         client_id = f"{team_slug}-{env}"
         internal_client_id = self.keycloak_client.get_client_id(client_id)
+        if internal_client_id is None:
+            error(f"Client {client_id} not found in Keycloak")
+            return None
+
         client_secrets = self.keycloak_client.get_client_secrets(internal_client_id)
         client_secret = client_secrets["value"]
 
@@ -124,7 +141,8 @@ class SecretsManager:
         )
         jwks_uri = f"{issuer}/protocol/openid-connect/certs"
 
-        # Generate a random 48-byte string and encode it as base64 (64 characters) for the auth session secret
+        # Generate a random 48-byte string and encode it as base64 (64 characters)
+        # for the auth session secret
         auth_session_secret = base64.b64encode(os.urandom(48)).decode("utf-8")
 
         return {
@@ -135,7 +153,7 @@ class SecretsManager:
             "AUTH_SESSION_SECRET": auth_session_secret,
         }
 
-    def sync_multi_apps_secrets(self, team, create_oidc_clients):
+    def sync_multi_apps_secrets(self, team: Team, *, create_oidc_clients: bool) -> None:
         # Get the team slug
         team_slug = team["slug"]
 
@@ -145,7 +163,7 @@ class SecretsManager:
                 web_secret, server_secret = self.get_multi_apps_secret(
                     team_slug,
                     env,
-                    create_oidc_clients,
+                    create_oidc_clients=create_oidc_clients,
                 )
                 self.vault_client.secrets.kv.v2.create_or_update_secret(
                     path=f"{team_slug}/{env}/web",
@@ -158,7 +176,9 @@ class SecretsManager:
                     secret=server_secret,
                 )
 
-    def get_multi_apps_secret(self, team_slug, env, create_oidc_clients):
+    def get_multi_apps_secret(
+        self, team_slug: str, env: ENVS_LITERAL, *, create_oidc_clients: bool
+    ) -> tuple[dict[str, str], dict[str, str]]:
         """Include auth secrets for the multi apps project."""
         # Get the server url and populate the secrets
         server_url = get_server_url(team_slug, env)
@@ -178,7 +198,7 @@ class SecretsManager:
 
         # Allow any https prefix
         # Note that we need the
-        HTTPS_ORIGIN_PREFIX = r"^https:\/\/([a-z0-9-]+\.)*"
+        https_origin_prefix = r"^https:\/\/([a-z0-9-]+\.)*"
 
         # Populate the allowed origins regex
         match env:
@@ -186,26 +206,28 @@ class SecretsManager:
                 # Allow all origins for local development
                 server_secret["ALLOWED_ORIGINS_REGEX"] = r"^https?:\/\/localhost:\d{4}$"
             case "dev":
-                # Allow all ScottyLabs dev subdomains for dev development and
-                # any vercel preview domains (https://<team-slug>-<random-string of 9 characters>-scottylabs.vercel.app)
+                # Allow all ScottyLabs dev subdomains and any vercel preview domains
+                # (https://<team-slug>-<random 9 characters>-scottylabs.vercel.app)
+                # for dev development
                 server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    rf"{HTTPS_ORIGIN_PREFIX}slabs-dev\.org$,"
+                    rf"{https_origin_prefix}slabs-dev\.org$,"
                     rf"^https:\/\/{team_slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
                 )
             case "staging":
                 # Allow all ScottyLabs staging subdomains for staging development
                 server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    rf"{HTTPS_ORIGIN_PREFIX}slabs-staging\.org$"
+                    rf"{https_origin_prefix}slabs-staging\.org$"
                 )
             case "prod":
                 # Allow all ScottyLabs production subdomains for production
                 server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    rf"{HTTPS_ORIGIN_PREFIX}scottylabs\.org$"
+                    rf"{https_origin_prefix}scottylabs\.org$"
                 )
 
         # Populate the auth secrets if the create-oidc-clients flag is true
         if create_oidc_clients:
             auth_secrets = self.get_single_app_secret(team_slug, env)
-            server_secret.update(auth_secrets)
+            if auth_secrets:
+                server_secret.update(auth_secrets)
 
         return web_secret, server_secret

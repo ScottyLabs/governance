@@ -1,6 +1,8 @@
 import argparse
-import os
+import sys
 import tomllib
+from pathlib import Path
+from typing import TYPE_CHECKING, Any, cast
 
 from colorama import init
 from dotenv import load_dotenv
@@ -13,6 +15,10 @@ from synchronizer.sync_slack import SlackManager
 from synchronizer.sync_vault import VaultManager
 from synchronizer.utils import error, info
 
+if TYPE_CHECKING:
+    from synchronizer.types.contributor import Contributor
+    from synchronizer.types.team import Team
+
 load_dotenv()
 
 # Ensures reset after each print
@@ -20,47 +26,52 @@ init(autoreset=True, strip=False)
 
 
 class SyncManager:
-    def __init__(self):
+    def __init__(self) -> None:
         info("Initializing SyncManager...\n")
-        self.contributors = dict()
+        self.contributors: dict[str, Contributor] = {}
         self.load_contributors()
 
-        self.teams = dict()
+        self.teams: dict[str, Team] = {}
         self.load_teams()
 
-    def load_contributors(self):
-        for file in os.listdir("contributors"):
-            if file.endswith(".toml"):
-                with open(os.path.join("contributors", file)) as f:
-                    username = file.replace(".toml", "")
-                    self.contributors[username] = tomllib.loads(f.read())
+    def load_contributors(self) -> None:
+        for file_path in Path("contributors").iterdir():
+            if file_path.suffix == ".toml":
+                with file_path.open() as f:
+                    username = file_path.stem
+                    data: dict[str, Any] = tomllib.loads(f.read())
+                    self.contributors[username] = cast("Contributor", data)
 
-    def load_teams(self):
-        for file in os.listdir("teams"):
-            if file.endswith(".toml"):
-                with open(os.path.join("teams", file)) as f:
-                    team_name = file.replace(".toml", "")
-                    self.teams[team_name] = tomllib.loads(f.read())
+    def load_teams(self) -> None:
+        for file_path in Path("teams").iterdir():
+            if file_path.suffix == ".toml":
+                with file_path.open() as f:
+                    team_name = file_path.stem
+                    data: dict[str, Any] = tomllib.loads(f.read())
+                    self.teams[team_name] = cast("Team", data)
 
-    def sync_github(self):
+    def sync_github(self) -> None:
         GithubManager(self.contributors, self.teams).sync()
 
-    def sync_keycloak(self):
+    def sync_keycloak(self) -> None:
         KeycloakManager(self.contributors, self.teams).sync()
 
-    def sync_vault(self):
+    def sync_vault(self) -> None:
         VaultManager(self.teams).sync()
 
-    def sync_slack(self):
+    def sync_slack(self) -> None:
         SlackManager(self.contributors, self.teams).sync()
 
-    def sync_secrets(self):
+    def sync_secrets(self) -> None:
         SecretsManager(self.teams).sync()
 
 
-def args_parser():
+def args_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Sync the teams and members from the contributors and teams directories to ScottyLabs services.",
+        description=(
+            "Sync the teams and members from the contributors and teams directories "
+            "to ScottyLabs services."
+        ),
     )
     parser.add_argument(
         "--services",
@@ -99,4 +110,4 @@ if __name__ == "__main__":
     # Exit with code 1 if any error occured
     if not synchronizer.utils.OK:
         error("One or more services failed to sync. Check the logs for details.")
-        exit(1)
+        sys.exit(1)

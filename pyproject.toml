@@ -28,7 +28,6 @@ check_untyped_defs = true
 [tool.ruff]
 lint.select = ["ALL"]
 
-# Do not require documentation for every single function/method.
 lint.ignore = [
     # Do not require documentation for every single function/method.
     "D100",
@@ -44,4 +43,7 @@ lint.ignore = [
     "D212",
     # May cause conflicts when used with the formatter
     "COM812",
+    # TODO: enable later
+    "BLE001",
+    "T201",
 ]

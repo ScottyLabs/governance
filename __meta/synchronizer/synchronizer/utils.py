@@ -1,53 +1,59 @@
 import os
 import traceback
+from collections.abc import Callable, Generator
 from contextlib import contextmanager
 from functools import wraps
+from typing import Literal, ParamSpec, TypeVar
 
 from colorama import Fore, Style
 from keycloak import KeycloakAdmin
+
+P = ParamSpec("P")
+R = TypeVar("R")
 
 # Tracks whether the script finishes without errors
 OK = True
 
 # List of environments
-ENVS = ["local", "dev", "staging", "prod"]
+ENVS_LITERAL = Literal["local", "dev", "staging", "prod"]
+ENVS: list[ENVS_LITERAL] = ["local", "dev", "staging", "prod"]
 
 
-def print_section(section):
+def print_section(section: str) -> None:
     bold("=" * 50)
     bold(f"Syncing {section}...")
     bold("=" * 50)
     print()
 
 
-def bold(message):
+def bold(message: str) -> None:
     print(Style.BRIGHT + message)
 
 
-def debug(message):
+def debug(message: str) -> None:
     print(Fore.LIGHTBLACK_EX + message)
 
 
-def info(message):
+def info(message: str) -> None:
     print(Fore.BLUE + message)
 
 
-def warn(message):
+def warn(message: str) -> None:
     print(Fore.YELLOW + message)
 
 
-def error(message):
-    global OK
+def error(message: str) -> None:
+    global OK  # noqa: PLW0603
     OK = False
     print(Fore.RED + message)
 
 
-def success(message):
+def success(message: str) -> None:
     print(Fore.GREEN + message)
 
 
 @contextmanager
-def log_operation(operation_name):
+def log_operation(operation_name: str) -> Generator[None, None, None]:
     """Context manager to log when an operation starts, finishes, or fails."""
     info(f"Starting to {operation_name}...")
     try:
@@ -58,16 +64,26 @@ def log_operation(operation_name):
         traceback.print_exc()
 
 
-def log_team_sync():
-    def decorator(func):
-        """Decorate a team sync function to log around it.
+def log_team_sync() -> Callable[[Callable[P, R]], Callable[P, R]]:
+    def decorator(func: Callable[P, R]) -> Callable[P, R]:
+        """
+        Decorate a team sync function to log around it.
 
         Team should always be the second argument of the team sync function.
         """
 
         @wraps(func)
-        def wrapper(*args, **kwargs):
-            bold(f"Syncing team {args[1]['name']}...")
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
+            team = args[1]
+            if not isinstance(team, dict):
+                msg = "Second argument must be a dict"
+                raise TypeError(msg)
+
+            if "name" not in team:
+                msg = "Second argument must contain the 'name' field"
+                raise TypeError(msg)
+
+            bold(f"Syncing team {team['name']}...")
             result = func(*args, **kwargs)
             print()
             return result
@@ -77,7 +93,7 @@ def log_team_sync():
     return decorator
 
 
-def get_server_url(website_slug, env):
+def get_server_url(website_slug: str, env: ENVS_LITERAL) -> str:
     match env:
         case "local":
             return get_local_server_url()
@@ -89,30 +105,32 @@ def get_server_url(website_slug, env):
             return get_prod_server_url(website_slug)
 
 
-def get_local_server_url():
+def get_local_server_url() -> str:
     return "http://localhost"
 
 
-def get_dev_server_url(website_slug):
+def get_dev_server_url(website_slug: str) -> str:
     return f"https://api.{website_slug}.slabs-dev.org"
 
 
-def get_staging_server_url(website_slug):
+def get_staging_server_url(website_slug: str) -> str:
     return f"https://api.{website_slug}.slabs-staging.org"
 
 
-def get_prod_server_url(website_slug):
+def get_prod_server_url(website_slug: str) -> str:
     return f"https://api.{website_slug}.scottylabs.org"
 
 
-def get_keycloak_admin():
+def get_keycloak_admin() -> KeycloakAdmin:
     realm_name = os.getenv("KEYCLOAK_REALM")
     if not realm_name:
-        raise ValueError("KEYCLOAK_REALM is not set")
+        msg = "KEYCLOAK_REALM is not set"
+        raise ValueError(msg)
 
     client_id = os.getenv("KEYCLOAK_CLIENT_ID")
     if not client_id:
-        raise ValueError("KEYCLOAK_CLIENT_ID is not set")
+        msg = "KEYCLOAK_CLIENT_ID is not set"
+        raise ValueError(msg)
 
     return KeycloakAdmin(
         server_url=os.getenv("KEYCLOAK_SERVER_URL"),
