@@ -1,7 +1,8 @@
 import os
 
 import hvac
-from utils import log_operation, log_team_sync, print_section
+
+from synchronizer.utils import log_operation, log_team_sync, print_section
 
 
 class VaultManager:
@@ -56,7 +57,9 @@ class VaultManager:
 
                 # Create the group
                 group = self.client.secrets.identity.create_or_update_group(
-                    name=group_name, group_type="external", policies=[policy_name]
+                    name=group_name,
+                    group_type="external",
+                    policies=[policy_name],
                 )
 
                 # Create the group alias
@@ -83,7 +86,8 @@ path "/ScottyLabs/metadata/{team_slug}/*" {{
 }}
 """
         self.client.sys.create_or_update_acl_policy(
-            name=policy_name, policy=policy_rules
+            name=policy_name,
+            policy=policy_rules,
         )
         return policy_name
 
@@ -99,7 +103,8 @@ path "/ScottyLabs/data/{team_slug}/local/*" {{
 }}
 """
         self.client.sys.create_or_update_acl_policy(
-            name=policy_name, policy=policy_rules
+            name=policy_name,
+            policy=policy_rules,
         )
         return policy_name
 
@@ -115,6 +120,7 @@ path "/ScottyLabs/data/{team_slug}/{self.APPLICANTS_FOLDER_NAME}/*" {{
 }}
 """
         self.client.sys.create_or_update_acl_policy(
-            name=policy_name, policy=policy_rules
+            name=policy_name,
+            policy=policy_rules,
         )
         return policy_name

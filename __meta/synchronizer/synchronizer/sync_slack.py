@@ -2,7 +2,8 @@ import os
 
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
-from utils import debug, error, log_operation, log_team_sync, print_section
+
+from synchronizer.utils import debug, error, log_operation, log_team_sync, print_section
 
 
 class SlackManager:
@@ -23,7 +24,7 @@ class SlackManager:
             [
                 self.contributors[member]["slack-member-id"]
                 for member in team["leads"] + team["devs"]
-            ]
+            ],
         )
 
         # Sync each channel

@@ -1,4 +1,4 @@
-from utils import (
+from synchronizer.utils import (
     ENVS,
     get_dev_server_url,
     get_keycloak_admin,
@@ -48,7 +48,7 @@ class KeycloakManager:
         # Add the service accounts to the leads only if the OIDC clients are created
         if create_oidc_clients:
             lead_usernames = lead_usernames.union(
-                self.get_service_account_usernames(team_slug)
+                self.get_service_account_usernames(team_slug),
             )
         self.sync_group(lead_group_name, lead_usernames, remove_unlisted)
 
@@ -134,7 +134,7 @@ class KeycloakManager:
                         },
                     },
                 ],
-            }
+            },
         )
 
     def get_usernames(self, members: list[str]):
@@ -191,7 +191,7 @@ class KeycloakManager:
 
     def get_user_id_by_username(self, username: str):
         users = self.keycloak_admin.get_users(
-            query={"username": username, "exact": True}
+            query={"username": username, "exact": True},
         )
 
         if not users:

@@ -6,7 +6,8 @@ from github import Auth, Github
 from github.GithubException import UnknownObjectException
 from github.NamedUser import NamedUser
 from github.Team import Team
-from utils import debug, error, log_operation, log_team_sync, print_section
+
+from synchronizer.utils import debug, error, log_operation, log_team_sync, print_section
 
 
 class GithubManager:
@@ -93,7 +94,9 @@ class GithubManager:
         return self.get_or_create_team(
             admin_team_name,
             lambda name: self.org.create_team(
-                name=name, parent_team_id=github_team.id, privacy=self.TEAM_PRIVACY
+                name=name,
+                parent_team_id=github_team.id,
+                privacy=self.TEAM_PRIVACY,
             ),
         )
 
@@ -114,7 +117,10 @@ class GithubManager:
         return team_name.replace(" ", "-").lower()
 
     def sync_github_admin_team(
-        self, github_admin_team, desired_members, remove_unlisted
+        self,
+        github_admin_team,
+        desired_members,
+        remove_unlisted,
     ):
         """Sync the team leads as maintainers to the GitHub admin team."""
         current_members = {member.login for member in github_admin_team.get_members()}
@@ -122,15 +128,16 @@ class GithubManager:
         # Calculate new members
         new_members = desired_members - current_members
         debug(
-            f"Found {len(new_members)} new maintainers for the {github_admin_team.name} team."
+            f"Found {len(new_members)} new maintainers for the {github_admin_team.name} team.",
         )
 
         # Calculate uninvited new members
         new_uninvited_members = self.subtract_invited_members(
-            new_members, github_admin_team
+            new_members,
+            github_admin_team,
         )
         debug(
-            f"Found {len(new_uninvited_members)} new uninvited maintainers for the {github_admin_team.name} team."
+            f"Found {len(new_uninvited_members)} new uninvited maintainers for the {github_admin_team.name} team.",
         )
 
         # Add uninvited new members
@@ -153,7 +160,10 @@ class GithubManager:
             self.remove_unlisted_members_from_main_team(github_team, desired_members)
 
     def sync_members_to_team(
-        self, github_team, members, role: Literal["member", "maintainer"]
+        self,
+        github_team,
+        members,
+        role: Literal["member", "maintainer"],
     ):
         """Sync the members to the Github team as the given role."""
         # Calculate new members
@@ -164,7 +174,7 @@ class GithubManager:
         # Calculate uninvited new members
         new_uninvited_members = self.subtract_invited_members(new_members, github_team)
         debug(
-            f"Found {len(new_uninvited_members)} new uninvited {role}s for the {github_team.name} team."
+            f"Found {len(new_uninvited_members)} new uninvited {role}s for the {github_team.name} team.",
         )
 
         # Add new uninvited members
@@ -179,7 +189,7 @@ class GithubManager:
 
             except Exception as e:
                 error(
-                    f"Error syncing {username} to {github_team.name} GitHub team: {e}"
+                    f"Error syncing {username} to {github_team.name} GitHub team: {e}",
                 )
                 traceback.print_exc()
 
@@ -201,10 +211,13 @@ class GithubManager:
             self.remove_member_from_team(github_team, username)
 
     def add_or_update_member_to_team(
-        self, github_team, username, role: Literal["member", "maintainer"]
+        self,
+        github_team,
+        username,
+        role: Literal["member", "maintainer"],
     ):
         with log_operation(
-            f"add/update {username} as a {role} to {github_team.name} GitHub team"
+            f"add/update {username} as a {role} to {github_team.name} GitHub team",
         ):
             user = self.g.get_user(username)
             github_team.add_membership(user, role=role)
@@ -215,7 +228,11 @@ class GithubManager:
             github_team.remove_membership(user)
 
     def sync_repos(
-        self, github_team: Team, github_admin_team: Team, repos, remove_unlisted
+        self,
+        github_team: Team,
+        github_admin_team: Team,
+        repos,
+        remove_unlisted,
     ):
         """Sync the repositories to the Github team.
 

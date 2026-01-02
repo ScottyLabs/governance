@@ -4,7 +4,8 @@ import traceback
 
 import hvac
 from hvac.exceptions import InvalidPath
-from utils import (
+
+from synchronizer.utils import (
     ENVS,
     debug,
     error,
@@ -31,7 +32,8 @@ class SecretsManager:
 
         self.teams = teams
         self.vault_client = hvac.Client(
-            url=self.VAULT_URL, token=os.getenv("VAULT_TOKEN")
+            url=self.VAULT_URL,
+            token=os.getenv("VAULT_TOKEN"),
         )
         self.keycloak_client = get_keycloak_admin()
 
@@ -61,7 +63,7 @@ class SecretsManager:
             # Probably a script project like event-scraper that does not need auto secret sync.
             if not create_oidc_clients:
                 debug(
-                    f"There is no secrets to populate for single app project with no OIDC clients, skipping team {team['slug']}..."
+                    f"There is no secrets to populate for single app project with no OIDC clients, skipping team {team['slug']}...",
                 )
                 return
 
@@ -141,7 +143,9 @@ class SecretsManager:
         for env in ENVS:
             with log_operation(f"sync multi-apps secrets for {team_slug} {env}"):
                 web_secret, server_secret = self.get_multi_apps_secret(
-                    team_slug, env, create_oidc_clients
+                    team_slug,
+                    env,
+                    create_oidc_clients,
                 )
                 self.vault_client.secrets.kv.v2.create_or_update_secret(
                     path=f"{team_slug}/{env}/web",

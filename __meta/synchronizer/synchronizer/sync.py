@@ -2,15 +2,16 @@ import argparse
 import os
 import tomllib
 
-import utils
 from colorama import init
 from dotenv import load_dotenv
-from sync_github import GithubManager
-from sync_keycloak import KeycloakManager
-from sync_secrets import SecretsManager
-from sync_slack import SlackManager
-from sync_vault import VaultManager
-from utils import error, info
+
+import synchronizer.utils
+from synchronizer.sync_github import GithubManager
+from synchronizer.sync_keycloak import KeycloakManager
+from synchronizer.sync_secrets import SecretsManager
+from synchronizer.sync_slack import SlackManager
+from synchronizer.sync_vault import VaultManager
+from synchronizer.utils import error, info
 
 load_dotenv()
 
@@ -30,14 +31,14 @@ class SyncManager:
     def load_contributors(self):
         for file in os.listdir("contributors"):
             if file.endswith(".toml"):
-                with open(os.path.join("contributors", file), "r") as f:
+                with open(os.path.join("contributors", file)) as f:
                     username = file.replace(".toml", "")
                     self.contributors[username] = tomllib.loads(f.read())
 
     def load_teams(self):
         for file in os.listdir("teams"):
             if file.endswith(".toml"):
-                with open(os.path.join("teams", file), "r") as f:
+                with open(os.path.join("teams", file)) as f:
                     team_name = file.replace(".toml", "")
                     self.teams[team_name] = tomllib.loads(f.read())
 
@@ -59,7 +60,7 @@ class SyncManager:
 
 def args_parser():
     parser = argparse.ArgumentParser(
-        description="Sync the teams and members from the contributors and teams directories to ScottyLabs services."
+        description="Sync the teams and members from the contributors and teams directories to ScottyLabs services.",
     )
     parser.add_argument(
         "--services",
@@ -96,6 +97,6 @@ if __name__ == "__main__":
         service_name_to_function[service_name]()
 
     # Exit with code 1 if any error occured
-    if not utils.OK:
+    if not synchronizer.utils.OK:
         error("One or more services failed to sync. Check the logs for details.")
         exit(1)
