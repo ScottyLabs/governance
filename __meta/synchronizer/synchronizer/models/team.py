@@ -1,19 +1,20 @@
-from typing import Literal, TypedDict
+from typing import Literal
 
-Team = TypedDict(
-    "Team",
-    {
-        "slug": str,
-        "name": str,
-        "website-slug": str | None,
-        "leads": list[str],
-        "devs": list[str],
-        "applicants": list[str] | None,
-        "ext-admins": list[str] | None,
-        "repos": list[str],
-        "slack-channel-ids": list[str],
-        "remove-unlisted": bool | None,
-        "create-oidc-clients": bool | None,
-        "secrets-population-layout": Literal["single", "multi", "none"] | None,
-    },
-)
+from pydantic import BaseModel, Field
+
+
+class Team(BaseModel):
+    slug: str
+    name: str
+    website_slug: str | None = Field(alias="website-slug", default=None)
+    leads: list[str]
+    devs: list[str]
+    applicants: list[str] | None = None
+    ext_admins: list[str] | None = Field(alias="ext-admins", default=None)
+    repos: list[str]
+    slack_channel_ids: list[str] = Field(alias="slack-channel-ids")
+    remove_unlisted: bool = Field(alias="remove-unlisted", default=True)
+    create_oidc_clients: bool = Field(alias="create-oidc-clients", default=True)
+    secrets_population_layout: Literal["single", "multi", "none"] = Field(
+        alias="secrets-population-layout", default="multi"
+    )

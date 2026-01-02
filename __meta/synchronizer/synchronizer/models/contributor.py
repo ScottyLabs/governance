@@ -1,11 +1,8 @@
-from typing import TypedDict
+from pydantic import BaseModel, Field
 
-Contributor = TypedDict(
-    "Contributor",
-    {
-        "full-name": str,
-        "github-username": str,
-        "slack-member-id": str,
-        "andrew-id": str | None,
-    },
-)
+
+class Contributor(BaseModel):
+    full_name: str = Field(alias="full-name")
+    github_username: str = Field(alias="github-username")
+    slack_member_id: str = Field(alias="slack-member-id")
+    andrew_id: str | None = Field(alias="andrew-id", default=None)

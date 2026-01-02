@@ -8,6 +8,8 @@ from typing import Literal, ParamSpec, TypeVar
 from colorama import Fore, Style
 from keycloak import KeycloakAdmin
 
+from synchronizer.models.team import Team
+
 P = ParamSpec("P")
 R = TypeVar("R")
 
@@ -75,15 +77,11 @@ def log_team_sync() -> Callable[[Callable[P, R]], Callable[P, R]]:
         @wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             team = args[1]
-            if not isinstance(team, dict):
-                msg = "Second argument must be a dict"
+            if not isinstance(team, Team):
+                msg = "Second argument must be a Team"
                 raise TypeError(msg)
 
-            if "name" not in team:
-                msg = "Second argument must contain the 'name' field"
-                raise TypeError(msg)
-
-            bold(f"Syncing team {team['name']}...")
+            bold(f"Syncing team {team.name}...")
             result = func(*args, **kwargs)
             print()
             return result

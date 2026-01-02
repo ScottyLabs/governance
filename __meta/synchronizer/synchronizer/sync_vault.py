@@ -33,20 +33,19 @@ class VaultManager:
 
     @log_team_sync()
     def sync_team(self, team: Team) -> None:
-        team_slug = team["slug"]
         self.sync_group(
-            team_slug,
-            f"{team_slug}{self.ADMIN_GROUP_SUFFIX}",
+            team.slug,
+            f"{team.slug}{self.ADMIN_GROUP_SUFFIX}",
             create_policy=self.create_admin_policy,
         )
         self.sync_group(
-            team_slug,
-            f"{team_slug}{self.DEV_GROUP_SUFFIX}",
+            team.slug,
+            f"{team.slug}{self.DEV_GROUP_SUFFIX}",
             create_policy=self.create_dev_policy,
         )
         self.sync_group(
-            team_slug,
-            f"{team_slug}{self.APPLICANT_GROUP_SUFFIX}",
+            team.slug,
+            f"{team.slug}{self.APPLICANT_GROUP_SUFFIX}",
             create_policy=self.create_applicant_policy,
         )
 

@@ -2,22 +2,20 @@ import argparse
 import sys
 import tomllib
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, cast
+from typing import Any
 
 from colorama import init
 from dotenv import load_dotenv
 
 import synchronizer.utils
+from synchronizer.models.contributor import Contributor
+from synchronizer.models.team import Team
 from synchronizer.sync_github import GithubManager
 from synchronizer.sync_keycloak import KeycloakManager
 from synchronizer.sync_secrets import SecretsManager
 from synchronizer.sync_slack import SlackManager
 from synchronizer.sync_vault import VaultManager
 from synchronizer.utils import error, info
-
-if TYPE_CHECKING:
-    from synchronizer.models.contributor import Contributor
-    from synchronizer.models.team import Team
 
 load_dotenv()
 
@@ -40,7 +38,7 @@ class SyncManager:
                 with file_path.open() as f:
                     username = file_path.stem
                     data: dict[str, Any] = tomllib.loads(f.read())
-                    self.contributors[username] = cast("Contributor", data)
+                    self.contributors[username] = Contributor.model_validate(data)
 
     def load_teams(self) -> None:
         for file_path in Path("teams").iterdir():
@@ -48,7 +46,7 @@ class SyncManager:
                 with file_path.open() as f:
                     team_name = file_path.stem
                     data: dict[str, Any] = tomllib.loads(f.read())
-                    self.teams[team_name] = cast("Team", data)
+                    self.teams[team_name] = Team.model_validate(data)
 
     def sync_github(self) -> None:
         GithubManager(self.contributors, self.teams).sync()

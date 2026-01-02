@@ -40,24 +40,18 @@ class KeycloakManager:
 
     @log_team_sync()
     def sync_team(self, team: Team) -> None:
-        team_slug = team["slug"]
-        remove_unlisted = team.get("remove-unlisted")
-        if remove_unlisted is None:
-            remove_unlisted = True
+        team_slug = team.slug
+        remove_unlisted = team.remove_unlisted
 
         # Create the OIDC clients for the team if the team wants
-        create_oidc_clients = team.get("create-oidc-clients")
-        if create_oidc_clients is None:
-            create_oidc_clients = True
-
-        if create_oidc_clients:
+        if team.create_oidc_clients:
             self.create_clients(team_slug, team)
 
         # Sync the team leads and service accounts to the Keycloak admins group
         lead_group_name = f"{team_slug}{self.ADMIN_SUFFIX}"
-        lead_usernames = self.get_usernames(team["leads"])
+        lead_usernames = self.get_usernames(team.leads)
         # Add the service accounts to the leads only if the OIDC clients are created
-        if create_oidc_clients:
+        if team.create_oidc_clients:
             lead_usernames = lead_usernames.union(
                 self.get_service_account_usernames(team_slug),
             )
@@ -67,26 +61,24 @@ class KeycloakManager:
 
         # Sync team devs to Keycloak devs group
         member_group_name = f"{team_slug}{self.MEMBER_SUFFIX}"
-        members_usernames = self.get_usernames(team["devs"])
+        members_usernames = self.get_usernames(team.devs)
         self.sync_group(
             member_group_name, members_usernames, remove_unlisted=remove_unlisted
         )
 
         # Sync team admins to Keycloak admins group
-        ext_admins = team.get("ext-admins")
-        if ext_admins is not None:
+        if team.ext_admins is not None:
             admin_group_name = f"{team_slug}{self.EXTERNAL_ADMIN_SUFFIX}"
-            admins_usernames = set(ext_admins)
+            admins_usernames = set(team.ext_admins)
             self.sync_group(
                 admin_group_name,
                 admins_usernames,
                 remove_unlisted=remove_unlisted,
             )
 
-        applicants = team.get("applicants")
-        if applicants is not None:
+        if team.applicants is not None:
             applicant_group_name = f"{team_slug}{self.APPLICANT_SUFFIX}"
-            applicants_usernames = self.get_usernames(applicants)
+            applicants_usernames = self.get_usernames(team.applicants)
             self.sync_group(
                 applicant_group_name,
                 applicants_usernames,
@@ -96,8 +88,7 @@ class KeycloakManager:
     def create_clients(self, team_slug: str, team: Team) -> None:
         # JSON schema should guarantee that website-slug is not None
         # when create-oidc-clients is true
-        website_slug = team["website-slug"]
-        if website_slug is None:
+        if team.website_slug is None:
             error(f"Website slug is not set for team {team_slug}")
             return
 
@@ -105,7 +96,7 @@ class KeycloakManager:
             client_id = f"{team_slug}-{env}"
             if client_id not in self.existing_clients:
                 with log_operation(f"create Keycloak client {client_id}"):
-                    self.create_client(client_id, website_slug, env)
+                    self.create_client(client_id, team.website_slug, env)
 
     def create_client(
         self, client_id: str, website_slug: str, env: ENVS_LITERAL
@@ -175,7 +166,7 @@ class KeycloakManager:
         usernames = set()
         for member in members:
             # Validation check guarantees that members will always be a contributor
-            andrew_id = self.contributors[member].get("andrew-id")
+            andrew_id = self.contributors[member].andrew_id
             if andrew_id is not None:
                 # The andrew id is the username in Keycloak
                 usernames.add(andrew_id)

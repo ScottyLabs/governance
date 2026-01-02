@@ -68,14 +68,9 @@ class GithubManager:
     @log_team_sync()
     def sync_team(self, team: Team) -> None:
         """Sync the team to the GitHub organization."""
-        team_name = team["name"]
-        remove_unlisted = team.get("remove-unlisted")
-        if remove_unlisted is None:
-            remove_unlisted = True
-
         # Get or create the team and the admin team
-        github_team = self.get_or_create_main_team(team_name)
-        admin_team_name = f"{team_name}{self.ADMIN_SUFFIX}"
+        github_team = self.get_or_create_main_team(team.name)
+        admin_team_name = f"{team.name}{self.ADMIN_SUFFIX}"
         if not github_team:
             return
 
@@ -84,21 +79,21 @@ class GithubManager:
             return
 
         # Sync the team leads to the GitHub admin team
-        leads = set(team["leads"])
+        leads = set(team.leads)
         self.sync_github_admin_team(
-            github_admin_team, leads, remove_unlisted=remove_unlisted
+            github_admin_team, leads, remove_unlisted=team.remove_unlisted
         )
 
         # Sync the team leads and devs to the GitHub main team
-        devs = set(team["devs"])
+        devs = set(team.devs)
         self.sync_github_main_team(
-            github_team, leads, devs, remove_unlisted=remove_unlisted
+            github_team, leads, devs, remove_unlisted=team.remove_unlisted
         )
 
         # Sync the repositories to the Github team
-        repos = set(team["repos"])
+        repos = set(team.repos)
         self.sync_repos(
-            github_team, github_admin_team, repos, remove_unlisted=remove_unlisted
+            github_team, github_admin_team, repos, remove_unlisted=team.remove_unlisted
         )
 
     def get_or_create_main_team(self, team_name: str) -> GithubTeam | None:

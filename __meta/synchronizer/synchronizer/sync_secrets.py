@@ -49,35 +49,32 @@ class SecretsManager:
     @log_team_sync()
     def sync_team(self, team: Team) -> None:
         # Skip if the team does not want to populate secrets
-        secrets_population_layout = team.get("secrets-population-layout", "multi")
+        secrets_population_layout = team.secrets_population_layout
         if secrets_population_layout == "none":
             return
 
         # Skip if the team already has secrets
-        if self.has_secrets(team["slug"]):
-            debug(f"Team {team['slug']} already has secrets, skipping...")
+        if self.has_secrets(team.slug):
+            debug(f"Team {team.slug} already has secrets, skipping...")
             return
-
-        # Get the create-oidc-clients flag
-        create_oidc_clients = team.get("create-oidc-clients")
-        if create_oidc_clients is None:
-            create_oidc_clients = True
 
         # Sync the secrets
         if secrets_population_layout == "single":
             # Skip if the create-oidc-clients flag is false for a single app project.
             # (e.g: a project like event-scraper that does not need auto secret sync)
-            if not create_oidc_clients:
+            if not team.create_oidc_clients:
                 debug(
                     "There is no secrets to populate for single app project with "
-                    f"no OIDC clients, skipping team {team['slug']}...",
+                    f"no OIDC clients, skipping team {team.slug}...",
                 )
                 return
 
             self.sync_single_app_secrets(team)
 
         elif secrets_population_layout == "multi":
-            self.sync_multi_apps_secrets(team, create_oidc_clients=create_oidc_clients)
+            self.sync_multi_apps_secrets(
+                team, create_oidc_clients=team.create_oidc_clients
+            )
 
     def has_secrets(self, team_slug: str) -> bool:
         """Check if the team has secrets in the vault based on folder path."""
@@ -101,18 +98,15 @@ class SecretsManager:
         return False
 
     def sync_single_app_secrets(self, team: Team) -> None:
-        # Get the team slug
-        team_slug = team["slug"]
-
         # Sync the secrets for each environment
         for env in ENVS:
-            with log_operation(f"sync single-app secrets for {team_slug} {env}"):
-                secret = self.get_single_app_secret(team_slug, env)
+            with log_operation(f"sync single-app secrets for {team.slug} {env}"):
+                secret = self.get_single_app_secret(team.slug, env)
                 if secret is None:
                     continue
 
                 self.vault_client.secrets.kv.v2.create_or_update_secret(
-                    path=f"{team_slug}/{env}",
+                    path=f"{team.slug}/{env}",
                     mount_point=self.MOUNT_POINT,
                     secret=secret,
                 )
@@ -156,24 +150,21 @@ class SecretsManager:
         }
 
     def sync_multi_apps_secrets(self, team: Team, *, create_oidc_clients: bool) -> None:
-        # Get the team slug
-        team_slug = team["slug"]
-
         # Sync the secrets for each environment
         for env in ENVS:
-            with log_operation(f"sync multi-apps secrets for {team_slug} {env}"):
+            with log_operation(f"sync multi-apps secrets for {team.slug} {env}"):
                 web_secret, server_secret = self.get_multi_apps_secret(
-                    team_slug,
+                    team.slug,
                     env,
                     create_oidc_clients=create_oidc_clients,
                 )
                 self.vault_client.secrets.kv.v2.create_or_update_secret(
-                    path=f"{team_slug}/{env}/web",
+                    path=f"{team.slug}/{env}/web",
                     mount_point=self.MOUNT_POINT,
                     secret=web_secret,
                 )
                 self.vault_client.secrets.kv.v2.create_or_update_secret(
-                    path=f"{team_slug}/{env}/server",
+                    path=f"{team.slug}/{env}/server",
                     mount_point=self.MOUNT_POINT,
                     secret=server_secret,
                 )
