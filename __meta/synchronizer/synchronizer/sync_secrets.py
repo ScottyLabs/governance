@@ -5,7 +5,7 @@ import traceback
 import hvac
 from hvac.exceptions import InvalidPath
 
-from synchronizer.types.team import Team
+from synchronizer.models.team import Team
 from synchronizer.utils import (
     ENVS,
     ENVS_LITERAL,

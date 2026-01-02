@@ -3,7 +3,7 @@ from collections.abc import Callable
 
 import hvac
 
-from synchronizer.types.team import Team
+from synchronizer.models.team import Team
 from synchronizer.utils import log_operation, log_team_sync, print_section
 
 

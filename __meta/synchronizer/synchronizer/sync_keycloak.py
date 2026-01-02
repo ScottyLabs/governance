@@ -1,5 +1,5 @@
-from synchronizer.types.contributor import Contributor
-from synchronizer.types.team import Team
+from synchronizer.models.contributor import Contributor
+from synchronizer.models.team import Team
 from synchronizer.utils import (
     ENVS,
     ENVS_LITERAL,

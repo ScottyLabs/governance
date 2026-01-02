@@ -8,8 +8,8 @@ from github.GithubException import UnknownObjectException
 from github.NamedUser import NamedUser
 from github.Team import Team as GithubTeam
 
-from synchronizer.types.contributor import Contributor
-from synchronizer.types.team import Team
+from synchronizer.models.contributor import Contributor
+from synchronizer.models.team import Team
 from synchronizer.utils import debug, error, log_operation, log_team_sync, print_section
 
 

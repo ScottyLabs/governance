@@ -3,8 +3,8 @@ import os
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-from synchronizer.types.contributor import Contributor
-from synchronizer.types.team import Team
+from synchronizer.models.contributor import Contributor
+from synchronizer.models.team import Team
 from synchronizer.utils import debug, error, log_operation, log_team_sync, print_section
 
 

@@ -16,8 +16,8 @@ from synchronizer.sync_vault import VaultManager
 from synchronizer.utils import error, info
 
 if TYPE_CHECKING:
-    from synchronizer.types.contributor import Contributor
-    from synchronizer.types.team import Team
+    from synchronizer.models.contributor import Contributor
+    from synchronizer.models.team import Team
 
 load_dotenv()
 
