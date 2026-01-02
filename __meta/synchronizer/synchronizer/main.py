@@ -4,10 +4,8 @@ import tomllib
 from pathlib import Path
 from typing import Any
 
-from colorama import init
 from dotenv import load_dotenv
 
-import synchronizer.utils.logging
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
 from synchronizer.services.sync_github import GithubManager
@@ -15,12 +13,14 @@ from synchronizer.services.sync_keycloak import KeycloakManager
 from synchronizer.services.sync_secrets import SecretsManager
 from synchronizer.services.sync_slack import SlackManager
 from synchronizer.services.sync_vault import VaultManager
-from synchronizer.utils.logging import error, info
+from synchronizer.utils.logging import (
+    ErrorFlagFilter,
+    get_logger,
+    info,
+    setup_logging,
+)
 
 load_dotenv()
-
-# Ensures reset after each print
-init(autoreset=True, strip=False)
 
 
 class SyncManager:
@@ -87,6 +87,9 @@ def args_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    # Setup the logging
+    setup_logging()
+
     # Parse the arguments
     parser = args_parser()
     args = parser.parse_args()
@@ -106,10 +109,12 @@ def main() -> None:
         service_name_to_function[service_name]()
 
     # Exit with code 1 if any error occured
-    if not synchronizer.utils.logging.OK:
-        error("One or more services failed to sync. Check the logs for details.")
-        sys.exit(1)
+    logger = get_logger()
+    had_error = any(
+        f.had_error for f in logger.filters if isinstance(f, ErrorFlagFilter)
+    )
+    if not had_error:
+        sys.exit(0)
 
-
-if __name__ == "__main__":
-    main()
+    logger.critical("One or more services failed to sync. Check the logs for details.")
+    sys.exit(1)
