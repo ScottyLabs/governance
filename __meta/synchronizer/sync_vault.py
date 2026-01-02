@@ -2,7 +2,6 @@ import os
 
 import hvac
 from utils import log_operation, log_team_sync, print_section
-from vault_utils import APPLICANTS_FOLDER_NAME
 
 
 class VaultManager:
@@ -10,6 +9,7 @@ class VaultManager:
     ADMIN_GROUP_SUFFIX = "-admins"
     DEV_GROUP_SUFFIX = "-devs"
     APPLICANT_GROUP_SUFFIX = "-applicants"
+    APPLICANTS_FOLDER_NAME = "applicants"
 
     def __init__(self, teams):
         self.teams = teams
@@ -110,7 +110,7 @@ path "/ScottyLabs/data/{team_slug}/local/*" {{
         """
         policy_name = f"{team_slug}{self.APPLICANT_GROUP_SUFFIX}"
         policy_rules = f"""\
-path "/ScottyLabs/data/{team_slug}/{APPLICANTS_FOLDER_NAME}/*" {{
+path "/ScottyLabs/data/{team_slug}/{self.APPLICANTS_FOLDER_NAME}/*" {{
     capabilities = ["read", "list"]
 }}
 """
