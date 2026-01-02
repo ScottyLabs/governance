@@ -1,4 +1,6 @@
+import logging
 import os
+import sys
 
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
@@ -6,12 +8,13 @@ from slack_sdk.errors import SlackApiError
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
 from synchronizer.utils.logging import (
-    debug,
-    error,
+    get_logger,
     log_operation,
     log_team_sync,
     print_section,
 )
+
+logger = logging.getLogger("synchronizer")
 
 
 class SlackManager:
@@ -20,7 +23,14 @@ class SlackManager:
     ) -> None:
         self.contributors = contributors
         self.teams = teams
-        self.client = WebClient(token=os.getenv("SLACK_TOKEN"))
+
+        slack_token = os.getenv("SLACK_TOKEN")
+        if not slack_token:
+            logger.critical("SLACK_TOKEN is not set")
+            sys.exit(1)
+
+        self.client = WebClient(token=slack_token)
+        self.logger = get_logger()
 
     def sync(self) -> None:
         print_section("Slack")
@@ -36,7 +46,10 @@ class SlackManager:
         }
 
         if len(team.slack_channel_ids) == 0:
-            debug(f"No Slack channels to sync for {team.name}, skipping...")
+            self.logger.debug(
+                "No Slack channels to sync for %s, skipping...",
+                team.name,
+            )
             return
 
         # Sync each channel
@@ -51,16 +64,33 @@ class SlackManager:
         try:
             self.client.conversations_join(channel=channel_id)
         except SlackApiError as e:
-            error(f"Error joining {team.name} Slack channel: {e.response['error']}")
+            self.logger.critical(
+                "Error joining %s Slack channel: %s",
+                team.name,
+                e.response["error"],
+            )
+            return
+        except Exception:
+            self.logger.exception(
+                "Error joining %s Slack channel",
+                team.name,
+            )
             return
 
         # Get the current members of the channel
         try:
             response = self.client.conversations_members(channel=channel_id)
         except SlackApiError as e:
-            error(
-                f"Error getting members of {team.name} Slack channel: "
-                f"{e.response['error']}",
+            self.logger.exception(
+                "Error getting members of %s Slack channel: %s",
+                team.name,
+                e.response["error"],
+            )
+            return
+        except Exception:
+            self.logger.exception(
+                "Error getting members of %s Slack channel",
+                team.name,
             )
             return
 
@@ -68,7 +98,10 @@ class SlackManager:
         current_members = set(response["members"])
         users = list(desired_members - current_members)
         if not users:
-            debug(f"No users to invite to {team.name} Slack channel.", new_line=False)
+            self.logger.debug(
+                "No users to invite to %s Slack channel.",
+                team.name,
+            )
             return
 
         try:
@@ -76,4 +109,13 @@ class SlackManager:
             with log_operation(log_message):
                 self.client.conversations_invite(channel=channel_id, users=users)
         except SlackApiError as e:
-            error(f"Error syncing {team.name} Slack channel: {e.response['error']}")
+            self.logger.exception(
+                "Error syncing %s Slack channel: %s",
+                team.name,
+                e.response["error"],
+            )
+        except Exception:
+            self.logger.exception(
+                "Error syncing %s Slack channel",
+                team.name,
+            )

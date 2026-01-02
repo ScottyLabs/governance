@@ -1,6 +1,6 @@
 import base64
 import os
-import traceback
+import sys
 
 import hvac
 from hvac.exceptions import InvalidPath
@@ -9,8 +9,7 @@ from synchronizer.models.team import Team
 from synchronizer.utils.env_urls import ENVS, ENVS_LITERAL, get_server_url
 from synchronizer.utils.keycloak_client import KeycloakClient
 from synchronizer.utils.logging import (
-    debug,
-    error,
+    get_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -22,15 +21,19 @@ class SecretsManager:
     MOUNT_POINT = "ScottyLabs"
 
     def __init__(self, teams: dict[str, Team]) -> None:
+        self.logger = get_logger()
+
         realm_name = os.getenv("KEYCLOAK_REALM")
         if not realm_name:
             msg = "KEYCLOAK_REALM is not set"
-            raise ValueError(msg)
+            self.logger.critical(msg)
+            sys.exit(1)
 
         client_id = os.getenv("KEYCLOAK_CLIENT_ID")
         if not client_id:
             msg = "KEYCLOAK_CLIENT_ID is not set"
-            raise ValueError(msg)
+            self.logger.critical(msg)
+            sys.exit(1)
 
         self.teams = teams
         self.vault_client = hvac.Client(
@@ -49,12 +52,18 @@ class SecretsManager:
         # Skip if the team does not want to populate secrets
         secrets_population_layout = team.secrets_population_layout
         if secrets_population_layout == "none":
-            debug(f"Team {team.name} opt out of secrets population, skipping...")
+            self.logger.debug(
+                "Team %s opt out of secrets population, skipping...\n",
+                team.name,
+            )
             return
 
         # Skip if the team already has secrets
         if self.has_secrets(team.slug):
-            debug(f"Team {team.slug} already has secrets, skipping...")
+            self.logger.debug(
+                "Team %s already has secrets, skipping...\n",
+                team.slug,
+            )
             return
 
         # Sync the secrets
@@ -62,9 +71,10 @@ class SecretsManager:
             # Skip if the create-oidc-clients flag is false for a single app project.
             # (e.g: a project like event-scraper that does not need auto secret sync)
             if not team.create_oidc_clients:
-                debug(
+                self.logger.debug(
                     "There is no secrets to populate for single app project with "
-                    f"no OIDC clients, skipping team {team.slug}...",
+                    "no OIDC clients, skipping team %s...\n",
+                    team.slug,
                 )
                 return
 
@@ -87,9 +97,11 @@ class SecretsManager:
                 check(path=team_slug, mount_point=self.MOUNT_POINT)
             except InvalidPath:
                 continue
-            except Exception as e:
-                error(f"Failed to check secrets for {team_slug}: {e}")
-                traceback.print_exc()
+            except Exception:
+                self.logger.exception(
+                    "Failed to check secrets for %s",
+                    team_slug,
+                )
                 return False
             else:
                 return True
@@ -124,7 +136,10 @@ class SecretsManager:
         client_id = f"{team_slug}-{env}"
         internal_client_id = self.keycloak_client.get_client_id(client_id)
         if internal_client_id is None:
-            error(f"Client {client_id} not found in Keycloak")
+            self.logger.error(
+                "Client %s not found in Keycloak",
+                client_id,
+            )
             return None
 
         client_secrets = self.keycloak_client.get_client_secrets(internal_client_id)

@@ -1,7 +1,10 @@
 import os
+import sys
 from typing import Optional
 
 from keycloak import KeycloakAdmin
+
+from synchronizer.utils.logging import get_logger
 
 
 class KeycloakClient:
@@ -19,14 +22,18 @@ class KeycloakClient:
     def init_admin(self) -> None:
         """Initialize the Keycloak admin client once."""
         realm_name = os.getenv("KEYCLOAK_REALM")
+        self.logger = get_logger()
+
         if not realm_name:
             msg = "KEYCLOAK_REALM is not set"
-            raise ValueError(msg)
+            self.logger.critical(msg)
+            sys.exit(1)
 
         client_id = os.getenv("KEYCLOAK_CLIENT_ID")
         if not client_id:
             msg = "KEYCLOAK_CLIENT_ID is not set"
-            raise ValueError(msg)
+            self.logger.critical(msg)
+            sys.exit(1)
 
         self._admin = KeycloakAdmin(
             server_url=os.getenv("KEYCLOAK_SERVER_URL"),

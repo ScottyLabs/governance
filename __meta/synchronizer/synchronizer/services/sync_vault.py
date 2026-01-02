@@ -5,7 +5,7 @@ import hvac
 
 from synchronizer.models.team import Team
 from synchronizer.utils.logging import (
-    debug,
+    get_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -30,6 +30,8 @@ class VaultManager:
         # Get the oidc mount accessor
         auth_methods = self.client.sys.list_auth_methods()
         self.oidc_mount = auth_methods.get("oidc/")["accessor"]
+
+        self.logger = get_logger()
 
     def sync(self) -> None:
         print_section("Vault")
@@ -62,7 +64,10 @@ class VaultManager:
     ) -> None:
         """Create the Vault group if it does not exist."""
         if group_name in self.groups_names:
-            debug(f"Vault group {group_name} already exists, skipping...")
+            self.logger.debug(
+                "Vault group %s already exists, skipping...\n",
+                group_name,
+            )
             return
 
         with log_operation(f"create Vault group {group_name}"):

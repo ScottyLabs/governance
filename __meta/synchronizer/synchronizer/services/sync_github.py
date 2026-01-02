@@ -1,5 +1,5 @@
 import os
-import traceback
+import sys
 from collections.abc import Callable
 from typing import Literal
 
@@ -11,8 +11,7 @@ from github.Team import Team as GithubTeam
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
 from synchronizer.utils.logging import (
-    debug,
-    error,
+    get_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -29,10 +28,13 @@ class GithubManager:
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         """Initialize the GithubManager with GitHub org."""
+        self.logger = get_logger()
+
         github_token = os.getenv("SYNC_GITHUB_TOKEN")
         if not github_token:
             msg = "SYNC_GITHUB_TOKEN is not set"
-            raise ValueError(msg)
+            self.logger.critical(msg)
+            sys.exit(1)
 
         self.contributors = contributors
         self.teams = teams
@@ -49,7 +51,9 @@ class GithubManager:
         """Sync contributors to the GitHub organization."""
         # Get all existing members
         self.existing_members = {member.login for member in self.org.get_members()}
-        debug(f"There are {len(self.existing_members)} existing members.")
+        self.logger.debug(
+            "There are %d existing members.\n", len(self.existing_members)
+        )
 
         # Get all invited contributors
         invitations = self.org.invitations()
@@ -67,8 +71,10 @@ class GithubManager:
                 with log_operation(log_message):
                     user = self.g.get_user(github_username)
                     if not isinstance(user, NamedUser):
-                        error(f"User {github_username} is not a valid GitHub user")
+                        msg = f"User {github_username} is not a valid GitHub user"
+                        self.logger.error(msg)
                         continue
+
                     self.org.invite_user(user=user, role="direct_member")
 
     @log_team_sync()
@@ -135,8 +141,8 @@ class GithubManager:
             with log_operation(f"create {team_name} GitHub team"):
                 return create_team_func(team_name)
         except Exception as e:
-            error(f"Error getting {team_slug} GitHub team: {e}")
-            traceback.print_exc()
+            msg = f"Error getting {team_slug} GitHub team: {e}"
+            self.logger.exception(msg)
             return None
 
     # https://docs.github.com/en/rest/teams/teams?apiVersion=2022-11-28#get-a-team-by-name
@@ -155,9 +161,10 @@ class GithubManager:
 
         # Calculate new members
         new_members = desired_members - current_members
-        debug(
-            f"Found {len(new_members)} new maintainers for the "
-            f"{github_admin_team.name} team.",
+        self.logger.debug(
+            "Found %d new maintainers for the %s team.\n",
+            len(new_members),
+            github_admin_team.name,
         )
 
         # Calculate uninvited new members
@@ -165,9 +172,10 @@ class GithubManager:
             new_members,
             github_admin_team,
         )
-        debug(
-            f"Found {len(new_uninvited_members)} new uninvited maintainers for the "
-            f"{github_admin_team.name} team.",
+        self.logger.debug(
+            "Found %d new uninvited maintainers for the %s team.\n",
+            len(new_uninvited_members),
+            github_admin_team.name,
         )
 
         # Add uninvited new members
@@ -196,9 +204,9 @@ class GithubManager:
             desired_members = leads.union(devs)
             self.remove_unlisted_members_from_main_team(github_team, desired_members)
         else:
-            debug(
-                f"Team {github_team.name} opted out of removing unlisted members, "
-                "skipping..."
+            self.logger.debug(
+                "Team %s opted out of removing unlisted members, skipping...\n",
+                github_team.name,
             )
 
     def sync_members_to_team(
@@ -211,13 +219,20 @@ class GithubManager:
         # Calculate new members
         current_members = {member.login for member in github_team.get_members()}
         new_members = members - current_members
-        debug(f"Found {len(new_members)} new {role}s for the {github_team.name} team.")
+        self.logger.debug(
+            "Found %d new %s for the %s team.\n",
+            len(new_members),
+            role,
+            github_team.name,
+        )
 
         # Calculate uninvited new members
         new_uninvited_members = self.subtract_invited_members(new_members, github_team)
-        debug(
-            f"Found {len(new_uninvited_members)} new uninvited {role}s "
-            f"for the {github_team.name} team.",
+        self.logger.debug(
+            "Found %d new uninvited %s for the %s team.\n",
+            len(new_uninvited_members),
+            role,
+            github_team.name,
         )
 
         # Add new uninvited members
@@ -230,11 +245,12 @@ class GithubManager:
             except UnknownObjectException:
                 self.add_or_update_member_to_team(github_team, username, role)
 
-            except Exception as e:
-                error(
-                    f"Error syncing {username} to {github_team.name} GitHub team: {e}",
+            except Exception:
+                self.logger.exception(
+                    "Error syncing %s to %s GitHub team.",
+                    username,
+                    github_team.name,
                 )
-                traceback.print_exc()
 
     def subtract_invited_members(
         self, members: set[str], github_team: GithubTeam
@@ -269,7 +285,8 @@ class GithubManager:
         ):
             user = self.g.get_user(username)
             if not isinstance(user, NamedUser):
-                error(f"User {username} is not a valid GitHub user")
+                msg = f"User {username} is not a valid GitHub user"
+                self.logger.error(msg)
                 return
 
             github_team.add_membership(user, role=role)
@@ -278,7 +295,8 @@ class GithubManager:
         with log_operation(f"remove {username} from {github_team.name} GitHub team"):
             user = self.g.get_user(username)
             if not isinstance(user, NamedUser):
-                error(f"User {username} is not a valid GitHub user")
+                msg = f"User {username} is not a valid GitHub user"
+                self.logger.error(msg)
                 return
 
             github_team.remove_membership(user)

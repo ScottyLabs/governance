@@ -95,42 +95,23 @@ def print_section(section: str) -> None:
     bold("=" * 50)
     bold(f"Syncing {section}...")
     bold("=" * 50)
-
-    exit()
+    print()  # noqa: T201
 
 
 def bold(message: str) -> None:
-    print(Style.BRIGHT + message)
-
-
-def debug(message: str, *, new_line: bool = True) -> None:
-    msg = message + "\n" if new_line else message
-    print(Fore.LIGHTBLACK_EX + msg)
-
-
-def info(message: str) -> None:
-    print(Fore.BLUE + message)
-
-
-def error(message: str) -> None:
-    global OK  # noqa: PLW0603
-    OK = False
-    print(Fore.RED + message)
-
-
-def success(message: str) -> None:
-    print(Fore.GREEN + message)
+    print(Style.BRIGHT + message)  # noqa: T201
 
 
 @contextmanager
 def log_operation(operation_name: str) -> Generator[None, None, None]:
     """Context manager to log when an operation starts, finishes, or fails."""
-    info(f"Starting to {operation_name}...")
+    logger = get_logger()
+    logger.info("Starting to %s...", operation_name)
     try:
         yield
-        success(f"Successfully {operation_name}.\n")
-    except Exception as e:
-        error(f"Failed to {operation_name}: {e}")
+        logger.success("Successfully %s.\n", operation_name)
+    except Exception:
+        logger.exception("Failed to %s", operation_name)
         traceback.print_exc()
 
 
@@ -149,9 +130,9 @@ def log_team_sync() -> Callable[[Callable[P, R]], Callable[P, R]]:
                 msg = "Second argument must be a Team"
                 raise TypeError(msg)
 
-            bold(f"Syncing team {team.name}...")
+            bold(f"Syncing team {team.name}...\n")
             result = func(*args, **kwargs)
-            print()
+            print()  # noqa: T201
             return result
 
         return wrapper

@@ -16,7 +16,6 @@ from synchronizer.services.sync_vault import VaultManager
 from synchronizer.utils.logging import (
     ErrorFlagFilter,
     get_logger,
-    info,
     setup_logging,
 )
 
@@ -25,7 +24,8 @@ load_dotenv()
 
 class SyncManager:
     def __init__(self) -> None:
-        info("Initializing SyncManager...\n")
+        logger = get_logger()
+        logger.info("Initializing SyncManager...\n")
         self.contributors: dict[str, Contributor] = {}
         self.load_contributors()
 

@@ -1,3 +1,5 @@
+from keycloak import KeycloakGetError
+
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
 from synchronizer.utils.env_urls import (
@@ -10,8 +12,7 @@ from synchronizer.utils.env_urls import (
 )
 from synchronizer.utils.keycloak_client import KeycloakClient
 from synchronizer.utils.logging import (
-    debug,
-    error,
+    get_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -34,6 +35,7 @@ class KeycloakManager:
         self.existing_clients = [
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]
+        self.logger = get_logger()
 
     def sync(self) -> None:
         print_section("Keycloak")
@@ -46,7 +48,10 @@ class KeycloakManager:
         if team.create_oidc_clients:
             self.create_clients(team.slug, team)
         else:
-            debug(f"Team {team.name} opted out of creating OIDC clients, skipping...")
+            self.logger.debug(
+                "Team %s opted out of creating OIDC clients, skipping...\n",
+                team.name,
+            )
 
         # Sync the team leads and service accounts to the Keycloak admins group
         lead_group_name = f"{team.slug}{self.ADMIN_SUFFIX}"
@@ -98,13 +103,19 @@ class KeycloakManager:
         # JSON schema should guarantee that website-slug is not None
         # when create-oidc-clients is true
         if team.website_slug is None:
-            error(f"Website slug is not set for team {team_slug}")
+            self.logger.error(
+                "Website slug is not set for team %s",
+                team_slug,
+            )
             return
 
         for env in ENVS:
             client_id = f"{team_slug}-{env}"
             if client_id in self.existing_clients:
-                debug(f"Keycloak client {client_id} already exists, skipping...")
+                self.logger.debug(
+                    "Keycloak client %s already exists, skipping...\n",
+                    client_id,
+                )
                 continue
 
             with log_operation(f"create Keycloak client {client_id}"):
@@ -199,6 +210,9 @@ class KeycloakManager:
     ) -> None:
         # Get the group id and name
         group = self.get_or_create_group(group_path)
+        if group is None:
+            return
+
         group_id = group["id"]
         group_name = group["name"]
 
@@ -208,7 +222,11 @@ class KeycloakManager:
 
         # Calculate new members
         new_members = target_usernames - current_usernames
-        debug(f"Found {len(new_members)} new members for the {group_name} group.")
+        self.logger.debug(
+            "Found %d new members for the %s group.\n",
+            len(new_members),
+            group_name,
+        )
 
         # Add missing users
         for username in new_members:
@@ -221,16 +239,18 @@ class KeycloakManager:
 
         # Remove extra users if the team want to remove unlisted members
         if not remove_unlisted:
-            debug(
-                f"Team {team_name} opted out of removing unlisted members, skipping..."
+            self.logger.debug(
+                "Team %s opted out of removing unlisted members, skipping...",
+                team_name,
             )
             return
 
         # Calculate unlisted members
         unlisted_members = current_usernames - target_usernames
-        debug(
-            f"Found {len(unlisted_members)} unlisted members for the "
-            f"{group_name} group."
+        self.logger.debug(
+            "Found %d unlisted members for the %s group.\n",
+            len(unlisted_members),
+            group_name,
         )
 
         # Remove unlisted members
@@ -239,13 +259,17 @@ class KeycloakManager:
             with log_operation(log_message):
                 self.keycloak_admin.group_user_remove(member["id"], group_id)
 
-    def get_or_create_group(self, group_path: str) -> dict:
+    def get_or_create_group(self, group_path: str) -> dict | None:
         try:
             return self.keycloak_admin.get_group_by_path(group_path)
-        except Exception:
+        except KeycloakGetError:
             with log_operation(f"create Keycloak group {group_path}"):
                 self.keycloak_admin.create_group(payload={"name": group_path})
                 return self.keycloak_admin.get_group_by_path(group_path)
+        except Exception:
+            msg = f"Error getting {group_path} Keycloak group"
+            self.logger.exception(msg)
+            return None
 
     def get_user_id_by_username(self, username: str) -> str | None:
         users = self.keycloak_admin.get_users(
@@ -253,12 +277,19 @@ class KeycloakManager:
         )
 
         if not users:
-            error(f"User {username} not found in Keycloak!\n")
+            self.logger.error(
+                "User %s not found in Keycloak!\n",
+                username,
+            )
             return None
 
         # Used `exact` = True, so this technically should never happen
         if len(users) > 1:
-            error(f"Multiple users found for {username}: {users}!\n")
+            self.logger.error(
+                "Multiple users found for %s: %s!\n",
+                username,
+                users,
+            )
             return None
 
         return users[0]["id"]

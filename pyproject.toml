@@ -51,7 +51,4 @@ lint.ignore = [
     "D212",
     # May cause conflicts when used with the formatter
     "COM812",
-    # TODO: enable later
-    "BLE001",
-    "T201",
 ]
