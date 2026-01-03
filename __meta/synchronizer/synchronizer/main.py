@@ -7,8 +7,7 @@ from typing import TYPE_CHECKING, Any
 from dotenv import load_dotenv
 
 from synchronizer.logger import AppLoggerSingleton, LogStatusFilter
-from synchronizer.models.contributor import Contributor
-from synchronizer.models.team import Team
+from synchronizer.models import Contributor, Team
 from synchronizer.services.sync_codeowners import CodeownersManager
 from synchronizer.services.sync_github import GithubManager
 from synchronizer.services.sync_keycloak import KeycloakManager

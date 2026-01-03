@@ -11,8 +11,8 @@ from synchronizer.logger import (
     log_team_sync,
     print_section,
 )
-from synchronizer.models.team import Team
-from synchronizer.utils.env_urls import ENVS, ENVS_LITERAL, get_server_url
+from synchronizer.models import Team
+from synchronizer.utils import ENVS, ENVS_LITERAL, get_server_url
 from synchronizer.utils.keycloak_client import KeycloakClient
 
 

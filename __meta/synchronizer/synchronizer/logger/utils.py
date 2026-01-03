@@ -4,7 +4,7 @@ from contextlib import contextmanager
 from functools import wraps
 from typing import ParamSpec, TypeVar
 
-from synchronizer.models.team import Team
+from synchronizer.models import Team
 
 from .singleton import AppLoggerSingleton
 

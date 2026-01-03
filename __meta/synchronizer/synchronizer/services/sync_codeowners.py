@@ -3,7 +3,7 @@ import sys
 from github.Repository import Repository
 
 from synchronizer.logger import AppLoggerSingleton, log_operation, print_section
-from synchronizer.models.team import Team
+from synchronizer.models import Team
 from synchronizer.utils.github_client import GithubClient
 
 

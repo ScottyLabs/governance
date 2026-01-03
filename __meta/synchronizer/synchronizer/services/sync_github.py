@@ -11,8 +11,7 @@ from synchronizer.logger import (
     log_team_sync,
     print_section,
 )
-from synchronizer.models.contributor import Contributor
-from synchronizer.models.team import Team
+from synchronizer.models import Contributor, Team
 from synchronizer.utils.github_client import GithubClient
 
 

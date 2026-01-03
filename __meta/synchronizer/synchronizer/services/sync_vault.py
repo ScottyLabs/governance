@@ -9,7 +9,7 @@ from synchronizer.logger import (
     log_team_sync,
     print_section,
 )
-from synchronizer.models.team import Team
+from synchronizer.models import Team
 
 
 class VaultManager:

@@ -6,9 +6,8 @@ from synchronizer.logger import (
     log_team_sync,
     print_section,
 )
-from synchronizer.models.contributor import Contributor
-from synchronizer.models.team import Team
-from synchronizer.utils.env_urls import (
+from synchronizer.models import Contributor, Team
+from synchronizer.utils import (
     ENVS,
     ENVS_LITERAL,
     get_dev_server_url,
