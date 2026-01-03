@@ -221,15 +221,15 @@ class KeycloakManager:
         current_usernames = {m["username"].lower() for m in members}
 
         # Calculate new members
-        new_members = target_usernames - current_usernames
+        new_member_usernames = target_usernames - current_usernames
         self.logger.debug(
             "Found %d new members for the %s group.\n",
-            len(new_members),
+            len(new_member_usernames),
             group_name,
         )
 
         # Add missing users
-        for username in new_members:
+        for username in new_member_usernames:
             user_id = self.get_user_id_by_username(username)
             if user_id is None:
                 continue
@@ -246,15 +246,15 @@ class KeycloakManager:
             return
 
         # Calculate unlisted members
-        unlisted_members = current_usernames - target_usernames
+        unlisted_member_usernames = current_usernames - target_usernames
         self.logger.debug(
             "Found %d unlisted members for the %s group.\n",
-            len(unlisted_members),
+            len(unlisted_member_usernames),
             group_name,
         )
 
         # Remove unlisted members
-        for username in unlisted_members:
+        for username in unlisted_member_usernames:
             log_message = f"remove {username} from Keycloak group {group_name}"
             user_id = self.get_user_id_by_username(username)
             if user_id is None:
