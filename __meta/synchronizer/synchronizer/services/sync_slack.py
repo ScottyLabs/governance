@@ -39,11 +39,12 @@ class SlackManager:
 
     @log_team_sync()
     def sync_team(self, team: Team) -> None:
-        # Get the desired members for the team
-        desired_members = {
-            self.contributors[member].slack_member_id
-            for member in team.leads + team.devs
-        }
+        # Get the desired members' Slack IDs for the team
+        desired_members = set()
+        for member in team.leads + team.devs:
+            contributor = self.contributors[member]
+            if contributor.slack_member_id:
+                desired_members.add(contributor.slack_member_id)
 
         if len(team.slack_channel_ids) == 0:
             self.logger.debug(
