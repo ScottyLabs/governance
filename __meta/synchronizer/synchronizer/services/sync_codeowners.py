@@ -58,7 +58,8 @@ class CodeownersManager:
         lines.append("")
 
         # Assign the codeowners of each team as the leads of the team
-        for team in self.teams.values():
+        # Sort the teams to prevent changes to the codeowners file due to ordering
+        for team in sorted(self.teams.values(), key=lambda x: x.slug):
             codeowners_pattern = f"teams/{team.slug}.toml"
             for lead in team.leads:
                 codeowners_pattern += f" @{lead}"
