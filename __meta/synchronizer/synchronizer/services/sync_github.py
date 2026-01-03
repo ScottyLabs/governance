@@ -5,6 +5,7 @@ from github.GithubException import UnknownObjectException
 from github.NamedUser import NamedUser
 from github.Team import Team as GithubTeam
 
+from synchronizer.clients import get_github_client
 from synchronizer.logger import (
     get_app_logger,
     log_operation,
@@ -12,7 +13,6 @@ from synchronizer.logger import (
     print_section,
 )
 from synchronizer.models import Contributor, Team
-from synchronizer.utils.github_client import GithubClient
 
 
 class GithubManager:
@@ -29,7 +29,7 @@ class GithubManager:
 
         self.contributors = contributors
         self.teams = teams
-        self.g = GithubClient().g
+        self.g = get_github_client()
         self.org = self.g.get_organization("ScottyLabs")
 
     def sync(self) -> None:

@@ -10,6 +10,7 @@ from .constants import PRINT_LEVEL, SUCCESS_LEVEL
 
 @lru_cache(maxsize=1)
 def get_app_logger() -> AppLogger:
+    """Get the app logger. Cache the result for reuse across the app."""
     # Register the success and print log levels
     logging.addLevelName(SUCCESS_LEVEL, "SUCCESS")
     logging.addLevelName(PRINT_LEVEL, "PRINT")

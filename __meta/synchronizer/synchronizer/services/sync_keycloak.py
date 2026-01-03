@@ -1,5 +1,6 @@
 from keycloak import KeycloakGetError
 
+from synchronizer.clients import get_keycloak_client
 from synchronizer.logger import (
     get_app_logger,
     log_operation,
@@ -15,7 +16,6 @@ from synchronizer.utils import (
     get_prod_server_url,
     get_staging_server_url,
 )
-from synchronizer.utils.keycloak_client import KeycloakClient
 
 
 class KeycloakManager:
@@ -30,7 +30,7 @@ class KeycloakManager:
     ) -> None:
         self.contributors = contributors
         self.teams = teams
-        self.keycloak_admin = KeycloakClient().admin
+        self.keycloak_admin = get_keycloak_client()
         self.existing_clients = [
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]
