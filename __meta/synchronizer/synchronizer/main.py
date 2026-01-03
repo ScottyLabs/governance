@@ -2,12 +2,13 @@ import argparse
 import sys
 import tomllib
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from dotenv import load_dotenv
 
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
+from synchronizer.services.sync_codeowners import CodeownersManager
 from synchronizer.services.sync_github import GithubManager
 from synchronizer.services.sync_keycloak import KeycloakManager
 from synchronizer.services.sync_secrets import SecretsManager
@@ -18,6 +19,9 @@ from synchronizer.utils.logging import (
     get_logger,
     setup_logging,
 )
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 load_dotenv()
 
@@ -63,8 +67,11 @@ class SyncManager:
     def sync_secrets(self) -> None:
         SecretsManager(self.teams).sync()
 
+    def sync_codeowners(self) -> None:
+        CodeownersManager(self.teams).sync()
 
-def args_parser() -> argparse.ArgumentParser:
+
+def args_parser(services: list[str]) -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Sync the teams and members from the contributors and teams directories "
@@ -74,12 +81,12 @@ def args_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--services",
         nargs="+",
-        choices=["github", "keycloak", "vault", "slack", "secrets"],
-        default=["github", "keycloak", "vault", "slack", "secrets"],
+        choices=services,
+        default=services,
         metavar="SERVICE",
         help=(
             "One or more services to sync "
-            "(choices: github, keycloak, vault, slack, secrets). "
+            f"(choices: {', '.join(services)}). "
             "Defaults to syncing all."
         ),
     )
@@ -90,19 +97,22 @@ def main() -> None:
     # Setup the logging
     setup_logging()
 
-    # Parse the arguments
-    parser = args_parser()
-    args = parser.parse_args()
-
     # Initialize the sync manager
     sync_manager = SyncManager()
-    service_name_to_function = {
+    service_name_to_function: dict[str, Callable[[], None]] = {
         "github": sync_manager.sync_github,
         "keycloak": sync_manager.sync_keycloak,
         "vault": sync_manager.sync_vault,
         "slack": sync_manager.sync_slack,
         "secrets": sync_manager.sync_secrets,
+        "codeowners": sync_manager.sync_codeowners,
     }
+
+    services = list(service_name_to_function.keys())
+
+    # Parse the arguments
+    parser = args_parser(services)
+    args = parser.parse_args()
 
     # Sync the services
     for service_name in args.services:

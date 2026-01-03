@@ -98,6 +98,7 @@ def setup_logging() -> None:
 
 def get_logger() -> AppLogger:
     if _LOGGER is None:
+        # Raise an error here since we don't have a logger to use
         msg = "Logger is not initialized"
         raise RuntimeError(msg)
 
@@ -136,6 +137,7 @@ def log_team_sync() -> Callable[[Callable[P, R]], Callable[P, R]]:
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             team = args[1]
             if not isinstance(team, Team):
+                # Raise an error here since this is purely a programming error
                 msg = "Second argument must be a Team"
                 raise TypeError(msg)
 

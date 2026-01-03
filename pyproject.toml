@@ -51,4 +51,8 @@ lint.ignore = [
     "D212",
     # May cause conflicts when used with the formatter
     "COM812",
+    # Disable TODO rules since we just want to use TODO for tracking tasks
+    "TD002",
+    "TD003",
+    "FIX002",
 ]
