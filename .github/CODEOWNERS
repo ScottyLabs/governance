@@ -1,3 +1,13 @@
+# Auto-generated CODEOWNERS file from __meta/synchronizer/synchronizer/services/sync_codeowners.py
+
 * @Yuxiang-Huang
 
-teams/cmumaps.toml @luke992 @romycyy
+teams/graph @Yuxiang-Huang 
+
+teams/governance @Yuxiang-Huang 
+
+teams/cmumaps @Yuxiang-Huang @tsurbs @romycyy @luke992 
+
+teams/cmucal @qianxuege 
+
+teams/cmusearch @Yuxiang-Huang @tsurbs 
