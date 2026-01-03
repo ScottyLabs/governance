@@ -5,7 +5,9 @@ website-slug = "cal"
 leads = [
     "qianxuege",
 ]
-devs = []
+devs = [
+    "HeidiTao",
+]
 repos = [
     "ScottyLabs/cmucal",
 ]
