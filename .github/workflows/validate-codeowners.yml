@@ -29,4 +29,3 @@ jobs:
         with:
           checks: "owners"
           github_access_token: "${{ secrets.SPECIAL_GITHUB_ACCESS_TOKEN }}"
-          owner_checker_owners_must_be_teams: true
