@@ -4,7 +4,7 @@ from typing import Optional
 
 from github import Auth, Github
 
-from synchronizer.utils.logging import get_logger
+from synchronizer.logger import AppLoggerSingleton
 
 
 class GithubClient:
@@ -21,7 +21,7 @@ class GithubClient:
 
     def init_g(self) -> None:
         """Initialize the Github admin client once."""
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
         github_token = os.getenv("SYNC_GITHUB_TOKEN")
         if not github_token:
@@ -33,7 +33,7 @@ class GithubClient:
 
     @property
     def g(self) -> Github:
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
         if self._g is None:
             msg = "Github client not initialized"

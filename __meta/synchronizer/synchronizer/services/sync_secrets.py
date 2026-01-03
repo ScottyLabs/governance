@@ -5,15 +5,15 @@ import sys
 import hvac
 from hvac.exceptions import InvalidPath
 
-from synchronizer.models.team import Team
-from synchronizer.utils.env_urls import ENVS, ENVS_LITERAL, get_server_url
-from synchronizer.utils.keycloak_client import KeycloakClient
-from synchronizer.utils.logging import (
-    get_logger,
+from synchronizer.logger import (
+    AppLoggerSingleton,
     log_operation,
     log_team_sync,
     print_section,
 )
+from synchronizer.models.team import Team
+from synchronizer.utils.env_urls import ENVS, ENVS_LITERAL, get_server_url
+from synchronizer.utils.keycloak_client import KeycloakClient
 
 
 class SecretsManager:
@@ -21,7 +21,7 @@ class SecretsManager:
     MOUNT_POINT = "ScottyLabs"
 
     def __init__(self, teams: dict[str, Team]) -> None:
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
         realm_name = os.getenv("KEYCLOAK_REALM")
         if not realm_name:

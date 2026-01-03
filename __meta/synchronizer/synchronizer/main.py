@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any
 
 from dotenv import load_dotenv
 
+from synchronizer.logger import AppLoggerSingleton, LogStatusFilter
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
 from synchronizer.services.sync_codeowners import CodeownersManager
@@ -14,11 +15,6 @@ from synchronizer.services.sync_keycloak import KeycloakManager
 from synchronizer.services.sync_secrets import SecretsManager
 from synchronizer.services.sync_slack import SlackManager
 from synchronizer.services.sync_vault import VaultManager
-from synchronizer.utils.logging import (
-    LogStatusFilter,
-    get_logger,
-    setup_logging,
-)
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -28,7 +24,7 @@ load_dotenv()
 
 class SyncManager:
     def __init__(self) -> None:
-        logger = get_logger()
+        logger = AppLoggerSingleton().logger
         logger.info("Initializing SyncManager...\n")
         self.contributors: dict[str, Contributor] = {}
         self.load_contributors()
@@ -95,7 +91,7 @@ def args_parser(services: list[str]) -> argparse.ArgumentParser:
 
 def check_logger_status() -> None:
     """Check log filter flags and exit or warn if needed."""
-    logger = get_logger()
+    logger = AppLoggerSingleton().logger
     log_status_filter = next(
         (f for f in logger.filters if isinstance(f, LogStatusFilter)),
         None,
@@ -114,9 +110,6 @@ def check_logger_status() -> None:
 
 
 def main() -> None:
-    # Setup the logging
-    setup_logging()
-
     # Initialize the sync manager
     sync_manager = SyncManager()
     service_name_to_function: dict[str, Callable[[], None]] = {

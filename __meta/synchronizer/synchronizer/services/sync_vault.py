@@ -3,13 +3,13 @@ from collections.abc import Callable
 
 import hvac
 
-from synchronizer.models.team import Team
-from synchronizer.utils.logging import (
-    get_logger,
+from synchronizer.logger import (
+    AppLoggerSingleton,
     log_operation,
     log_team_sync,
     print_section,
 )
+from synchronizer.models.team import Team
 
 
 class VaultManager:
@@ -22,6 +22,7 @@ class VaultManager:
     def __init__(self, teams: dict[str, Team]) -> None:
         self.teams = teams
         self.client = hvac.Client(url=self.VAULT_URL, token=os.getenv("VAULT_TOKEN"))
+        self.logger = AppLoggerSingleton().logger
 
         # Get the list of all groups
         data = self.client.secrets.identity.list_groups()["data"]
@@ -30,8 +31,6 @@ class VaultManager:
         # Get the oidc mount accessor
         auth_methods = self.client.sys.list_auth_methods()
         self.oidc_mount = auth_methods.get("oidc/")["accessor"]
-
-        self.logger = get_logger()
 
     def sync(self) -> None:
         print_section("Vault")

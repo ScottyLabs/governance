@@ -5,15 +5,15 @@ from github.GithubException import UnknownObjectException
 from github.NamedUser import NamedUser
 from github.Team import Team as GithubTeam
 
-from synchronizer.models.contributor import Contributor
-from synchronizer.models.team import Team
-from synchronizer.utils.github_client import GithubClient
-from synchronizer.utils.logging import (
-    get_logger,
+from synchronizer.logger import (
+    AppLoggerSingleton,
     log_operation,
     log_team_sync,
     print_section,
 )
+from synchronizer.models.contributor import Contributor
+from synchronizer.models.team import Team
+from synchronizer.utils.github_client import GithubClient
 
 
 class GithubManager:
@@ -26,7 +26,7 @@ class GithubManager:
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         """Initialize the GithubManager with GitHub org."""
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
         self.contributors = contributors
         self.teams = teams

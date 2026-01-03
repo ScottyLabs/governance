@@ -2,9 +2,9 @@ import sys
 
 from github.Repository import Repository
 
+from synchronizer.logger import AppLoggerSingleton, log_operation, print_section
 from synchronizer.models.team import Team
 from synchronizer.utils.github_client import GithubClient
-from synchronizer.utils.logging import get_logger, log_operation, print_section
 
 
 class CodeownersManager:
@@ -15,7 +15,7 @@ class CodeownersManager:
     def __init__(self, teams: dict[str, Team]) -> None:
         self.teams = teams
         self.g = GithubClient().g
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
     def sync(self) -> None:
         print_section("Codeowners")

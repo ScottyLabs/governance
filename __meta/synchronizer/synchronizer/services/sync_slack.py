@@ -5,14 +5,14 @@ import sys
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-from synchronizer.models.contributor import Contributor
-from synchronizer.models.team import Team
-from synchronizer.utils.logging import (
-    get_logger,
+from synchronizer.logger import (
+    AppLoggerSingleton,
     log_operation,
     log_team_sync,
     print_section,
 )
+from synchronizer.models.contributor import Contributor
+from synchronizer.models.team import Team
 
 logger = logging.getLogger("synchronizer")
 
@@ -30,7 +30,7 @@ class SlackManager:
             sys.exit(1)
 
         self.client = WebClient(token=slack_token)
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
     def sync(self) -> None:
         print_section("Slack")

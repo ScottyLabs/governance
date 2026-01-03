@@ -1,5 +1,11 @@
 from keycloak import KeycloakGetError
 
+from synchronizer.logger import (
+    AppLoggerSingleton,
+    log_operation,
+    log_team_sync,
+    print_section,
+)
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
 from synchronizer.utils.env_urls import (
@@ -11,12 +17,6 @@ from synchronizer.utils.env_urls import (
     get_staging_server_url,
 )
 from synchronizer.utils.keycloak_client import KeycloakClient
-from synchronizer.utils.logging import (
-    get_logger,
-    log_operation,
-    log_team_sync,
-    print_section,
-)
 
 
 class KeycloakManager:
@@ -35,7 +35,7 @@ class KeycloakManager:
         self.existing_clients = [
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
     def sync(self) -> None:
         print_section("Keycloak")
