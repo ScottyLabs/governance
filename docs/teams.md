@@ -8,6 +8,7 @@ Create a new TOML file in `teams/` with the slug as the filename, e.g. `cmucours
 ```toml
 slug = "cmucourses"
 name = "CMU Courses"
+description = "CMU Courses is a platform for students to find courses at CMU."
 website-slug = "courses"
 leads = [
     "your-github-username" # >= 1 lead

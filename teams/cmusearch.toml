@@ -1,9 +1,13 @@
 slug = "cmusearch"
 name = "CMU Search"
 website-slug = "search"
+description = """
+CMU Search is a search engine to search for courses, locations, and events on campus.
+Join if you love search engines! (not live yet)
+"""
 leads = [
-    "Yuxiang-Huang",
     "tsurbs",
+    "Yuxiang-Huang",
 ]
 devs = []
 repos = [
