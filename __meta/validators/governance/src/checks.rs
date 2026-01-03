@@ -292,10 +292,12 @@ pub async fn validate_slack_ids(
     let mut futures = FuturesUnordered::new();
 
     for (contributor_id, contributor) in contributors {
-        futures.push(async move {
-            let result = check_slack_id_exists(&contributor.slack_member_id, client).await;
-            (contributor_id, &contributor.slack_member_id, result)
-        });
+        if let Some(slack_id) = &contributor.slack_member_id {
+            futures.push(async move {
+                let result = check_slack_id_exists(slack_id, client).await;
+                (contributor_id, slack_id, result)
+            });
+        }
     }
 
     while let Some((contributor_id, slack_id, result)) = futures.next().await {
