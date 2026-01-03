@@ -28,4 +28,4 @@ jobs:
         uses: mszostok/codeowners-validator@v0.7.2
         with:
           checks: "owners"
-          github_access_token: "${{ secrets.SPECIAL_GITHUB_ACCESS_TOKEN }}"
+          github_access_token: "${{ secrets.SYNC_GITHUB_TOKEN }}"
