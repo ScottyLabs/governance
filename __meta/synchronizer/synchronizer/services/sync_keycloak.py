@@ -254,10 +254,10 @@ class KeycloakManager:
         )
 
         # Remove unlisted members
-        for member in unlisted_members:
+        for username in unlisted_members:
             log_message = f"remove {username} from Keycloak group {group_name}"
             with log_operation(log_message):
-                self.keycloak_admin.group_user_remove(member["id"], group_id)
+                self.keycloak_admin.group_user_remove(username["id"], group_id)
 
     def get_or_create_group(self, group_path: str) -> dict | None:
         try:
