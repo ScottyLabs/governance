@@ -38,15 +38,21 @@ class AppLogger(logging.Logger):
 logging.setLoggerClass(AppLogger)
 
 
-# A logger filter to track if an error occurred
-class ErrorFlagFilter(logging.Filter):
+class LogStatusFilter(logging.Filter):
+    """A logger filter to track whether any wanrnings or errors were logged."""
+
     def __init__(self) -> None:
         super().__init__()
         self.had_error = False
+        self.had_warning = False
 
     def filter(self, record: logging.LogRecord) -> bool:
-        if record.levelno >= logging.ERROR:
+        if record.levelno == logging.ERROR:
             self.had_error = True
+
+        if record.levelno == logging.WARNING:
+            self.had_warning = True
+
         return True
 
 
@@ -90,7 +96,7 @@ def setup_logging() -> None:
     app_logger.setLevel(PRINT_LEVEL)
 
     # Add the filter to the logger
-    app_logger.addFilter(ErrorFlagFilter())
+    app_logger.addFilter(LogStatusFilter())
 
     global _LOGGER  # noqa: PLW0603
     _LOGGER = cast("AppLogger", app_logger)

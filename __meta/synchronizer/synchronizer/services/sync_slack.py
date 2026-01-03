@@ -43,8 +43,14 @@ class SlackManager:
         desired_members = set()
         for member in team.leads + team.devs:
             contributor = self.contributors[member]
-            if contributor.slack_member_id:
-                desired_members.add(contributor.slack_member_id)
+            if contributor.slack_member_id is None:
+                self.logger.warning(
+                    "Contributor %s does not have a Slack member ID.\n",
+                    member,
+                )
+                continue
+
+            desired_members.add(contributor.slack_member_id)
 
         if len(team.slack_channel_ids) == 0:
             self.logger.debug(
