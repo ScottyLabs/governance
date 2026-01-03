@@ -2,12 +2,12 @@
 
 * @Yuxiang-Huang
 
-teams/graph.toml @Yuxiang-Huang
-
-teams/governance.toml @Yuxiang-Huang
+teams/cmusearch.toml @Yuxiang-Huang @tsurbs
 
 teams/cmumaps.toml @Yuxiang-Huang @tsurbs @romycyy @luke992
 
+teams/governance.toml @Yuxiang-Huang
+
 teams/cmucal.toml @qianxuege
 
-teams/cmusearch.toml @Yuxiang-Huang @tsurbs
+teams/graph.toml @Yuxiang-Huang
