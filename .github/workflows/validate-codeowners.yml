@@ -1,4 +1,4 @@
-name: "Codeowners Validator"
+name: "Validate CODEOWNERS"
 
 on:
   push:
