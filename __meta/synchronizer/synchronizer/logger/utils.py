@@ -13,7 +13,7 @@ R = TypeVar("R")
 
 
 def print_section(section: str) -> None:
-    logger = AppLoggerSingleton().logger
+    logger = AppLoggerSingleton.get_logger()
     logger.print("=" * 50)
     logger.print("Syncing %s...", section)
     logger.print("=" * 50 + "\n")
@@ -22,7 +22,7 @@ def print_section(section: str) -> None:
 @contextmanager
 def log_operation(operation_name: str) -> Generator[None, None, None]:
     """Context manager to log when an operation starts, finishes, or fails."""
-    logger = AppLoggerSingleton().logger
+    logger = AppLoggerSingleton.get_logger()
     logger.info("Starting to %s...", operation_name)
     try:
         yield
@@ -48,7 +48,7 @@ def log_team_sync() -> Callable[[Callable[P, R]], Callable[P, R]]:
                 msg = "Second argument must be a Team"
                 raise TypeError(msg)
 
-            logger = AppLoggerSingleton().logger
+            logger = AppLoggerSingleton.get_logger()
             logger.print("Syncing team %s...\n", team.name)
             result = func(*args, **kwargs)
             logger.print("")

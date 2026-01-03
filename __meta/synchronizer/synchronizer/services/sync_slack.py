@@ -1,4 +1,3 @@
-import logging
 import os
 import sys
 
@@ -13,23 +12,21 @@ from synchronizer.logger import (
 )
 from synchronizer.models import Contributor, Team
 
-logger = logging.getLogger("synchronizer")
-
 
 class SlackManager:
     def __init__(
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
+        self.logger = AppLoggerSingleton.get_logger()
         self.contributors = contributors
         self.teams = teams
 
         slack_token = os.getenv("SLACK_TOKEN")
         if not slack_token:
-            logger.critical("SLACK_TOKEN is not set")
+            self.logger.critical("SLACK_TOKEN is not set")
             sys.exit(1)
 
         self.client = WebClient(token=slack_token)
-        self.logger = AppLoggerSingleton().logger
 
     def sync(self) -> None:
         print_section("Slack")

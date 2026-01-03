@@ -23,7 +23,7 @@ load_dotenv()
 
 class SyncManager:
     def __init__(self) -> None:
-        logger = AppLoggerSingleton().logger
+        logger = AppLoggerSingleton.get_logger()
         logger.info("Initializing SyncManager...\n")
         self.contributors: dict[str, Contributor] = {}
         self.load_contributors()
@@ -90,7 +90,7 @@ def args_parser(services: list[str]) -> argparse.ArgumentParser:
 
 def check_logger_status() -> None:
     """Check log filter flags and exit or warn if needed."""
-    logger = AppLoggerSingleton().logger
+    logger = AppLoggerSingleton.get_logger()
     log_status_filter = next(
         (f for f in logger.filters if isinstance(f, LogStatusFilter)),
         None,

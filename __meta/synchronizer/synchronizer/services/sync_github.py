@@ -25,7 +25,7 @@ class GithubManager:
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         """Initialize the GithubManager with GitHub org."""
-        self.logger = AppLoggerSingleton().logger
+        self.logger = AppLoggerSingleton.get_logger()
 
         self.contributors = contributors
         self.teams = teams

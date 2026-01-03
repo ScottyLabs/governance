@@ -15,7 +15,7 @@ class CodeownersManager:
     def __init__(self, teams: dict[str, Team]) -> None:
         self.teams = teams
         self.g = GithubClient().g
-        self.logger = AppLoggerSingleton().logger
+        self.logger = AppLoggerSingleton.get_logger()
 
     def sync(self) -> None:
         print_section("Codeowners")

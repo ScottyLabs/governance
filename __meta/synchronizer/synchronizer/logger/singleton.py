@@ -13,19 +13,18 @@ class AppLoggerSingleton:
 
     _instance: ClassVar["AppLoggerSingleton | None"] = None
     _lock: ClassVar[threading.Lock] = threading.Lock()
-    logger: AppLogger
+    _logger: ClassVar[AppLogger | None] = None
 
     def __new__(cls) -> "AppLoggerSingleton":
         if cls._instance is None:
             with cls._lock:  # Ensure only one thread initializes it
                 if cls._instance is None:
-                    instance = super().__new__(cls)
-                    instance.logger = cls._init_logger()
-                    cls._instance = instance
+                    cls._instance = super().__new__(cls)
+                    cls._init_logger()
         return cls._instance
 
-    @staticmethod
-    def _init_logger() -> AppLogger:
+    @classmethod
+    def _init_logger(cls) -> None:
         # Register the success and print log levels
         logging.addLevelName(SUCCESS_LEVEL, "SUCCESS")
         logging.addLevelName(PRINT_LEVEL, "PRINT")
@@ -50,5 +49,20 @@ class AppLoggerSingleton:
         # Add the filter to the logger
         app_logger.addFilter(LogStatusFilter())
 
+        # Set the logger
+        cls._logger = cast("AppLogger", app_logger)
+
+    @classmethod
+    def get_logger(cls) -> AppLogger:
+        """Return the singleton logger instance."""
+        # Lazily instantiate the singleton
+        if cls._instance is None:
+            cls()
+
+        # Raise an error if the logger is still not initialized
+        if cls._logger is None:
+            msg = "Logger not initialized"
+            raise RuntimeError(msg)
+
         # Return the logger
-        return cast("AppLogger", app_logger)
+        return cls._logger

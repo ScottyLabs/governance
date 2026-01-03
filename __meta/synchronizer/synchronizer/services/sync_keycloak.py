@@ -34,7 +34,7 @@ class KeycloakManager:
         self.existing_clients = [
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]
-        self.logger = AppLoggerSingleton().logger
+        self.logger = AppLoggerSingleton.get_logger()
 
     def sync(self) -> None:
         print_section("Keycloak")

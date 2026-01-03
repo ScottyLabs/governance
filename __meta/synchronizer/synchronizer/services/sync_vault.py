@@ -22,7 +22,7 @@ class VaultManager:
     def __init__(self, teams: dict[str, Team]) -> None:
         self.teams = teams
         self.client = hvac.Client(url=self.VAULT_URL, token=os.getenv("VAULT_TOKEN"))
-        self.logger = AppLoggerSingleton().logger
+        self.logger = AppLoggerSingleton.get_logger()
 
         # Get the list of all groups
         data = self.client.secrets.identity.list_groups()["data"]
