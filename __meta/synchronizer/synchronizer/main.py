@@ -2,29 +2,29 @@ import argparse
 import sys
 import tomllib
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from dotenv import load_dotenv
 
+from synchronizer.logger import AppLoggerSingleton, LogStatusFilter
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
+from synchronizer.services.sync_codeowners import CodeownersManager
 from synchronizer.services.sync_github import GithubManager
 from synchronizer.services.sync_keycloak import KeycloakManager
 from synchronizer.services.sync_secrets import SecretsManager
 from synchronizer.services.sync_slack import SlackManager
 from synchronizer.services.sync_vault import VaultManager
-from synchronizer.utils.logging import (
-    ErrorFlagFilter,
-    get_logger,
-    setup_logging,
-)
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 load_dotenv()
 
 
 class SyncManager:
     def __init__(self) -> None:
-        logger = get_logger()
+        logger = AppLoggerSingleton().logger
         logger.info("Initializing SyncManager...\n")
         self.contributors: dict[str, Contributor] = {}
         self.load_contributors()
@@ -63,8 +63,11 @@ class SyncManager:
     def sync_secrets(self) -> None:
         SecretsManager(self.teams).sync()
 
+    def sync_codeowners(self) -> None:
+        CodeownersManager(self.teams).sync()
 
-def args_parser() -> argparse.ArgumentParser:
+
+def args_parser(services: list[str]) -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Sync the teams and members from the contributors and teams directories "
@@ -74,47 +77,59 @@ def args_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--services",
         nargs="+",
-        choices=["github", "keycloak", "vault", "slack", "secrets"],
-        default=["github", "keycloak", "vault", "slack", "secrets"],
+        choices=services,
+        default=services,
         metavar="SERVICE",
         help=(
             "One or more services to sync "
-            "(choices: github, keycloak, vault, slack, secrets). "
+            f"(choices: {', '.join(services)}). "
             "Defaults to syncing all."
         ),
     )
     return parser
 
 
+def check_logger_status() -> None:
+    """Check log filter flags and exit or warn if needed."""
+    logger = AppLoggerSingleton().logger
+    log_status_filter = next(
+        (f for f in logger.filters if isinstance(f, LogStatusFilter)),
+        None,
+    )
+
+    if log_status_filter is None:
+        logger.critical("No LogStatusFilter found — cannot verify log state.")
+        sys.exit(1)
+
+    if log_status_filter.had_error:
+        logger.critical("One or more errors were logged. Check logs for details.")
+        sys.exit(1)
+
+    if log_status_filter.had_warning:
+        logger.warning("One or more warnings were logged. Check logs for details.")
+
+
 def main() -> None:
-    # Setup the logging
-    setup_logging()
-
-    # Parse the arguments
-    parser = args_parser()
-    args = parser.parse_args()
-
     # Initialize the sync manager
     sync_manager = SyncManager()
-    service_name_to_function = {
+    service_name_to_function: dict[str, Callable[[], None]] = {
         "github": sync_manager.sync_github,
         "keycloak": sync_manager.sync_keycloak,
         "vault": sync_manager.sync_vault,
         "slack": sync_manager.sync_slack,
         "secrets": sync_manager.sync_secrets,
+        "codeowners": sync_manager.sync_codeowners,
     }
+
+    services = list(service_name_to_function.keys())
+
+    # Parse the arguments
+    parser = args_parser(services)
+    args = parser.parse_args()
 
     # Sync the services
     for service_name in args.services:
         service_name_to_function[service_name]()
 
-    # Exit with code 1 if any error occured
-    logger = get_logger()
-    had_error = any(
-        f.had_error for f in logger.filters if isinstance(f, ErrorFlagFilter)
-    )
-    if not had_error:
-        sys.exit(0)
-
-    logger.critical("One or more services failed to sync. Check the logs for details.")
-    sys.exit(1)
+    # Check the logger status
+    check_logger_status()

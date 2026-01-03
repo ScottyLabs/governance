@@ -4,7 +4,7 @@ from typing import Optional
 
 from keycloak import KeycloakAdmin
 
-from synchronizer.utils.logging import get_logger
+from synchronizer.logger import AppLoggerSingleton
 
 
 class KeycloakClient:
@@ -21,9 +21,9 @@ class KeycloakClient:
 
     def init_admin(self) -> None:
         """Initialize the Keycloak admin client once."""
-        realm_name = os.getenv("KEYCLOAK_REALM")
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
+        realm_name = os.getenv("KEYCLOAK_REALM")
         if not realm_name:
             msg = "KEYCLOAK_REALM is not set"
             self.logger.critical(msg)
@@ -47,7 +47,11 @@ class KeycloakClient:
 
     @property
     def admin(self) -> KeycloakAdmin:
+        self.logger = AppLoggerSingleton().logger
+
         if self._admin is None:
             msg = "Keycloak admin client not initialized"
-            raise ValueError(msg)
+            self.logger.critical(msg)
+            sys.exit(1)
+
         return self._admin

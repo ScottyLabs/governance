@@ -8,7 +8,7 @@ use std::hash::{Hash, Hasher};
 pub struct Contributor {
     pub full_name: String,
     pub github_username: String,
-    pub slack_member_id: String,
+    pub slack_member_id: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

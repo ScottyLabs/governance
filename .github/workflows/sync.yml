@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - ".github/CODEOWNERS"
   workflow_dispatch:
 
 jobs:
@@ -31,6 +33,6 @@ jobs:
 
       - name: Run Sync Script
         run: |
-          uv sync
+          uv sync --no-dev
           uv pip install -e .
           uv run sync

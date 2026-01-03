@@ -3,6 +3,7 @@
   "required": [
     "slug",
     "name",
+    "description",
     "leads",
     "devs",
     "repos",
@@ -16,6 +17,10 @@
     "name": {
       "type": "string",
       "description": "Used for any public-facing or display contexts (e.g. the GitHub team name)."
+    },
+    "description": {
+      "type": "string",
+      "description": "A brief description of the team."
     },
     "website-slug": {
       "type": "string",

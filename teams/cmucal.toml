@@ -1,5 +1,6 @@
 slug = "cmucal"
 name = "CMU Cal"
+description = ""
 website-slug = "cal"
 leads = [
     "qianxuege",

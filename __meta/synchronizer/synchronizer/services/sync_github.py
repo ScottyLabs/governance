@@ -1,21 +1,19 @@
-import os
-import sys
 from collections.abc import Callable
 from typing import Literal
 
-from github import Auth, Github
 from github.GithubException import UnknownObjectException
 from github.NamedUser import NamedUser
 from github.Team import Team as GithubTeam
 
-from synchronizer.models.contributor import Contributor
-from synchronizer.models.team import Team
-from synchronizer.utils.logging import (
-    get_logger,
+from synchronizer.logger import (
+    AppLoggerSingleton,
     log_operation,
     log_team_sync,
     print_section,
 )
+from synchronizer.models.contributor import Contributor
+from synchronizer.models.team import Team
+from synchronizer.utils.github_client import GithubClient
 
 
 class GithubManager:
@@ -28,17 +26,11 @@ class GithubManager:
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         """Initialize the GithubManager with GitHub org."""
-        self.logger = get_logger()
-
-        github_token = os.getenv("SYNC_GITHUB_TOKEN")
-        if not github_token:
-            msg = "SYNC_GITHUB_TOKEN is not set"
-            self.logger.critical(msg)
-            sys.exit(1)
+        self.logger = AppLoggerSingleton().logger
 
         self.contributors = contributors
         self.teams = teams
-        self.g = Github(auth=Auth.Token(github_token))
+        self.g = GithubClient().g
         self.org = self.g.get_organization("ScottyLabs")
 
     def sync(self) -> None:

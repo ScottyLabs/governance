@@ -1,5 +1,11 @@
 from keycloak import KeycloakGetError
 
+from synchronizer.logger import (
+    AppLoggerSingleton,
+    log_operation,
+    log_team_sync,
+    print_section,
+)
 from synchronizer.models.contributor import Contributor
 from synchronizer.models.team import Team
 from synchronizer.utils.env_urls import (
@@ -11,12 +17,6 @@ from synchronizer.utils.env_urls import (
     get_staging_server_url,
 )
 from synchronizer.utils.keycloak_client import KeycloakClient
-from synchronizer.utils.logging import (
-    get_logger,
-    log_operation,
-    log_team_sync,
-    print_section,
-)
 
 
 class KeycloakManager:
@@ -35,7 +35,7 @@ class KeycloakManager:
         self.existing_clients = [
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
     def sync(self) -> None:
         print_section("Keycloak")
@@ -221,15 +221,15 @@ class KeycloakManager:
         current_usernames = {m["username"].lower() for m in members}
 
         # Calculate new members
-        new_members = target_usernames - current_usernames
+        new_member_usernames = target_usernames - current_usernames
         self.logger.debug(
             "Found %d new members for the %s group.\n",
-            len(new_members),
+            len(new_member_usernames),
             group_name,
         )
 
         # Add missing users
-        for username in new_members:
+        for username in new_member_usernames:
             user_id = self.get_user_id_by_username(username)
             if user_id is None:
                 continue
@@ -246,18 +246,22 @@ class KeycloakManager:
             return
 
         # Calculate unlisted members
-        unlisted_members = current_usernames - target_usernames
+        unlisted_member_usernames = current_usernames - target_usernames
         self.logger.debug(
             "Found %d unlisted members for the %s group.\n",
-            len(unlisted_members),
+            len(unlisted_member_usernames),
             group_name,
         )
 
         # Remove unlisted members
-        for member in unlisted_members:
+        for username in unlisted_member_usernames:
             log_message = f"remove {username} from Keycloak group {group_name}"
+            user_id = self.get_user_id_by_username(username)
+            if user_id is None:
+                continue
+
             with log_operation(log_message):
-                self.keycloak_admin.group_user_remove(member["id"], group_id)
+                self.keycloak_admin.group_user_remove(user_id, group_id)
 
     def get_or_create_group(self, group_path: str) -> dict | None:
         try:

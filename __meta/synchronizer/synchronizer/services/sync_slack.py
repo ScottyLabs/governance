@@ -5,14 +5,14 @@ import sys
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-from synchronizer.models.contributor import Contributor
-from synchronizer.models.team import Team
-from synchronizer.utils.logging import (
-    get_logger,
+from synchronizer.logger import (
+    AppLoggerSingleton,
     log_operation,
     log_team_sync,
     print_section,
 )
+from synchronizer.models.contributor import Contributor
+from synchronizer.models.team import Team
 
 logger = logging.getLogger("synchronizer")
 
@@ -30,7 +30,7 @@ class SlackManager:
             sys.exit(1)
 
         self.client = WebClient(token=slack_token)
-        self.logger = get_logger()
+        self.logger = AppLoggerSingleton().logger
 
     def sync(self) -> None:
         print_section("Slack")
@@ -39,11 +39,18 @@ class SlackManager:
 
     @log_team_sync()
     def sync_team(self, team: Team) -> None:
-        # Get the desired members for the team
-        desired_members = {
-            self.contributors[member].slack_member_id
-            for member in team.leads + team.devs
-        }
+        # Get the desired members' Slack IDs for the team
+        desired_members = set()
+        for member in team.leads + team.devs:
+            contributor = self.contributors[member]
+            if contributor.slack_member_id is None:
+                self.logger.warning(
+                    "Contributor %s does not have a Slack member ID.\n",
+                    member,
+                )
+                continue
+
+            desired_members.add(contributor.slack_member_id)
 
         if len(team.slack_channel_ids) == 0:
             self.logger.debug(
