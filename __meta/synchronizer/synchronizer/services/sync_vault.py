@@ -4,7 +4,7 @@ from collections.abc import Callable
 import hvac
 
 from synchronizer.logger import (
-    AppLoggerSingleton,
+    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -22,7 +22,7 @@ class VaultManager:
     def __init__(self, teams: dict[str, Team]) -> None:
         self.teams = teams
         self.client = hvac.Client(url=self.VAULT_URL, token=os.getenv("VAULT_TOKEN"))
-        self.logger = AppLoggerSingleton.get_logger()
+        self.logger = get_app_logger()
 
         # Get the list of all groups
         data = self.client.secrets.identity.list_groups()["data"]

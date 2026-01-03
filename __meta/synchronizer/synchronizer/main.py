@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Any
 
 from dotenv import load_dotenv
 
-from synchronizer.logger import AppLoggerSingleton, LogStatusFilter
+from synchronizer.logger import LogStatusFilter, get_app_logger
 from synchronizer.models import Contributor, Team
 from synchronizer.services.sync_codeowners import CodeownersManager
 from synchronizer.services.sync_github import GithubManager
@@ -23,7 +23,7 @@ load_dotenv()
 
 class SyncManager:
     def __init__(self) -> None:
-        logger = AppLoggerSingleton.get_logger()
+        logger = get_app_logger()
         logger.info("Initializing SyncManager...\n")
         self.contributors: dict[str, Contributor] = {}
         self.load_contributors()
@@ -90,7 +90,7 @@ def args_parser(services: list[str]) -> argparse.ArgumentParser:
 
 def check_logger_status() -> None:
     """Check log filter flags and exit or warn if needed."""
-    logger = AppLoggerSingleton.get_logger()
+    logger = get_app_logger()
     log_status_filter = next(
         (f for f in logger.filters if isinstance(f, LogStatusFilter)),
         None,

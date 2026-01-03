@@ -6,7 +6,7 @@ from github.NamedUser import NamedUser
 from github.Team import Team as GithubTeam
 
 from synchronizer.logger import (
-    AppLoggerSingleton,
+    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -25,7 +25,7 @@ class GithubManager:
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         """Initialize the GithubManager with GitHub org."""
-        self.logger = AppLoggerSingleton.get_logger()
+        self.logger = get_app_logger()
 
         self.contributors = contributors
         self.teams = teams

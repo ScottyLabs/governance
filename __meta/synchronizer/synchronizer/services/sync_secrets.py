@@ -6,7 +6,7 @@ import hvac
 from hvac.exceptions import InvalidPath
 
 from synchronizer.logger import (
-    AppLoggerSingleton,
+    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -21,7 +21,7 @@ class SecretsManager:
     MOUNT_POINT = "ScottyLabs"
 
     def __init__(self, teams: dict[str, Team]) -> None:
-        self.logger = AppLoggerSingleton().get_logger()
+        self.logger = get_app_logger()
 
         realm_name = os.getenv("KEYCLOAK_REALM")
         if not realm_name:

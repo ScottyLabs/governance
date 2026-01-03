@@ -1,10 +1,10 @@
+from .app_logger import get_app_logger
 from .components import LogStatusFilter
-from .singleton import AppLoggerSingleton
 from .utils import log_operation, log_team_sync, print_section
 
 __all__ = [
-    "AppLoggerSingleton",
     "LogStatusFilter",
+    "get_app_logger",
     "log_operation",
     "log_team_sync",
     "print_section",

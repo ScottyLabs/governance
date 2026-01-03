@@ -5,7 +5,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 from synchronizer.logger import (
-    AppLoggerSingleton,
+    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -17,7 +17,7 @@ class SlackManager:
     def __init__(
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
-        self.logger = AppLoggerSingleton.get_logger()
+        self.logger = get_app_logger()
         self.contributors = contributors
         self.teams = teams
 

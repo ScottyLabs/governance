@@ -1,7 +1,7 @@
 from keycloak import KeycloakGetError
 
 from synchronizer.logger import (
-    AppLoggerSingleton,
+    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -34,7 +34,7 @@ class KeycloakManager:
         self.existing_clients = [
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]
-        self.logger = AppLoggerSingleton.get_logger()
+        self.logger = get_app_logger()
 
     def sync(self) -> None:
         print_section("Keycloak")
