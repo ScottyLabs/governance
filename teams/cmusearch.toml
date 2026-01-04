@@ -5,11 +5,12 @@ description = """
 CMU Search is a search engine to search for courses, locations, and events on campus.
 Join if you love search engines! (not live yet)
 """
-leads = [
+maintainers = [
     "tsurbs",
     "Yuxiang-Huang",
 ]
-devs = []
+contributors = [
+]
 repos = [
     "ScottyLabs/cmusearch",
 ]

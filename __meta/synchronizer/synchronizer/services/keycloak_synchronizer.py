@@ -54,28 +54,29 @@ class KeycloakSynchronizer(AbstractSynchronizer):
                 team.name,
             )
 
-        # Sync the team leads and service accounts to the Keycloak admins group
-        lead_group_name = f"{team.slug}{self.ADMIN_SUFFIX}"
-        lead_usernames = self.get_usernames(team.leads)
-        # Add the service accounts to the leads only if the OIDC clients are created
+        # Sync the team maintainers and service accounts to the Keycloak admins group
+        admin_group_name = f"{team.slug}{self.ADMIN_SUFFIX}"
+        admin_usernames = self.get_usernames(team.maintainers)
+        # Add the service accounts to the admins only if the OIDC clients are created
         if team.create_oidc_clients:
-            lead_usernames = lead_usernames.union(
+            admin_usernames = admin_usernames.union(
                 self.get_service_account_usernames(team.slug),
             )
         self.sync_group(
             team.name,
-            lead_group_name,
-            lead_usernames,
+            admin_group_name,
+            admin_usernames,
             remove_unlisted=team.remove_unlisted,
         )
 
-        # Sync team devs to Keycloak devs group
-        member_group_name = f"{team.slug}{self.MEMBER_SUFFIX}"
-        members_usernames = self.get_usernames(team.devs)
+        # Sync team contributors who are not maintainers to Keycloak devs group
+        dev_group_name = f"{team.slug}{self.MEMBER_SUFFIX}"
+        devs = list(set(team.contributors) - set(team.maintainers))
+        dev_usernames = self.get_usernames(devs)
         self.sync_group(
             team.name,
-            member_group_name,
-            members_usernames,
+            dev_group_name,
+            dev_usernames,
             remove_unlisted=team.remove_unlisted,
         )
 

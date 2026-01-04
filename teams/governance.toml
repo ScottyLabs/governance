@@ -5,10 +5,11 @@ Governance defines the organizational structure and manages permissions for Scot
 
 Joining Governance means you want to work on the codebase inside the __meta/ directory.
 """
-leads = [
+maintainers = [
     "Yuxiang-Huang",
 ]
-devs = []
+contributors = [
+]
 repos = [
     "ScottyLabs/governance",
 ]

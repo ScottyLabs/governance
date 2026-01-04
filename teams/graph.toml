@@ -5,10 +5,11 @@ Graph has been turned into a testing site for the **new** auth system.
 Do not join this team.
 """
 website-slug = "graph"
-leads = [
+maintainers = [
     "Yuxiang-Huang",
 ]
-devs = []
+contributors = [
+]
 repos = [
     "ScottyLabs/graph",
 ]

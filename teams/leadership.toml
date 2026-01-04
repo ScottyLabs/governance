@@ -1,10 +1,11 @@
 slug = "leadership"
 name = "Leadership"
-description = "Leadership is the team that manages the leadership of the organization."
-leads = [
+description = "Leadership refers to the official ScottyLabs leadership team."
+maintainers = [
     "Yuxiang-Huang",
 ]
-devs = []
+contributors = [
+]
 repos = []
 slack-channel-ids = [
 ]

@@ -6,12 +6,12 @@ campus, allowing users to easily access information about campus locations,
 live at cmumaps.com.
 """
 website-slug = "maps"
-leads = [
+maintainers = [
     "Yuxiang-Huang",
     "tsurbs",
     "luke992",
 ]
-devs = [
+contributors = [
     "JettChenT",
     "Nicolapps",
     "romycyy",

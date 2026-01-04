@@ -67,16 +67,10 @@ impl<'a> GraphBuilder<'a> {
                 inner: team.clone(),
             });
 
-            let members = team
-                .leads
-                .iter()
-                .chain(team.devs.iter())
-                .collect::<Vec<_>>();
-
-            for member_id in &members {
+            for contributor_id in &team.contributors {
                 let target_id = EntityKey {
                     kind: "contributor".to_string(),
-                    name: member_id.to_string(),
+                    name: contributor_id.to_string(),
                 };
 
                 links.push(GraphLink {

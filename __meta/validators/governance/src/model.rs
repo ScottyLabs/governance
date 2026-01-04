@@ -16,8 +16,8 @@ pub struct Contributor {
 pub struct Team {
     pub name: String,
     pub slug: String,
-    pub leads: Vec<String>,
-    pub devs: Vec<String>,
+    pub maintainers: Vec<String>,
+    pub contributors: Vec<String>,
     pub applicants: Option<Vec<String>>,
     pub repos: Vec<String>,
     pub slack_channel_ids: Vec<String>,

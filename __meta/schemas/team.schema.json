@@ -4,8 +4,8 @@
     "slug",
     "name",
     "description",
-    "leads",
-    "devs",
+    "maintainers",
+    "contributors",
     "repos",
     "slack-channel-ids"
   ],
@@ -26,20 +26,20 @@
       "type": "string",
       "description": "Used in website URLs (e.g. <website-slug>.scottylabs.org)."
     },
-    "leads": {
+    "maintainers": {
       "type": "array",
       "items": {
         "type": "string"
       },
       "minItems": 1,
-      "description": "The github usernames of the tech leads of the team."
+      "description": "The github usernames of the maintainers of the team."
     },
-    "devs": {
+    "contributors": {
       "type": "array",
       "items": {
         "type": "string"
       },
-      "description": "The github usernames of the developers of the team."
+      "description": "The github usernames of the contributors of the team."
     },
     "applicants": {
       "type": "array",

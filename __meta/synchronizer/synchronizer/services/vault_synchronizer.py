@@ -94,7 +94,7 @@ class VaultSynchronizer(AbstractSynchronizer):
         """
         Create the policy for the admin group.
 
-        Leads can read, create, update, delete, list, and sudo the secrets.
+        Maintainers can read, create, update, delete, list, and sudo the secrets.
         """
         policy_name = f"{team_slug}{self.ADMIN_GROUP_SUFFIX}"
         policy_rules = f"""\

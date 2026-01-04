@@ -53,20 +53,19 @@ pub fn validate_cross_references(
     info!("Validating cross-references...");
     let mut errors = Vec::new();
 
-    // Check that all team members exist in contributors
+    // Check that all team participants exist in contributors
     for (team_key, team) in teams {
-        // Members are leads and devs combined
-        let members = team
-            .leads
+        // Participants are contributors and applicants combined
+        let participants = team
+            .maintainers
             .iter()
-            .chain(team.devs.iter())
+            .chain(team.contributors.iter())
             .chain(team.applicants.iter().flatten())
             .collect::<Vec<_>>();
-
-        for member in &members {
+        for participant in &participants {
             let key = EntityKey {
                 kind: "contributor".to_string(),
-                name: member.to_string(),
+                name: participant.to_string(),
             };
 
             if !contributors.contains_key(&key) {
@@ -75,7 +74,7 @@ pub fn validate_cross_references(
                     message: format!(
                         "Team '{}' references non-existent contributor: {}",
                         team_key.name.red().bold(),
-                        member.red().bold()
+                        participant.red().bold()
                     ),
                 });
             }

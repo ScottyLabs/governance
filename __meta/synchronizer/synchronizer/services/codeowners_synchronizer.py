@@ -54,15 +54,15 @@ class CodeownersSynchronizer(AbstractSynchronizer):
 
         # Default to the first person on the list in the leadership team
         leadership_team = self.teams["leadership"]
-        lines.append(f"* @{leadership_team.leads[0]}")
+        lines.append(f"* @{leadership_team.maintainers[0]}")
         lines.append("")
 
-        # Assign the codeowners of each team as the leads of the team
+        # Assign the codeowners of each team as the maintainers of the team
         # Sort the teams to prevent changes to the codeowners file due to ordering
         for team in sorted(self.teams.values(), key=lambda x: x.slug):
             codeowners_pattern = f"teams/{team.slug}.toml"
-            for lead in team.leads:
-                codeowners_pattern += f" @{lead}"
+            for maintainer in team.maintainers:
+                codeowners_pattern += f" @{maintainer}"
             lines.append(codeowners_pattern)
             lines.append("")
 

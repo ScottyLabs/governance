@@ -7,8 +7,8 @@ class Team(BaseModel):
     slug: str
     name: str
     website_slug: str | None = Field(alias="website-slug", default=None)
-    leads: list[str]
-    devs: list[str]
+    maintainers: list[str]
+    contributors: list[str]
     applicants: list[str] | None = None
     ext_admins: list[str] | None = Field(alias="ext-admins", default=None)
     repos: list[str]

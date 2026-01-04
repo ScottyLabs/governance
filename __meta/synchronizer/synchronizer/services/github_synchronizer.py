@@ -93,24 +93,25 @@ class GithubSynchronizer(AbstractSynchronizer):
         if not github_admin_team:
             return
 
-        # Sync the team leads to the GitHub admin team
-        leads = set(team.leads)
+        # Sync the team maintainers to the GitHub admin team
+        maintainers = set(team.maintainers)
         self.sync_github_admin_team(
-            github_admin_team, leads, remove_unlisted=team.remove_unlisted
+            github_admin_team, maintainers, remove_unlisted=team.remove_unlisted
         )
 
-        # Sync the team leads and devs to the GitHub main team
-        devs = set(team.devs)
+        # Sync the team maintainers and contributors to the GitHub main team,
+        # where devs are the contributors who are not maintainers.
+        contributors = set(team.contributors)
 
         # Special Case: maintainers of any team need to be added to the governance
         # github main team so they can merge PRs to accept new contributors.
         if team.slug == "governance":
             for other_team in self.teams.values():
                 if other_team.slug != team.slug:
-                    devs.update(other_team.leads)
+                    contributors.update(other_team.maintainers)
 
         self.sync_github_main_team(
-            github_team, leads, devs, remove_unlisted=team.remove_unlisted
+            github_team, maintainers, contributors, remove_unlisted=team.remove_unlisted
         )
 
         # Sync the repositories to the Github team
@@ -167,7 +168,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         *,
         remove_unlisted: bool,
     ) -> None:
-        """Sync the team leads as maintainers to the GitHub admin team."""
+        """Sync the team maintainers as maintainers to the GitHub admin team."""
         current_members = {member.login for member in github_admin_team.get_members()}
 
         # Calculate uninvited new members
@@ -193,14 +194,17 @@ class GithubSynchronizer(AbstractSynchronizer):
     def sync_github_main_team(
         self,
         github_team: GithubTeam,
-        leads: set[str],
-        devs: set[str],
+        maintainers: set[str],
+        contributors: set[str],
         *,
         remove_unlisted: bool,
     ) -> None:
         """Sync the team members to the Github main team."""
-        self.sync_members_to_team(github_team, leads, "maintainer")
-        self.sync_members_to_team(github_team, devs, "member")
+        # Sync the team maintainers as maintainers to the team
+        self.sync_members_to_team(github_team, maintainers, "maintainer")
+
+        # Sync the team contributors who are not maintainers as members to the team
+        self.sync_members_to_team(github_team, maintainers - contributors, "member")
 
         # Remove extra members if the team want to remove unlisted members
         if not remove_unlisted:
@@ -210,8 +214,7 @@ class GithubSynchronizer(AbstractSynchronizer):
             )
             return
 
-        desired_members = leads.union(devs)
-        self.remove_unlisted_members_from_main_team(github_team, desired_members)
+        self.remove_unlisted_members_from_main_team(github_team, contributors)
 
     def sync_members_to_team(
         self,
@@ -338,7 +341,7 @@ class GithubSynchronizer(AbstractSynchronizer):
             github_team.name,
         )
 
-        # Give team devs write access and team leads admin access to the repository
+        # Give team devs write access and team maintainers admin access to the repos
         for repo in new_repos:
             log_message = f"add {repo} to {github_team.name} Github team"
             with log_operation(log_message):

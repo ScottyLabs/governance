@@ -2,10 +2,10 @@ slug = "cmucal"
 name = "CMU Cal"
 description = ""
 website-slug = "cal"
-leads = [
+maintainers = [
     "qianxuege",
 ]
-devs = [
+contributors = [
     "HeidiTao",
 ]
 repos = [
