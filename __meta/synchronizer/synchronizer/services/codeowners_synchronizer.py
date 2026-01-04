@@ -60,6 +60,7 @@ class CodeownersSynchronizer(AbstractSynchronizer):
             raise ValueError(msg)
 
         governance_team = self.teams["governance"]
+        lines.append("# Default owners are the maintainers of the governance team")
         codeowners_pattern = "*"
         for maintainer in sorted(governance_team.maintainers):
             codeowners_pattern += f" @{maintainer}"
@@ -74,11 +75,15 @@ class CodeownersSynchronizer(AbstractSynchronizer):
             raise ValueError(msg)
 
         leadership_team = self.teams["leadership"]
+        lines.append("# Default owner of the teams directory is the tech director")
         lines.append(f"teams @{leadership_team.maintainers[0]}")
         lines.append("")
 
-        # Assign the codeowners of each team as the maintainers of the team
+        # Assign the  maintainers of the team as the codeowners of the team's file
         # Sort the teams to prevent changes to the codeowners file due to ordering
+        lines.append(
+            "# The codeowners of each team file are the maintainers of the team\n"
+        )
         for team in sorted(self.teams.values(), key=lambda x: x.slug):
             codeowners_pattern = f"teams/{team.slug}.toml"
             for maintainer in sorted(team.maintainers):
