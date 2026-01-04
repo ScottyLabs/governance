@@ -32,14 +32,14 @@
         "type": "string"
       },
       "minItems": 1,
-      "description": "The github usernames of the maintainers of the team."
+      "description": "The github usernames of the maintainers of the team. We assume there is no duplicates in the list."
     },
     "contributors": {
       "type": "array",
       "items": {
         "type": "string"
       },
-      "description": "The github usernames of the contributors of the team."
+      "description": "The github usernames of the contributors of the team. There can be duplicates in the list."
     },
     "applicants": {
       "type": "array",
