@@ -1,8 +1,6 @@
-import os
 from collections.abc import Callable
 
-import hvac
-
+from synchronizer.clients.vault_client import get_vault_client
 from synchronizer.logger import (
     get_app_logger,
     log_operation,
@@ -15,7 +13,6 @@ from .abstract_synchronizer import AbstractSynchronizer
 
 
 class VaultSynchronizer(AbstractSynchronizer):
-    VAULT_URL = "https://secrets.scottylabs.org"
     ADMIN_GROUP_SUFFIX = "-admins"
     DEV_GROUP_SUFFIX = "-devs"
     APPLICANT_GROUP_SUFFIX = "-applicants"
@@ -23,7 +20,7 @@ class VaultSynchronizer(AbstractSynchronizer):
 
     def __init__(self, teams: dict[str, Team]) -> None:
         self.teams = teams
-        self.client = hvac.Client(url=self.VAULT_URL, token=os.getenv("VAULT_TOKEN"))
+        self.client = get_vault_client()
         self.logger = get_app_logger()
 
         # Get the list of all groups
@@ -51,11 +48,13 @@ class VaultSynchronizer(AbstractSynchronizer):
             f"{team.slug}{self.DEV_GROUP_SUFFIX}",
             create_policy=self.create_dev_policy,
         )
-        self.sync_group(
-            team.slug,
-            f"{team.slug}{self.APPLICANT_GROUP_SUFFIX}",
-            create_policy=self.create_applicant_policy,
-        )
+
+        if team.applicants is not None:
+            self.sync_group(
+                team.slug,
+                f"{team.slug}{self.APPLICANT_GROUP_SUFFIX}",
+                create_policy=self.create_applicant_policy,
+            )
 
     def sync_group(
         self,
