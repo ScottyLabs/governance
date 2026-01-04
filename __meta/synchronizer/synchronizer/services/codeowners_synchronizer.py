@@ -52,9 +52,17 @@ class CodeownersSynchronizer(AbstractSynchronizer):
         lines = [f"# Auto-generated CODEOWNERS file from {file_path}"]
         lines.append("")
 
-        # Default to the first person on the list in the leadership team
-        leadership_team = self.teams["leadership"]
-        lines.append(f"* @{leadership_team.maintainers[0]}")
+        # Default to the maintainers of the governance team
+        if "governance" not in self.teams:
+            msg = "Governance team not found."
+            self.logger.critical(msg)
+            raise ValueError(msg)
+
+        governance_team = self.teams["governance"]
+        codeowners_pattern = "*"
+        for maintainer in governance_team.maintainers:
+            codeowners_pattern += f" @{maintainer}"
+        lines.append(codeowners_pattern)
         lines.append("")
 
         # Assign the codeowners of each team as the maintainers of the team
