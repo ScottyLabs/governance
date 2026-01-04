@@ -204,7 +204,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         self.sync_members_to_team(github_team, maintainers, "maintainer")
 
         # Sync the team contributors who are not maintainers as members to the team
-        self.sync_members_to_team(github_team, maintainers - contributors, "member")
+        self.sync_members_to_team(github_team, contributors - maintainers, "member")
 
         # Remove extra members if the team want to remove unlisted members
         if not remove_unlisted:
@@ -244,6 +244,7 @@ class GithubSynchronizer(AbstractSynchronizer):
 
                 # Skip syncing organization owners' role to member since their role
                 # will always remain as maintainer.
+                # https://github.com/orgs/community/discussions/140675#discussioncomment-10875640
                 if username in self.org_owners and role == "member":
                     continue
 
