@@ -52,9 +52,9 @@ class CodeownersSynchronizer(AbstractSynchronizer):
         lines = [f"# Auto-generated CODEOWNERS file from {file_path}"]
         lines.append("")
 
-        # Default to the tech director
-        # TODO: Get the tech director from the leadership team
-        lines.append("* @Yuxiang-Huang")
+        # Default to the first person on the list in the leadership team
+        leadership_team = self.teams["leadership"]
+        lines.append(f"* @{leadership_team.leads[0]}")
         lines.append("")
 
         # Assign the codeowners of each team as the leads of the team
