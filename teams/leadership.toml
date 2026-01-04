@@ -2,15 +2,26 @@ slug = "leadership"
 name = "Leadership"
 description = "Leadership refers to the official ScottyLabs leadership team."
 maintainers = [
-    "Yuxiang-Huang",
+    "Yuxiang-Huang",    # Director of Technology 2025 - 2026
+    "ap-1",             # Head     of DevOps     2025 - 2026
+    "tsurbs",           # Director of ScottyLabs 2025 - 2026
+    "xavilien",         # Director of Technology 2024 - 2025
+    "mzhou08",          # Director of ScottyLabs 2024 - 2025
+    "Adrastopoulos",    # Director of Technology 2023 - 2024
+    "ScottyLabsDeploy", # ScottyLabs GitHub Account
 ]
 contributors = [
     "Yuxiang-Huang",
+    "ap-1",
+    "tsurbs",
+    "xavilien",
+    "mzhou08",
+    "Adrastopoulos",
+    "ScottyLabsDeploy",
 ]
 repos = []
 slack-channel-ids = [
 ]
-remove-unlisted = false
-sync-github = false
-create-oidc-clients = false
-secrets-population-layout = "none"
+sync-github = false # The leadership team does not need GitHub teams
+create-oidc-clients = false # The leadership team does not need OIDC clients
+secrets-population-layout = "none" # The leadership team does not need secrets population

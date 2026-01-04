@@ -11,6 +11,8 @@ from .abstract_synchronizer import AbstractSynchronizer
 
 
 class LeadershipSynchronizer(AbstractSynchronizer):
+    """Synchronize the leadership team to the GitHub organization and Vault."""
+
     ADMINS_POLICY_NAME = "leadership-admins"
     DEVS_POLICY_NAME = "leadership-devs"
 
