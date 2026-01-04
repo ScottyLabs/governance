@@ -34,6 +34,9 @@ class GithubSynchronizer(AbstractSynchronizer):
         self.g = get_github_client()
         self.org = self.g.get_organization("ScottyLabs")
 
+        # get all owners of the organization
+        self.org_owners = {owner.login for owner in self.org.get_members(role="admin")}
+
     def sync(self) -> None:
         print_section("Github")
         self.sync_contributors()
@@ -235,6 +238,12 @@ class GithubSynchronizer(AbstractSynchronizer):
         for username in self.subtract_invited_members(members, github_team):
             try:
                 current_role = github_team.get_team_membership(username).role
+
+                # Skip role sync for organization owners since their role cannot
+                # be changed and will always remain as maintainer.
+                if username in self.org_owners:
+                    continue
+
                 if current_role != role:
                     self.add_or_update_member_to_team(github_team, username, role)
 
