@@ -115,9 +115,8 @@ class GithubSynchronizer(AbstractSynchronizer):
         )
 
         # Sync the repositories to the Github team
-        repos = set(team.repos)
         self.sync_repos(
-            github_team, github_admin_team, repos, remove_unlisted=team.remove_unlisted
+            github_team, github_admin_team, team, remove_unlisted=team.remove_unlisted
         )
 
     def get_or_create_main_team(self, team_name: str) -> GithubTeam | None:
@@ -322,7 +321,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         self,
         github_team: GithubTeam,
         github_admin_team: GithubTeam,
-        repos: set[str],
+        team: Team,
         *,
         remove_unlisted: bool,
     ) -> None:
@@ -333,6 +332,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         """
         github_repos = github_team.get_repos()
         github_repos_names = {repo.full_name for repo in github_repos}
+        repos = set(team.repos)
 
         # Calculate new repos
         new_repos = repos - github_repos_names
@@ -348,9 +348,36 @@ class GithubSynchronizer(AbstractSynchronizer):
             with log_operation(log_message):
                 github_team.add_to_repos(repo)
 
-            # Always update the team repository permissions, idempotent and cheap
-            github_team.update_team_repository(repo, "push")
-            github_admin_team.update_team_repository(repo, "admin")
+        # Check all repo permissions
+        for repo in repos:
+            # Make sure the main team has exactly push permission for the repo
+            current_permission = github_team.get_repo_permission(repo)
+            should_update = current_permission is None or not current_permission.push
+
+            # Allow broader permission if team want to to keep unlisted permissions.
+            if team.remove_unlisted:
+                # Higher permission level contains lower permission level,
+                # so we check for one level above push permission (maintain) to
+                # make sure the main team has exactly push permission for the repo.
+                should_update = should_update or (
+                    current_permission is not None and current_permission.maintain
+                )
+
+            # Update the permission if needed.
+            if should_update:
+                with log_operation(
+                    f"add push permission to {repo} for {github_team.name} Github team"
+                ):
+                    github_team.update_team_repository(repo, "push")
+
+            # Check if the admin team has admin permission for the repo
+            current_permission = github_admin_team.get_repo_permission(repo)
+            if current_permission is None or not current_permission.admin:
+                with log_operation(
+                    f"add admin permission to {repo} for "
+                    "{github_admin_team.name} Github team"
+                ):
+                    github_admin_team.update_team_repository(repo, "admin")
 
         # Remove any repositories from the Github team that are not in the team list
         # if the team want to remove unlisted repos.
