@@ -66,6 +66,17 @@ class CodeownersSynchronizer(AbstractSynchronizer):
         lines.append(codeowners_pattern)
         lines.append("")
 
+        # Default owner of teams directory to the tech director,
+        # which is the first maintainer of the leadership team.
+        if "leadership" not in self.teams:
+            msg = "Leadership team not found."
+            self.logger.critical(msg)
+            raise ValueError(msg)
+
+        leadership_team = self.teams["leadership"]
+        lines.append(f"teams @{leadership_team.maintainers[0]}")
+        lines.append("")
+
         # Assign the codeowners of each team as the maintainers of the team
         # Sort the teams to prevent changes to the codeowners file due to ordering
         for team in sorted(self.teams.values(), key=lambda x: x.slug):

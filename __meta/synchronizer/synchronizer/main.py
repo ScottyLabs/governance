@@ -47,11 +47,8 @@ class SyncManager:
                     data: dict[str, Any] = tomllib.loads(f.read())
                     self.teams[team_name] = Team.model_validate(data)
 
-                    # Get rid of duplicates in the maintainers and contributors lists
+                    # Get rid of duplicates in the contributors list
                     # Needed for year-based team formatting (e.g. cmumaps.toml)
-                    self.teams[team_name].maintainers = list(
-                        set(self.teams[team_name].maintainers)
-                    )
                     self.teams[team_name].contributors = list(
                         set(self.teams[team_name].contributors)
                     )
