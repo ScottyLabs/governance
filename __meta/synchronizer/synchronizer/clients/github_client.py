@@ -1,5 +1,4 @@
 import os
-import sys
 from functools import lru_cache
 
 from github import Auth, Github
@@ -16,6 +15,6 @@ def get_github_client() -> Github:
     if not github_token:
         msg = "SYNC_GITHUB_TOKEN is not set"
         logger.critical(msg)
-        sys.exit(1)
+        raise RuntimeError(msg)
 
     return Github(auth=Auth.Token(github_token))

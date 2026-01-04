@@ -1,5 +1,4 @@
 import os
-import sys
 
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
@@ -25,8 +24,9 @@ class SlackSynchronizer(AbstractSynchronizer):
 
         slack_token = os.getenv("SLACK_TOKEN")
         if not slack_token:
-            self.logger.critical("SLACK_TOKEN is not set")
-            sys.exit(1)
+            msg = "SLACK_TOKEN is not set"
+            self.logger.critical(msg)
+            raise RuntimeError(msg)
 
         self.client = WebClient(token=slack_token)
 

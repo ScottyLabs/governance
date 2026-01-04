@@ -1,5 +1,4 @@
 import os
-import sys
 from functools import lru_cache
 
 from keycloak import KeycloakAdmin
@@ -16,13 +15,13 @@ def get_keycloak_client() -> KeycloakAdmin:
     if not realm_name:
         msg = "KEYCLOAK_REALM is not set"
         logger.critical(msg)
-        sys.exit(1)
+        raise RuntimeError(msg)
 
     client_id = os.getenv("KEYCLOAK_CLIENT_ID")
     if not client_id:
         msg = "KEYCLOAK_CLIENT_ID is not set"
         logger.critical(msg)
-        sys.exit(1)
+        raise RuntimeError(msg)
 
     return KeycloakAdmin(
         server_url=os.getenv("KEYCLOAK_SERVER_URL"),

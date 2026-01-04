@@ -1,5 +1,4 @@
 import argparse
-import sys
 import tomllib
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
@@ -97,15 +96,18 @@ def check_logger_status() -> None:
     )
 
     if log_status_filter is None:
-        logger.critical("No LogStatusFilter found — cannot verify log state.")
-        sys.exit(1)
+        msg = "No LogStatusFilter found — cannot verify log state."
+        logger.critical(msg)
+        raise RuntimeError(msg)
 
     if log_status_filter.had_error:
-        logger.critical("One or more errors were logged. Check logs for details.")
-        sys.exit(1)
+        msg = "One or more errors were logged. Check logs for details."
+        logger.critical(msg)
+        raise RuntimeError(msg)
 
     if log_status_filter.had_warning:
-        logger.warning("One or more warnings were logged. Check logs for details.")
+        msg = "One or more warnings were logged. Check logs for details."
+        logger.warning(msg)
 
 
 def main() -> None:

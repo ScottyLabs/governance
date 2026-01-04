@@ -1,6 +1,5 @@
 import base64
 import os
-import sys
 
 import hvac
 from hvac.exceptions import InvalidPath
@@ -29,13 +28,13 @@ class SecretsSynchronizer(AbstractSynchronizer):
         if not realm_name:
             msg = "KEYCLOAK_REALM is not set"
             self.logger.critical(msg)
-            sys.exit(1)
+            raise RuntimeError(msg)
 
         client_id = os.getenv("KEYCLOAK_CLIENT_ID")
         if not client_id:
             msg = "KEYCLOAK_CLIENT_ID is not set"
             self.logger.critical(msg)
-            sys.exit(1)
+            raise RuntimeError(msg)
 
         self.teams = teams
         self.vault_client = hvac.Client(

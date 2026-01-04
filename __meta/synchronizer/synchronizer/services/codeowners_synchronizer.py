@@ -1,5 +1,3 @@
-import sys
-
 from github.Repository import Repository
 
 from synchronizer.clients import get_github_client
@@ -74,21 +72,24 @@ class CodeownersSynchronizer(AbstractSynchronizer):
         self, repo: Repository
     ) -> tuple[str | None, str | None]:
         """Get the current codeowners file from the repository."""
+        sha, current_content = None, None
+        # Get the contents of the codeowners file
         try:
             contents = repo.get_contents(".github/CODEOWNERS")
-
-            # Abort if the contents is a list (i.e. a directory)
-            if isinstance(contents, list):
-                self.logger.critical(
-                    "Expected '.github/CODEOWNERS' to be a single file, "
-                    "but got a directory."
-                )
-                sys.exit(1)
-
-            sha = contents.sha
-            current_content = contents.decoded_content.decode("utf-8")
         except Exception:
             self.logger.exception("Failed to get the current codeowners file")
-            sha, current_content = None, None
+            return current_content, sha
 
+        # Error if the contents is a list (i.e. a directory)
+        if isinstance(contents, list):
+            msg = (
+                "Expected '.github/CODEOWNERS' to be a single file, "
+                "but got a directory."
+            )
+            self.logger.error(msg)
+            return None, None
+
+        # Return the sha and content of the codeowners file
+        sha = contents.sha
+        current_content = contents.decoded_content.decode("utf-8")
         return current_content, sha
