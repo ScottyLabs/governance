@@ -167,21 +167,13 @@ class GithubSynchronizer(AbstractSynchronizer):
         """Sync the team leads as maintainers to the GitHub admin team."""
         current_members = {member.login for member in github_admin_team.get_members()}
 
-        # Calculate new members
-        new_members = desired_members - current_members
-        self.logger.debug(
-            "Found %d new maintainers for the %s team.\n",
-            len(new_members),
-            github_admin_team.name,
-        )
-
         # Calculate uninvited new members
         new_uninvited_members = self.subtract_invited_members(
-            new_members,
+            desired_members - current_members,
             github_admin_team,
         )
         self.logger.debug(
-            "Found %d new uninvited maintainers for the %s team.\n",
+            "Found %d new uninvited maintainer for the %s team.\n",
             len(new_uninvited_members),
             github_admin_team.name,
         )
@@ -208,14 +200,15 @@ class GithubSynchronizer(AbstractSynchronizer):
         self.sync_members_to_team(github_team, devs, "member")
 
         # Remove extra members if the team want to remove unlisted members
-        if remove_unlisted:
-            desired_members = leads.union(devs)
-            self.remove_unlisted_members_from_main_team(github_team, desired_members)
-        else:
+        if not remove_unlisted:
             self.logger.debug(
                 "Team %s opted out of removing unlisted members, skipping...\n",
                 github_team.name,
             )
+            return
+
+        desired_members = leads.union(devs)
+        self.remove_unlisted_members_from_main_team(github_team, desired_members)
 
     def sync_members_to_team(
         self,
@@ -224,17 +217,9 @@ class GithubSynchronizer(AbstractSynchronizer):
         role: Literal["member", "maintainer"],
     ) -> None:
         """Sync the members to the Github team as the given role."""
-        # Calculate new members
+        # Calculate new uninvited members
         current_members = {member.login for member in github_team.get_members()}
         new_members = members - current_members
-        self.logger.debug(
-            "Found %d new %s for the %s team.\n",
-            len(new_members),
-            role,
-            github_team.name,
-        )
-
-        # Calculate uninvited new members
         new_uninvited_members = self.subtract_invited_members(new_members, github_team)
         self.logger.debug(
             "Found %d new uninvited %s for the %s team.\n",
@@ -243,7 +228,10 @@ class GithubSynchronizer(AbstractSynchronizer):
             github_team.name,
         )
 
-        # Add new uninvited members
+        # Check every member who are not invited to the team since
+        # we also need to check existing members for their roles.
+        # This does mean that invited members might not have the correct role, but
+        # it can be corrected during the sync after the invitation is accepted anyways.
         for username in self.subtract_invited_members(members, github_team):
             try:
                 current_role = github_team.get_team_membership(username).role
@@ -279,7 +267,15 @@ class GithubSynchronizer(AbstractSynchronizer):
     ) -> None:
         """Remove unlisted members from the Github main team."""
         current_members = {member.login for member in github_team.get_members()}
-        for username in current_members - desired_members:
+        unlisted_members = current_members - desired_members
+        self.logger.debug(
+            "Found %d unlisted members for the %s team.\n",
+            len(unlisted_members),
+            github_team.name,
+        )
+
+        # Remove unlisted members
+        for username in unlisted_members:
             self.remove_member_from_team(github_team, username)
 
     def add_or_update_member_to_team(
@@ -325,22 +321,43 @@ class GithubSynchronizer(AbstractSynchronizer):
         github_repos = github_team.get_repos()
         github_repos_names = {repo.full_name for repo in github_repos}
 
-        # Remove any repositories from the Github team that are not in the team list
-        # if the team want to remove unlisted repos.
-        if remove_unlisted:
-            for repo in github_repos_names:
-                if repo not in repos:
-                    log_message = f"remove {repo} from {github_team.name} Github team"
-                    with log_operation(log_message):
-                        github_team.remove_from_repos(repo)
+        # Calculate new repos
+        new_repos = repos - github_repos_names
+        self.logger.debug(
+            "Found %d new repos for the %s team.\n",
+            len(new_repos),
+            github_team.name,
+        )
 
         # Give team devs write access and team leads admin access to the repository
-        for repo in repos:
-            if repo not in github_repos_names:
-                log_message = f"add {repo} to {github_team.name} Github team"
-                with log_operation(log_message):
-                    github_team.add_to_repos(repo)
+        for repo in new_repos:
+            log_message = f"add {repo} to {github_team.name} Github team"
+            with log_operation(log_message):
+                github_team.add_to_repos(repo)
 
             # Always update the team repository permissions, idempotent and cheap
             github_team.update_team_repository(repo, "push")
             github_admin_team.update_team_repository(repo, "admin")
+
+        # Remove any repositories from the Github team that are not in the team list
+        # if the team want to remove unlisted repos.
+        if not remove_unlisted:
+            self.logger.debug(
+                "Team %s opted out of removing unlisted repos, skipping...\n",
+                github_team.name,
+            )
+            return
+
+        # Calculate unlisted repos
+        unlisted_repos = github_repos_names - repos
+        self.logger.debug(
+            "Found %d unlisted repos for the %s team.\n",
+            len(unlisted_repos),
+            github_team.name,
+        )
+
+        # Remove unlisted repos
+        for repo in unlisted_repos:
+            log_message = f"remove {repo} from {github_team.name} Github team"
+            with log_operation(log_message):
+                github_team.remove_from_repos(repo)
