@@ -1,8 +1,12 @@
 # Auto-generated CODEOWNERS file from __meta/synchronizer/synchronizer/services/sync_codeowners.py
 
+# Default owners are the maintainers of the governance team
 * @Yuxiang-Huang
 
+# Default owner of the teams directory is the tech director
 teams @Yuxiang-Huang
+
+# The codeowners of each team file are the maintainers of the team
 
 teams/cmucal.toml @qianxuege
 
