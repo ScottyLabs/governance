@@ -10,6 +10,7 @@ from synchronizer.models import Contributor, Team
 from synchronizer.services.codeowners_synchronizer import CodeownersSynchronizer
 from synchronizer.services.github_synchronizer import GithubSynchronizer
 from synchronizer.services.keycloak_synchronizer import KeycloakSynchronizer
+from synchronizer.services.leadership_synchronizer import LeadershipSynchronizer
 from synchronizer.services.secrets_synchronizer import SecretsSynchronizer
 from synchronizer.services.slack_synchronizer import SlackSynchronizer
 from synchronizer.services.vault_synchronizer import VaultSynchronizer
@@ -63,6 +64,9 @@ class SyncManager:
 
     def sync_codeowners(self) -> None:
         CodeownersSynchronizer(self.teams).sync()
+
+    def sync_leadership(self) -> None:
+        LeadershipSynchronizer(self.teams).sync()
 
 
 def args_parser(services: list[str]) -> argparse.ArgumentParser:
@@ -120,6 +124,7 @@ def main() -> None:
         "slack": sync_manager.sync_slack,
         "secrets": sync_manager.sync_secrets,
         "codeowners": sync_manager.sync_codeowners,
+        "leadership": sync_manager.sync_leadership,
     }
 
     services = list(service_name_to_function.keys())

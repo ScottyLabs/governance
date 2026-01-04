@@ -10,6 +10,7 @@ contributors = [
 repos = []
 slack-channel-ids = [
 ]
+remove-unlisted = false
 sync-github = false
 create-oidc-clients = false
 secrets-population-layout = "none"
