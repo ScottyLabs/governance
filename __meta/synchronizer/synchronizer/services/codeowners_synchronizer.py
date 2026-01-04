@@ -7,7 +7,7 @@ from synchronizer.logger import get_app_logger, log_operation, print_section
 from synchronizer.models import Team
 
 
-class CodeownersManager:
+class CodeownersSynchronizer:
     REPO_NAME = "ScottyLabs/Governance"
     CODEOWNERS_FILE_PATH = ".github/CODEOWNERS"
     COMMIT_MESSAGE = "chore: auto-update CODEOWNERS"

@@ -13,7 +13,7 @@ from synchronizer.logger import (
 from synchronizer.models import Contributor, Team
 
 
-class SlackManager:
+class SlackSynchronizer:
     def __init__(
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:

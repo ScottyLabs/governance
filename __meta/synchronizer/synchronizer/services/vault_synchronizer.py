@@ -12,7 +12,7 @@ from synchronizer.logger import (
 from synchronizer.models import Team
 
 
-class VaultManager:
+class VaultSynchronizer:
     VAULT_URL = "https://secrets.scottylabs.org"
     ADMIN_GROUP_SUFFIX = "-admins"
     DEV_GROUP_SUFFIX = "-devs"

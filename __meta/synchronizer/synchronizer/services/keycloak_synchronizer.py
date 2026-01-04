@@ -18,7 +18,7 @@ from synchronizer.utils import (
 )
 
 
-class KeycloakManager:
+class KeycloakSynchronizer:
     ADMIN_SUFFIX = "-admins"
     EXTERNAL_ADMIN_SUFFIX = "-ext-admins"
     MEMBER_SUFFIX = "-devs"

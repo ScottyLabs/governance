@@ -8,12 +8,12 @@ from dotenv import load_dotenv
 
 from synchronizer.logger import LogStatusFilter, get_app_logger
 from synchronizer.models import Contributor, Team
-from synchronizer.services.sync_codeowners import CodeownersManager
-from synchronizer.services.sync_github import GithubManager
-from synchronizer.services.sync_keycloak import KeycloakManager
-from synchronizer.services.sync_secrets import SecretsManager
-from synchronizer.services.sync_slack import SlackManager
-from synchronizer.services.sync_vault import VaultManager
+from synchronizer.services.codeowners_synchronizer import CodeownersSynchronizer
+from synchronizer.services.github_synchronizer import GithubSynchronizer
+from synchronizer.services.keycloak_synchronizer import KeycloakSynchronizer
+from synchronizer.services.secrets_synchronizer import SecretsSynchronizer
+from synchronizer.services.slack_synchronizer import SlackSynchronizer
+from synchronizer.services.vault_synchronizer import VaultSynchronizer
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -48,22 +48,22 @@ class SyncManager:
                     self.teams[team_name] = Team.model_validate(data)
 
     def sync_github(self) -> None:
-        GithubManager(self.contributors, self.teams).sync()
+        GithubSynchronizer(self.contributors, self.teams).sync()
 
     def sync_keycloak(self) -> None:
-        KeycloakManager(self.contributors, self.teams).sync()
+        KeycloakSynchronizer(self.contributors, self.teams).sync()
 
     def sync_vault(self) -> None:
-        VaultManager(self.teams).sync()
+        VaultSynchronizer(self.teams).sync()
 
     def sync_slack(self) -> None:
-        SlackManager(self.contributors, self.teams).sync()
+        SlackSynchronizer(self.contributors, self.teams).sync()
 
     def sync_secrets(self) -> None:
-        SecretsManager(self.teams).sync()
+        SecretsSynchronizer(self.teams).sync()
 
     def sync_codeowners(self) -> None:
-        CodeownersManager(self.teams).sync()
+        CodeownersSynchronizer(self.teams).sync()
 
 
 def args_parser(services: list[str]) -> argparse.ArgumentParser:

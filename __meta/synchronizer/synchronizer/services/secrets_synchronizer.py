@@ -16,7 +16,7 @@ from synchronizer.models import Team
 from synchronizer.utils import ENVS, ENVS_LITERAL, get_server_url
 
 
-class SecretsManager:
+class SecretsSynchronizer:
     VAULT_URL = "https://secrets.scottylabs.org"
     MOUNT_POINT = "ScottyLabs"
 
