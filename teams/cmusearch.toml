@@ -10,6 +10,8 @@ maintainers = [
     "Yuxiang-Huang",
 ]
 contributors = [
+    "tsurbs",
+    "Yuxiang-Huang",
 ]
 repos = [
     "ScottyLabs/cmusearch",
