@@ -242,9 +242,9 @@ class GithubSynchronizer(AbstractSynchronizer):
             try:
                 current_role = github_team.get_team_membership(username).role
 
-                # Skip role sync for organization owners since their role cannot
-                # be changed and will always remain as maintainer.
-                if username in self.org_owners:
+                # Skip syncing organization owners' role to member since their role
+                # will always remain as maintainer.
+                if username in self.org_owners and role == "member":
                     continue
 
                 if current_role != role:
