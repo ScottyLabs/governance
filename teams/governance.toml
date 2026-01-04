@@ -11,6 +11,8 @@ maintainers = [
 contributors = [
     "Yuxiang-Huang",
 ]
+applicants = [
+]
 repos = [
     "ScottyLabs/governance",
 ]
