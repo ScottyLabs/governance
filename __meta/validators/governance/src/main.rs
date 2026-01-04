@@ -16,6 +16,8 @@ use log::error;
 use reqwest::Client;
 use std::{collections::HashMap, path::Path, process};
 
+use crate::checks::validate_maintainers_are_contributors;
+
 fn insert_error(files: &mut HashMap<String, FileValidationMessages>, error: ValidationError) {
     files
         .entry(error.file.clone())
@@ -65,6 +67,11 @@ async fn main() -> Result<()> {
 
     // Validate file names
     for error in validate_file_names(&contributors, &teams) {
+        insert_error(&mut file_messages, error);
+    }
+
+    // Validate that all maintainers are also contributors
+    for error in validate_maintainers_are_contributors(&teams) {
         insert_error(&mut file_messages, error);
     }
 

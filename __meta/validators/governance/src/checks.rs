@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 use anyhow::{Result, anyhow};
 use colored::Colorize;
@@ -40,6 +40,29 @@ pub fn validate_file_names(
                     team.slug.red().bold()
                 ),
             });
+        }
+    }
+
+    errors
+}
+
+pub fn validate_maintainers_are_contributors(
+    teams: &HashMap<EntityKey, Team>,
+) -> Vec<ValidationError> {
+    info!("Validating that all maintainers are also contributors...");
+    let mut errors = Vec::new();
+    for (team_key, team) in teams {
+        let contributors: HashSet<&String> = team.contributors.iter().collect();
+        for maintainer in &team.maintainers {
+            if !contributors.contains(maintainer) {
+                errors.push(ValidationError {
+                    file: format!("teams/{}.toml", team_key),
+                    message: format!(
+                        "Maintainer '{}' is not a contributor",
+                        maintainer.red().bold()
+                    ),
+                });
+            }
         }
     }
 
