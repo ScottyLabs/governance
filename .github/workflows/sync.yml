@@ -34,5 +34,5 @@ jobs:
       - name: Run Sync Script
         run: |
           uv sync --no-dev
-          uv pip install -e .
+          uv pip install .
           uv run sync
