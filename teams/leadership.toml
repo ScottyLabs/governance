@@ -2,15 +2,6 @@ slug = "leadership"
 name = "Leadership"
 description = "Leadership refers to the official ScottyLabs leadership team."
 maintainers = [
-    "Yuxiang-Huang",    # Director of Technology 2025 - 2026
-    "ap-1",             # Head     of DevOps     2025 - 2026
-    "tsurbs",           # Director of ScottyLabs 2025 - 2026
-    "xavilien",         # Director of Technology 2024 - 2025
-    "mzhou08",          # Director of ScottyLabs 2024 - 2025
-    "Adrastopoulos",    # Director of Technology 2023 - 2024
-    "ScottyLabsDeploy", # ScottyLabs GitHub Account
-]
-contributors = [
     "Yuxiang-Huang",
     "ap-1",
     "tsurbs",
@@ -18,6 +9,15 @@ contributors = [
     "mzhou08",
     "Adrastopoulos",
     "ScottyLabsDeploy",
+]
+contributors = [
+    "Yuxiang-Huang",    # Director of Technology    2023 - 2024
+    "ap-1",             # Head     of DevOps        2025 - 2026
+    "tsurbs",           # Director of ScottyLabs    2025 - 2026
+    "xavilien",         # Director of Technology    2023 - 2024
+    "mzhou08",          # Director of ScottyLabs    2024 - 2025
+    "Adrastopoulos",    # Director of Technology    2023 - 2024
+    "ScottyLabsDeploy", # ScottyLabs GitHub Account
 ]
 repos = []
 slack-channel-ids = [

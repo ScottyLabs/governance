@@ -10,14 +10,28 @@ maintainers = [
     "Yuxiang-Huang",
     "tsurbs",
     "luke992",
+    "JettChenT",
 ]
 contributors = [
-    "Yuxiang-Huang",
-    "tsurbs",
-    "luke992",
-    "JettChenT",
-    "Nicolapps",
-    "romycyy",
+    # Year 2025-2026
+    "luke992",       # Tech Lead
+    "romycyy",       # Data Team Lead
+    "JettChenT",     # Backend Team Lead
+    "Yuxiang-Huang", # Developer
+    "tsurbs",        # Developer
+
+    # Year 2024-2025
+    "Yuxiang-Huang", # Tech Lead
+    "luke992",       # Developer
+    "romycyy",       # Developer
+    "tsurbs",        # Developer
+
+    # Year 2023-2024
+    "tsurbs",        # Tech Lead
+    "Yuxiang-Huang", # Developer
+
+    # Year 2022-2023
+    "Nicolapps", # Founder
 ]
 applicants = [
 ]
