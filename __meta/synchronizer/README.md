@@ -1,39 +1,58 @@
 
 # Synchronizer
 
-The [sync workflow](../../.github/workflows/sync.yml) will run the [sync script](sync.py)
-on every push to the `main` branch to synchronize the teams and members from the `contributors/` and `teams/`
-directories to GitHub, Keycloak, Vault, and Slack.
+This directory contains the Python-based permission synchronizer for ScottyLabs.
 
 ## Github
 
-- Invite all contributors to the [ScottyLabs](https://github.com/ScottyLabs) Github organization.
+### Contributor Synchronization
 
-- Create the Github teams if they do not exist.
+- A new contributor will receive an email invitation
+  to join the [ScottyLabs Github organization](https://github.com/ScottyLabs) as a member.
+
+### Team Synchronization
+
+If the `sync-github` field is not explicitly set to `false` in the team file,
+the following synchronizations will be performed for the team:
+
+- Github teams will be created if they do not exist.
   - The team name will be the same as the team name specified in the `teams/` directory.
-  - An admin team will also be created as the subteam of the main team with the same name and the suffix " Admins".
+  - An admin team will also be created as a subteam of the main team with the name
+    "`Team Name` Admins".
 
-- Add the repos to the Github team. Give team developers write access and team leads admins access to the repos.
+- Team contributors will be added to the corresponding Github main team as members.
 
-- The respos not listed in the team file will be removed from the Github team by default,
-  but the team can keep unlisted repos by setting the `remove-unlisted` field to `false` in the team file.
+- Team maintainers will be added to the corresponding Github main team and admin team as maintainers.
 
-- Add team members to the corresponding Github main team as members.
+  - While this allows the team maintainers to add and remove members from the team directly,
+    members who are not listed in Governance will be removed on the next Governance sync.
 
-- Add team leads to the corresponding Github main team and admin team as maintainers.
-
-  - While this allows the team leads to add and remove members from the team directly,
-    members who not listed in Governance will be removed on the next Governance sync.
-
-  - You can set the `remove-unlisted` field to `false` in the team file to keep unlisted members.
+  - The `remove-unlisted` field can be set to `false` in the team file to keep unlisted members.
     This option is useful for quickly adding members as the team migrates to use Governance,
     but it is **recommended** to eventually list all members in the team file
     and remove the `remove-unlisted` field override.
 
-- Delete any unlisted member from the Github teams. The team can keep unlisted
+- Any unlisted member will be removed from the Github teams. The team can keep unlisted
   members by setting the `remove-unlisted` field to `false` in the team file.
 
+- The repos listed in the team file will be added to the Github team.
+
+  - The GitHub admin team will be given admin access to the repos.
+
+  - The GitHub main team will be given write access to the repos.
+
+  - The `remove-unlisted` field can be set to `false` in the team file to give the main
+    GitHub team a different permission level.
+
+- The repos not listed in the team file will be removed from the Github team.
+
+  - The team can keep unlisted repos by setting the `remove-unlisted` field to `false` in the team file.
+
 ## Keycloak
+
+The groups and oidc clients created by Keycloak synchronization are used for auth
+and integrate with Hashicorp Vault. However, they are not directly visible to you,
+so you can skip this section if you only want to know about the permissions you can directly use.
 
 - Create the Keycloak oidc clients if they do not exist. The team can opt out
 by setting the `create-oidc-clients` field to `false` in the team file.
@@ -55,74 +74,94 @@ by setting the `create-oidc-clients` field to `false` in the team file.
 
 - Create the Keycloak groups if they do not exist.
 
-  - A lead group will also be created with the suffix "-admins".
+  - An admin group will be created with the suffix "-admins".
 
-    - The team leads and service accounts (if the oidc clients are created) will be added to this group.
+    - The team maintainers and service accounts (if the oidc clients are created)
+      will be added to this group.
 
-  - A developer group will also be created with the suffix "-devs".
+  - A dev group will also be created with the suffix "-devs".
 
-  - An external admin group will be created with the suffix "-ext-admins"
-    if the `ext-admins` field is present in the team file.
+  - An external admin group will be created with the suffix "-ext-admins" if the
+    `ext-admins` field is present in the team file.
 
-  - An applicant group will be created with the suffix "-applicants"
-    if the `applicants` field is present in the team file.
+  - An applicant group will be created with the suffix "-applicants" if the
+    `applicants` field is present in the team file.
 
-- Delete any unlisted member from the Keycloak groups. The team can keep unlisted
-  members by setting the `remove-unlisted` field to `false` in the team file.
+- Any unlisted members will be removed from the Keycloak groups unless the
+  team opts out by setting the `remove-unlisted` field to `false` in the team file.
 
-### Hashicorp Vault
+## Hashicorp Vault
 
-- Create Hashicorp groups and necessary policies and aliases to integrate with Keycloak for authentication.
-  - Dev groups can read the secrets in the `local` folder.
+- Hashicorp groups, policies, and aliases will be created to integrate with Keycloak groups.
+
   - Admin groups can read and edit all secrets.
 
-- Populate the secrets for the team. The team can opt out by setting the `secrets-population-layout`
-field to `none` in the team file.
+  - Dev groups can read the secrets in the `local` folder.
 
-  - The secrets will be populated in the following layout:
-    - `single`: A folder for each environment (e.g. `local`, `dev`, `staging`, `prod`).
-    - `multi`: A folder for each environment and a subfolder for each app
-    (e.g. `local/web`, `local/server`, `dev/web`, `dev/server`, `staging/web`, `staging/server`, `prod/web`, `prod/server`).
+  - Applicants group can read the secrets in the `applicants` folder.
 
-  - The secrets will include the OIDC client secrets if they are created.
+- If the team did not opt out of secrets population by setting the `secrets-population-layout`
+  field to `none` in the team file, the secrets will be populated in the following layout:
+
+  - `single`: A folder for each environment (e.g. `local`, `dev`, `staging`, `prod`).
+
+  - `multi`: A folder for each environment and a subfolder for each app
+  (e.g. `local/web`, `local/server`, `dev/web`, `dev/server`, `staging/web`, `staging/server`, `prod/web`, `prod/server`).
+
+  - The secrets will include the OIDC client secrets if the `create-oidc-clients`
+    field is not explicitly set to `false` in the team file.
+
+### Accessing the Vault Secrets
+
+- You can login to the [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc)
+  by pressing the "Sign in with OIDC Provider" button with Method "oidc".
+  Press "ScottyLabs" listed under "Secrets Engines" and navigate to the
+  file you have permissions to access in your team's folder to view the secrets.
 
 ## Slack
 
-- Add team members to the corresponding Slack channels.
+- Add team members to the corresponding Slack channels listed in the team file.
 
-## Manual Validations
+## CODEOWNERS
 
-### Github
+- The [`CODEOWNERS`](https://github.com/ScottyLabs/governance/blob/main/.github/CODEOWNERS)
+  file will be automatically generated based on the contributors and teams.
 
-- Check that you received an email invitation to the ScottyLabs Github organization.
+## Leadership
 
-- Check that you are added to the corresponding Github team after accepting the invitation.
+- The [leadership team](https://github.com/ScottyLabs/governance/blob/main/teams/leadership.toml)
+  will be added as GitHub organization owners.
 
-### Keycloak
+- The leadership team maintainers will have all permissions in the Vault.
 
-Make sure you have the right permissions by logging into the [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc) and trying to access the secrets links in the corresponding folder section.
-
-### Slack
-
-- Check that you are added to the corresponding Slack channels.
+- The leadership team contributors will have read permissions to everything in the Vault.
 
 ## Troubleshooting
 
-- Check the [workflow output logs](https://github.com/ScottyLabs/governance/actions/workflows/sync.yml) to see if your user is added to the services.
+- Check out the [workflow output logs](https://github.com/ScottyLabs/governance/actions/workflows/sync.yml)
+  to see the synchronization in real time!
 
-- If your user is not found in Keycloak, try logging into the [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc) to create your account and then ask to rerun the workflow.
+- If your user is not found in Keycloak, try logging into the
+  [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc)
+  to create your account and then wait after the next sync workflow completes or
+  ask for the workflow to be rerun.
 
-### Local Development
+## Development
 
-Open in devcontainer and run the following command in the root directory:
+The [sync workflow](../../.github/workflows/sync.yml) will automatically run the
+[sync script](synchronizer/main.py) on every push to the `main` branch to synchronize
+the permissions for the contributors and teams from the `contributors/` and `teams/`
+directories, so the following instructions will not be relevant to most people.
+If you are interested, you can also test synchronizer locally, but it will fail
+due to the lack of environment variables.
+
+Open in devcontainer and run the following command in the root directory to see the available options:
 
 ```zsh
-uv sync
-uv pip install -e .
-uv run sync
+uv run sync -h
 ```
 
-#### Linting
+### Linting
 
 ```zsh
 uv run mypy .

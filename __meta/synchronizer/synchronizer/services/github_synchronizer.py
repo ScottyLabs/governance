@@ -347,6 +347,7 @@ class GithubSynchronizer(AbstractSynchronizer):
             return
 
         self.remove_unlisted_repos_from_team(github_team, repos)
+        self.remove_unlisted_repos_from_team(github_admin_team, repos)
 
     def add_new_repos_to_team(self, github_team: GithubTeam, repos: set[str]) -> None:
         """Add new repos to the Github team."""
