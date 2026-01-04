@@ -330,12 +330,31 @@ class GithubSynchronizer(AbstractSynchronizer):
 
         Give main team write access and admin team admin access to the repository.
         """
-        github_repos = github_team.get_repos()
-        github_repos_names = {repo.full_name for repo in github_repos}
         repos = set(team.repos)
+        self.add_new_repos_to_team(github_team, repos)
+
+        # Check all repo permissions
+        for repo in repos:
+            self.sync_repo_permissions(github_team, github_admin_team, team, repo)
+
+        # Remove any repositories from the Github team that are not in the team list
+        # if the team want to remove unlisted repos.
+        if not remove_unlisted:
+            self.logger.debug(
+                "Team %s opted out of removing unlisted repos, skipping...\n",
+                github_team.name,
+            )
+            return
+
+        self.remove_unlisted_repos_from_team(github_team, repos)
+
+    def add_new_repos_to_team(self, github_team: GithubTeam, repos: set[str]) -> None:
+        """Add new repos to the Github team."""
+        github_repos = github_team.get_repos()
+        github_repo_names = {repo.full_name for repo in github_repos}
 
         # Calculate new repos
-        new_repos = repos - github_repos_names
+        new_repos = repos - github_repo_names
         self.logger.debug(
             "Found %d new repos for the %s team.\n",
             len(new_repos),
@@ -348,8 +367,16 @@ class GithubSynchronizer(AbstractSynchronizer):
             with log_operation(log_message):
                 github_team.add_to_repos(repo)
 
-        # Check all repo permissions
-        for repo in repos:
+    def sync_repo_permissions(
+        self,
+        github_team: GithubTeam,
+        github_admin_team: GithubTeam,
+        team: Team,
+        repo: str,
+    ) -> None:
+        """Sync the repository permissions to the Github team."""
+        try:
+            current_permission = github_team.get_repo_permission(repo)
             # Make sure the main team has exactly push permission for the repo
             current_permission = github_team.get_repo_permission(repo)
             should_update = current_permission is None or not current_permission.push
@@ -366,7 +393,8 @@ class GithubSynchronizer(AbstractSynchronizer):
             # Update the permission if needed.
             if should_update:
                 with log_operation(
-                    f"add push permission to {repo} for {github_team.name} Github team"
+                    f"update {repo} permission to push for {github_team.name} "
+                    "GitHub team"
                 ):
                     github_team.update_team_repository(repo, "push")
 
@@ -378,15 +406,19 @@ class GithubSynchronizer(AbstractSynchronizer):
                     "{github_admin_team.name} Github team"
                 ):
                     github_admin_team.update_team_repository(repo, "admin")
-
-        # Remove any repositories from the Github team that are not in the team list
-        # if the team want to remove unlisted repos.
-        if not remove_unlisted:
-            self.logger.debug(
-                "Team %s opted out of removing unlisted repos, skipping...\n",
+        except Exception:
+            self.logger.exception(
+                "Error syncing %s repository permissions to %s GitHub team.",
+                repo,
                 github_team.name,
             )
-            return
+
+    def remove_unlisted_repos_from_team(
+        self, github_team: GithubTeam, repos: set[str]
+    ) -> None:
+        """Remove unlisted repos from the Github team."""
+        github_repos = github_team.get_repos()
+        github_repos_names = {repo.full_name for repo in github_repos}
 
         # Calculate unlisted repos
         unlisted_repos = github_repos_names - repos
