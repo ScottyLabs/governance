@@ -98,6 +98,14 @@ class GithubSynchronizer(AbstractSynchronizer):
 
         # Sync the team leads and devs to the GitHub main team
         devs = set(team.devs)
+
+        # Special Case: maintainers of any team need to be added to the governance
+        # github main team so they can merge PRs to accept new contributors.
+        if team.slug == "governance":
+            for other_team in self.teams.values():
+                if other_team.slug != team.slug:
+                    devs.update(other_team.leads)
+
         self.sync_github_main_team(
             github_team, leads, devs, remove_unlisted=team.remove_unlisted
         )

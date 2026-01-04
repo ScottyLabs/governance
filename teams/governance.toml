@@ -2,14 +2,12 @@ slug = "governance"
 name = "Governance"
 description = """
 Governance defines the organizational structure and manages permissions for ScottyLabs teams.
+
 Joining Governance means you want to work on the codebase inside the __meta/ directory.
 """
-# Leads are individuals who need the secrets for developing Governance features.
 leads = [
     "Yuxiang-Huang",
 ]
-# Devs are individuals who need permission to merge PRs to accept new contributors
-# into teams. This includes tech leads and any subteam leads.
 devs = []
 repos = [
     "ScottyLabs/governance",
