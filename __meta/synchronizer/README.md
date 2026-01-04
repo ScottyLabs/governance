@@ -141,8 +141,8 @@ by setting the `create-oidc-clients` field to `false` in the team file.
 - Check out the [workflow output logs](https://github.com/ScottyLabs/governance/actions/workflows/sync.yml)
   to see the synchronization in real time!
 
-- If your user is not found in Keycloak, try logging into the
-  [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc)
+- If your user is not found in Keycloak, try
+  [log into the Vault](https://github.com/ScottyLabs/governance/tree/main/__meta/synchronizer#accessing-the-vault-secrets)
   to create your account and then wait after the next sync workflow completes or
   ask for the workflow to be rerun.
 
