@@ -17,8 +17,10 @@ from synchronizer.utils import (
     get_staging_server_url,
 )
 
+from .abstract_synchronizer import AbstractSynchronizer
 
-class KeycloakSynchronizer:
+
+class KeycloakSynchronizer(AbstractSynchronizer):
     ADMIN_SUFFIX = "-admins"
     EXTERNAL_ADMIN_SUFFIX = "-ext-admins"
     MEMBER_SUFFIX = "-devs"

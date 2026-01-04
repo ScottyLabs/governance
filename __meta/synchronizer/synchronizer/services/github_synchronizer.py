@@ -14,8 +14,10 @@ from synchronizer.logger import (
 )
 from synchronizer.models import Contributor, Team
 
+from .abstract_synchronizer import AbstractSynchronizer
 
-class GithubSynchronizer:
+
+class GithubSynchronizer(AbstractSynchronizer):
     ADMIN_SUFFIX = " Admins"
 
     # We can have all teams visible to all members of the organization.
