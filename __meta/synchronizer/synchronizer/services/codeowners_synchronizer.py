@@ -48,6 +48,7 @@ class CodeownersSynchronizer(AbstractSynchronizer):
                 )
 
     def generate_codeowners_file(self) -> str:
+        """Generate the CODEOWNERS file."""
         file_path = "__meta/synchronizer/synchronizer/services/sync_codeowners.py"
         lines = [f"# Auto-generated CODEOWNERS file from {file_path}"]
         lines.append("")
@@ -60,7 +61,7 @@ class CodeownersSynchronizer(AbstractSynchronizer):
 
         governance_team = self.teams["governance"]
         codeowners_pattern = "*"
-        for maintainer in governance_team.maintainers:
+        for maintainer in sorted(governance_team.maintainers):
             codeowners_pattern += f" @{maintainer}"
         lines.append(codeowners_pattern)
         lines.append("")
@@ -69,7 +70,7 @@ class CodeownersSynchronizer(AbstractSynchronizer):
         # Sort the teams to prevent changes to the codeowners file due to ordering
         for team in sorted(self.teams.values(), key=lambda x: x.slug):
             codeowners_pattern = f"teams/{team.slug}.toml"
-            for maintainer in team.maintainers:
+            for maintainer in sorted(team.maintainers):
                 codeowners_pattern += f" @{maintainer}"
             lines.append(codeowners_pattern)
             lines.append("")
