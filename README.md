@@ -1,8 +1,7 @@
 # ScottyLabs Governance
 
-This repository defines the organizational structure, team membership, and project ownership for ScottyLabs. It serves as the source of truth for our GitHub organization's governance model.
-
-In this document, 'ScottyLabs' will refer to the GitHub organization at <https://github.com/ScottyLabs>, and not the club itself.
+This repository defines the organizational structure, team membership, and project ownership for ScottyLabs.
+It serves as the source of truth for our GitHub organization's governance model.
 
 ## Repository Structure
 
@@ -21,34 +20,35 @@ In this document, 'ScottyLabs' will refer to the GitHub organization at <https:/
 
 ## Adding a New Contributor
 
-1. Follow the instructions in [docs/contributors.md](docs/contributors.md) to submit
-a PR adding yourself as a new contributor.
+1. Follow the instructions in [docs/contributors.md](docs/contributors.md) to add
+   your information as a new contributor.
 
-2. In the same PR, include yourself in the team(s) you want to join under the `teams/` directory:
+2. Update the file of the team(s) you want to join under the `teams/` directory:
    - If the team file has an `applicants` field, add yourself there.
-   - Otherwise, add yourself to the `devs` field.
+   - Otherwise, add yourself to the `contributors` field.
 
 3. Review each project's repo's `CONTRIBUTING.md` file to understand any team-specific
    contribution guidelines (for example, some teams might require you submit a Google Form).
+   The link to each repo is in the format of `https://github.com/<organization>/<repo>`,
+   where `<organization>/<repo>` is listed in the `repos` field of the team file.
+   (e.g. `https://github.com/ScottyLabs/governance`).
 
-4. Request the first tech lead of each team you want to join as a reviewer to the PR.
-
-5. Feel free to ping the reviewer if there is no response after a few days.
-   If there is still no update after a week, ping the tech director (@Yuxiang-Huang).
+4. Submit a PR once you are ready. Familiarize yourself with the
+   [PR Review Process](https://github.com/ScottyLabs/governance/wiki/PR-Review-Process)
+   to understand the expectations for contributors and reviewers.
 
 ## Adding a New Team
 
-1. Follow the instructions in [docs/teams.md](docs/teams.md) to submit a PR creating the new team.
+1. Follow the instructions in [docs/teams.md](docs/teams.md) to create a new team file.
 
-2. Request the tech director (@Yuxiang-Huang) as a reviewer to the PR.
-
-3. If there is no response within 24 hours, ping the tech director.
+2. Submit a PR once you are ready. Familiarize yourself with the
+   [PR Review Process](https://github.com/ScottyLabs/governance/wiki/PR-Review-Process)
+   to understand the expectations for contributors and reviewers.
 
 ## Validations
 
 Check the [validators README](__meta/validators/README.md) for more information on the checks
-your PR must pass before it can be merged. A reviewer will approve the workflow to
-run after verifying that the pull request contains no malicious code.
+your PR must pass before it can be merged.
 
 ## Synchronization
 
@@ -57,4 +57,5 @@ on the synchronization process, including what permissions are granted.
 
 ## License
 
-This project is licensed under `Apache-2.0`, and is heavily inspired by [Concourse's governance](https://github.com/concourse/governance).
+This project is licensed under `Apache-2.0`, and is heavily inspired by
+[Concourse's governance](https://github.com/concourse/governance).

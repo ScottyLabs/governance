@@ -39,6 +39,7 @@
       "items": {
         "type": "string"
       },
+      "minItems": 1,
       "description": "The github usernames of the contributors of the team. There can be duplicates in the list."
     },
     "applicants": {
