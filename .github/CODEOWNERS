@@ -4,7 +4,7 @@
 
 teams/cmucal.toml @qianxuege
 
-teams/cmumaps.toml @luke992 @Yuxiang-Huang @JettChenT @tsurbs
+teams/cmumaps.toml @JettChenT @Yuxiang-Huang @luke992 @tsurbs
 
 teams/cmusearch.toml @Yuxiang-Huang @tsurbs
 
@@ -12,4 +12,4 @@ teams/governance.toml @Yuxiang-Huang
 
 teams/graph.toml @Yuxiang-Huang
 
-teams/leadership.toml @ap-1 @ScottyLabsDeploy @Adrastopoulos @tsurbs @xavilien @Yuxiang-Huang @mzhou08
+teams/leadership.toml @Adrastopoulos @ScottyLabsDeploy @Yuxiang-Huang @ap-1 @mzhou08 @tsurbs @xavilien
