@@ -111,12 +111,8 @@ by setting the `create-oidc-clients` field to `false` in the team file.
   - The secrets will include the OIDC client secrets if the `create-oidc-clients`
     field is not explicitly set to `false` in the team file.
 
-### Accessing the Vault Secrets
-
-- You can login to the [vault](https://secrets.scottylabs.org/ui/vault/auth?with=oidc)
-  by pressing the "Sign in with OIDC Provider" button with Method "oidc".
-  Press "ScottyLabs" listed under "Secrets Engines" and navigate to the
-  file you have permissions to access in your team's folder to view the secrets.
+- See [Vault Wiki page](https://github.com/ScottyLabs/wiki/wiki/Secrets-Management)
+  on how to access the Vault secrets.
 
 ## Slack
 
@@ -142,7 +138,7 @@ by setting the `create-oidc-clients` field to `false` in the team file.
   to see the synchronization in real time!
 
 - If your user is not found in Keycloak, try
-  [log into the Vault](https://github.com/ScottyLabs/governance/tree/main/__meta/synchronizer#accessing-the-vault-secrets)
+  [log into the Vault](https://github.com/ScottyLabs/wiki/wiki/Secrets-Management)
   to create your account and then wait after the next sync workflow completes or
   ask for the workflow to be rerun.
 
