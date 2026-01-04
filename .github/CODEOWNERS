@@ -1,15 +1,15 @@
 # Auto-generated CODEOWNERS file from __meta/synchronizer/synchronizer/services/sync_codeowners.py
 
-* @xavilien
+* @Yuxiang-Huang
 
 teams/cmucal.toml @qianxuege
 
-teams/cmumaps.toml @tsurbs @JettChenT @luke992 @Yuxiang-Huang
+teams/cmumaps.toml @luke992 @Yuxiang-Huang @JettChenT @tsurbs
 
-teams/cmusearch.toml @tsurbs @Yuxiang-Huang
+teams/cmusearch.toml @Yuxiang-Huang @tsurbs
 
 teams/governance.toml @Yuxiang-Huang
 
 teams/graph.toml @Yuxiang-Huang
 
-teams/leadership.toml @xavilien @mzhou08 @Adrastopoulos @tsurbs @ScottyLabsDeploy @Yuxiang-Huang @ap-1
+teams/leadership.toml @ap-1 @ScottyLabsDeploy @Adrastopoulos @tsurbs @xavilien @Yuxiang-Huang @mzhou08
