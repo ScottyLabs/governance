@@ -73,6 +73,13 @@ class GithubSynchronizer(AbstractSynchronizer):
     @log_team_sync()
     def sync_team(self, team: Team) -> None:
         """Sync the team to the GitHub organization."""
+        if not team.sync_github:
+            self.logger.debug(
+                "Team %s opted out of syncing to GitHub, skipping...\n",
+                team.name,
+            )
+            return
+
         # Get or create the team and the admin team
         github_team = self.get_or_create_main_team(team.name)
         admin_team_name = f"{team.name}{self.ADMIN_SUFFIX}"

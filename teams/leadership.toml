@@ -1,0 +1,13 @@
+slug = "leadership"
+name = "Leadership"
+description = "Leadership is the team that manages the leadership of the organization."
+leads = [
+    "Yuxiang-Huang",
+]
+devs = []
+repos = []
+slack-channel-ids = [
+]
+sync-github = false
+create-oidc-clients = false
+secrets-population-layout = "none"
