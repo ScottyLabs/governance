@@ -1,0 +1,32 @@
+slug = "flex"
+name = "Flex"
+description = """
+Flex team, short for Frontend Landing EXperience, is responsible for maintaining
+ScottyLabs's public-facing websites, including the main website at ScottyLabs.org,
+the TartanHacks landing page, and the Nova landing page.
+
+Message in the Slack channel if you are interested in joining!
+(if Eric Xu doesn't write a contributing guide here soon enough...)
+"""
+maintainers = [
+    "cirex-web",
+]
+contributors = [
+    "cirex-web",
+]
+repos = [
+    "ScottyLabs/web",                      # ScottyLabs.org Website
+    "ScottyLabs/tartanhacks-landing-2026", # TartanHacks Landing Page
+    "ScottyLabs/nova",                     # Nova Landing Page
+    "ScottyLabs/tartanhacks-old",          # TartanHacks Landing Page Pre-2026
+]
+slack-channel-ids = [
+    "C08MAT652CE",
+]
+remove-unlisted = false
+sync-github = false
+
+# Flex websites are open to the public, so they should never need oidc clients
+# for authentication nor secrets population.
+create-oidc-clients = false
+secrets-population-layout = "none"
