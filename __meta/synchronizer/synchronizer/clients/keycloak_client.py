@@ -5,6 +5,9 @@ from keycloak import KeycloakAdmin
 
 from synchronizer.logger import get_app_logger
 
+# Expose the username so the word "admin" won't be filtered in GitHub Actions...
+KEYCLOAK_USERNAME = "admin"
+
 
 @lru_cache(maxsize=1)
 def get_keycloak_client() -> KeycloakAdmin:
@@ -25,7 +28,7 @@ def get_keycloak_client() -> KeycloakAdmin:
 
     return KeycloakAdmin(
         server_url=os.getenv("KEYCLOAK_SERVER_URL"),
-        username=os.getenv("KEYCLOAK_USERNAME"),
+        username=KEYCLOAK_USERNAME,
         password=os.getenv("KEYCLOAK_PASSWORD"),
         realm_name=realm_name,
         client_id=client_id,
