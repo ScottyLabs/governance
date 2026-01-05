@@ -1,7 +1,6 @@
 import os
 
 from slack_sdk import WebClient
-from slack_sdk.errors import SlackApiError
 
 from synchronizer.logger import (
     get_app_logger,
@@ -67,14 +66,7 @@ class SlackSynchronizer(AbstractSynchronizer):
     ) -> None:
         # Join the channel so the bot can invite users
         try:
-            self.client.conversations_join(channel=channel_id)
-        except SlackApiError as e:
-            self.logger.critical(
-                "Error joining %s Slack channel: %s",
-                team.name,
-                e.response["error"],
-            )
-            return
+            response = self.client.conversations_join(channel=channel_id)
         except Exception:
             self.logger.exception(
                 "Error joining %s Slack channel",
@@ -85,13 +77,6 @@ class SlackSynchronizer(AbstractSynchronizer):
         # Get the current members of the channel
         try:
             response = self.client.conversations_members(channel=channel_id)
-        except SlackApiError as e:
-            self.logger.exception(
-                "Error getting members of %s Slack channel: %s",
-                team.name,
-                e.response["error"],
-            )
-            return
         except Exception:
             self.logger.exception(
                 "Error getting members of %s Slack channel",
@@ -113,12 +98,6 @@ class SlackSynchronizer(AbstractSynchronizer):
             log_message = f"invite users to {team.name} Slack channel: {users}"
             with log_operation(log_message):
                 self.client.conversations_invite(channel=channel_id, users=users)
-        except SlackApiError as e:
-            self.logger.exception(
-                "Error syncing %s Slack channel: %s",
-                team.name,
-                e.response["error"],
-            )
         except Exception:
             self.logger.exception(
                 "Error syncing %s Slack channel",
