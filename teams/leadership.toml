@@ -39,7 +39,7 @@ contributors = [
 ]
 repos = []
 slack-channel-ids = [
-    "C09PQUZ5W31", # Tech leads channel
+    "C08N23VR6RY", # Tech leads channel
 ]
 
 # The leadership team does not need GitHub teams
