@@ -24,15 +24,15 @@ class LogStatusFilter(logging.Filter):
 
     def __init__(self) -> None:
         super().__init__()
-        self.had_error = False
-        self.had_warning = False
+        self.error_logged = 0
+        self.warning_logged = 0
 
     def filter(self, record: logging.LogRecord) -> bool:
         if record.levelno == logging.ERROR:
-            self.had_error = True
+            self.error_logged += 1
 
         if record.levelno == logging.WARNING:
-            self.had_warning = True
+            self.warning_logged += 1
 
         return True
 

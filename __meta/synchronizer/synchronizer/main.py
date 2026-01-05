@@ -110,13 +110,19 @@ def check_logger_status() -> None:
         logger.critical(msg)
         raise RuntimeError(msg)
 
-    if log_status_filter.had_error:
-        msg = "One or more errors were logged. Check logs for details."
+    if log_status_filter.error_logged > 0:
+        msg = (
+            f"{log_status_filter.error_logged} error(s) were logged. "
+            "Check logs for details."
+        )
         logger.critical(msg)
         raise RuntimeError(msg)
 
-    if log_status_filter.had_warning:
-        msg = "One or more warnings were logged. Check logs for details."
+    if log_status_filter.warning_logged > 0:
+        msg = (
+            f"{log_status_filter.warning_logged} warning(s) were logged. "
+            "Check logs for details."
+        )
         logger.warning(msg)
 
 
