@@ -1,7 +1,8 @@
 # ScottyLabs Governance
 
 This repository defines the organizational structure, team membership, and project ownership for ScottyLabs.
-It serves as the source of truth for our GitHub organization's governance model.
+It serves as the source of truth for our GitHub organization's governance model,
+formalizing permission as code.
 
 ## Repository Structure
 
