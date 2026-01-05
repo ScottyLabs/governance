@@ -11,7 +11,7 @@ Surely the CMU Eats leads will write the contributing guide here before you see 
 """
 maintainers = [
     "cirex-web",
-    "laasyaaki"
+    "laasyaaki",
 ]
 contributors = [
     "cirex-web",
