@@ -1,0 +1,25 @@
+slug = "cmucourses"
+name = "CMU Courses"
+description = """
+CMU Courses (AKA ScottyLabs Course Tool) is a web application designed to aid
+students at Carnegie Mellon University in browsing courses, including information
+about course evaluations and schedules. Live at cmucourses.com.
+
+We are currrently waiting on the CMU Registrar's Office for the 2026 Spring courses
+data. It enables the new rewrite of CMU Courses, so we will most likely not be
+accepting new contributors until then.
+"""
+website-slug = "courses"
+maintainers = [
+    "xavilien",
+]
+contributors = [
+    "xavilien",
+]
+repos = []
+slack-channel-ids = [
+]
+remove-unlisted = false
+sync-github = false
+create-oidc-clients = false
+secrets-population-layout = "none"
