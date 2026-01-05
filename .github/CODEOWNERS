@@ -12,12 +12,20 @@ teams/cmucal.toml @qianxuege
 
 teams/cmucourses.toml @xavilien
 
+teams/cmueats.toml @cirex-web
+
 teams/cmumaps.toml @JettChenT @Yuxiang-Huang @luke992 @tsurbs
 
 teams/cmusearch.toml @Yuxiang-Huang @tsurbs
+
+teams/flex.toml @cirex-web
 
 teams/governance.toml @Yuxiang-Huang
 
 teams/graph.toml @Yuxiang-Huang
 
 teams/leadership.toml @Adrastopoulos @ScottyLabsDeploy @Yuxiang-Huang @ap-1 @mzhou08 @tsurbs @xavilien
+
+teams/lost-and-found.toml @axgu
+
+teams/terrier.toml @ap-1
