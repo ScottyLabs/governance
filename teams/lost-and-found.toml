@@ -1,0 +1,22 @@
+slug = "lost-and-found"
+name = "Lost and Found"
+website-slug = "lost"
+description = """
+V3 Lost and Found Rewrite in Next (Copied from the repo description lol)
+"""
+contributing-guide = "DM Anna Gu on Slack for now."
+maintainers = [
+    "axgu",
+]
+contributors = [
+    "axgu",
+]
+repos = [
+  "ScottyLabs/lost-and-found",
+]
+slack-channel-ids = [
+]
+remove-unlisted = false
+sync-github = false
+create-oidc-clients = false # Currently uses Clerk, so no OIDC clients needed.
+secrets-population-layout = "none"
