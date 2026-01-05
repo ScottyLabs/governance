@@ -1,0 +1,22 @@
+slug = "terrier"
+name = "Terrier"
+description = """
+Terrier is a hackathon management platform written entirely in Rust.
+Going to be powering TartanHacks 2026!
+"""
+contributing-guide = "https://github.com/ScottyLabs/terrier/blob/main/CONTRIBUTING.md"
+maintainers = [
+    "ap-1",
+]
+contributors = [
+    "ap-1",
+]
+repos = [
+    "ScottyLabs/terrier",
+]
+slack-channel-ids = [
+]
+remove-unlisted = false
+sync-github = false
+create-oidc-clients = false # Terrier uses its own realm so don't create oidc clients!
+secrets-population-layout = "none"
