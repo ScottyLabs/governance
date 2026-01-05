@@ -6,7 +6,7 @@ Join the ScottyLabs Tech leadership team by becoming the next
 Director of ScottyLabs, Director of Technology, or Tech Lead!
 """
 maintainers = [
-    "Yuxiang-Huang",
+    "Yuxiang-Huang",    # Current Director of Technology
     "ap-1",
     "tsurbs",
     "xavilien",
@@ -21,9 +21,11 @@ contributors = [
     "JackHurew",     # Head of Data & Analytics
     "ap-1",          # Head of DevOps
     "xavilien",      # Tech Lead of CMU Courses
-    "cirex-web",     # Tech Lead of CMU Eats and Flex
-    "laasyaaki",     # Tech Lead of CMU Eats
-    "luke992",       # Tech Lead of CMU Maps
+    "cirex-web",     # Tech Co-Lead of CMU Eats
+    "laasyaaki",     # Tech Co-Lead of CMU Eats
+    "luke992",       # Tech Co-Lead of CMU Maps
+    "ellylai",       # Tech Co-Lead of CMU Maps
+    "cirex-web",     # Tech Lead of Flex
     "axgu",          # Tech Lead of Lost and Found
     "ap-1",          # Tech Lead of Terrier
 

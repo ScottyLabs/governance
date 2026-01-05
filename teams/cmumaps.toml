@@ -10,12 +10,14 @@ maintainers = [
     "Yuxiang-Huang",
     "tsurbs",
     "luke992",
+    "ellylai",
     "JettChenT",
 ]
 contributors = [
     # Year 2025-2026
-    "luke992",       # Tech Lead
-    "romycyy",       # Data Team Lead
+    "luke992",       # Web Team Lead
+    "ellylai",       # Data Team Co-Lead
+    "romycyy",       # Data Team Co-Lead
     "JettChenT",     # Backend Team Lead
     "Yuxiang-Huang", # Developer
     "tsurbs",        # Developer
