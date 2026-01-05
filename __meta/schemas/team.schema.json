@@ -4,6 +4,7 @@
     "slug",
     "name",
     "description",
+    "contributing-guide",
     "maintainers",
     "contributors",
     "repos",
@@ -21,6 +22,10 @@
     "description": {
       "type": "string",
       "description": "A brief description of the team."
+    },
+    "contributing-guide": {
+      "type": "string",
+      "description": "Guide on how to contribute to the team, preferably a link to a CONTRIBUTING.md file."
     },
     "website-slug": {
       "type": "string",
