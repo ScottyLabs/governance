@@ -1,6 +1,7 @@
 slug = "leadership"
 name = "Leadership"
 description = "Leadership refers to the official ScottyLabs leadership team."
+contributing-guide = "Win the election and join the ScottyLabs leadership team!"
 maintainers = [
     "Yuxiang-Huang",
     "ap-1",

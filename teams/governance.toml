@@ -2,9 +2,9 @@ slug = "governance"
 name = "Governance"
 description = """
 Governance defines the organizational structure and manages permissions for ScottyLabs teams.
-
 Joining Governance means you want to work on the codebase inside the __meta/ directory.
 """
+contributing-guide = "https://github.com/ScottyLabs/governance/blob/main/.github/CONTRIBUTING.md"
 maintainers = [
     "Yuxiang-Huang",
 ]

@@ -1,6 +1,7 @@
 slug = "cmucal"
 name = "CMU Cal"
 description = ""
+contributing-guide = ""
 website-slug = "cal"
 maintainers = [
     "qianxuege",

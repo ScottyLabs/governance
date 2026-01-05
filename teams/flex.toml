@@ -4,7 +4,8 @@ description = """
 Flex team, short for Frontend Landing EXperience, is responsible for maintaining
 ScottyLabs's public-facing websites, including the main website at ScottyLabs.org,
 the TartanHacks landing page, and the Nova landing page.
-
+"""
+contributing-guide = """
 Message in the Slack channel if you are interested in joining!
 (if Eric Xu doesn't write a contributing guide here soon enough...)
 """

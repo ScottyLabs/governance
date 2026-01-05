@@ -3,7 +3,10 @@ name = "CMU Search"
 website-slug = "search"
 description = """
 CMU Search is a search engine to search for courses, locations, and events on campus.
-Join if you love search engines! (not live yet)
+Join if you love search engines!
+"""
+contributing-guide = """
+DM Theo Urban on Slack for now until he finally finds this line 😈.
 """
 maintainers = [
     "tsurbs",
