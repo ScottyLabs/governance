@@ -11,9 +11,11 @@ Surely the CMU Eats leads will write the contributing guide here before you see 
 """
 maintainers = [
     "cirex-web",
+    "laasyaaki"
 ]
 contributors = [
     "cirex-web",
+    "laasyaaki",
 ]
 repos = [
     "ScottyLabs/cmueats",
