@@ -242,7 +242,7 @@ class KeycloakSynchronizer(AbstractSynchronizer):
         # Remove extra users if the team want to remove unlisted members
         if not remove_unlisted:
             self.logger.debug(
-                "Team %s opted out of removing unlisted members, skipping...",
+                "Team %s opted out of removing unlisted members, skipping...\n",
                 team_name,
             )
             return

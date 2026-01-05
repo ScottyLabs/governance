@@ -54,7 +54,7 @@ class SecretsSynchronizer(AbstractSynchronizer):
         secrets_population_layout = team.secrets_population_layout
         if secrets_population_layout == "none":
             self.logger.debug(
-                "Team %s opt out of secrets population, skipping...\n",
+                "Team %s opted out of secrets population, skipping...\n",
                 team.name,
             )
             return

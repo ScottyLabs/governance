@@ -52,7 +52,7 @@ class SlackSynchronizer(AbstractSynchronizer):
 
         if len(team.slack_channel_ids) == 0:
             self.logger.debug(
-                "No Slack channels to sync for %s, skipping...",
+                "No Slack channels to sync for %s, skipping...\n",
                 team.name,
             )
             return
