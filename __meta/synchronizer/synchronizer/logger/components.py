@@ -14,6 +14,10 @@ class AppLogger(logging.Logger):
         if self.isEnabledFor(SUCCESS_LEVEL):
             self._log(SUCCESS_LEVEL, msg, args, **kwargs)
 
+    def print_bold(self, msg: str, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
+        if self.isEnabledFor(PRINT_LEVEL):
+            self._log(PRINT_LEVEL, Style.BRIGHT + msg, args, **kwargs)
+
     def print(self, msg: str, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
         if self.isEnabledFor(PRINT_LEVEL):
             self._log(PRINT_LEVEL, msg, args, **kwargs)
@@ -41,7 +45,6 @@ class ColorFormatter(logging.Formatter):
     """Color formatter for the logger."""
 
     COLOR_MAP: ClassVar = {
-        PRINT_LEVEL: Style.BRIGHT,
         logging.DEBUG: Fore.LIGHTBLACK_EX,
         logging.INFO: Fore.BLUE,
         SUCCESS_LEVEL: Fore.GREEN,

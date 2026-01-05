@@ -1,6 +1,7 @@
 import os
 
 from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
 
 from synchronizer.logger import (
     get_app_logger,
@@ -36,6 +37,14 @@ class SlackSynchronizer(AbstractSynchronizer):
 
     @log_team_sync()
     def sync_team(self, team: Team) -> None:
+        # Skip if the team does not have any Slack channels to sync
+        if len(team.slack_channel_ids) == 0:
+            self.logger.debug(
+                "No Slack channels to sync for %s, skipping...\n",
+                team.name,
+            )
+            return
+
         # Get the desired members' Slack IDs for the team
         desired_members = set()
         for contributor_id in team.contributors:
@@ -49,30 +58,37 @@ class SlackSynchronizer(AbstractSynchronizer):
 
             desired_members.add(contributor.slack_member_id)
 
-        if len(team.slack_channel_ids) == 0:
-            self.logger.debug(
-                "No Slack channels to sync for %s, skipping...\n",
-                team.name,
-            )
-            return
-
         # Sync each channel
         for channel_id in team.slack_channel_ids:
-            with log_operation(f"sync {team.name} Slack channel: {channel_id}"):
-                self.sync_channel(team, channel_id, desired_members)
+            self.logger.print(f"Syncing {team.name} Slack channel: {channel_id}...\n")
+            self.sync_channel(team, channel_id, desired_members)
+            self.logger.print("")
 
     def sync_channel(
         self, team: Team, channel_id: str, desired_members: set[str]
     ) -> None:
-        # Join the channel so the bot can invite users
+        # Get the channel info
         try:
-            response = self.client.conversations_join(channel=channel_id)
+            info = self.client.conversations_info(channel=channel_id)
+        except SlackApiError as e:
+            # Trying to get info a private channel results in a channel_not_found error
+            if e.response["error"] == "channel_not_found":
+                msg = "The Slack Governance App need to be added to channel "
+                msg += f"{channel_id} in order to invite users to the channel."
+                self.logger.exception(msg)
+                return
         except Exception:
             self.logger.exception(
-                "Error joining %s Slack channel",
+                "Error getting info of %s Slack channel",
                 team.name,
             )
             return
+
+        # Add the Governance App to the channel if it is not already a member
+        # so it can invite users to the channel
+        if not info["channel"]["is_member"]:
+            with log_operation(f"join Slack channel: {channel_id}"):
+                self.client.conversations_join(channel=channel_id)
 
         # Get the current members of the channel
         try:
@@ -94,12 +110,7 @@ class SlackSynchronizer(AbstractSynchronizer):
             )
             return
 
-        try:
-            log_message = f"invite users to {team.name} Slack channel: {users}"
-            with log_operation(log_message):
-                self.client.conversations_invite(channel=channel_id, users=users)
-        except Exception:
-            self.logger.exception(
-                "Error syncing %s Slack channel",
-                team.name,
-            )
+        # Invite the users to the channel
+        log_message = f"invite users to {team.name} Slack channel: {users}"
+        with log_operation(log_message):
+            self.client.conversations_invite(channel=channel_id, users=users)

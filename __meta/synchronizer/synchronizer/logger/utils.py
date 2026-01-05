@@ -14,9 +14,9 @@ R = TypeVar("R")
 
 def print_section(section: str) -> None:
     logger = get_app_logger()
-    logger.print("=" * 50)
-    logger.print("Syncing %s...", section)
-    logger.print("=" * 50 + "\n")
+    logger.print_bold("=" * 50)
+    logger.print_bold("Syncing %s...", section)
+    logger.print_bold("=" * 50 + "\n")
 
 
 @contextmanager
@@ -49,7 +49,7 @@ def log_team_sync() -> Callable[[Callable[P, R]], Callable[P, R]]:
                 raise TypeError(msg)
 
             logger = get_app_logger()
-            logger.print("Syncing team %s...\n", team.name)
+            logger.print_bold("Syncing team %s...\n", team.name)
             result = func(*args, **kwargs)
             logger.print("")
             return result
