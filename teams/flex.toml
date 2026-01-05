@@ -6,8 +6,11 @@ ScottyLabs's public-facing websites, including the main website at ScottyLabs.or
 the TartanHacks landing page, and the Nova landing page.
 """
 contributing-guide = """
-Message in the Slack channel if you are interested in joining!
-(if Eric Xu doesn't write a contributing guide here soon enough...)
+Message in the #tech-23-flex Slack channel if you are interested! We 
+recommend you to have at least a year of experience in CSS, tailwind CSS, or other 
+equivalent frontend styling language before joining. However, there's no formal 
+application process, so you can still work on something if you put in the time
+to learn frontend development well!
 """
 maintainers = [
     "cirex-web",

@@ -7,7 +7,8 @@ having to go through the arduous process of visiting the CMU Dining Website.
 Live at cmueats.com.
 """
 contributing-guide = """
-Surely the CMU Eats leads will write the contributing guide here before you see this.
+Want to contribute/join our team? Self-assign yourself to any github issue on either https://github.com/ScottyLabs/dining-api/issues or https://github.com/ScottyLabs/cmueats/issues and make a PR addressing the issue. (please ask 
+for clarifications if it's a substantial or very open-ended task! We don't want you to waste time working on something that isn't aligned with our project's general direction.) 
 """
 maintainers = [
     "cirex-web",
