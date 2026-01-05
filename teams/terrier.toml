@@ -18,5 +18,8 @@ slack-channel-ids = [
 ]
 remove-unlisted = false
 sync-github = false
-create-oidc-clients = false # Terrier uses its own realm so don't create oidc clients!
+
+# Terrier uses its own realm so don't create oidc clients!
+create-oidc-clients = false
+
 secrets-population-layout = "none"

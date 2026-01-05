@@ -18,5 +18,8 @@ slack-channel-ids = [
 ]
 remove-unlisted = false
 sync-github = false
-create-oidc-clients = false # Currently uses Clerk, so no OIDC clients needed.
+
+# Currently uses Clerk, so no OIDC clients needed.
+create-oidc-clients = false
+
 secrets-population-layout = "none"
