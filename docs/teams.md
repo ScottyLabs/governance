@@ -15,10 +15,11 @@ Read about our contributing guide at https://github.com/ScottyLabs/cmumaps/blob/
 """
 website-slug = "maps" # used in website URLs (e.g. maps.scottylabs.org)
 maintainers = [
-    "your-github-username" # >= 1 maintainer
+    "your-github-username" # >= 1 maintainer, no duplicates
 ]
 contributors = [
-    "your-github-username" # all maintainers must also be listed as contributors
+    "your-github-username" # All maintainers must also be listed as contributors.
+                           # There can be duplicates in the list in case you want to format it like cmumaps.toml
 ]
 applicants = [
     "applicant-github-username" # optional array of applicants
