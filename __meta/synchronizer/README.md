@@ -116,7 +116,15 @@ by setting the `create-oidc-clients` field to `false` in the team file.
 
 ## Slack
 
-- Add team members to the corresponding Slack channels listed in the team file.
+- Invite team members to the corresponding Slack channels listed in the team file.
+
+- The Slack Governance App needs to be added to every **private** Slack channel in
+  order to invite users to the channel.
+  To add the app in a channel, send the following message in the channel:
+
+  ```slack
+  /invite @Governance
+  ```
 
 ## CODEOWNERS
 

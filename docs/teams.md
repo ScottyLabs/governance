@@ -29,6 +29,8 @@ ext-admins = [
 repos = [
     "ScottyLabs/cmumaps", # >= 1 repo, in the format of "ScottyLabs/<repo-name>"
 ]
+
+# The Slack Governance App needs to be added to every private Slack channel.
 slack-channel-ids = [
     "C9999999999" # Empty array if no associated channels
 ]
