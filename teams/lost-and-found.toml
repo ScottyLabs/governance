@@ -12,7 +12,7 @@ contributors = [
     "axgu",
 ]
 repos = [
-  "ScottyLabs/lost-and-found",
+    "ScottyLabs/lost-and-found",
 ]
 slack-channel-ids = [
 ]
