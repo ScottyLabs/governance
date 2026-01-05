@@ -4,7 +4,6 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 from synchronizer.logger import (
-    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -18,10 +17,9 @@ class SlackSynchronizer(AbstractSynchronizer):
     def __init__(
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
-        self.logger = get_app_logger()
-        self.contributors = contributors
-        self.teams = teams
+        super().__init__(contributors, teams)
 
+        # Initialize the Slack client
         slack_token = os.getenv("SLACK_TOKEN")
         if not slack_token:
             msg = "SLACK_TOKEN is not set"

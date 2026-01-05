@@ -2,7 +2,6 @@ from keycloak import KeycloakGetError
 
 from synchronizer.clients import get_keycloak_client
 from synchronizer.logger import (
-    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -30,13 +29,13 @@ class KeycloakSynchronizer(AbstractSynchronizer):
     def __init__(
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
-        self.contributors = contributors
-        self.teams = teams
+        super().__init__(contributors, teams)
+
+        # Initialize the Keycloak client and get the existing clients
         self.keycloak_admin = get_keycloak_client()
         self.existing_clients = [
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]
-        self.logger = get_app_logger()
 
     def sync(self) -> None:
         print_section("Keycloak")

@@ -7,7 +7,6 @@ from github.Team import Team as GithubTeam
 
 from synchronizer.clients import get_github_client
 from synchronizer.logger import (
-    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
@@ -26,11 +25,10 @@ class GithubSynchronizer(AbstractSynchronizer):
     def __init__(
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
-        """Initialize the GithubManager with GitHub org."""
-        self.logger = get_app_logger()
+        """Initialize the GithubSynchronizer."""
+        super().__init__(contributors, teams)
 
-        self.contributors = contributors
-        self.teams = teams
+        # Initialize the GitHub client and organization
         self.g = get_github_client()
         self.org = self.g.get_organization("ScottyLabs")
 

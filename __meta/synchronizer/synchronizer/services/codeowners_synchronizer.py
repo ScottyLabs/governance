@@ -1,8 +1,8 @@
 from github.Repository import Repository
 
 from synchronizer.clients import get_github_client
-from synchronizer.logger import get_app_logger, log_operation, print_section
-from synchronizer.models import Team
+from synchronizer.logger import log_operation, print_section
+from synchronizer.models import Contributor, Team
 
 from .abstract_synchronizer import AbstractSynchronizer
 
@@ -12,10 +12,11 @@ class CodeownersSynchronizer(AbstractSynchronizer):
     CODEOWNERS_FILE_PATH = ".github/CODEOWNERS"
     COMMIT_MESSAGE = "chore: auto-update CODEOWNERS"
 
-    def __init__(self, teams: dict[str, Team]) -> None:
-        self.teams = teams
+    def __init__(
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
+    ) -> None:
+        super().__init__(contributors, teams)
         self.g = get_github_client()
-        self.logger = get_app_logger()
 
     def sync(self) -> None:
         print_section("Codeowners")

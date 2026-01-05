@@ -4,8 +4,8 @@ from github.NamedUser import NamedUser
 
 from synchronizer.clients import get_github_client
 from synchronizer.clients.vault_client import get_vault_client
-from synchronizer.logger import get_app_logger, log_operation, print_section
-from synchronizer.models import Team
+from synchronizer.logger import log_operation, print_section
+from synchronizer.models import Contributor, Team
 
 from .abstract_synchronizer import AbstractSynchronizer
 
@@ -16,13 +16,19 @@ class LeadershipSynchronizer(AbstractSynchronizer):
     ADMINS_POLICY_NAME = "leadership-admins"
     DEVS_POLICY_NAME = "leadership-devs"
 
-    def __init__(self, teams: dict[str, Team]) -> None:
-        self.logger = get_app_logger()
+    def __init__(
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
+    ) -> None:
+        super().__init__(contributors, teams)
+
+        # Skip if the leadership team is not found
         if "leadership" not in teams:
             self.logger.warning("Leadership team not found, skipping...\n")
             return
 
         self.team = teams["leadership"]
+
+        # Initialize the GitHub and Vault clients
         self.g = get_github_client()
         self.org = self.g.get_organization("ScottyLabs")
         self.vault_client = get_vault_client()

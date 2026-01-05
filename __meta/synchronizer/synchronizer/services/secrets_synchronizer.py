@@ -1,46 +1,31 @@
 import base64
 import os
 
-import hvac
 from hvac.exceptions import InvalidPath
 
 from synchronizer.clients import get_keycloak_client
+from synchronizer.clients.vault_client import get_vault_client
 from synchronizer.logger import (
-    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
 )
-from synchronizer.models import Team
+from synchronizer.models import Contributor, Team
 from synchronizer.utils import ENVS, ENVS_LITERAL, get_server_url
 
 from .abstract_synchronizer import AbstractSynchronizer
 
 
 class SecretsSynchronizer(AbstractSynchronizer):
-    VAULT_URL = "https://secrets.scottylabs.org"
     MOUNT_POINT = "ScottyLabs"
 
-    def __init__(self, teams: dict[str, Team]) -> None:
-        self.logger = get_app_logger()
+    def __init__(
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
+    ) -> None:
+        super().__init__(contributors, teams)
 
-        realm_name = os.getenv("KEYCLOAK_REALM")
-        if not realm_name:
-            msg = "KEYCLOAK_REALM is not set"
-            self.logger.critical(msg)
-            raise RuntimeError(msg)
-
-        client_id = os.getenv("KEYCLOAK_CLIENT_ID")
-        if not client_id:
-            msg = "KEYCLOAK_CLIENT_ID is not set"
-            self.logger.critical(msg)
-            raise RuntimeError(msg)
-
-        self.teams = teams
-        self.vault_client = hvac.Client(
-            url=self.VAULT_URL,
-            token=os.getenv("VAULT_TOKEN"),
-        )
+        # Initialize the clents
+        self.vault_client = get_vault_client()
         self.keycloak_client = get_keycloak_client()
 
     def sync(self) -> None:

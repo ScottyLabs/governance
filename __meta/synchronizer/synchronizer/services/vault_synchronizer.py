@@ -2,12 +2,11 @@ from collections.abc import Callable
 
 from synchronizer.clients.vault_client import get_vault_client
 from synchronizer.logger import (
-    get_app_logger,
     log_operation,
     log_team_sync,
     print_section,
 )
-from synchronizer.models import Team
+from synchronizer.models import Contributor, Team
 
 from .abstract_synchronizer import AbstractSynchronizer
 
@@ -18,10 +17,13 @@ class VaultSynchronizer(AbstractSynchronizer):
     APPLICANT_GROUP_SUFFIX = "-applicants"
     APPLICANTS_FOLDER_NAME = "applicants"
 
-    def __init__(self, teams: dict[str, Team]) -> None:
-        self.teams = teams
+    def __init__(
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
+    ) -> None:
+        super().__init__(contributors, teams)
+
+        # Initialize the Vault client
         self.client = get_vault_client()
-        self.logger = get_app_logger()
 
         # Get the list of all groups
         data = self.client.secrets.identity.list_groups()["data"]
