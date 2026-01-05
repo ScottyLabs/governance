@@ -1,7 +1,10 @@
 slug = "leadership"
 name = "Leadership"
-description = "Leadership refers to the official ScottyLabs leadership team."
-contributing-guide = "Win the election and join the ScottyLabs leadership team!"
+description = "Leadership refers to the official ScottyLabs Tech leadership team."
+contributing-guide = """
+Join the ScottyLabs Tech leadership team by becoming the next
+Director of ScottyLabs, Director of Technology, or Tech Lead!
+"""
 maintainers = [
     "Yuxiang-Huang",
     "ap-1",
@@ -12,17 +15,38 @@ maintainers = [
     "ScottyLabsDeploy",
 ]
 contributors = [
-    "Yuxiang-Huang",    # Director of Technology    2023 - 2024
-    "ap-1",             # Head     of DevOps        2025 - 2026
-    "tsurbs",           # Director of ScottyLabs    2025 - 2026
-    "xavilien",         # Director of Technology    2023 - 2024
-    "mzhou08",          # Director of ScottyLabs    2024 - 2025
-    "Adrastopoulos",    # Director of Technology    2023 - 2024
-    "ScottyLabsDeploy", # ScottyLabs GitHub Account
+    # Year 2025-2026
+    "tsurbs",        # Director of ScottyLabs
+    "Yuxiang-Huang", # Director of Technology
+    "JackHurew",     # Head of Data & Analytics
+    "ap-1",          # Head of DevOps
+    "xavilien",      # Tech Lead of CMU Courses
+    "cirex-web",     # Tech Lead of CMU Eats and Flex
+    "laasyaaki",     # Tech Lead of CMU Eats
+    "luke992",       # Tech Lead of CMU Maps
+    "axgu",          # Tech Lead of Lost and Found
+    "ap-1",          # Tech Lead of Terrier
+
+    # Year 2024-2025
+    "mzhou08",  # Director of ScottyLabs
+    "xavilien", # Director of Technology
+
+    # Year 2023-2024
+    "Adrastopoulos", # Director of Technology
+
+    # ScottyLabs GitHub Account
+    "ScottyLabsDeploy",
 ]
 repos = []
 slack-channel-ids = [
+    "C09PQUZ5W31", # Tech leads channel
 ]
-sync-github = false # The leadership team does not need GitHub teams
-create-oidc-clients = false # The leadership team does not need OIDC clients
-secrets-population-layout = "none" # The leadership team does not need secrets population
+
+# The leadership team does not need GitHub teams
+sync-github = false
+
+# The leadership team does not need OIDC clients
+create-oidc-clients = false
+
+# The leadership team does not need secrets population
+secrets-population-layout = "none"
