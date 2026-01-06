@@ -11,15 +11,13 @@ from .abstract_synchronizer import AbstractSynchronizer
 
 
 class GoogleDriveSynchronizer(AbstractSynchronizer):
-    drive_role = Literal["writer", "fileOrganizer"]
-    drive_role_to_role_name: ClassVar[dict[drive_role, str]] = {
+    DRIVE_ROLE = Literal["writer", "fileOrganizer"]
+    DRIVE_ROLE_TO_ROLE_NAME: ClassVar[dict[DRIVE_ROLE, str]] = {
         "writer": "contributor",
         "fileOrganizer": "content manager",
     }
 
-    GOOGLE_AUTH_URI = "https://accounts.google.com/o/oauth2/auth"
     GOOGLE_TOKEN_URI = "https://oauth2.googleapis.com/token"  # noqa: S105
-    GOOGLE_UNIVERSE_DOMAIN = "googleapis.com"
 
     def __init__(
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
@@ -28,13 +26,8 @@ class GoogleDriveSynchronizer(AbstractSynchronizer):
 
         # Validate environment variables
         for env_var in [
-            "GOOGLE_PROJECT_ID",
-            "GOOGLE_PRIVATE_KEY_ID",
-            "GOOGLE_PRIVATE_KEY",
             "GOOGLE_CLIENT_EMAIL",
-            "GOOGLE_CLIENT_ID",
-            "GOOGLE_AUTH_PROVIDER_X509_CERT_URL",
-            "GOOGLE_CLIENT_X509_CERT_URL",
+            "GOOGLE_PRIVATE_KEY",
             "SCOTTYLABS_GOOGLE_DRIVE_ID",
         ]:
             if env_var not in os.environ:
@@ -42,26 +35,19 @@ class GoogleDriveSynchronizer(AbstractSynchronizer):
                 self.logger.critical(msg)
                 raise RuntimeError(msg)
 
-        # Initialize the Google Drive client
+        # Set the Google Drive ID
         self.google_drive_id = os.getenv("SCOTTYLABS_GOOGLE_DRIVE_ID")
+
+        # Initialize the Google credentials
         creds = service_account.Credentials.from_service_account_info(
             info={
-                "type": "service_account",
-                "project_id": os.getenv("GOOGLE_PROJECT_ID"),
-                "private_key_id": os.getenv("GOOGLE_PRIVATE_KEY_ID"),
                 "private_key": os.getenv("GOOGLE_PRIVATE_KEY"),
                 "client_email": os.getenv("GOOGLE_CLIENT_EMAIL"),
-                "client_id": os.getenv("GOOGLE_CLIENT_ID"),
-                "auth_uri": self.GOOGLE_AUTH_URI,
                 "token_uri": self.GOOGLE_TOKEN_URI,
-                "auth_provider_x509_cert_url": os.getenv(
-                    "GOOGLE_AUTH_PROVIDER_X509_CERT_URL"
-                ),
-                "client_x509_cert_url": os.getenv("GOOGLE_CLIENT_X509_CERT_URL"),
-                "universe_domain": self.GOOGLE_UNIVERSE_DOMAIN,
             },
         )
 
+        # Initialize the Google Drive service client
         self.service = build("drive", "v3", credentials=creds)
 
         # Validate the credentials by making a small request
@@ -149,8 +135,8 @@ class GoogleDriveSynchronizer(AbstractSynchronizer):
 
         return new_email_addresses
 
-    def add_permissions(self, email_addresses: list[str], role: drive_role) -> None:
-        role_name = self.drive_role_to_role_name[role]
+    def add_permissions(self, email_addresses: list[str], role: DRIVE_ROLE) -> None:
+        role_name = self.DRIVE_ROLE_TO_ROLE_NAME[role]
 
         # Log messages
         if len(email_addresses) == 0:
