@@ -111,7 +111,7 @@ by setting the `create-oidc-clients` field to `false` in the team file.
   - The secrets will include the OIDC client secrets if the `create-oidc-clients`
     field is not explicitly set to `false` in the team file.
 
-- See [Vault Wiki page](https://github.com/ScottyLabs/wiki/wiki/Secrets-Management)
+- See [Vault Wiki page](https://github.com/ScottyLabs/wiki/wiki/Credentials#hashicorp-vault)
   on how to access the Vault secrets.
 
 ## Slack
