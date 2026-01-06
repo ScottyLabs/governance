@@ -19,7 +19,7 @@ slack-channel-ids = [
 ]
 # Contributors won't have access to the repo.
 # See Events API project's internal documentation for more information:
-# https://github.com/ScottyLabs/wiki/wiki/Internal-Documentation
+# https://www.notion.so/wiki-scottylabs/Events-API-2b496192554c80f8bd55d8cd108fcd78
 sync-github = false
 create-oidc-clients = false
 secrets-population-layout = "single"
