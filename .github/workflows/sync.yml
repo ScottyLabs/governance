@@ -23,6 +23,9 @@ jobs:
       KEYCLOAK_USER_REALM: ${{ secrets.KEYCLOAK_USER_REALM }}
       VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
       SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
+      GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+      SCOTTYLABS_GOOGLE_DRIVE_ID: ${{ secrets.SCOTTYLABS_GOOGLE_DRIVE_ID }}
 
     steps:
       - name: Checkout
