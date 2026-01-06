@@ -126,6 +126,15 @@ by setting the `create-oidc-clients` field to `false` in the team file.
   /invite @Governance
   ```
 
+## Google Drive
+
+- See [Google Drive Wiki page](https://github.com/ScottyLabs/wiki/wiki/Resources#google-drive)
+  on how to use the ScottyLabs Google Drive.
+
+- All contributors will be added as a contributor to the ScottyLabs Google Drive.
+
+- All maintainers will be added as a content manager to the ScottyLabs Google Drive.
+
 ## CODEOWNERS
 
 - The [`CODEOWNERS`](https://github.com/ScottyLabs/governance/blob/main/.github/CODEOWNERS)
