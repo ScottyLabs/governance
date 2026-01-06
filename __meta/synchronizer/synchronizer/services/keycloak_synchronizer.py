@@ -191,15 +191,9 @@ class KeycloakSynchronizer(AbstractSynchronizer):
         for member in members:
             # Validation check guarantees that members will always be a contributor
             andrew_id = self.contributors[member].andrew_id
-            if andrew_id is None:
-                self.logger.warning(
-                    "Andrew ID is not set for contributor %s.\n",
-                    member,
-                )
-                continue
-
-            # The andrew id is the username in Keycloak
-            usernames.add(andrew_id)
+            if andrew_id is not None:
+                # The andrew id is the username in Keycloak
+                usernames.add(andrew_id)
         return usernames
 
     def get_service_account_usernames(self, team_slug: str) -> set[str]:

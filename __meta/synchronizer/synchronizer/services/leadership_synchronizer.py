@@ -23,7 +23,7 @@ class LeadershipSynchronizer(AbstractSynchronizer):
 
         # Skip if the leadership team is not found
         if "leadership" not in teams:
-            self.logger.warning("Leadership team not found, skipping...\n")
+            self.logger.error("Leadership team not found, skipping...\n")
             return
 
         self.team = teams["leadership"]

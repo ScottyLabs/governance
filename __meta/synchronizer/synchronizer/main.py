@@ -10,6 +10,7 @@ from synchronizer.models import Contributor, Team
 from synchronizer.services.abstract_synchronizer import AbstractSynchronizer
 from synchronizer.services.codeowners_synchronizer import CodeownersSynchronizer
 from synchronizer.services.github_synchronizer import GithubSynchronizer
+from synchronizer.services.google_drive_synchronizer import GoogleDriveSynchronizer
 from synchronizer.services.keycloak_synchronizer import KeycloakSynchronizer
 from synchronizer.services.leadership_synchronizer import LeadershipSynchronizer
 from synchronizer.services.secrets_synchronizer import SecretsSynchronizer
@@ -25,6 +26,7 @@ SERVICE_CLASSES: dict[str, type[AbstractSynchronizer]] = {
     "vault": VaultSynchronizer,
     "slack": SlackSynchronizer,
     "secrets": SecretsSynchronizer,
+    "google_drive": GoogleDriveSynchronizer,
     "codeowners": CodeownersSynchronizer,
     "leadership": LeadershipSynchronizer,
 }
