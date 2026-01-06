@@ -1,0 +1,25 @@
+slug = "events-api"
+name = "Events API"
+description = """
+Events API provides API to CMU events data. Examples would include
+- 25live resevation data exposed via the CMU Maps API
+- Handshake and TartanHacks event data exposed via the CMU Cal API.
+"""
+contributing-guide = "https://github.com/ScottyLabs/event-scraper/blob/main/.github/CONTRIBUTING.md"
+maintainers = [
+    "Yuxiang-Huang",
+]
+contributors = [
+    "Yuxiang-Huang",
+]
+repos = [
+    "ScottyLabs/events-api",
+]
+slack-channel-ids = [
+]
+# Contributors won't have access to the repo.
+# See Events API project's internal documentation for more information:
+# https://github.com/ScottyLabs/wiki/wiki/Internal-Documentation
+sync-github = false
+create-oidc-clients = false
+secrets-population-layout = "single"
