@@ -140,12 +140,10 @@ class GoogleDriveSynchronizer(AbstractSynchronizer):
 
         # Log messages
         if len(email_addresses) == 0:
-            self.logger.debug("No new %s to add to Google Drive\n", role_name)
+            self.logger.debug("Detected no new %s.\n", role_name)
             return
 
-        self.logger.info(
-            "Adding %d new %s to Google Drive\n", len(email_addresses), role_name
-        )
+        self.logger.info("Detected %d new %s.\n", len(email_addresses), role_name)
 
         # Add permissions
         for email_address in email_addresses:

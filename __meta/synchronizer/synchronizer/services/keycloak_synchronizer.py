@@ -224,7 +224,7 @@ class KeycloakSynchronizer(AbstractSynchronizer):
         # Calculate new members
         new_member_usernames = target_usernames - current_usernames
         self.logger.debug(
-            "Found %d new members for the %s group.\n",
+            "Detected %d new members for the %s group.\n",
             len(new_member_usernames),
             group_name,
         )
@@ -249,7 +249,7 @@ class KeycloakSynchronizer(AbstractSynchronizer):
         # Calculate unlisted members
         unlisted_member_usernames = current_usernames - target_usernames
         self.logger.debug(
-            "Found %d unlisted members for the %s group.\n",
+            "Detected %d unlisted members for the %s group.\n",
             len(unlisted_member_usernames),
             group_name,
         )

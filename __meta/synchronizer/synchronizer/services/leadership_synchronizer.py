@@ -46,7 +46,7 @@ class LeadershipSynchronizer(AbstractSynchronizer):
         # Calculate new members
         new_owners = desired_owners - current_owners
         self.logger.debug(
-            "Found %d new GitHub organization owners.\n",
+            "Detected %d new GitHub organization owners.\n",
             len(new_owners),
         )
 

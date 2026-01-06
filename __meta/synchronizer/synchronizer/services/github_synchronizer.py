@@ -174,7 +174,7 @@ class GithubSynchronizer(AbstractSynchronizer):
             github_admin_team,
         )
         self.logger.debug(
-            "Found %d new uninvited maintainer for the %s team.\n",
+            "Detected %d new uninvited maintainer for the %s team.\n",
             len(new_uninvited_members),
             github_admin_team.name,
         )
@@ -225,7 +225,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         new_members = members - current_members
         new_uninvited_members = self.subtract_invited_members(new_members, github_team)
         self.logger.debug(
-            "Found %d new uninvited %s for the %s team.\n",
+            "Detected %d new uninvited %s for the %s team.\n",
             len(new_uninvited_members),
             role,
             github_team.name,
@@ -279,7 +279,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         current_members = {member.login for member in github_team.get_members()}
         unlisted_members = current_members - desired_members
         self.logger.debug(
-            "Found %d unlisted members for the %s team.\n",
+            "Detected %d unlisted members for the %s team.\n",
             len(unlisted_members),
             github_team.name,
         )
@@ -355,7 +355,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         # Calculate new repos
         new_repos = repos - github_repo_names
         self.logger.debug(
-            "Found %d new repos for the %s team.\n",
+            "Detected %d new repos for the %s team.\n",
             len(new_repos),
             github_team.name,
         )
@@ -422,7 +422,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         # Calculate unlisted repos
         unlisted_repos = github_repos_names - repos
         self.logger.debug(
-            "Found %d unlisted repos for the %s team.\n",
+            "Detected %d unlisted repos for the %s team.\n",
             len(unlisted_repos),
             github_team.name,
         )
