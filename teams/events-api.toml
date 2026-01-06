@@ -13,7 +13,7 @@ contributors = [
     "Yuxiang-Huang",
 ]
 repos = [
-    "ScottyLabs/events-api",
+    "ScottyLabs/events-scraper",
 ]
 slack-channel-ids = [
 ]
