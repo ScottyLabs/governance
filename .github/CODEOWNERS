@@ -28,6 +28,8 @@ teams/governance.toml @Yuxiang-Huang
 
 teams/graph.toml @Yuxiang-Huang
 
+teams/internal-tooling.toml @TenType
+
 teams/leadership.toml @ScottyLabsDeploy @Yuxiang-Huang @ap-1 @tsurbs @xavilien
 
 teams/lost-and-found.toml @axgu
