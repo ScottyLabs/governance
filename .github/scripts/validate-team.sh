@@ -10,9 +10,9 @@ if [[ "$TEAM_FILE" != *.toml ]]; then
     exit 0
 fi
 
-# Check if PR author is in leads list
-if ! grep -qE "leads\s*=\s*\[" "$TEAM_FILE" || ! grep -qE "(\"$PR_AUTHOR\"|'$PR_AUTHOR')" "$TEAM_FILE"; then
-    echo "::error::Team creator must be listed as a lead in $TEAM_FILE"
+# Check if PR author is in maintainers list
+if ! grep -qE "maintainers\s*=\s*\[" "$TEAM_FILE" || ! grep -qE "(\"$PR_AUTHOR\"|'$PR_AUTHOR')" "$TEAM_FILE"; then
+    echo "::error::Team creator must be listed as a maintainer in $TEAM_FILE"
     exit 1
 fi
 
