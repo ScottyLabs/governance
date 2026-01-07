@@ -1,0 +1,3 @@
+[submodule "scripts/secrets"]
+	path = scripts/secrets
+	url = git@github.com:ScottyLabs/secrets-sync-scripts.git
