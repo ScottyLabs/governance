@@ -191,20 +191,20 @@ class SecretsSynchronizer(AbstractSynchronizer):
 
         # Allow any https prefix
         # Note that we need the
-        https_origin_prefix = r"^https:\/\/([a-z0-9-]+\.)*"
+        https_origin_prefix = r"^https://([a-z0-9-]+\.)*"
 
         # Populate the allowed origins regex
         match env:
             case "local":
                 # Allow all origins for local development
-                server_secret["ALLOWED_ORIGINS_REGEX"] = r"^https?:\/\/localhost:\d{4}$"
+                server_secret["ALLOWED_ORIGINS_REGEX"] = r"^https?://localhost:\d{4}$"
             case "dev":
                 # Allow all ScottyLabs dev subdomains and any vercel preview domains
                 # (https://<team-slug>-<random 9 characters>-scottylabs.vercel.app)
                 # for dev development
                 server_secret["ALLOWED_ORIGINS_REGEX"] = (
                     rf"{https_origin_prefix}slabs-dev\.org$,"
-                    rf"^https:\/\/{team_slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
+                    rf"^https://{team_slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
                 )
             case "staging":
                 # Allow all ScottyLabs staging subdomains for staging development
