@@ -231,32 +231,35 @@ class GithubSynchronizer(AbstractSynchronizer):
             github_team.name,
         )
 
+        # Cache all membership roles for the team.
+        try:
+            membership = {m.login: m.role for m in github_team.get_team_members()}
+        except Exception:
+            self.logger.exception(
+                "Error getting membership roles for the %s team.",
+                github_team.name,
+            )
+            return
+
         # Check every member who are not invited to the team since
         # we also need to check existing members for their roles.
         # This does mean that invited members might not have the correct role, but
         # it can be corrected during the sync after the invitation is accepted anyways.
         for username in self.subtract_invited_members(members, github_team):
-            try:
-                current_role = github_team.get_team_membership(username).role
-
-                # Skip syncing organization owners' role to member since their role
-                # will always remain as maintainer.
-                # https://github.com/orgs/community/discussions/140675#discussioncomment-10875640
-                if username in self.org_owners and role == "member":
-                    continue
-
-                if current_role != role:
-                    self.add_or_update_member_to_team(github_team, username, role)
-
-            except UnknownObjectException:
+            if username not in membership:
                 self.add_or_update_member_to_team(github_team, username, role)
+                continue
 
-            except Exception:
-                self.logger.exception(
-                    "Error syncing %s to %s GitHub team.",
-                    username,
-                    github_team.name,
-                )
+            current_role = membership[username]
+
+            # Skip syncing organization owners' role to member since their role
+            # will always remain as maintainer.
+            # https://github.com/orgs/community/discussions/140675#discussioncomment-10875640
+            if username in self.org_owners and role == "member":
+                continue
+
+            if current_role != role:
+                self.add_or_update_member_to_team(github_team, username, role)
 
     def subtract_invited_members(
         self, members: set[str], github_team: GithubTeam
