@@ -26,9 +26,7 @@ pub fn load_from_dir<T: DeserializeOwned + Debug + HasKeyOrder>(
         // Calculate the key order for the item.
         let mut item: T = toml::from_str(&content)
             .with_context(|| format!("Failed to parse {} file: {}", item_name, path.display()))?;
-
-        // Parse into IndexMap to get key order.
-        let index_map: IndexMap<String, Value> = from_str(&content)?;
+        let index_map: IndexMap<String, Value> = from_str(&content)?; // Parse into IndexMap to get key order.
         let key_order: Vec<String> = index_map.keys().cloned().collect();
         item.set_key_order(key_order);
 

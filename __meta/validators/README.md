@@ -27,6 +27,8 @@ and running `taplo fmt --check` and `taplo check`.
 
 We also include several other checks to ensure integrity:
 
+- The key orderings in a TOML file must match the the ordering of `properties` in the corresponding schema file.
+
 - The `github-username` field for contributors must match the filename.
 
 - The `slug` field for teams must match the filename.
