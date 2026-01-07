@@ -28,6 +28,7 @@ contributors = [
     "cirex-web",     # Tech Lead of Flex
     "axgu",          # Tech Lead of Lost and Found
     "ap-1",          # Tech Lead of Terrier
+    "TenType",       # Tech Lead of Internal Tooling
 
     # Year 2024-2025
     "mzhou08",  # Director of ScottyLabs
