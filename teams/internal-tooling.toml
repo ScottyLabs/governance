@@ -15,10 +15,11 @@ contributors = [
     "TenType",
 ]
 repos = [
-    "ScottyLabs/dalmatian",      # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
-    "ScottyLabs/discord-verify", # Discord verification for online CMU communities
-    "ScottyLabs/doberman",       # Uptime monitor
-    "ScottyLabs/cmu-guide",      # Guide to introduce first-year students to CMU
+    "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
+    "ScottyLabs/discord-verify",       # Discord verification for online CMU communities
+    "ScottyLabs/doberman",             # Uptime monitor
+    "ScottyLabs/cmu-guide",            # Guide to introduce first-year students to CMU
+    "ScottyLabs/secrets-sync-scripts", # Scripts to sync secrets to Vault
 ]
 slack-channel-ids = [
 ]
