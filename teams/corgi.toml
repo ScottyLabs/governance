@@ -1,0 +1,22 @@
+slug = "corgi"
+name = "Corgi"
+description = "ScottyLabs component library, live at corgi.scottylabs.org."
+contributing-guide = "https://github.com/ScottyLabs/corgi/blob/main/.github/CONTRIBUTING.md"
+maintainers = [
+    "kath45823",
+]
+contributors = [
+    "kath45823",
+]
+repos = [
+    "ScottyLabs/corgi",
+]
+slack-channel-ids = [
+    "C09CT14UBA5",
+]
+
+# There is no auth for this team.
+create-oidc-clients = false
+
+# There is no secrets for this team.
+secrets-population-layout = "none"
