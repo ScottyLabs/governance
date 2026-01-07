@@ -35,7 +35,7 @@ pub fn validate_key_orderings<T: HasKeyOrder>(
         if !is_subsequence_in_order(actual_order, expected_order) {
             errors.push(ValidationError {
                 message: format!(
-                    "Invalid key order for {}.\n  expected (schema): {:?}\n  found (file): {:?}",
+                    "Invalid key order for {}.\n    - expected (schema): {:?}\n    - found (file): {:?}",
                     key, expected_order, actual_order
                 ),
                 file: format!("{}s/{}.toml", kind, key),

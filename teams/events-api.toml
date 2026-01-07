@@ -1,5 +1,5 @@
-slug = "events-api"
 name = "Events API"
+slug = "events-api"
 description = """
 Events API provides API to CMU events data. Examples would include
 - 25live resevation data exposed via the CMU Maps API

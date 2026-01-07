@@ -11,13 +11,17 @@
     "slack-channel-ids"
   ],
   "properties": {
+    "name": {
+      "type": "string",
+      "description": "Used for any public-facing or display contexts (e.g. the GitHub team name)."
+    },
     "slug": {
       "type": "string",
       "description": "Used for internal references (e.g. OIDC client ID)."
     },
-    "name": {
+    "website-slug": {
       "type": "string",
-      "description": "Used for any public-facing or display contexts (e.g. the GitHub team name)."
+      "description": "Used in website URLs (e.g. <website-slug>.scottylabs.org)."
     },
     "description": {
       "type": "string",
@@ -26,10 +30,6 @@
     "contributing-guide": {
       "type": "string",
       "description": "Guide on how to contribute to the team, preferably a link to a CONTRIBUTING.md file."
-    },
-    "website-slug": {
-      "type": "string",
-      "description": "Used in website URLs (e.g. <website-slug>.scottylabs.org)."
     },
     "maintainers": {
       "type": "array",

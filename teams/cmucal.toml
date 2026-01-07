@@ -1,8 +1,8 @@
-slug = "cmucal"
 name = "CMU Cal"
+slug = "cmucal"
+website-slug = "cal"
 description = ""
 contributing-guide = ""
-website-slug = "cal"
 maintainers = [
     "qianxuege",
 ]

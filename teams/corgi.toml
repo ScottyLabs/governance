@@ -1,5 +1,5 @@
-slug = "corgi"
 name = "Corgi"
+slug = "corgi"
 description = "ScottyLabs component library, live at corgi.scottylabs.org."
 contributing-guide = "https://github.com/ScottyLabs/corgi/blob/main/.github/CONTRIBUTING.md"
 maintainers = [

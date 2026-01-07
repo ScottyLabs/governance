@@ -1,5 +1,5 @@
-slug = "cmucourses"
 name = "CMU Courses"
+slug = "cmucourses"
 website-slug = "courses"
 description = """
 CMU Courses (AKA ScottyLabs Course Tool) is a web application designed to aid

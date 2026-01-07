@@ -6,14 +6,14 @@
 Create a new TOML file in `teams/` with the slug as the filename, e.g. `cmucourses.toml`:
 
 ```toml
-slug = "cmumaps"
 name = "CMU Maps"
+slug = "cmumaps"
+website-slug = "maps" # used in website URLs (e.g. maps.scottylabs.org)
 description = """
 CMU Maps is a web application that provides a map of the Carnegie Mellon University
 campus, allowing users to easily access information about campus locations, live at cmumaps.com.
-Read about our contributing guide at https://github.com/ScottyLabs/cmumaps/blob/main/.github/CONTRIBUTING.md.
 """
-website-slug = "maps" # used in website URLs (e.g. maps.scottylabs.org)
+contributing-guide = "https://github.com/ScottyLabs/cmumaps/blob/main/.github/CONTRIBUTING.md"
 maintainers = [
     "your-github-username" # >= 1 maintainer, no duplicates
 ]

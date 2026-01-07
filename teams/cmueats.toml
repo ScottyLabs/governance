@@ -1,5 +1,5 @@
-slug = "cmueats"
 name = "CMU Eats"
+slug = "cmueats"
 description = """
 CMU Eats keep track of the statuses of the various dining locations across Carnegie
 Mellon University. Quickly access the menus and specials at each location without

@@ -1,5 +1,5 @@
-slug = "terrier"
 name = "Terrier"
+slug = "terrier"
 description = """
 Terrier is a hackathon management platform written entirely in Rust.
 Going to be powering TartanHacks 2026!

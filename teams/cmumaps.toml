@@ -1,11 +1,11 @@
-slug = "cmumaps"
 name = "CMU Maps"
+slug = "cmumaps"
+website-slug = "maps"
 description = """
 CMU Maps is a web application that provides a map of the Carnegie Mellon University
 campus, allowing users to easily access information about campus locations, live at cmumaps.com.
 """
 contributing-guide = "https://github.com/ScottyLabs/cmumaps/blob/main/.github/CONTRIBUTING.md"
-website-slug = "maps"
 maintainers = [
     "Yuxiang-Huang",
     "tsurbs",

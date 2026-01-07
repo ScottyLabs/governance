@@ -1,10 +1,10 @@
-slug = "graph"
 name = "Graph"
+slug = "graph"
+website-slug = "graph"
 description = """
 Graph has been turned into a testing site for the **new** auth system.
 """
 contributing-guide = "DO NOT join this team!"
-website-slug = "graph"
 maintainers = [
     "Yuxiang-Huang",
 ]

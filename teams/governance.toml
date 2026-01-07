@@ -1,5 +1,5 @@
-slug = "governance"
 name = "Governance"
+slug = "governance"
 description = """
 Governance defines the organizational structure and manages permissions for ScottyLabs teams.
 Joining Governance means you want to work on the codebase inside the __meta/ directory.

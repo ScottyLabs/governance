@@ -1,5 +1,5 @@
-slug = "cmusearch"
 name = "CMU Search"
+slug = "cmusearch"
 website-slug = "search"
 description = """
 CMU Search is a search engine to search for courses, locations, and events on campus.
