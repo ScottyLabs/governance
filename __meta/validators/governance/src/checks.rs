@@ -3,10 +3,65 @@ use std::collections::{HashMap, HashSet};
 use anyhow::{Result, anyhow};
 use colored::Colorize;
 use futures::{StreamExt, stream::FuturesUnordered};
-use governance::model::{Contributor, EntityKey, Team, ValidationError, ValidationWarning};
+use governance::model::{
+    Contributor, EntityKey, HasKeyOrder, Team, ValidationError, ValidationWarning,
+};
 use log::info;
 use reqwest::{Client, StatusCode};
 use serde_json::Value;
+
+pub fn validate_key_orderings<T: HasKeyOrder>(
+    data: &HashMap<EntityKey, T>,
+    expected_order: &Vec<String>,
+) -> Vec<ValidationError> {
+    // Get the kind of the item from the first key
+    let kind = match data.keys().next() {
+        Some(k) => &k.kind,
+        None => {
+            return vec![ValidationError {
+                file: "N/A".to_string(),
+                message: "No data found".into(),
+            }];
+        }
+    };
+
+    // Initialization
+    info!("Validating {} key orderings...", kind);
+    let mut errors = Vec::new();
+
+    // Validate the key orderings
+    for (key, item) in data {
+        let actual_order = item.get_key_order();
+        if !is_subsequence_in_order(actual_order, expected_order) {
+            errors.push(ValidationError {
+                message: format!(
+                    "Invalid key order for {}.\n  expected (schema): {:?}\n  found (file): {:?}",
+                    key, expected_order, actual_order
+                ),
+                file: format!("{}s/{}.toml", kind, key),
+            });
+        }
+    }
+
+    errors
+}
+
+// Actual order needs to be a subset of the expected order but in the right order
+fn is_subsequence_in_order(actual_order: &[String], expected_order: &[String]) -> bool {
+    let mut i = 0; // index in expected
+    for a in actual_order {
+        // advance expected until we find a match
+        while i < expected_order.len() && expected_order[i] != *a {
+            i += 1;
+        }
+        if i == expected_order.len() {
+            // we ran out of expected items before finding a match
+            return false;
+        }
+        i += 1; // consume that match
+    }
+    true
+}
 
 pub fn validate_file_names(
     contributors: &HashMap<EntityKey, Contributor>,

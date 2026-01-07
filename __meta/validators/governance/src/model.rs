@@ -3,12 +3,32 @@ use std::collections::HashMap;
 use std::fmt::{Display, Formatter, Result};
 use std::hash::{Hash, Hasher};
 
+pub trait HasKeyOrder {
+    fn get_key_order(&self) -> &[String];
+
+    fn set_key_order(&mut self, order: Vec<String>);
+}
+
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all(deserialize = "kebab-case", serialize = "camelCase"))]
 pub struct Contributor {
     pub full_name: String,
     pub github_username: String,
     pub slack_member_id: Option<String>,
+
+    // Used for key ordering validation.
+    #[serde(skip)]
+    pub key_order: Vec<String>,
+}
+
+impl HasKeyOrder for Contributor {
+    fn get_key_order(&self) -> &[String] {
+        &self.key_order
+    }
+
+    fn set_key_order(&mut self, order: Vec<String>) {
+        self.key_order = order;
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -21,6 +41,20 @@ pub struct Team {
     pub applicants: Option<Vec<String>>,
     pub repos: Vec<String>,
     pub slack_channel_ids: Vec<String>,
+
+    // Used for key ordering validation.
+    #[serde(skip)]
+    pub key_order: Vec<String>,
+}
+
+impl HasKeyOrder for Team {
+    fn get_key_order(&self) -> &[String] {
+        &self.key_order
+    }
+
+    fn set_key_order(&mut self, order: Vec<String>) {
+        self.key_order = order;
+    }
 }
 
 #[derive(Debug, Clone)]
