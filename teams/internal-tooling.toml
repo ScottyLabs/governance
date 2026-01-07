@@ -13,12 +13,6 @@ maintainers = [
 ]
 contributors = [
     "TenType",
-    "ap-1",
-    "Arom1a",
-    "Gostmeaper",
-    "Junsouh",
-    "maybe-yiyi",
-    "sjskong",
 ]
 repos = [
     "ScottyLabs/dalmatian",      # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
@@ -29,6 +23,6 @@ repos = [
 slack-channel-ids = [
 ]
 remove-unlisted = false
-sync-github = true
+sync-github = false
 create-oidc-clients = false
 secrets-population-layout = "multi"
