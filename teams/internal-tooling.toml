@@ -1,0 +1,34 @@
+slug = "internal-tooling"
+name = "Internal Tooling"
+description = """
+Internal Tooling is a team that builds and maintains custom software to
+empower our ScottyLabs members and broader CMU community to operate
+efficiently and reliably.
+"""
+contributing-guide = """
+Message Max Wen on Slack or tentype on Discord if you are interested in joining the team!
+"""
+maintainers = [
+    "TenType",
+]
+contributors = [
+    "TenType",
+    "ap-1",
+    "Arom1a",
+    "Gostmeaper",
+    "Junsouh",
+    "maybe-yiyi",
+    "sjskong",
+]
+repos = [
+    "ScottyLabs/dalmatian",      # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
+    "ScottyLabs/discord-verify", # Discord verification for online CMU communities
+    "ScottyLabs/doberman",       # Uptime monitor
+    "ScottyLabs/cmu-guide",      # Guide to introduce first-year students to CMU
+]
+slack-channel-ids = [
+]
+remove-unlisted = false
+sync-github = true
+create-oidc-clients = false
+secrets-population-layout = "multi"
