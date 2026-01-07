@@ -41,7 +41,7 @@ We also include several other checks to ensure integrity:
 
 - Pull requests adding a new contributor must be submitted by the contributor themselves. This self-nomination approach promotes ownership, helps maintain the integrity of our contributor list, and encourages active participation with our governance process and the organization. PRs in violation will be automatically rejected.
 
-- When adding a new team, the team members must have already been added in previous PRs due to the earlier requirement on adding contributors. For similar reasons, you must be a lead of any team you create.
+- When adding a new team, the team members must have already been added in previous PRs due to the earlier requirement on adding contributors. For similar reasons, you must be a maintainer of any team you create.
 
 ## Validate CODEOWNERS
 
