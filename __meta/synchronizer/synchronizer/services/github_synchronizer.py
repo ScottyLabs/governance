@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
 from typing import Literal
 
 from github.GithubException import UnknownObjectException
@@ -17,6 +18,10 @@ from .abstract_synchronizer import AbstractSynchronizer
 
 
 class GithubSynchronizer(AbstractSynchronizer):
+    MAX_WORKERS = (
+        5  # Maximum number of concurrent workers, 5 seems good but is not tested.
+    )
+
     ADMIN_SUFFIX = " Admins"
 
     # We can have all teams visible to all members of the organization.
@@ -231,32 +236,42 @@ class GithubSynchronizer(AbstractSynchronizer):
             github_team.name,
         )
 
-        # Check every member who are not invited to the team since
-        # we also need to check existing members for their roles.
-        # This does mean that invited members might not have the correct role, but
-        # it can be corrected during the sync after the invitation is accepted anyways.
-        for username in self.subtract_invited_members(members, github_team):
-            try:
-                current_role = github_team.get_team_membership(username).role
+        # Haven't find a way to batch retrieve membership roles,
+        # so we use a thread pool to sync each member to optimize the performance.
+        with ThreadPoolExecutor(max_workers=self.MAX_WORKERS) as executor:
+            # Check every member who are not invited to the team since
+            # we also need to check existing members for their roles.
+            # This does mean that invited members might not have the correct role, but
+            # it will be corrected in the sync after the invitation is accepted anyways.
+            for username in self.subtract_invited_members(members, github_team):
+                executor.submit(self.sync_member_to_team, github_team, username, role)
 
-                # Skip syncing organization owners' role to member since their role
-                # will always remain as maintainer.
-                # https://github.com/orgs/community/discussions/140675#discussioncomment-10875640
-                if username in self.org_owners and role == "member":
-                    continue
+    def sync_member_to_team(
+        self,
+        github_team: GithubTeam,
+        username: str,
+        role: Literal["member", "maintainer"],
+    ) -> None:
+        """Sync the member to the Github team as the given role."""
+        try:
+            current_role = github_team.get_team_membership(username).role
 
-                if current_role != role:
-                    self.add_or_update_member_to_team(github_team, username, role)
+            # Skip syncing organization owners' role to member since their role
+            # will always remain as maintainer.
+            # https://github.com/orgs/community/discussions/140675#discussioncomment-10875640
+            if username in self.org_owners and role == "member":
+                return
 
-            except UnknownObjectException:
+            if current_role != role:
                 self.add_or_update_member_to_team(github_team, username, role)
-
-            except Exception:
-                self.logger.exception(
-                    "Error syncing %s to %s GitHub team.",
-                    username,
-                    github_team.name,
-                )
+        except UnknownObjectException:
+            self.add_or_update_member_to_team(github_team, username, role)
+        except Exception:
+            self.logger.exception(
+                "Error syncing %s to %s GitHub team.",
+                username,
+                github_team.name,
+            )
 
     def subtract_invited_members(
         self, members: set[str], github_team: GithubTeam
