@@ -19,16 +19,18 @@ from synchronizer.services.vault_synchronizer import VaultSynchronizer
 
 load_dotenv()
 
-# Mapping of service names to their corresponding classes
+# Mapping of service names to their corresponding classes.
+# The services will be executed in the order they are listed here.
+# THere is no dependency between the services unless explicitly stated here.
 SERVICE_CLASSES: dict[str, type[AbstractSynchronizer]] = {
-    "github": GithubSynchronizer,
     "keycloak": KeycloakSynchronizer,
     "vault": VaultSynchronizer,
+    "secrets": SecretsSynchronizer,  # Run after the keycloak clients are created.
     "slack": SlackSynchronizer,
-    "secrets": SecretsSynchronizer,
     "google_drive": GoogleDriveSynchronizer,
-    "codeowners": CodeownersSynchronizer,
     "leadership": LeadershipSynchronizer,
+    "codeowners": CodeownersSynchronizer,
+    "github": GithubSynchronizer,  # Run last since it takes the longest time.
 }
 
 
