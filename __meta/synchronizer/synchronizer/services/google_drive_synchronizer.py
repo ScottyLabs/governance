@@ -2,7 +2,11 @@ import os
 from typing import ClassVar, Literal, override
 
 from google.oauth2 import service_account
-from googleapiclient.discovery import build
+
+# The type checking performance after installing the stubs is so bad it is faster to
+# develope without them...
+# https://github.com/henribru/google-api-python-client-stubs?tab=readme-ov-file#performance
+from googleapiclient.discovery import build  # type: ignore[import-untyped]
 
 from synchronizer.logger import log_operation, print_section
 from synchronizer.models import Contributor, Team
