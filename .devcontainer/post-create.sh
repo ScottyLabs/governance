@@ -11,7 +11,7 @@ sudo apt-get install -y --no-install-recommends xdg-utils
 sudo rm -rf /var/lib/apt/lists/*
 
 # Create alias in uv lint
-uvlint_alias="alias uvlint='uv run mypy . && uv run ruff check && uv run ty check'"
+uvlint_alias="alias uvlint='uv run ruff check && uv run mypy . && uv run ty check'"
 if ! grep -q "$uvlint_alias" ~/.zshrc; then
   echo "$uvlint_alias" >>~/.zshrc
 fi

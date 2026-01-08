@@ -93,7 +93,7 @@ def check_logger_status() -> None:
     )
 
     if log_status_filter is None:
-        msg = "No LogStatusFilter found — cannot verify log state."
+        msg = "No LogStatusFilter found - cannot verify log state."
         logger.critical(msg)
         raise RuntimeError(msg)
 
