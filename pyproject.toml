@@ -27,7 +27,7 @@ dev = [
 ]
 
 [project.scripts]
-sync = "synchronizer.main:main"
+sync = "synchronizer:main"
 
 [tool.setuptools.packages.find]
 where = ["__meta/synchronizer"]
