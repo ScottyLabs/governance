@@ -5,7 +5,8 @@
   "features": {
     "ghcr.io/roul/devcontainer-features/vault:1": {},
     "ghcr.io/devcontainers/features/rust:1.5.0": {},
-    "ghcr.io/va-h/devcontainers-features/uv:1.1.4": {}
+    "ghcr.io/va-h/devcontainers-features/uv:1.1.4": {},
+    "ghcr.io/devcontainers-extra/features/shfmt:1.0.2": {}
   },
   "customizations": {
     "vscode": {
@@ -17,9 +18,11 @@
         "redhat.vscode-yaml",
         "rust-lang.rust-analyzer",
         "matangover.mypy",
-        "astral-sh.ty"
+        "astral-sh.ty",
+        "mkhl.shfmt"
       ],
       "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
           "source.fixAll": "explicit"

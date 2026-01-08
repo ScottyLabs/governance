@@ -10,6 +10,12 @@ sudo apt-get update -y
 sudo apt-get install -y --no-install-recommends xdg-utils
 sudo rm -rf /var/lib/apt/lists/*
 
+# Create alias in uv lint
+uvlint_alias="alias uvlint='uv run mypy . && uv run ruff check && uv run ty check'"
+if ! grep -q "$uvlint_alias" ~/.zshrc; then
+  echo "$uvlint_alias" >>~/.zshrc
+fi
+
 # Pull secrets from Vault
-./scripts/secrets-setup.sh
-./scripts/secrets-pull.sh
+./scripts/secrets/setup.sh
+./scripts/secrets/pull.sh

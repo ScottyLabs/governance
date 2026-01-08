@@ -176,8 +176,6 @@ uv run sync -h
 
 ### Linting
 
-```zsh
-uv run mypy .
-uv run ruff check
-uv run ty check
-```
+Run `uvlint`, which is aliased to
+`uv run mypy . && uv run ruff check && uv run ty check`
+in post-create.sh.
