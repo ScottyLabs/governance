@@ -178,5 +178,6 @@ uv run sync -h
 
 ```zsh
 uv run mypy .
-uv run ruff check .
+uv run ruff check
+uv run ty check
 ```

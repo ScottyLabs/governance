@@ -21,6 +21,7 @@ dependencies = [
 dev = [
     "mypy>=1.19.1",
     "ruff>=0.14.10",
+    "ty>=0.0.10",
     "types-colorama>=0.4.15.20250801",
     "types-hvac>=2.4.0.20251115",
 ]

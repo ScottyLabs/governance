@@ -16,7 +16,8 @@
         "editorconfig.editorconfig",
         "redhat.vscode-yaml",
         "rust-lang.rust-analyzer",
-        "matangover.mypy"
+        "matangover.mypy",
+        "astral-sh.ty"
       ],
       "settings": {
         "editor.formatOnSave": true,

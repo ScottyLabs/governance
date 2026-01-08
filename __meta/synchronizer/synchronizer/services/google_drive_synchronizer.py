@@ -72,7 +72,7 @@ class GoogleDriveSynchronizer(AbstractSynchronizer):
             self.get_new_maintainer_email_addresses(permissions), "fileOrganizer"
         )
 
-    def get_all_permissions(self, service: build) -> list[dict]:
+    def get_all_permissions(self, service: build) -> dict[str, str]:
         """Return a email to role mapping for the ScottyLabs Google Drive."""
         permissions = {}
         page_token = None
