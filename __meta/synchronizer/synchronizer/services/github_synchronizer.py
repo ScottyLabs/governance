@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
-from typing import Literal
+from typing import Literal, override
 
 from github.GithubException import UnknownObjectException
 from github.NamedUser import NamedUser
@@ -27,6 +27,7 @@ class GithubSynchronizer(AbstractSynchronizer):
     # We can have all teams visible to all members of the organization.
     TEAM_PRIVACY = "closed"  # one of "secret" | "closed"
 
+    @override
     def __init__(
         self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
@@ -40,6 +41,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         # get all owners of the organization
         self.org_owners = {owner.login for owner in self.org.get_members(role="admin")}
 
+    @override
     def sync(self) -> None:
         print_section("Github")
         self.sync_contributors()

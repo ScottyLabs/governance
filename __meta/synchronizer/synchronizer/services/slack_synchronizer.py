@@ -1,4 +1,5 @@
 import os
+from typing import override
 
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
@@ -28,6 +29,7 @@ class SlackSynchronizer(AbstractSynchronizer):
 
         self.client = WebClient(token=slack_token)
 
+    @override
     def sync(self) -> None:
         print_section("Slack")
         for team in self.teams.values():

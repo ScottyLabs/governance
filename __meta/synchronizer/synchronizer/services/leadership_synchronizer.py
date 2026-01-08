@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from typing import override
 
 from github.NamedUser import NamedUser
 
@@ -33,6 +34,7 @@ class LeadershipSynchronizer(AbstractSynchronizer):
         self.org = self.g.get_organization("ScottyLabs")
         self.vault_client = get_vault_client()
 
+    @override
     def sync(self) -> None:
         print_section("Leadership")
         self.sync_github()

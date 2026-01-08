@@ -1,5 +1,6 @@
 import base64
 import os
+from typing import override
 
 from hvac.exceptions import InvalidPath
 
@@ -28,6 +29,7 @@ class SecretsSynchronizer(AbstractSynchronizer):
         self.vault_client = get_vault_client()
         self.keycloak_client = get_keycloak_client()
 
+    @override
     def sync(self) -> None:
         print_section("Secrets")
         for team in self.teams.values():

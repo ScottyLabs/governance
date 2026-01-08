@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from typing import override
 
 from synchronizer.clients.vault_client import get_vault_client
 from synchronizer.logger import (
@@ -33,6 +34,7 @@ class VaultSynchronizer(AbstractSynchronizer):
         auth_methods = self.client.sys.list_auth_methods()
         self.oidc_mount = auth_methods.get("oidc/")["accessor"]
 
+    @override
     def sync(self) -> None:
         print_section("Vault")
         for team in self.teams.values():

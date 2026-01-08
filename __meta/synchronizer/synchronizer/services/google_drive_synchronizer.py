@@ -1,5 +1,5 @@
 import os
-from typing import ClassVar, Literal
+from typing import ClassVar, Literal, override
 
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -58,6 +58,7 @@ class GoogleDriveSynchronizer(AbstractSynchronizer):
             self.logger.critical(msg)
             raise RuntimeError(msg) from e
 
+    @override
     def sync(self) -> None:
         print_section("Google Drive")
 

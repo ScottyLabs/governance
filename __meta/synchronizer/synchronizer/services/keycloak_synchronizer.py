@@ -1,3 +1,5 @@
+from typing import override
+
 from keycloak import KeycloakGetError
 
 from synchronizer.clients import get_keycloak_client
@@ -37,6 +39,7 @@ class KeycloakSynchronizer(AbstractSynchronizer):
             c["clientId"] for c in self.keycloak_admin.get_clients()
         ]
 
+    @override
     def sync(self) -> None:
         print_section("Keycloak")
         for team in self.teams.values():

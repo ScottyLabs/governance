@@ -1,3 +1,5 @@
+from typing import override
+
 from github.Repository import Repository
 
 from synchronizer.clients import get_github_client
@@ -18,6 +20,7 @@ class CodeownersSynchronizer(AbstractSynchronizer):
         super().__init__(contributors, teams)
         self.g = get_github_client()
 
+    @override
     def sync(self) -> None:
         print_section("Codeowners")
 
