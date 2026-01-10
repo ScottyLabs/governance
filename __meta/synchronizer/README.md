@@ -54,6 +54,8 @@ The groups and oidc clients created by Keycloak synchronization are used for aut
 and integrate with Hashicorp Vault. However, they are not directly visible to you,
 so you can skip this section if you only want to know about the permissions you can directly use.
 
+### Team Synchronization
+
 - Create the Keycloak oidc clients if they do not exist. The team can opt out
 by setting the `create-oidc-clients` field to `false` in the team file.
 
@@ -80,25 +82,30 @@ by setting the `create-oidc-clients` field to `false` in the team file.
       will be added to this group.
 
   - A dev group will also be created with the suffix "-devs".
+    - The team contributors who are not maintainers will be added to this group.
 
   - An external admin group will be created with the suffix "-ext-admins" if the
     `ext-admins` field is present in the team file.
+    - The external admins will be added to this group.
 
   - An applicant group will be created with the suffix "-applicants" if the
     `applicants` field is present in the team file.
+    - The applicants will be added to this group.
 
 - Any unlisted members will be removed from the Keycloak groups unless the
   team opts out by setting the `remove-unlisted` field to `false` in the team file.
 
 ## Hashicorp Vault
 
+### Team Synchronization
+
 - Hashicorp groups, policies, and aliases will be created to integrate with Keycloak groups.
 
-  - Admin groups can read and edit all secrets.
+  - Admin groups can read and edit all secrets in the team's folder.
 
-  - Dev groups can read the secrets in the `local` folder.
+  - Dev groups can read the secrets in the `local` folder in the team's folder.
 
-  - Applicants group can read the secrets in the `applicants` folder.
+  - Applicants group can read the secrets in the `applicants` folder in the team's folder.
 
 - If the team did not opt out of secrets population by setting the `secrets-population-layout`
   field to `none` in the team file, the secrets will be populated in the following layout:
@@ -116,6 +123,8 @@ by setting the `create-oidc-clients` field to `false` in the team file.
 
 ## Slack
 
+### Team Synchronization
+
 - Invite team members to the corresponding Slack channels listed in the team file.
 
 - The Slack Governance App needs to be added to every **private** Slack channel in
@@ -129,7 +138,7 @@ by setting the `create-oidc-clients` field to `false` in the team file.
 ## Google Drive
 
 - See [Google Drive Wiki page](https://github.com/ScottyLabs/wiki/wiki/Resources#google-drive)
-  on how to use the ScottyLabs Google Drive.
+  on what to use ScottyLabs Google Drive for.
 
 - All contributors will be added as a contributor to the ScottyLabs Google Drive.
 

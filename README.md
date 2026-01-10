@@ -2,7 +2,8 @@
 
 This repository defines the organizational structure, team membership, and project ownership for ScottyLabs.
 It serves as the source of truth for our GitHub organization's governance model,
-formalizing permission as code.
+formalizing permission as code. The specific permissions granted to contributors
+and each team are detailed in [synchronizer/README.md](__meta/synchronizer/README.md).
 
 ## Repository Structure
 
