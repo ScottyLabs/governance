@@ -24,6 +24,6 @@ repos = [
 slack-channel-ids = [
 ]
 remove-unlisted = false
-sync-github = false
+sync-github = true
 create-oidc-clients = false
 secrets-population-layout = "multi"
