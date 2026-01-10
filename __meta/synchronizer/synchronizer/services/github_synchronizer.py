@@ -419,7 +419,7 @@ class GithubSynchronizer(AbstractSynchronizer):
             if current_permission is None or not current_permission.admin:
                 with log_operation(
                     f"add admin permission to {repo} for "
-                    "{github_admin_team.name} Github team"
+                    f"{github_admin_team.name} Github team"
                 ):
                     github_admin_team.update_team_repository(repo, "admin")
         except Exception:
