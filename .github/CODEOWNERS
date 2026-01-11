@@ -28,7 +28,7 @@ teams/governance.toml @Yuxiang-Huang
 
 teams/graph.toml @Yuxiang-Huang
 
-teams/internal-tooling.toml @TenType
+teams/internal-tooling.toml @TenType @ap-1
 
 teams/leadership.toml @ScottyLabsDeploy @Yuxiang-Huang @ap-1 @tsurbs @xavilien
 
