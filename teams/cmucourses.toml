@@ -1,26 +1,22 @@
 name = "CMU Courses"
 slug = "cmucourses"
 website-slug = "courses"
-description = """
-CMU Courses (AKA ScottyLabs Course Tool) is a web application designed to aid
-students at Carnegie Mellon University in browsing courses, including information
-about course evaluations and schedules. Live at cmucourses.com.
-"""
+description = "Web application to browse course information and build schedules"
 contributing-guide = """"
-We are currrently waiting on the CMU Registrar's Office for the 2026 Spring courses
-data. It enables the new rewrite of CMU Courses, so we will most likely not be
-accepting new contributors until then.
+Reach out to Anish Pallati on Slack or an.ish on Discord for more information.
 """
 maintainers = [
     "xavilien",
+    "ap-1",
 ]
 contributors = [
     "xavilien",
+    "ap-1",
 ]
 repos = []
 slack-channel-ids = [
 ]
 remove-unlisted = false
 sync-github = false
-create-oidc-clients = false
+create-oidc-clients = true
 secrets-population-layout = "none"
