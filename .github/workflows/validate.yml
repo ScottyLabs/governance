@@ -75,6 +75,7 @@ jobs:
 
   validate-codeowners:
     name: Validate CODEOWNERS
+    if: github.event_name == 'push' # only run on push, not PRs since it fails on forks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
