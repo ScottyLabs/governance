@@ -5,6 +5,9 @@ contributing-guide = """
 Join the ScottyLabs Tech leadership team by becoming the next
 Director of ScottyLabs, Director of Technology, or Tech Lead!
 """
+# The maintainers of Tech Leadership should only include
+# the Director of ScottyLabs, Director of Technology, Head of DevOps,
+# Tech Senior Advisors, and ScottyLabs GitHub Account.
 maintainers = [
     "Yuxiang-Huang",    # Current Director of Technology
     "ap-1",
