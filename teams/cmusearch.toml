@@ -11,10 +11,12 @@ DM Theo Urban on Slack for now until he finally finds this line 😈.
 maintainers = [
     "tsurbs",
     "Yuxiang-Huang",
+    "ap-1",
 ]
 contributors = [
     "tsurbs",
     "Yuxiang-Huang",
+    "ap-1",
 ]
 repos = [
     "ScottyLabs/cmusearch",
