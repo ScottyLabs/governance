@@ -10,9 +10,11 @@ Message Max Wen on Slack or tentype on Discord if you are interested in joining 
 """
 maintainers = [
     "TenType",
+    "ap-1",
 ]
 contributors = [
     "TenType",
+    "ap-1",
 ]
 repos = [
     "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
