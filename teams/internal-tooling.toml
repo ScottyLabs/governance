@@ -11,10 +11,12 @@ Message Max Wen on Slack or tentype on Discord if you are interested in joining 
 maintainers = [
     "TenType",
     "ap-1",
+    "Yuxiang-Huang", # Responsible for Secrets Sync Scripts
 ]
 contributors = [
     "TenType",
     "ap-1",
+    "Yuxiang-Huang",
 ]
 repos = [
     "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
