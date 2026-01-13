@@ -49,13 +49,13 @@ and each team are detailed in [synchronizer/README.md](__meta/synchronizer/READM
 
 ## Validations
 
-Check the [validators README](__meta/validators/README.md) for more information on the checks
+See the [validators README](__meta/validators/README.md) for more information on the checks
 your PR must pass before it can be merged.
 
 ## Synchronization
 
-Check the [synchronizer README](__meta/synchronizer/README.md) for more information
-on the synchronization process, including what permissions are granted.
+See the [synchronizer README](__meta/synchronizer/README.md) for more information
+on the synchronization process.
 
 ## License
 
