@@ -22,6 +22,8 @@ and each team are detailed in [synchronizer/README.md](__meta/synchronizer/READM
 
 ## Adding a New Contributor
 
+0. Fork the repository and clone it to your local machine.
+
 1. Follow the instructions in [docs/contributors.md](docs/contributors.md) to add
    your information as a new contributor.
 
@@ -30,16 +32,18 @@ and each team are detailed in [synchronizer/README.md](__meta/synchronizer/READM
    - Otherwise, add yourself to the `contributors` field.
 
 3. Review each project's repo's `CONTRIBUTING.md` file to understand any team-specific
-   contribution guidelines (for example, some teams might require you submit a Google Form).
-   The link to each repo is in the format of `https://github.com/<organization>/<repo>`,
-   where `<organization>/<repo>` is listed in the `repos` field of the team file.
-   (e.g. `https://github.com/ScottyLabs/governance`).
+   contribution guidelines. For example, some teams might require you submit a Google Form.
+   - The link to each repo is in the format of `https://github.com/<organization>/<repo>`,
+     where `<organization>/<repo>` is listed in the `repos` field of the team file
+     (e.g. <https://github.com/ScottyLabs/governance>).
 
 4. Submit a PR once you are ready. Familiarize yourself with the
    [PR Review Process](https://github.com/ScottyLabs/governance/wiki/PR-Review-Process)
    to understand the expectations for contributors and reviewers.
 
 ## Adding a New Team
+
+0. Fork the repository and clone it to your local machine.
 
 1. Follow the instructions in [docs/teams.md](docs/teams.md) to create a new team file.
 
