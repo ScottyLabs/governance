@@ -13,6 +13,7 @@ contributors = [
 ]
 repos = [
     "ScottyLabs/cmucal",
+    "ScottyLabs/cmucal-backend",
 ]
 slack-channel-ids = [
 ]
