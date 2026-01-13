@@ -16,6 +16,7 @@ maintainers = [
 contributors = [
     "cirex-web",
     "laasyaaki",
+    "mhliu",
 ]
 repos = [
     "ScottyLabs/cmueats",
