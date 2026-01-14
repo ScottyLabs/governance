@@ -9,6 +9,7 @@ maintainers = [
 contributors = [
     "qianxuege",
     "HeidiTao",
+    "theezanonymous"
 ]
 repos = [
     "ScottyLabs/cmucal",
