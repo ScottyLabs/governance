@@ -28,6 +28,7 @@ dev = [
 
 [project.scripts]
 sync = "synchronizer:main"
+minio = "synchronizer.clients.minio_client:main"
 
 [tool.setuptools.packages.find]
 where = ["__meta/synchronizer"]
