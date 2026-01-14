@@ -15,6 +15,7 @@ class Team(BaseModel):
     slack_channel_ids: list[str] = Field(alias="slack-channel-ids")
     remove_unlisted: bool = Field(alias="remove-unlisted", default=True)
     sync_github: bool = Field(alias="sync-github", default=True)
+    sync_minio: bool = Field(alias="sync-minio", default=False)
     create_oidc_clients: bool = Field(alias="create-oidc-clients", default=True)
     secrets_population_layout: Literal["single", "multi", "none"] = Field(
         alias="secrets-population-layout", default="multi"

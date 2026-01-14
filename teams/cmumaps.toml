@@ -45,3 +45,4 @@ slack-channel-ids = [
     "C05T7QRN4LF",
     "C09F81J8XUL",
 ]
+sync-minio = true

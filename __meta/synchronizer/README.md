@@ -48,6 +48,26 @@ the following synchronizations will be performed for the team:
 
   - The team can keep unlisted repos by setting the `remove-unlisted` field to `false` in the team file.
 
+## MinIO
+
+### Team Synchronization
+
+- If the `sync-minio` field is not explicitly set to `false` in the team file,
+  the following synchronizations will be performed for the team:
+
+  - Create the MinIO buckets if they do not exist. The buckets will be named as `<team-slug>`.
+
+  - Create the MinIO service accounts if they do not exist.
+
+    - A service account named `<team-name> Read-Only` will be created with
+      read-only access to the bucket.
+
+    - A service account named `<team-name> Admin` will be created with
+      all permissions to the bucket.
+
+  - Read the secrets population secton in Hashicorp Vault to learn
+    how to retrieve the keys to access the bucket.
+
 ## Keycloak
 
 The groups and oidc clients created by Keycloak synchronization are used for auth
@@ -116,6 +136,9 @@ by setting the `create-oidc-clients` field to `false` in the team file.
   (e.g. `local/web`, `local/server`, `dev/web`, `dev/server`, `staging/web`, `staging/server`, `prod/web`, `prod/server`).
 
   - The secrets will include the OIDC client secrets if the `create-oidc-clients`
+    field is not explicitly set to `false` in the team file.
+
+  - The secrets will include the MinIO service account secrets if the `sync-minio`
     field is not explicitly set to `false` in the team file.
 
 - See [Vault Wiki page](https://github.com/ScottyLabs/wiki/wiki/Credentials#hashicorp-vault)
