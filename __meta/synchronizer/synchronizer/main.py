@@ -13,6 +13,7 @@ from synchronizer.services.github_synchronizer import GithubSynchronizer
 from synchronizer.services.google_drive_synchronizer import GoogleDriveSynchronizer
 from synchronizer.services.keycloak_synchronizer import KeycloakSynchronizer
 from synchronizer.services.leadership_synchronizer import LeadershipSynchronizer
+from synchronizer.services.minio_synchronizer import MinioSynchronizer
 from synchronizer.services.secrets_synchronizer import SecretsSynchronizer
 from synchronizer.services.slack_synchronizer import SlackSynchronizer
 from synchronizer.services.vault_synchronizer import VaultSynchronizer
@@ -25,7 +26,10 @@ load_dotenv()
 SERVICE_CLASSES: dict[str, type[AbstractSynchronizer]] = {
     "keycloak": KeycloakSynchronizer,
     "vault": VaultSynchronizer,
-    "secrets": SecretsSynchronizer,  # Run after the keycloak clients are created.
+    "minio": MinioSynchronizer,
+    # Secrets synchronization depends on the keycloak clients and
+    # minio service accounts being created.
+    "secrets": SecretsSynchronizer,
     "slack": SlackSynchronizer,
     "google_drive": GoogleDriveSynchronizer,
     "leadership": LeadershipSynchronizer,

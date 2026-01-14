@@ -56,6 +56,7 @@ the following synchronizations will be performed for the team:
   the following synchronizations will be performed for the team:
 
   - Create the MinIO buckets if they do not exist. The buckets will be named as `<team-slug>`.
+    By default, the bucket has no versioning and has a quota of 1GB.
 
   - Create the MinIO service accounts if they do not exist.
 
