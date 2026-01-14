@@ -10,6 +10,7 @@ maintainers = [
 ]
 contributors = [
     "axgu",
+    "theezanonymous"
 ]
 repos = [
     "ScottyLabs/lost-and-found",
