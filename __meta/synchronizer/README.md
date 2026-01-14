@@ -140,7 +140,8 @@ by setting the `create-oidc-clients` field to `false` in the team file.
     field is not explicitly set to `false` in the team file.
 
   - The secrets will include the MinIO service account secrets if the `sync-minio`
-    field is not explicitly set to `false` in the team file.
+    field is not explicitly set to `false` in the team file. It will be populated to
+    the `server` folder when the `secrets-population-layout` field is set to `multi`.
 
 - See [Vault Wiki page](https://github.com/ScottyLabs/wiki/wiki/Credentials#hashicorp-vault)
   on how to access the Vault secrets.

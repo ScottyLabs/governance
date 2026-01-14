@@ -110,7 +110,7 @@
         },
         {
           "const": "none",
-          "description": "none: No secrets population."
+          "description": "none: No secrets population. Cannot be used with 'sync-minio' set to true."
         }
       ],
       "default": "multi"
@@ -142,6 +142,31 @@
         "required": [
           "website-slug"
         ]
+      }
+    },
+    {
+      "$comment": "Require 'secrets-population-layout' to not be 'none' when 'sync-minio' is true.",
+      "if": {
+        "properties": {
+          "sync-minio": {
+            "const": true
+          }
+        },
+        "required": [
+          "sync-minio"
+        ]
+      },
+      "then": {
+        "not": {
+          "properties": {
+            "secrets-population-layout": {
+              "const": "none"
+            }
+          },
+          "required": [
+            "secrets-population-layout"
+          ]
+        }
       }
     }
   ]
