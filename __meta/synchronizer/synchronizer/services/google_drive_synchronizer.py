@@ -43,7 +43,7 @@ class GoogleDriveSynchronizer(AbstractSynchronizer):
         self.google_drive_id = os.getenv("SCOTTYLABS_GOOGLE_DRIVE_ID")
 
         # Initialize the Google credentials
-        creds = service_account.Credentials.from_service_account_info(
+        creds = service_account.Credentials.from_service_account_info(  # type: ignore[no-untyped-call]
             info={
                 "private_key": os.getenv("GOOGLE_PRIVATE_KEY"),
                 "client_email": os.getenv("GOOGLE_CLIENT_EMAIL"),

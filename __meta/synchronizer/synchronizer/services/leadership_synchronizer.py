@@ -98,7 +98,7 @@ class LeadershipSynchronizer(AbstractSynchronizer):
     def sync_policy(self, policy_name: str, generate_policy: Callable[[], str]) -> None:
         """Sync the policy in Vault."""
         # Get the current and desired policies
-        current_policy = self.vault_client.sys.read_policy(name=policy_name)
+        current_policy = self.vault_client.sys.read_policy(name=policy_name)  # type: ignore[no-untyped-call]
         desired_policy = generate_policy()
 
         # Skip if the policy is already up to date

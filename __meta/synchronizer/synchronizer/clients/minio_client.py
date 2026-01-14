@@ -1,5 +1,6 @@
 import os
 from functools import lru_cache
+from typing import Any
 
 import dotenv
 import requests
@@ -28,7 +29,7 @@ class MinioClient:
         response.raise_for_status()
         self.token = response.headers["Set-Cookie"]
 
-    def get_service_accounts(self) -> list[dict]:
+    def get_service_accounts(self) -> list[dict[str, Any]]:
         """Get the list of service accounts."""
         response = requests.get(
             f"{self.ENDPOINT}/api/v1/service-accounts",
@@ -36,7 +37,7 @@ class MinioClient:
             timeout=self.TIMEOUT,
         )
         response.raise_for_status()
-        return response.json()
+        return response.json()  # type: ignore[no-any-return]
 
 
 @lru_cache(maxsize=1)

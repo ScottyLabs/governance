@@ -31,7 +31,7 @@ class VaultSynchronizer(AbstractSynchronizer):
         self.groups_names = [data["key_info"][key]["name"] for key in data["keys"]]
 
         # Get the oidc mount accessor
-        auth_methods = self.client.sys.list_auth_methods()
+        auth_methods = self.client.sys.list_auth_methods()  # type: ignore[no-untyped-call]
         self.oidc_mount = auth_methods.get("oidc/")["accessor"]
 
     @override

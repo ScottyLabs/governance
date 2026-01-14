@@ -1,4 +1,4 @@
-from typing import override
+from typing import Any, override
 
 from keycloak import KeycloakGetError
 
@@ -267,7 +267,7 @@ class KeycloakSynchronizer(AbstractSynchronizer):
             with log_operation(log_message):
                 self.keycloak_admin.group_user_remove(user_id, group_id)
 
-    def get_or_create_group(self, group_path: str) -> dict | None:
+    def get_or_create_group(self, group_path: str) -> dict[str, Any] | None:
         try:
             return self.keycloak_admin.get_group_by_path(group_path)
         except KeycloakGetError:
@@ -300,4 +300,4 @@ class KeycloakSynchronizer(AbstractSynchronizer):
             )
             return None
 
-        return users[0]["id"]
+        return users[0]["id"]  # type: ignore[no-any-return]

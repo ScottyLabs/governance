@@ -35,7 +35,7 @@ where = ["__meta/synchronizer"]
 include = ["synchronizer*"]
 
 [tool.mypy]
-check_untyped_defs = true
+strict = true
 
 # Supported rules https://github.com/charliermarsh/ruff/#supported-rules
 [tool.ruff]
