@@ -46,8 +46,6 @@ remove-unlisted = true # Default to true if not specified
 sync-github = true # Default to true if not specified
 
 # Set the `sync-minio` field to `true` if the team wants to synchronize with Minio.
-# If you set this to `true`, the `secrets-population-layout` field can not be
-# `none` since that will be how you retrieve the keys to access the MinIO bucket.
 sync-minio = false # Default to false if not specified
 
 # Set the `create-oidc-clients` field to `false` if the team does not need OIDC clients.
@@ -57,7 +55,6 @@ create-oidc-clients = true # Default to true if not specified
 # The `secrets-population-layout` field can be one of "single", "multi", or "none".
 #
 # Set the `secrets-population-layout` field to `none` if the team does not want automatic secrets population.
-# However, you cannot set this to `none` if you set the `sync-minio` field to `true`.
 #
 # Set the `secrets-population-layout` field to `single` if the team has only one app,
 # such as a scripting project.
