@@ -56,12 +56,12 @@ class SecretsSynchronizer(AbstractSynchronizer):
 
         # Sync the secrets
         if secrets_population_layout == "single":
-            # Skip if the create-oidc-clients flag is false for a single app project.
-            # (e.g: a project like event-scraper that does not need auto secret sync)
+            # Skip if the create-oidc-clients and sync-minio flags are false for a
+            # single app project since there is no secrets to populate.
             if not team.create_oidc_clients:
                 self.logger.debug(
-                    "There is no secrets to populate for single app project with "
-                    "no OIDC clients, skipping team %s...\n",
+                    "There is no secrets to populate for single app project without "
+                    "OIDC clients and MinIO keys, skipping team %s...\n",
                     team.slug,
                 )
                 return
@@ -100,7 +100,7 @@ class SecretsSynchronizer(AbstractSynchronizer):
         # Sync the secrets for each environment
         for env in ENVS:
             with log_operation(f"sync single-app secrets for {team.slug} {env}"):
-                secret = self.get_single_app_secret(team.slug, env)
+                secret = self.get_single_app_secret(team, env)
                 if secret is None:
                     continue
 
@@ -111,10 +111,114 @@ class SecretsSynchronizer(AbstractSynchronizer):
                 )
 
     def get_single_app_secret(
-        self, team_slug: str, env: ENVS_LITERAL
+        self, team: Team, env: ENVS_LITERAL
     ) -> dict[str, str] | None:
-        """Include only auth secrets for the single app project."""
-        return self.get_auth_secrets(team_slug, env)
+        """Include auth and MinIO secrets for the single app project."""
+        secrets = {}
+        auth_secrets = self.get_auth_secrets(team.slug, env)
+        if auth_secrets:
+            secrets.update(auth_secrets)
+        if team.sync_minio:
+            minio_secrets = self.get_minio_secrets(team)
+            if minio_secrets:
+                secrets.update(minio_secrets)
+        return secrets
+
+    def sync_multi_apps_secrets(self, team: Team, *, create_oidc_clients: bool) -> None:
+        # Sync the secrets for each environment
+        for env in ENVS:
+            with log_operation(f"sync multi-apps secrets for {team.slug} {env}"):
+                # Double check the website slug is set
+                website_slug = team.website_slug
+                if website_slug is None:
+                    self.logger.error(
+                        "Website slug is not set for team %s",
+                        team.slug,
+                    )
+                    return
+
+                web_secret, server_secret = self.get_multi_apps_secret(
+                    team,
+                    website_slug,
+                    env,
+                    create_oidc_clients=create_oidc_clients,
+                )
+                self.vault_client.secrets.kv.v2.create_or_update_secret(
+                    path=f"{team.slug}/{env}/web",
+                    mount_point=self.MOUNT_POINT,
+                    secret=web_secret,
+                )
+                self.vault_client.secrets.kv.v2.create_or_update_secret(
+                    path=f"{team.slug}/{env}/server",
+                    mount_point=self.MOUNT_POINT,
+                    secret=server_secret,
+                )
+
+    def get_multi_apps_secret(
+        self,
+        team: Team,
+        website_slug: str,
+        env: ENVS_LITERAL,
+        *,
+        create_oidc_clients: bool,
+    ) -> tuple[dict[str, str], dict[str, str]]:
+        """Include auth secrets for the multi apps project."""
+        # Get the server url and populate the secrets
+        server_url = get_server_url(website_slug, env)
+        web_secret = {"VITE_SERVER_URL": server_url}
+        server_secret = {"SERVER_URL": server_url}
+
+        # Populate the Redis and Database URLs
+        if env == "local":
+            server_secret["REDIS_URL"] = "redis://redis:6379"
+            server_secret["DATABASE_URL"] = (
+                f"postgresql://postgres:donotuseinprod@postgres:5432/{team.slug}"
+            )
+        else:
+            server_secret["REDIS_URL"] = "${{REDIS.REDIS_URL}}"
+            server_secret["DATABASE_URL"] = "${{Postgres.DATABASE_URL}}"
+            server_secret["RAILWAY_DOCKERFILE_PATH"] = "/apps/server/Dockerfile"
+
+        # Allow any https prefix
+        # Note that we need the
+        https_origin_prefix = r"^https://([a-z0-9-]+\.)*"
+
+        # Populate the allowed origins regex
+        match env:
+            case "local":
+                # Allow all origins for local development
+                server_secret["ALLOWED_ORIGINS_REGEX"] = r"^https?://localhost:\d{4}$"
+            case "dev":
+                # Allow all ScottyLabs dev subdomains and any vercel preview domains
+                # (https://<team-slug>-<random 9 characters>-scottylabs.vercel.app)
+                # for dev development
+                server_secret["ALLOWED_ORIGINS_REGEX"] = (
+                    rf"{https_origin_prefix}slabs-dev\.org$,"
+                    rf"^https://{team.slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
+                )
+            case "staging":
+                # Allow all ScottyLabs staging subdomains for staging development
+                server_secret["ALLOWED_ORIGINS_REGEX"] = (
+                    rf"{https_origin_prefix}slabs-staging\.org$"
+                )
+            case "prod":
+                # Allow all ScottyLabs production subdomains for production
+                server_secret["ALLOWED_ORIGINS_REGEX"] = (
+                    rf"{https_origin_prefix}scottylabs\.org$"
+                )
+
+        # Populate the auth secrets if the create-oidc-clients flag is true
+        if create_oidc_clients:
+            auth_secrets = self.get_auth_secrets(team.slug, env)
+            if auth_secrets:
+                server_secret.update(auth_secrets)
+
+        if team.sync_minio:
+            minio_secrets = self.get_minio_secrets(team)
+            if minio_secrets:
+                server_secret.update(minio_secrets)
+
+        return web_secret, server_secret
 
     def get_auth_secrets(
         self, team_slug: str, env: ENVS_LITERAL
@@ -151,78 +255,23 @@ class SecretsSynchronizer(AbstractSynchronizer):
             "AUTH_SESSION_SECRET": auth_session_secret,
         }
 
-    def sync_multi_apps_secrets(self, team: Team, *, create_oidc_clients: bool) -> None:
-        # Sync the secrets for each environment
-        for env in ENVS:
-            with log_operation(f"sync multi-apps secrets for {team.slug} {env}"):
-                web_secret, server_secret = self.get_multi_apps_secret(
-                    team.slug,
-                    env,
-                    create_oidc_clients=create_oidc_clients,
-                )
-                self.vault_client.secrets.kv.v2.create_or_update_secret(
-                    path=f"{team.slug}/{env}/web",
-                    mount_point=self.MOUNT_POINT,
-                    secret=web_secret,
-                )
-                self.vault_client.secrets.kv.v2.create_or_update_secret(
-                    path=f"{team.slug}/{env}/server",
-                    mount_point=self.MOUNT_POINT,
-                    secret=server_secret,
-                )
+    def get_minio_secrets(self, team: Team) -> dict[str, str] | None:
+        """Include MinIO secrets for the multi apps project."""
+        # MinIO secrets would always be set together in the MinIO synchronization.
+        s3_endpoint = os.getenv("S3_ENDPOINT")
+        if (
+            team.minio_readonly_access_key is None
+            or team.minio_readonly_secret_key is None
+            or team.minio_admin_access_key is None
+            or team.minio_admin_secret_key is None
+            or s3_endpoint is None
+        ):
+            return None
 
-    def get_multi_apps_secret(
-        self, team_slug: str, env: ENVS_LITERAL, *, create_oidc_clients: bool
-    ) -> tuple[dict[str, str], dict[str, str]]:
-        """Include auth secrets for the multi apps project."""
-        # Get the server url and populate the secrets
-        server_url = get_server_url(team_slug, env)
-        web_secret = {"VITE_SERVER_URL": server_url}
-        server_secret = {"SERVER_URL": server_url}
-
-        # Populate the Redis and Database URLs
-        if env == "local":
-            server_secret["REDIS_URL"] = "redis://redis:6379"
-            server_secret["DATABASE_URL"] = (
-                f"postgresql://postgres:donotuseinprod@postgres:5432/{team_slug}"
-            )
-        else:
-            server_secret["REDIS_URL"] = "${{REDIS.REDIS_URL}}"
-            server_secret["DATABASE_URL"] = "${{Postgres.DATABASE_URL}}"
-            server_secret["RAILWAY_DOCKERFILE_PATH"] = "/apps/server/Dockerfile"
-
-        # Allow any https prefix
-        # Note that we need the
-        https_origin_prefix = r"^https://([a-z0-9-]+\.)*"
-
-        # Populate the allowed origins regex
-        match env:
-            case "local":
-                # Allow all origins for local development
-                server_secret["ALLOWED_ORIGINS_REGEX"] = r"^https?://localhost:\d{4}$"
-            case "dev":
-                # Allow all ScottyLabs dev subdomains and any vercel preview domains
-                # (https://<team-slug>-<random 9 characters>-scottylabs.vercel.app)
-                # for dev development
-                server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    rf"{https_origin_prefix}slabs-dev\.org$,"
-                    rf"^https://{team_slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
-                )
-            case "staging":
-                # Allow all ScottyLabs staging subdomains for staging development
-                server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    rf"{https_origin_prefix}slabs-staging\.org$"
-                )
-            case "prod":
-                # Allow all ScottyLabs production subdomains for production
-                server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    rf"{https_origin_prefix}scottylabs\.org$"
-                )
-
-        # Populate the auth secrets if the create-oidc-clients flag is true
-        if create_oidc_clients:
-            auth_secrets = self.get_single_app_secret(team_slug, env)
-            if auth_secrets:
-                server_secret.update(auth_secrets)
-
-        return web_secret, server_secret
+        return {
+            "S3_READONLY_ACCESS_KEY": team.minio_readonly_access_key,
+            "S3_READONLY_SECRET_KEY": team.minio_readonly_secret_key,
+            "S3_ADMIN_ACCESS_KEY": team.minio_admin_access_key,
+            "S3_ADMIN_SECRET_KEY": team.minio_admin_secret_key,
+            "S3_ENDPOINT": s3_endpoint,
+        }

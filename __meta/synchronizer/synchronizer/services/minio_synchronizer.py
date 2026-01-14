@@ -51,10 +51,8 @@ class MinioSynchronizer(AbstractSynchronizer):
             return
 
         self.sync_bucket(team.slug)
-        self.sync_service_account(
-            team.name, team.slug, "Read-Only", self.get_read_only_policy
-        )
-        self.sync_service_account(team.name, team.slug, "Admin", self.get_admin_policy)
+        self.sync_service_account(team, "Read-Only", self.get_read_only_policy)
+        self.sync_service_account(team, "Admin", self.get_admin_policy)
 
     def sync_bucket(self, team_slug: str) -> None:
         if team_slug in self.existing_buckets:
@@ -65,16 +63,15 @@ class MinioSynchronizer(AbstractSynchronizer):
             return
 
         with log_operation(f"create MinIO bucket {team_slug}"):
-            self.minio_client.create_bucket("team_slug")
+            self.minio_client.create_bucket(team_slug)
 
     def sync_service_account(
         self,
-        team_name: str,
-        team_slug: str,
+        team: Team,
         permission: str,
         get_policy: Callable[[str], dict[str, Any]],
     ) -> None:
-        service_account_name = f"{team_name} {permission}"
+        service_account_name = f"{team.name} {permission}"
 
         if service_account_name in self.existing_service_accounts:
             self.logger.debug(
@@ -84,11 +81,18 @@ class MinioSynchronizer(AbstractSynchronizer):
             return
 
         with log_operation(f"create MinIO service account {service_account_name}"):
-            self.minio_client.create_service_account(
+            access_key, secret_key = self.minio_client.create_service_account(
                 service_account_name,
-                f"{permission} access to {team_slug} bucket",
-                get_policy(team_slug),
+                f"{permission} access to {team.slug} bucket",
+                get_policy(team.slug),
             )
+
+            if permission == "Read-Only":
+                team.minio_readonly_access_key = access_key
+                team.minio_readonly_secret_key = secret_key
+            elif permission == "Admin":
+                team.minio_admin_access_key = access_key
+                team.minio_admin_secret_key = secret_key
 
     def get_read_only_policy(self, team_slug: str) -> dict[str, Any]:
         return {

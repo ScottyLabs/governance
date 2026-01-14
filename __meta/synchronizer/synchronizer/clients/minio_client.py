@@ -72,8 +72,8 @@ class MinioClient:
 
     def create_service_account(
         self, service_account_name: str, description: str, policy: dict[str, Any]
-    ) -> None:
-        """Create a service account."""
+    ) -> tuple[str, str]:
+        """Create a service account. Return the access key and secret key."""
         alphabet = string.ascii_letters + string.digits
         access_key = "".join(
             secrets.choice(alphabet) for _ in range(20)
@@ -95,6 +95,7 @@ class MinioClient:
             timeout=self.TIMEOUT,
         )
         response.raise_for_status()
+        return response.json()["access_key"], response.json()["secret_key"]  # type: ignore[no-any-return]
 
 
 @lru_cache(maxsize=1)

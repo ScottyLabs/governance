@@ -20,3 +20,9 @@ class Team(BaseModel):
     secrets_population_layout: Literal["single", "multi", "none"] = Field(
         alias="secrets-population-layout", default="multi"
     )
+
+    # MinIO credentials to populate to the team file
+    minio_readonly_access_key: str | None = None
+    minio_readonly_secret_key: str | None = None
+    minio_admin_access_key: str | None = None
+    minio_admin_secret_key: str | None = None
