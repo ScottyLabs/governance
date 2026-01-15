@@ -26,17 +26,20 @@ contributors = [
     "Richard-31415", # Developer
 
     ## Design Team
-    "Wunwan", # Design Team Lead
+    "Wunwan",          # Design Team Lead
+    "JeffreyYijiWang", # Design Advisor
 
     # Year 2024-2025
-    "Yuxiang-Huang", # Tech Lead
-    "luke992",       # Developer
-    "romycyy",       # Developer
-    "tsurbs",        # Developer
+    "Yuxiang-Huang",   # Tech Lead
+    "luke992",         # Developer
+    "romycyy",         # Developer
+    "tsurbs",          # Developer
+    "JeffreyYijiWang", # Design Lead
 
     # Year 2023-2024
-    "tsurbs",        # Tech Lead
-    "Yuxiang-Huang", # Developer
+    "tsurbs",          # Tech Lead
+    "Yuxiang-Huang",   # Developer
+    "JeffreyYijiWang", # Designer
 
     # Year 2022-2023
     "Nicolapps", # Founder
