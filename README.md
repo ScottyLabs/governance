@@ -22,18 +22,16 @@ and each team are detailed in [synchronizer/README.md](__meta/synchronizer/READM
 
 ## Adding a New Contributor
 
+For each team you want to join:
+
 0. Fork the repository and clone it to your local machine.
 
 1. Follow the instructions in [docs/contributors.md](docs/contributors.md) to add
    your information as a new contributor.
 
-2. Update the file of the team(s) you want to join under the `teams/` directory:
-   - For each team you want to join, if the team file has an `applicants` field,
-     add yourself there. Otherwise, add yourself to the `contributors` field.
-
-   - Note that a PR can only be merged after it is approved by a maintainer
-     from each team you want to join, so we recommend you to submit a separate PR
-     for each team to speed up the review process.
+2. Update the file of the team you want to join under the `teams/` directory:
+   - If the team file has an `applicants` field, add yourself there.
+   - Otherwise, add yourself to the `contributors` field.
 
 3. Review each project's repo's `CONTRIBUTING.md` file to understand any team-specific
    contribution guidelines. For example, some teams might require you submit a Google Form.
