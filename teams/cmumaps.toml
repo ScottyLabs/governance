@@ -15,6 +15,8 @@ maintainers = [
 ]
 contributors = [
     # Year 2025-2026
+
+    ## Tech Team
     "luke992",       # Web Team Lead
     "ellylai",       # Data Team Co-Lead
     "romycyy",       # Data Team Co-Lead
@@ -22,6 +24,9 @@ contributors = [
     "Yuxiang-Huang", # Developer
     "tsurbs",        # Developer
     "Richard-31415", # Developer
+
+    ## Design Team
+    "Wunwan", # Design Team Lead
 
     # Year 2024-2025
     "Yuxiang-Huang", # Tech Lead
