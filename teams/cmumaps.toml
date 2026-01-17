@@ -53,6 +53,7 @@ applicants = [
 ]
 repos = [
     "ScottyLabs/cmumaps",
+    "ScottyLabs/secrets-sync-scripts", # Need access to use secrets sync scripts
 ]
 slack-channel-ids = [
     "C05T7QRN4LF",
