@@ -11,7 +11,7 @@ maintainers = [
 contributors = [
     "axgu",
     "leonliu223",
-    "LeonLiu368"
+    "LeonLiu368",
 ]
 repos = [
     "ScottyLabs/lost-and-found",
