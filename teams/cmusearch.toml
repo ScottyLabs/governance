@@ -17,6 +17,7 @@ contributors = [
     "tsurbs",
     "Yuxiang-Huang",
     "ap-1",
+    "theezanonymous"
 ]
 repos = [
     "ScottyLabs/cmusearch",
