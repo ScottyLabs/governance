@@ -11,10 +11,13 @@ maintainers = [
     "tsurbs",
     "luke992",
     "ellylai",
+    "romycyy",
     "JettChenT",
 ]
 contributors = [
     # Year 2025-2026
+
+    ## Tech Team
     "luke992",       # Web Team Lead
     "ellylai",       # Data Team Co-Lead
     "romycyy",       # Data Team Co-Lead
@@ -22,16 +25,26 @@ contributors = [
     "Yuxiang-Huang", # Developer
     "tsurbs",        # Developer
     "Richard-31415", # Developer
+    "SayeVikram",    #Developer
+    "tu2463",        # Developer
+    "lastlegume",    # Developer
+
+    ## Design Team
+    "Wunwan",          # Design Team Lead
+    "JeffreyYijiWang", # Design Advisor
+    "JessCai06",       # Designer
 
     # Year 2024-2025
-    "Yuxiang-Huang", # Tech Lead
-    "luke992",       # Developer
-    "romycyy",       # Developer
-    "tsurbs",        # Developer
+    "Yuxiang-Huang",   # Tech Lead
+    "JeffreyYijiWang", # Design Lead
+    "luke992",         # Developer
+    "romycyy",         # Developer
+    "tsurbs",          # Developer
 
     # Year 2023-2024
-    "tsurbs",        # Tech Lead
-    "Yuxiang-Huang", # Developer
+    "tsurbs",          # Tech Lead
+    "Yuxiang-Huang",   # Developer
+    "JeffreyYijiWang", # Designer
 
     # Year 2022-2023
     "Nicolapps", # Founder
@@ -40,6 +53,7 @@ applicants = [
 ]
 repos = [
     "ScottyLabs/cmumaps",
+    "ScottyLabs/secrets-sync-scripts", # Need access to use secrets sync scripts
 ]
 slack-channel-ids = [
     "C05T7QRN4LF",

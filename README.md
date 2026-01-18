@@ -22,12 +22,14 @@ and each team are detailed in [synchronizer/README.md](__meta/synchronizer/READM
 
 ## Adding a New Contributor
 
+For each team you want to join:
+
 0. Fork the repository and clone it to your local machine.
 
 1. Follow the instructions in [docs/contributors.md](docs/contributors.md) to add
    your information as a new contributor.
 
-2. Update the file of the team(s) you want to join under the `teams/` directory:
+2. Update the file of the team you want to join under the `teams/` directory:
    - If the team file has an `applicants` field, add yourself there.
    - Otherwise, add yourself to the `contributors` field.
 
