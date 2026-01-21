@@ -1,10 +1,17 @@
 name = "SLAI"
 slug = "sl-ai"
 description = """
-ScottyLabs AI team is responsible for cmuGPT, CMU Search, MCP server, and other
-AI-related projects.
+ScottyLabs AI team is responsible for cmuGPT, CMU Search, MCP server, and other AI-related projects.
+
+cmuGPT: Chatbot with ability to integrate with our own applications (CMU Eats, CMU Maps, CMU Courses).
+CMU Search: Our own search engine! Join if you love search engines!
+MCP Server: Wraps our own APIs, as an MCP server, used by cmuGPT.
 """
-contributing-guide = "DM Ellyse Lai on Slack for now."
+contributing-guide = """
+Our teams/projects are in the development phase. 
+If you love AI/ML and have experience or interest in working with RAG, LLMs, MCP, vector databases, APIs, etc, feel free to DM Ellyse Lai on Slack!
+We also will probably need designers for frontend and help with backend, so if you have experience in these you are also welcome."""
+
 maintainers = [
     "ellylai",
 ]
