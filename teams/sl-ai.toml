@@ -8,7 +8,7 @@ CMU Search: Our own search engine! Join if you love search engines!
 MCP Server: Wraps our own APIs, as an MCP server, used by cmuGPT.
 """
 contributing-guide = """
-Our teams/projects are in the development phase. 
+Our teams/projects are in the development phase.
 If you love AI/ML and have experience or interest in working with RAG, LLMs, MCP, vector databases, APIs, etc, feel free to DM Ellyse Lai on Slack!
 We also will probably need designers for frontend and help with backend, so if you have experience in these you are also welcome."""
 
