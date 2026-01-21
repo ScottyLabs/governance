@@ -1,5 +1,5 @@
-slug = "sl-ai"
 name = "SLAI"
+slug = "sl-ai"
 description = """
 ScottyLabs AI team is responsible for cmuGPT, CMU Search, MCP server, and other
 AI-related projects.
