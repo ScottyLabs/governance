@@ -1,8 +1,8 @@
 name = "CMU Cal"
 slug = "cmucal"
 website-slug = "cal"
-description = ""
-contributing-guide = ""
+description = "CMUCal is a comprehensive web application designed to streamline and enhance the process of managing academic resources at Carnegie Mellon."
+contributing-guide = "https://github.com/ScottyLabs/cmucal/blob/main/CONTRIBUTING.md"
 maintainers = [
     "qianxuege",
 ]
@@ -10,12 +10,14 @@ contributors = [
     "qianxuege",
     "HeidiTao",
     "AliceeLe",
+    "jalenluorion",
 ]
 repos = [
     "ScottyLabs/cmucal",
     "ScottyLabs/cmucal-backend",
 ]
 slack-channel-ids = [
+    "C05TNBPHVTL",
 ]
 remove-unlisted = false
 create-oidc-clients = false
