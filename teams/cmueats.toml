@@ -13,6 +13,7 @@ for clarifications if it's a substantial or very open-ended task! We don't want 
 maintainers = [
     "cirex-web",
     "laasyaaki",
+    "kthallam167",
 ]
 contributors = [
     "cirex-web",
