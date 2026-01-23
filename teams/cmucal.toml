@@ -1,7 +1,16 @@
 name = "CMU Cal"
 slug = "cmucal"
 website-slug = "cal"
-description = "CMUCal is a comprehensive web application designed to streamline and enhance the process of managing academic resources at Carnegie Mellon."
+description = """
+CMUCal eliminates the friction of managing scattered academic schedules by 
+bringing all CMU academic resources into one place. 
+- Through seamless Google Calendar integration, it unifies users' existing calendars with 
+lectures, recitations, office hours, and academic support events.
+- Planned features include integrations with Handshake and TartanConnect, as well as 
+community-driven event discovery through crowdsourced submissions and upvote/downvote mechanisms.
+
+Please follow the contributing-guide linked below if you are interested in joining!
+"""
 contributing-guide = "https://github.com/ScottyLabs/cmucal/blob/main/CONTRIBUTING.md"
 maintainers = [
     "qianxuege",
@@ -10,7 +19,6 @@ contributors = [
     "qianxuege",
     "HeidiTao",
     "AliceeLe",
-    "jalenluorion",
 ]
 repos = [
     "ScottyLabs/cmucal",
