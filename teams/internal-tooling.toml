@@ -17,6 +17,7 @@ contributors = [
     "TenType",
     "ap-1",
     "Yuxiang-Huang",
+    "maybe-yiyi",
 ]
 repos = [
     "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
