@@ -21,6 +21,7 @@ contributors = [
     "sjskong",
     "terrificjesse",
     "Gostmeaper",
+    "Junsouh",
 ]
 repos = [
     "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
