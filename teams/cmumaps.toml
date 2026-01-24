@@ -51,6 +51,7 @@ contributors = [
     "Nicolapps", # Founder
 ]
 applicants = [
+    "cahove",
 ]
 repos = [
     "ScottyLabs/cmumaps",
