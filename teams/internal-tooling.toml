@@ -20,7 +20,9 @@ contributors = [
     "maybe-yiyi",
     "sjskong",
     "terrificjesse",
-    "A-Speedy-Giraffe"
+    "Gostmeaper",
+    "Junsouh",
+    "A-Speedy-Giraffe",
 ]
 repos = [
     "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
