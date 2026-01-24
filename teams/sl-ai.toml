@@ -17,7 +17,7 @@ maintainers = [
 ]
 contributors = [
     "ellylai",
-    alanjose,
+    "alanjose",
 ]
 repos = [
     "ScottyLabs/cmugpt",
