@@ -18,6 +18,7 @@ contributors = [
     "ap-1",
     "Yuxiang-Huang",
     "maybe-yiyi",
+    "sjskong",
 ]
 repos = [
     "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
