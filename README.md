@@ -22,7 +22,7 @@ and each team are detailed in [synchronizer/README.md](__meta/synchronizer/READM
 
 ## Adding a New Contributor
 
-For each team you want to join:
+For each team you want to join (and you must join at least one):
 
 0. Fork the repository and clone it to your local machine.
 
