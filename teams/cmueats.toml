@@ -18,6 +18,7 @@ contributors = [
     "cirex-web",
     "laasyaaki",
     "michaeliuedu",
+    "evan-j-lin"
 ]
 repos = [
     "ScottyLabs/cmueats",
