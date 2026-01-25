@@ -1,8 +1,17 @@
 name = "CMU Cal"
 slug = "cmucal"
 website-slug = "cal"
-description = ""
-contributing-guide = ""
+description = """
+CMUCal eliminates the friction of managing scattered academic schedules by
+bringing all CMU academic resources into one place.
+- Through seamless Google Calendar integration, it unifies users' existing calendars with
+lectures, recitations, office hours, and academic support events.
+- Planned features include integrations with Handshake and TartanConnect, as well as
+community-driven event discovery through crowdsourced submissions and upvote/downvote mechanisms.
+
+Please follow the contributing-guide linked below if you are interested in joining!
+"""
+contributing-guide = "https://github.com/ScottyLabs/cmucal/blob/main/CONTRIBUTING.md"
 maintainers = [
     "qianxuege",
 ]
@@ -16,6 +25,7 @@ repos = [
     "ScottyLabs/cmucal-backend",
 ]
 slack-channel-ids = [
+    "C05TNBPHVTL",
 ]
 remove-unlisted = false
 create-oidc-clients = false
