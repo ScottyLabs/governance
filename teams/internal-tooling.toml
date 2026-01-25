@@ -24,7 +24,7 @@ contributors = [
     "Junsouh",
     "stationedK-06",
     "A-Speedy-Giraffe",
-    "jackhenri-welter"
+    "jackhenri-welter",
 ]
 repos = [
     "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
