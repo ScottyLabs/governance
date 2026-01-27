@@ -12,6 +12,7 @@ maintainers = [
 contributors = [
     "xavilien",
     "ap-1",
+    "angelaab"
 ]
 repos = []
 slack-channel-ids = [
