@@ -14,12 +14,12 @@ We also will probably need designers for frontend and help with backend, so if y
 
 maintainers = [
     "ellylai",
-    "parinzee"
+    "parinzee",
 ]
 contributors = [
     "ellylai",
     "alanj268",
-    "parinzee"
+    "parinzee",
 ]
 repos = [
     "ScottyLabs/cmugpt",
