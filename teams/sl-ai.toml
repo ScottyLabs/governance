@@ -14,10 +14,12 @@ We also will probably need designers for frontend and help with backend, so if y
 
 maintainers = [
     "ellylai",
+    "krishsaxena",
 ]
 contributors = [
     "ellylai",
     "alanj268",
+    "krishsaxena",
 ]
 repos = [
     "ScottyLabs/cmugpt",
@@ -30,6 +32,7 @@ repos = [
 ]
 slack-channel-ids = [
     "C08SRUGUQ05",
+    "U09DL6NH8FL",
 ]
 
 # Remove this once the team is fully registered
