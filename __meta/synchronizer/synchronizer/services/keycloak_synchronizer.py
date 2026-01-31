@@ -12,10 +12,8 @@ from synchronizer.models import Contributor, Team
 from synchronizer.utils import (
     ENVS,
     ENVS_LITERAL,
-    get_dev_server_url,
-    get_local_server_url,
-    get_prod_server_url,
-    get_staging_server_url,
+    get_frontend_url,
+    get_server_url,
 )
 
 from .abstract_synchronizer import AbstractSynchronizer
@@ -129,25 +127,9 @@ class KeycloakSynchronizer(AbstractSynchronizer):
         self, client_id: str, website_slug: str, env: ENVS_LITERAL
     ) -> None:
         # Generate the URIs for the client
-        root_url = None
-        match env:
-            case "dev":
-                root_url = f"https://{website_slug}.slabs-dev.org"
-                server_url = get_dev_server_url(website_slug)
-            case "staging":
-                root_url = f"https://{website_slug}.slabs-staging.org"
-                server_url = get_staging_server_url(website_slug)
-            case "prod":
-                root_url = f"https://{website_slug}.scottylabs.org"
-                server_url = get_prod_server_url(website_slug)
-
-        if env == "local":
-            redirect_uris = [f"{get_local_server_url()}/auth/callback"]
-            post_logout_redirect_uris = "http://localhost:3000/*"
-        else:
-            redirect_uris = [f"{server_url}/auth/callback"]
-            # Permit any post-logout redirect URI with the same origin
-            post_logout_redirect_uris = "/*"
+        root_url = get_frontend_url(website_slug, env)
+        server_url = get_server_url(website_slug, env)
+        redirect_uris = [f"{server_url}/api/auth/oauth2/callback/keycloak"]
 
         # Create the client
         self.keycloak_admin.create_client(
@@ -155,10 +137,6 @@ class KeycloakSynchronizer(AbstractSynchronizer):
                 "clientId": client_id,
                 "rootUrl": root_url,
                 "redirectUris": redirect_uris,
-                # https://github.com/keycloak/keycloak/discussions/19087#discussioncomment-5338785
-                "attributes": {
-                    "post.logout.redirect.uris": post_logout_redirect_uris,
-                },
                 "serviceAccountsEnabled": True,
                 "frontchannelLogout": True,
                 "protocolMappers": [
