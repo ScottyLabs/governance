@@ -32,7 +32,6 @@ repos = [
 ]
 slack-channel-ids = [
     "C08SRUGUQ05",
-    "U09DL6NH8FL",
 ]
 
 # Remove this once the team is fully registered
