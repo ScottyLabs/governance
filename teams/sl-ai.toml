@@ -14,9 +14,14 @@ We also will probably need designers for frontend and help with backend, so if y
 
 maintainers = [
     "ellylai",
+    "krishsaxena",
+    "parinzee",
 ]
 contributors = [
     "ellylai",
+    "alanj268",
+    "krishsaxena",
+    "parinzee",
 ]
 repos = [
     "ScottyLabs/cmugpt",
@@ -30,12 +35,6 @@ repos = [
 slack-channel-ids = [
     "C08SRUGUQ05",
 ]
-
-# Remove this once the team is fully registered
-remove-unlisted = false
-
-# Remove this once the team is fully registered
-sync-github = false
 
 # The AI team does not need OIDC clients or secrets population for now.
 create-oidc-clients = false
