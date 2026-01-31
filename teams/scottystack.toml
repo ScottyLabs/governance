@@ -1,0 +1,16 @@
+name = "Scottystack"
+slug = "scottystack"
+website-slug = "stack"
+description = """ScottyLabs Full Stack Template."""
+contributing-guide = "We don't accept contributors yet."
+maintainers = [
+    "Yuxiang-Huang",
+]
+contributors = [
+    "Yuxiang-Huang",
+]
+repos = [
+    "ScottyLabs/scottystack",
+]
+slack-channel-ids = [
+]
