@@ -1,6 +1,10 @@
 {
   "name": "Governance",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+  "runArgs": [
+    "--name",
+    "governance"
+  ],
   "postCreateCommand": "./.devcontainer/post-create.sh",
   "features": {
     "ghcr.io/roul/devcontainer-features/vault:1": {},
