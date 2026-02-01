@@ -1,4 +1,3 @@
-import base64
 import os
 from typing import override
 
@@ -144,16 +143,11 @@ class SecretsSynchronizer(AbstractSynchronizer):
         )
         jwks_uri = f"{issuer}/protocol/openid-connect/certs"
 
-        # Generate a random 48-byte string and encode it as base64 (64 characters)
-        # for the auth session secret
-        auth_session_secret = base64.b64encode(os.urandom(48)).decode("utf-8")
-
         return {
             "AUTH_CLIENT_ID": client_id,
             "AUTH_CLIENT_SECRET": client_secret,
             "AUTH_ISSUER": issuer,
             "AUTH_JWKS_URI": jwks_uri,
-            "AUTH_SESSION_SECRET": auth_session_secret,
         }
 
     def sync_multi_apps_secrets(self, team: Team, *, create_oidc_clients: bool) -> None:
@@ -196,12 +190,10 @@ class SecretsSynchronizer(AbstractSynchronizer):
 
         # Populate the Redis and Database URLs
         if env == "local":
-            server_secret["REDIS_URL"] = "redis://redis:6379"
             server_secret["DATABASE_URL"] = (
                 f"postgresql://postgres:donotuseinprod@postgres:5432/{team_slug}"
             )
         else:
-            server_secret["REDIS_URL"] = "${{REDIS.REDIS_URL}}"
             server_secret["DATABASE_URL"] = "${{Postgres.DATABASE_URL}}"
             server_secret["RAILWAY_DOCKERFILE_PATH"] = "/apps/server/Dockerfile"
 
