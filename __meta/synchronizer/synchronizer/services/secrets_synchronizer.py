@@ -12,7 +12,12 @@ from synchronizer.logger import (
     print_section,
 )
 from synchronizer.models import Contributor, Team
-from synchronizer.utils import ENVS, ENVS_LITERAL, get_server_url
+from synchronizer.utils import (
+    ENVS,
+    ENVS_LITERAL,
+    get_allowed_origins_regex,
+    get_server_url,
+)
 
 from .abstract_synchronizer import AbstractSynchronizer
 
@@ -156,7 +161,7 @@ class SecretsSynchronizer(AbstractSynchronizer):
         for env in ENVS:
             with log_operation(f"sync multi-apps secrets for {team.slug} {env}"):
                 web_secret, server_secret = self.get_multi_apps_secret(
-                    team.slug,
+                    team.website_slug,
                     env,
                     create_oidc_clients=create_oidc_clients,
                 )
@@ -172,13 +177,22 @@ class SecretsSynchronizer(AbstractSynchronizer):
                 )
 
     def get_multi_apps_secret(
-        self, team_slug: str, env: ENVS_LITERAL, *, create_oidc_clients: bool
+        self,
+        team_slug: str,
+        website_slug: str,
+        env: ENVS_LITERAL,
+        *,
+        create_oidc_clients: bool,
     ) -> tuple[dict[str, str], dict[str, str]]:
         """Include auth secrets for the multi apps project."""
         # Get the server url and populate the secrets
-        server_url = get_server_url(team_slug, env)
+        server_url = get_server_url(website_slug, env)
+        allowed_origins_regex = get_allowed_origins_regex(team_slug, env)
         web_secret = {"VITE_SERVER_URL": server_url}
-        server_secret = {"SERVER_URL": server_url}
+        server_secret = {
+            "SERVER_URL": server_url,
+            "ALLOWED_ORIGINS_REGEX": allowed_origins_regex,
+        }
 
         # Populate the Redis and Database URLs
         if env == "local":
@@ -190,34 +204,6 @@ class SecretsSynchronizer(AbstractSynchronizer):
             server_secret["REDIS_URL"] = "${{REDIS.REDIS_URL}}"
             server_secret["DATABASE_URL"] = "${{Postgres.DATABASE_URL}}"
             server_secret["RAILWAY_DOCKERFILE_PATH"] = "/apps/server/Dockerfile"
-
-        # Allow any https prefix
-        # Note that we need the
-        https_origin_prefix = r"^https://([a-z0-9-]+\.)*"
-
-        # Populate the allowed origins regex
-        match env:
-            case "local":
-                # Allow all origins for local development
-                server_secret["ALLOWED_ORIGINS_REGEX"] = r"^https?://localhost:\d{4}$"
-            case "dev":
-                # Allow all ScottyLabs dev subdomains and any vercel preview domains
-                # (https://<team-slug>-<random 9 characters>-scottylabs.vercel.app)
-                # for dev development
-                server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    rf"{https_origin_prefix}slabs-dev\.org$,"
-                    rf"^https://{team_slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
-                )
-            case "staging":
-                # Allow all ScottyLabs staging subdomains for staging development
-                server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    rf"{https_origin_prefix}slabs-staging\.org$"
-                )
-            case "prod":
-                # Allow all ScottyLabs production subdomains for production
-                server_secret["ALLOWED_ORIGINS_REGEX"] = (
-                    rf"{https_origin_prefix}scottylabs\.org$"
-                )
 
         # Populate the auth secrets if the create-oidc-clients flag is true
         if create_oidc_clients:

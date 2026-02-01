@@ -8,54 +8,47 @@ ENVS: list[ENVS_LITERAL] = ["local", "dev", "staging", "prod"]
 def get_server_url(website_slug: str, env: ENVS_LITERAL) -> str:
     match env:
         case "local":
-            return get_local_server_url()
+            return "http://localhost"
         case "dev":
-            return get_dev_server_url(website_slug)
+            return f"https://api.{website_slug}.slabs-dev.org"
         case "staging":
-            return get_staging_server_url(website_slug)
+            return f"https://api.{website_slug}.slabs-staging.org"
         case "prod":
-            return get_prod_server_url(website_slug)
-
-
-def get_local_server_url() -> str:
-    return "http://localhost"
-
-
-def get_dev_server_url(website_slug: str) -> str:
-    return f"https://api.{website_slug}.slabs-dev.org"
-
-
-def get_staging_server_url(website_slug: str) -> str:
-    return f"https://api.{website_slug}.slabs-staging.org"
-
-
-def get_prod_server_url(website_slug: str) -> str:
-    return f"https://api.{website_slug}.scottylabs.org"
+            return f"https://api.{website_slug}.scottylabs.org"
 
 
 def get_frontend_url(website_slug: str, env: ENVS_LITERAL) -> str:
     match env:
         case "local":
-            return get_local_frontend_url()
+            return "http://localhost:3000"
         case "dev":
-            return get_dev_frontend_url(website_slug)
+            return f"https://{website_slug}.slabs-dev.org"
         case "staging":
-            return get_staging_frontend_url(website_slug)
+            return f"https://{website_slug}.slabs-staging.org"
         case "prod":
-            return get_prod_frontend_url(website_slug)
+            return f"https://{website_slug}.scottylabs.org"
 
 
-def get_local_frontend_url() -> str:
-    return "http://localhost:3000"
+def get_allowed_origins_regex(team_slug: str, env: ENVS_LITERAL) -> str:
+    # Allow any https prefix
+    https_origin_prefix = r"^https://([a-z0-9-]+\.)*"
 
-
-def get_dev_frontend_url(website_slug: str) -> str:
-    return f"https://{website_slug}.slabs-dev.org"
-
-
-def get_staging_frontend_url(website_slug: str) -> str:
-    return f"https://{website_slug}.slabs-staging.org"
-
-
-def get_prod_frontend_url(website_slug: str) -> str:
-    return f"https://{website_slug}.scottylabs.org"
+    # Populate the allowed origins regex
+    match env:
+        case "local":
+            # Allow all origins for local development
+            return r"^https?://localhost:\d{4}$"
+        case "dev":
+            # Allow all ScottyLabs dev subdomains and any vercel preview domains
+            # (https://<team-slug>-<random 9 characters>-scottylabs.vercel.app)
+            # for dev development
+            return (
+                rf"{https_origin_prefix}slabs-dev\.org$,"
+                rf"^https://{team_slug}-[0-9a-z]{{9}}-scottylabs\.vercel\.app$"
+            )
+        case "staging":
+            # Allow all ScottyLabs staging subdomains for staging development
+            return rf"{https_origin_prefix}slabs-staging\.org$"
+        case "prod":
+            # Allow all ScottyLabs production subdomains for production
+            return rf"{https_origin_prefix}scottylabs\.org$"
