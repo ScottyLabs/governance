@@ -15,6 +15,7 @@ from synchronizer.utils import (
     ENVS,
     ENVS_LITERAL,
     get_allowed_origins_regex,
+    get_frontend_url,
     get_server_url,
 )
 
@@ -141,21 +142,30 @@ class SecretsSynchronizer(AbstractSynchronizer):
         issuer = (
             f"{os.getenv('KEYCLOAK_SERVER_URL')}/realms/{os.getenv('KEYCLOAK_REALM')}"
         )
-        jwks_uri = f"{issuer}/protocol/openid-connect/certs"
 
         return {
             "AUTH_CLIENT_ID": client_id,
             "AUTH_CLIENT_SECRET": client_secret,
             "AUTH_ISSUER": issuer,
-            "AUTH_JWKS_URI": jwks_uri,
+            "AUTH_JWKS_URI": f"{issuer}/protocol/openid-connect/certs",
         }
 
     def sync_multi_apps_secrets(self, team: Team, *, create_oidc_clients: bool) -> None:
+        # Requires website-slug to be set for multi-apps project
+        website_slug = team.website_slug
+        if website_slug is None:
+            self.logger.error(
+                "Website slug is not set for team %s",
+                team.slug,
+            )
+            return
+
         # Sync the secrets for each environment
         for env in ENVS:
             with log_operation(f"sync multi-apps secrets for {team.slug} {env}"):
                 web_secret, server_secret = self.get_multi_apps_secret(
-                    team.website_slug,
+                    team.slug,
+                    website_slug,
                     env,
                     create_oidc_clients=create_oidc_clients,
                 )
@@ -186,6 +196,8 @@ class SecretsSynchronizer(AbstractSynchronizer):
         server_secret = {
             "SERVER_URL": server_url,
             "ALLOWED_ORIGINS_REGEX": allowed_origins_regex,
+            # https://www.better-auth.com/docs/installation#set-environment-variables
+            "BETTER_AUTH_URL": get_frontend_url(website_slug, env),
         }
 
         # Populate the Redis and Database URLs
