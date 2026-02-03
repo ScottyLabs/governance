@@ -17,5 +17,8 @@ slack-channel-ids = [
     "C0A03GYAP3R",
 ]
 
+# Graph is not in ScottyLabs GitHub organization yet, so we need to keep unlisted members.
+remove-unlisted = false
+
 # graph uses a different Keycloak realm for Google sign-in.
 create-oidc-clients = false
