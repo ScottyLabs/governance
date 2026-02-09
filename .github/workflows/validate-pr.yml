@@ -43,3 +43,17 @@ jobs:
               .github/scripts/validate-team.sh "$PR_AUTHOR" "$FILE"
             fi
           done
+
+      - name: Validate single contributor file change
+        if: contains(${{ steps.changed-files.outputs.all_changed_files }}, 'contributors/')
+        run: |
+          .github/scripts/validate-single-file-change.sh \
+            "contributors/" \
+            "${{ steps.changed-files.outputs.all_changed_files }}"
+
+      - name: Validate single team file change
+        if: contains(${{ steps.changed-files.outputs.all_changed_files }}, 'teams/')
+        run: |
+          .github/scripts/validate-single-file-change.sh \
+            "teams/" \
+            "${{ steps.changed-files.outputs.all_changed_files }}"

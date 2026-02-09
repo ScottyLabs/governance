@@ -10,6 +10,7 @@ use log::info;
 use reqwest::{Client, StatusCode};
 use serde_json::Value;
 
+/// Validate the key orderings in a TOML file against the expected schema order.
 pub fn validate_key_orderings<T: HasKeyOrder>(
     data: &HashMap<EntityKey, T>,
     expected_order: &Vec<String>,
