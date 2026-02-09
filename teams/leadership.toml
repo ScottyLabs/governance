@@ -9,11 +9,11 @@ Director of ScottyLabs, Director of Technology, or Tech Lead!
 # the Director of ScottyLabs, Director of Technology, Head of DevOps,
 # Tech Senior Advisors, and ScottyLabs GitHub Account.
 maintainers = [
-    "Yuxiang-Huang",    # Current Director of Technology
+    "Yuxiang-Huang",  # Current Director of Technology
     "ap-1",
     "tsurbs",
     "xavilien",
-    "ScottyLabsDeploy",
+    "scottylabs-bot",
 ]
 contributors = [
     # Year 2025-2026
@@ -41,7 +41,7 @@ contributors = [
     "Adrastopoulos", # Director of Technology
 
     # ScottyLabs GitHub Account
-    "ScottyLabsDeploy",
+    "scottylabs-bot",
 ]
 repos = []
 slack-channel-ids = [
