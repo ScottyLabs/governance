@@ -1,10 +1,8 @@
 name = "Graph"
 slug = "graph"
 website-slug = "graph"
-description = """
-Graph has been turned into a testing site for the **new** auth system.
-"""
-contributing-guide = "DO NOT join this team!"
+description = """A social graph visualization of ScottyLabs."""
+contributing-guide = "DO NOT join this team yet!"
 maintainers = [
     "Yuxiang-Huang",
 ]
@@ -12,8 +10,15 @@ contributors = [
     "Yuxiang-Huang",
 ]
 repos = [
-    "ScottyLabs/graph",
+    # graph is not in ScottyLabs GitHub organization yet.
+    # "ScottyLabs/graph",
 ]
 slack-channel-ids = [
     "C0A03GYAP3R",
 ]
+
+# Graph is not in ScottyLabs GitHub organization yet, so we need to keep unlisted members.
+remove-unlisted = false
+
+# graph uses a different Keycloak realm for Google sign-in.
+create-oidc-clients = false

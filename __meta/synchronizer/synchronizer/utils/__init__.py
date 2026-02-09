@@ -1,6 +1,7 @@
 from .env_urls import (
     ENVS,
     ENVS_LITERAL,
+    get_allowed_origins_regex,
     get_frontend_url,
     get_server_url,
 )
@@ -8,6 +9,7 @@ from .env_urls import (
 __all__ = [
     "ENVS",
     "ENVS_LITERAL",
+    "get_allowed_origins_regex",
     "get_frontend_url",
     "get_server_url",
 ]
