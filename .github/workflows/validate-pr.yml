@@ -23,6 +23,7 @@ jobs:
         run: |
           chmod +x .github/scripts/validate-contributor.sh
           chmod +x .github/scripts/validate-team.sh
+          chmod +x .github/scripts/validate-single-file-change.sh
 
       - name: Validate contributor self-nomination
         if: contains(steps.changed-files.outputs.added_files, 'contributors/')
@@ -44,14 +45,14 @@ jobs:
             fi
           done
 
-      - name: Validate single contributor file change
+      - name: Validate at most one contributor file is changed
         if: contains(${{ steps.changed-files.outputs.all_changed_files }}, 'contributors/')
         run: |
           .github/scripts/validate-single-file-change.sh \
             "contributors/" \
             "${{ steps.changed-files.outputs.all_changed_files }}"
 
-      - name: Validate single team file change
+      - name: Validate at most one team file is changed
         if: contains(${{ steps.changed-files.outputs.all_changed_files }}, 'teams/')
         run: |
           .github/scripts/validate-single-file-change.sh \
