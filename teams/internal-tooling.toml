@@ -33,6 +33,7 @@ repos = [
     "ScottyLabs/cmu-guide",            # Guide to introduce first-year students to CMU
     "ScottyLabs/secrets-sync-scripts", # Scripts to sync secrets to Vault
     "ScottyLabs/bus-sign",             # Live bus sign
+    "ScottyLabs/voting-app",           # Voting app for student organizations
 ]
 slack-channel-ids = [
 ]
