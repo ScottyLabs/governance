@@ -22,6 +22,7 @@ contributors = [
     "alanj268",
     "krishsaxena",
     "parinzee",
+    "tsurbs",
 ]
 repos = [
     "ScottyLabs/cmugpt",
@@ -29,6 +30,9 @@ repos = [
     # CMU Search is a search engine to search for courses, locations, and events on campus.
     # Join if you love search engines!
     "ScottyLabs/cmusearch",
+
+    # Currently in dev by theo, will handle the db, users, conversation ui
+    "ScottyLabs/cmugpt-frontend",
 
     "ScottyLabs/mcp-server",
 ]
