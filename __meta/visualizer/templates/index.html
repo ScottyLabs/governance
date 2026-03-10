@@ -47,7 +47,6 @@
     <div id="legend">
         <span style="color:#4CAF50;">● Contributor</span><br />
         <span style="color:#2196F3;">● Team</span><br />
-        <span style="color:#9C27B0;">● Repo</span><br />
     </div>
 
     <script>
@@ -57,7 +56,6 @@
         const NODE_COLORS = {
             Contributor: "#4CAF50", // Green
             Team: "#2196F3",        // Blue
-            Repo: "#9C27B0",        // Purple
         };
 
         // Initialize with default graph
@@ -65,13 +63,12 @@
             (document.getElementById("graph"))
             .nodeColor(node => NODE_COLORS[node.nodeType])
             .nodeLabel(node => {
+                // Don't use the scoped id for nodes
                 switch (node.nodeType) {
                     case "Contributor":
                         return node.fullName;
                     case "Team":
                         return node.name;
-                    case "Repo":
-                        return node.name || node.slug;
                     default:
                         return node.id;
                 }
@@ -90,20 +87,23 @@
         graph.d3Force("link").strength(0.25);
         graph.d3VelocityDecay(0.2);
 
+        // Add links
         graph.onNodeClick(node => {
+            const username = encodeURIComponent(node.githubUsername);
+            const name = encodeURIComponent(node.name);
+
             let url = '';
+
             switch (node.nodeType) {
                 case "Contributor":
-                    url = `https://github.com/orgs/ScottyLabs/people/${encodeURIComponent(node.githubUsername || "")}`;
+                    url = `https://github.com/orgs/ScottyLabs/people/${username}`;
                     break;
                 case "Team":
-                    const slug = (node.name || "").replace(/ /g, "-").toLowerCase();
+                    const slug = node.name.replace(" ", "-").toLowerCase();
                     url = `https://github.com/orgs/ScottyLabs/teams/${slug}`;
                     break;
-                case "Repo":
-                    if (node.url) url = node.url;
-                    break;
             }
+
             if (url) window.open(url, "_blank");
         });
 
@@ -119,8 +119,7 @@
 
         updateGraph("default");
 
-        const filterEl = document.getElementById("relationship-filter");
-        if (filterEl) filterEl.addEventListener("change", function (e) {
+        document.getElementById("relationship-filter").addEventListener("change", function (e) {
             updateGraph(e.target.value);
         });
     </script>

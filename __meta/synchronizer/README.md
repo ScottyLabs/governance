@@ -37,8 +37,6 @@ the following synchronizations will be performed for the team:
 
 - The repos listed in the team file will be added to the Github team.
 
-  - Repos are resolved from the **registry** (`repos/`): team entries that are slugs are looked up there; only repos whose registered URL is GitHub are synced. Legacy `owner/repo` refs are treated as GitHub. This allows teams to list Codeberg or other hosts in the registry without creating a GitHub repo.
-
   - The GitHub admin team will be given admin access to the repos.
 
   - The GitHub main team will be given write access to the repos.

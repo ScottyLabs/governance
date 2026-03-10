@@ -1,4 +1,0 @@
-slug = "infrastructure"
-name = "infrastructure"
-description = "Nix infrastructure and especially hosting for ScottyLabs applications"
-url = "https://codeberg.org/ScottyLabs/infrastructure"

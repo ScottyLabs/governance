@@ -6,7 +6,7 @@ from typing import Any
 from dotenv import load_dotenv
 
 from synchronizer.logger import LogStatusFilter, get_app_logger
-from synchronizer.models import Contributor, Repo, Team
+from synchronizer.models import Contributor, Team
 from synchronizer.services.abstract_synchronizer import AbstractSynchronizer
 from synchronizer.services.codeowners_synchronizer import CodeownersSynchronizer
 from synchronizer.services.github_synchronizer import GithubSynchronizer
@@ -62,21 +62,6 @@ def load_teams() -> dict[str, Team]:
                 teams[team_name].contributors = list(set(teams[team_name].contributors))
 
     return teams
-
-
-def load_repos() -> dict[str, Repo]:
-    """Load the registered repos from the repos directory (source of truth for repo metadata and URLs)."""
-    repos: dict[str, Repo] = {}
-    repos_dir = Path("repos")
-    if not repos_dir.is_dir():
-        return repos
-    for file_path in repos_dir.iterdir():
-        if file_path.suffix == ".toml":
-            with file_path.open() as f:
-                slug = file_path.stem
-                data: dict[str, Any] = tomllib.loads(f.read())
-                repos[slug] = Repo.model_validate(data)
-    return repos
 
 
 def args_parser(services: list[str]) -> argparse.ArgumentParser:
@@ -136,16 +121,15 @@ def main() -> None:
     args = args_parser(services).parse_args()
     services = args.services
 
-    # Load the contributors, teams, and registered repos (source of truth for repo URLs / multi-host)
+    # Load the contributors and teams
     logger = get_app_logger()
-    logger.info("Loading contributors, teams, and repos...\n")
+    logger.info("Loading contributors and teams...\n")
     contributors = load_contributors()
     teams = load_teams()
-    repos = load_repos()
 
     # Sync the services
     for service_name in services:
-        SERVICE_CLASSES[service_name](contributors, teams, repos=repos).sync()
+        SERVICE_CLASSES[service_name](contributors, teams).sync()
 
     # Check the logger status
     check_logger_status()

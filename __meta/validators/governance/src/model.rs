@@ -33,29 +33,6 @@ impl HasKeyOrder for Contributor {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all(deserialize = "kebab-case", serialize = "camelCase"))]
-pub struct Repo {
-    pub slug: String,
-    pub name: String,
-    pub description: Option<String>,
-    pub url: String,
-
-    // Used for key ordering validation.
-    #[serde(skip)]
-    pub key_order: Vec<String>,
-}
-
-impl HasKeyOrder for Repo {
-    fn get_key_order(&self) -> &[String] {
-        &self.key_order
-    }
-
-    fn set_key_order(&mut self, order: Vec<String>) {
-        self.key_order = order;
-    }
-}
-
-#[derive(Debug, Serialize, Deserialize, Clone)]
-#[serde(rename_all(deserialize = "kebab-case", serialize = "camelCase"))]
 pub struct Team {
     pub name: String,
     pub slug: String,
@@ -82,7 +59,7 @@ impl HasKeyOrder for Team {
 
 #[derive(Debug, Clone)]
 pub struct EntityKey {
-    pub kind: String, // "team" | "contributor" | "repo"
+    pub kind: String, // "team" | "contributor"
     pub name: String, // file_stem
 }
 
@@ -136,7 +113,6 @@ pub struct FileValidationMessages {
 pub struct ValidationStatistics {
     pub contributors_count: usize,
     pub teams_count: usize,
-    pub repos_count: usize,
     pub valid_files_count: usize,
     pub invalid_files_count: usize,
     pub total_errors: usize,

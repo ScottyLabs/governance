@@ -1,10 +1,6 @@
 # Schemas
 
-This directory contains the JSON schemas for the TOML files in the `contributors/`, `teams/`, and `repos/` directories.
-
-- **contributor.schema.json** — `contributors/*.toml` (per-contributor metadata).
-- **team.schema.json** — `teams/*.toml` (per-team metadata; `repos` list can be repo slugs from `repos/` or legacy `owner/repo` for GitHub).
-- **repo.schema.json** — `repos/*.toml` (registered repos: source of truth for description and URL; enables GitHub, Codeberg, and teams without a home repo).
+This directory contains the JSON schemas for the TOML files in the `contributors/` and `teams/` directories.
 
 ## Troubleshooting
 

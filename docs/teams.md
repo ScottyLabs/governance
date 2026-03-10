@@ -28,12 +28,8 @@ ext-admins = [
     "ext-admin-andrew-id" # optional array of external admins
 ]
 repos = [
-    "cmumaps",             # Repo slug (must exist in repos/). Preferred; works for any host (GitHub, Codeberg).
-    "ScottyLabs/cmumaps",  # OR legacy "owner/repo" for GitHub-only (no registry entry required).
+    "ScottyLabs/cmumaps", # >= 1 repo, in the format of "ScottyLabs/<repo-name>"
 ]
-# Optional comments beside each repo serve as quick references, helping new contributors understand
-# each repo's role for the team without visiting every repository individually.
-# Teams can have repos = [] if they have no home repository yet.
 
 # The Slack Governance App needs to be added to every private Slack channel.
 slack-channel-ids = [
@@ -67,7 +63,6 @@ secrets-population-layout = "multi" # Default to "multi" if not specified
 
 Visit the [team schema](../__meta/schemas/team.schema.json) and
 [synchronizer README](../__meta/synchronizer/README.md) to learn more about the fields.
-To add repo metadata (description, URL for GitHub or Codeberg) and reference repos by slug, see [Adding a repo](repos.md).
 
 To find a Slack channel's ID, see
 [Slack Wiki page](https://github.com/ScottyLabs/governance/wiki/Slack).

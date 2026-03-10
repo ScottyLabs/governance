@@ -4,7 +4,7 @@ use anyhow::{Result, anyhow};
 use colored::Colorize;
 use futures::{StreamExt, stream::FuturesUnordered};
 use governance::model::{
-    Contributor, EntityKey, HasKeyOrder, Repo, Team, ValidationError, ValidationWarning,
+    Contributor, EntityKey, HasKeyOrder, Team, ValidationError, ValidationWarning,
 };
 use log::info;
 use reqwest::{Client, StatusCode};
@@ -67,7 +67,6 @@ fn is_subsequence_in_order(actual_order: &[String], expected_order: &[String]) -
 pub fn validate_file_names(
     contributors: &HashMap<EntityKey, Contributor>,
     teams: &HashMap<EntityKey, Team>,
-    repos: &HashMap<EntityKey, Repo>,
 ) -> Vec<ValidationError> {
     info!("Validating file names...");
     let mut errors = Vec::new();
@@ -100,20 +99,6 @@ pub fn validate_file_names(
         }
     }
 
-    // Validate repo filenames match slug
-    for (key, repo) in repos {
-        if key.name != repo.slug {
-            errors.push(ValidationError {
-                file: format!("repos/{}.toml", key),
-                message: format!(
-                    "Repo file name '{}' doesn't match slug '{}'",
-                    key.name.red().bold(),
-                    repo.slug.red().bold()
-                ),
-            });
-        }
-    }
-
     errors
 }
 
@@ -131,99 +116,6 @@ pub fn validate_maintainers_are_contributors(
                     message: format!(
                         "Maintainer '{}' is not a contributor",
                         maintainer.red().bold()
-                    ),
-                });
-            }
-        }
-    }
-
-    errors
-}
-
-/// Validate that team repo entries that are slugs (no '/') exist in repos/.
-pub fn validate_team_repo_refs(
-    teams: &HashMap<EntityKey, Team>,
-    repos: &HashMap<EntityKey, Repo>,
-) -> Vec<ValidationError> {
-    info!("Validating team repo references...");
-    let mut errors = Vec::new();
-    let repo_slugs: std::collections::HashSet<&String> =
-        repos.values().map(|r| &r.slug).collect();
-
-    for (team_key, team) in teams {
-        for repo_ref in &team.repos {
-            // Legacy "owner/repo" format is not a slug; only validate slug refs here.
-            if !repo_ref.contains('/') {
-                if !repo_slugs.contains(repo_ref) {
-                    errors.push(ValidationError {
-                        file: format!("teams/{}.toml", team_key),
-                        message: format!(
-                            "Team references repo slug '{}' but no repos/{}.toml exists",
-                            repo_ref.red().bold(),
-                            repo_ref.red().bold()
-                        ),
-                    });
-                }
-            }
-        }
-    }
-
-    errors
-}
-
-/// Normalize a repo URL to "owner/repo" form for comparison. Returns None if not a known host.
-fn url_to_owner_repo(url: &str) -> Option<String> {
-    let url = url.trim_end_matches('/').trim_end_matches(".git");
-    if let Some(path) = url.strip_prefix("https://github.com/") {
-        return Some(path.to_string());
-    }
-    if let Some(path) = url.strip_prefix("https://codeberg.org/") {
-        return Some(path.to_string());
-    }
-    None
-}
-
-/// Validate that no team lists the same repo twice (including once as slug and once as legacy owner/repo).
-pub fn validate_no_duplicate_team_repos(
-    teams: &HashMap<EntityKey, Team>,
-    repos: &HashMap<EntityKey, Repo>,
-) -> Vec<ValidationError> {
-    info!("Validating no duplicate repos per team...");
-    let mut errors = Vec::new();
-
-    // Build map: "owner/repo" -> slug for repos that have a URL we can normalize
-    let legacy_to_slug: HashMap<String, String> = repos
-        .values()
-        .filter_map(|r| url_to_owner_repo(&r.url).map(|legacy| (legacy, r.slug.clone())))
-        .collect();
-
-    for (team_key, team) in teams {
-        // Resolve each ref to a canonical id (slug if known, else the ref itself)
-        let mut canonical_to_refs: HashMap<String, Vec<&str>> = HashMap::new();
-        for ref_ in &team.repos {
-            let canonical = if ref_.contains('/') {
-                legacy_to_slug
-                    .get(ref_.as_str())
-                    .cloned()
-                    .unwrap_or_else(|| ref_.clone())
-            } else {
-                ref_.clone()
-            };
-            canonical_to_refs
-                .entry(canonical)
-                .or_default()
-                .push(ref_.as_str());
-        }
-
-        for (_canonical, refs) in canonical_to_refs {
-            if refs.len() > 1 {
-                let unique_refs: std::collections::HashSet<&str> = refs.iter().copied().collect();
-                let refs_display = unique_refs.iter().map(|r| format!("'{}'", r)).collect::<Vec<_>>().join(" and ");
-                errors.push(ValidationError {
-                    file: format!("teams/{}.toml", team_key),
-                    message: format!(
-                        "Duplicate repo: {} refer to the same repository",
-                        refs_display.red().bold()
                     ),
                 });
             }
@@ -371,7 +263,6 @@ async fn check_github_repository_exists(
     }
 }
 
-/// Validate GitHub repositories only for legacy "ScottyLabs/repo" refs. Slug refs are validated via repos/.
 pub async fn validate_github_repositories(
     teams: &HashMap<EntityKey, Team>,
     client: &Client,
@@ -383,14 +274,8 @@ pub async fn validate_github_repositories(
 
     for (team_key, team) in teams {
         for repository in &team.repos {
-            // Only validate refs that look like "ScottyLabs/repo"; slugs are in repos/
-            if !repository.contains('/') {
-                continue;
-            }
-            let team_key = team_key.clone();
-            let repository = repository.clone();
             futures.push(async move {
-                let result = check_github_repository_exists(&repository, client).await;
+                let result = check_github_repository_exists(repository, client).await;
                 (team_key, repository, result)
             });
         }
