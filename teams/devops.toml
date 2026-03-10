@@ -25,4 +25,4 @@ slack-channel-ids = [
 remove-unlisted = false
 sync-github = true
 create-oidc-clients = false
-secrets-population-layout = "multi"
+secrets-population-layout = "none"
