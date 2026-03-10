@@ -20,7 +20,10 @@ contributors = [
     "Yuxiang-Huang",
     "Gostmeaper",
 ]
-repos = []
+repos = [
+    "governance",
+    "infrastructure",
+]
 slack-channel-ids = [
 ]
 remove-unlisted = false

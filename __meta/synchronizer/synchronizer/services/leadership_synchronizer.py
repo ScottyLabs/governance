@@ -6,7 +6,7 @@ from github.NamedUser import NamedUser
 from synchronizer.clients import get_github_client
 from synchronizer.clients.vault_client import get_vault_client
 from synchronizer.logger import log_operation, print_section
-from synchronizer.models import Contributor, Team
+from synchronizer.models import Contributor, Repo, Team
 
 from .abstract_synchronizer import AbstractSynchronizer
 
@@ -18,9 +18,13 @@ class LeadershipSynchronizer(AbstractSynchronizer):
     DEVS_POLICY_NAME = "leadership-devs"
 
     def __init__(
-        self, contributors: dict[str, Contributor], teams: dict[str, Team]
+        self,
+        contributors: dict[str, Contributor],
+        teams: dict[str, Team],
+        *,
+        repos: dict[str, Repo] | None = None,
     ) -> None:
-        super().__init__(contributors, teams)
+        super().__init__(contributors, teams, repos=repos)
 
         # Skip if the leadership team is not found
         if "leadership" not in teams:
