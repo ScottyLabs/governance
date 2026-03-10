@@ -1,0 +1,28 @@
+name = "DevOps"
+slug = "devops"
+description = """
+Devops is a team that works on team management, hosting,
+and storage systems for almost all projects. We work in
+close cooperation with other teams to set up the features
+they need to run their projects.
+"""
+contributing-guide = """
+Message Ryan Li on Slack or thesuperRL on Discord if you are interested in joining the team!
+"""
+maintainers = [
+    "thesuperRL",
+    "ap-1",
+    "Yuxiang-Huang",
+]
+contributors = [
+    "thesuperRL",
+    "Gostmeaper",
+]
+repos = [
+]
+slack-channel-ids = [
+]
+remove-unlisted = false
+sync-github = true
+create-oidc-clients = false
+secrets-population-layout = "multi"
