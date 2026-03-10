@@ -18,8 +18,7 @@ contributors = [
     "thesuperRL",
     "Gostmeaper",
 ]
-repos = [
-]
+repos = []
 slack-channel-ids = [
 ]
 remove-unlisted = false
