@@ -7,7 +7,7 @@ use checks::{
 };
 use colored::Colorize;
 use dotenv::dotenv;
-use governance::loader::{load_contributors, load_schema_key_ordering, load_teams};
+use governance::loader::{load_contributors, load_repos, load_schema_key_ordering, load_teams};
 use governance::model::{
     FileValidationMessages, ValidationError, ValidationReport, ValidationStatistics,
     ValidationWarning,
@@ -16,7 +16,10 @@ use log::error;
 use reqwest::Client;
 use std::{collections::HashMap, path::Path, process};
 
-use crate::checks::{validate_key_orderings, validate_maintainers_are_contributors};
+use crate::checks::{
+    validate_key_orderings, validate_maintainers_are_contributors, validate_no_duplicate_team_repos,
+    validate_team_repo_refs,
+};
 
 fn insert_error(files: &mut HashMap<String, FileValidationMessages>, error: ValidationError) {
     files
@@ -48,10 +51,12 @@ async fn main() -> Result<()> {
     // Load data from files
     let contributors = load_contributors()?;
     let teams = load_teams()?;
+    let repos = load_repos().unwrap_or_default();
 
     // Load schema key orderings
     let contributor_ordering = load_schema_key_ordering("__meta/schemas/contributor.schema.json")?;
     let team_ordering = load_schema_key_ordering("__meta/schemas/team.schema.json")?;
+    let repo_ordering = load_schema_key_ordering("__meta/schemas/repo.schema.json").unwrap_or_default();
 
     // Create file messages to store errors and warnings
     let mut file_messages = contributors
@@ -68,18 +73,35 @@ async fn main() -> Result<()> {
                 FileValidationMessages::default(),
             )
         }))
+        .chain(repos.keys().map(|k| {
+            (
+                format!("repos/{}.toml", k),
+                FileValidationMessages::default(),
+            )
+        }))
         .collect::<HashMap<_, _>>();
 
-    // Validate the key order in a TOML file against the expected schema order.
     for error in validate_key_orderings(&contributors, &contributor_ordering) {
         insert_error(&mut file_messages, error);
     }
     for error in validate_key_orderings(&teams, &team_ordering) {
         insert_error(&mut file_messages, error);
     }
+    if !repo_ordering.is_empty() {
+        for error in validate_key_orderings(&repos, &repo_ordering) {
+            insert_error(&mut file_messages, error);
+        }
+    }
 
-    // Validate file names
-    for error in checks::validate_file_names(&contributors, &teams) {
+    for error in checks::validate_file_names(&contributors, &teams, &repos) {
+        insert_error(&mut file_messages, error);
+    }
+
+    for error in validate_team_repo_refs(&teams, &repos) {
+        insert_error(&mut file_messages, error);
+    }
+
+    for error in validate_no_duplicate_team_repos(&teams, &repos) {
         insert_error(&mut file_messages, error);
     }
 
@@ -138,6 +160,7 @@ async fn main() -> Result<()> {
     let stats = ValidationStatistics {
         contributors_count: contributors.len(),
         teams_count: teams.len(),
+        repos_count: repos.len(),
         valid_files_count,
         invalid_files_count,
         total_errors,
@@ -154,6 +177,7 @@ async fn main() -> Result<()> {
     println!("{}", "===== SUMMARY =====".blue().bold());
     println!("Contributors: {}", report.stats.contributors_count);
     println!("Teams: {}", report.stats.teams_count);
+    println!("Repos: {}", report.stats.repos_count);
     println!("Valid files: {}", report.stats.valid_files_count);
     println!("Invalid files: {}", report.stats.invalid_files_count);
     println!("Total errors: {}", report.stats.total_errors);

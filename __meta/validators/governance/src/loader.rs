@@ -1,4 +1,4 @@
-use crate::model::{Contributor, EntityKey, HasKeyOrder, Team};
+use crate::model::{Contributor, EntityKey, HasKeyOrder, Repo, Team};
 use anyhow::{Context, Result};
 use glob::glob;
 use indexmap::IndexMap;
@@ -11,6 +11,7 @@ use toml::from_str;
 
 const CONTRIBUTORS_PATH: &str = "contributors/*.toml";
 const TEAMS_PATH: &str = "teams/*.toml";
+const REPOS_PATH: &str = "repos/*.toml";
 
 pub fn load_from_dir<T: DeserializeOwned + Debug + HasKeyOrder>(
     path_glob: &str,
@@ -46,6 +47,10 @@ pub fn load_contributors() -> Result<HashMap<EntityKey, Contributor>> {
 
 pub fn load_teams() -> Result<HashMap<EntityKey, Team>> {
     load_from_dir(TEAMS_PATH, "team")
+}
+
+pub fn load_repos() -> Result<HashMap<EntityKey, Repo>> {
+    load_from_dir(REPOS_PATH, "repo")
 }
 
 #[derive(Debug, Deserialize)]

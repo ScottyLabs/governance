@@ -6,7 +6,7 @@ indent_string = "    "
 # taplo-cli can use them in CI
 
 [[rule]]
-include = ["contributors/*.toml", "teams/*.toml"]
+include = ["contributors/*.toml", "teams/*.toml", "repos/*.toml"]
 
 [rule.formatting]
 array_auto_expand = true
@@ -25,4 +25,11 @@ include = ["teams/*.toml"]
 
 [rule.schema]
 path = "./__meta/schemas/team.schema.json"
+enabled = true
+
+[[rule]]
+include = ["repos/*.toml"]
+
+[rule.schema]
+path = "./__meta/schemas/repo.schema.json"
 enabled = true

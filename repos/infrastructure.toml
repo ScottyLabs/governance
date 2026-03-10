@@ -1,0 +1,4 @@
+slug = "infrastructure"
+name = "Infrastructure"
+description = "Hosting and storage systems for ScottyLabs projects."
+url = "https://github.com/ScottyLabs/infrastructure"

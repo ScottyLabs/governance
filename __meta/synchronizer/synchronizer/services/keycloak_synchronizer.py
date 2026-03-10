@@ -8,7 +8,7 @@ from synchronizer.logger import (
     log_team_sync,
     print_section,
 )
-from synchronizer.models import Contributor, Team
+from synchronizer.models import Contributor, Repo, Team
 from synchronizer.utils import (
     ENVS,
     ENVS_LITERAL,
@@ -27,9 +27,13 @@ class KeycloakSynchronizer(AbstractSynchronizer):
     SERVICE_ACCOUNT_PREFIX = "service-account-"
 
     def __init__(
-        self, contributors: dict[str, Contributor], teams: dict[str, Team]
+        self,
+        contributors: dict[str, Contributor],
+        teams: dict[str, Team],
+        *,
+        repos: dict[str, Repo] | None = None,
     ) -> None:
-        super().__init__(contributors, teams)
+        super().__init__(contributors, teams, repos=repos)
 
         # Initialize the Keycloak client and get the existing clients
         self.keycloak_admin = get_keycloak_client()

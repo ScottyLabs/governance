@@ -1,7 +1,7 @@
 mod graph;
 
 use askama::Template;
-use governance::loader::{load_contributors, load_teams};
+use governance::loader::{load_contributors, load_repos, load_teams};
 use graph::build_graph_data;
 use serde_json::Value;
 use std::{error::Error, fs, path::Path, process};
@@ -26,8 +26,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     // Load governance data
     let contributors = load_contributors()?;
     let teams = load_teams()?;
+    let repos = load_repos().unwrap_or_default();
 
-    let graph_data = build_graph_data(contributors, teams)?;
+    let graph_data = build_graph_data(contributors, teams, repos)?;
 
     // Render template
     let template = GovernanceTemplate { graph_data };
