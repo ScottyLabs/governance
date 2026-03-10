@@ -1,9 +1,9 @@
 name = "DevOps"
 slug = "devops"
 description = """
-Devops is a team that works on team management, hosting, 
-and storage systems for almost all projects. We work in 
-close cooperation with other teams to set up the features 
+Devops is a team that works on team management, hosting,
+and storage systems for almost all projects. We work in
+close cooperation with other teams to set up the features
 they need to run their projects.
 """
 contributing-guide = """
