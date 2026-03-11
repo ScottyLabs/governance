@@ -16,7 +16,7 @@ contributors = [
     "yl25946",
 ]
 repos = [
-    "ScottyLabs/cmucourses",          # Old CMUCourses 
+    "ScottyLabs/cmucourses",          # Old CMUCourses
     "ScottyLabs/courses-frontend",    # New CMUCourses frontend
     "ScottyLabs/courses-backend",     # New CMUCourses backend
     "ScottyLabs/courses-scraper",     # Scraping information on CMU Courses
