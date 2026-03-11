@@ -12,7 +12,7 @@ from synchronizer.logger import (
     log_team_sync,
     print_section,
 )
-from synchronizer.models import Contributor, Repo, Team
+from synchronizer.models import Contributor, Team
 
 from .abstract_synchronizer import AbstractSynchronizer
 
@@ -32,11 +32,9 @@ class GithubSynchronizer(AbstractSynchronizer):
         self,
         contributors: dict[str, Contributor],
         teams: dict[str, Team],
-        *,
-        repos: dict[str, Repo] | None = None,
     ) -> None:
         """Initialize the GithubSynchronizer."""
-        super().__init__(contributors, teams, repos=repos)
+        super().__init__(contributors, teams)
 
         # Initialize the GitHub client and organization
         self.g = get_github_client()
@@ -338,28 +336,22 @@ class GithubSynchronizer(AbstractSynchronizer):
 
     def _github_repo_names_for_team(self, team: Team) -> set[str]:
         """
-        Resolve team.repos to GitHub repo names (owner/repo) using the registry.
+        Resolve team.repos entries to GitHub owner/repo strings.
 
-        Repos are registered in repos/; only those with a GitHub URL are synced.
-        Legacy refs (owner/repo) are treated as GitHub. Slugs are looked up in the
-        registry and only included if the registered URL is GitHub.
+        Entries can be owner/repo (treated as GitHub), full GitHub URLs
+        (https://github.com/owner/repo), or non-GitHub URLs (skipped).
         """
         names: set[str] = set()
         for ref in team.repos:
-            if "/" in ref:
-                names.add(ref)
-            else:
-                repo = self.repos.get(ref)
-                if repo and repo.url.rstrip("/").replace(".git", "").startswith(
-                    "https://github.com/"
-                ):
-                    path = (
-                        repo.url.strip()
-                        .rstrip("/")
-                        .replace(".git", "")[len("https://github.com/") :]
-                    )
-                    if path:
-                        names.add(path)
+            trimmed = ref.strip().rstrip("/").removesuffix(".git")
+            if trimmed.startswith("https://github.com/"):
+                path = trimmed[len("https://github.com/"):]
+                if path:
+                    names.add(path)
+            elif trimmed.startswith("https://") or trimmed.startswith("http://"):
+                continue
+            elif "/" in trimmed:
+                names.add(trimmed)
         return names
 
     def sync_repos(
@@ -373,7 +365,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         """
         Sync the repositories to the Github team.
 
-        Only repos that are on GitHub (from the registry or legacy owner/repo refs)
+        Only repos that are on GitHub (owner/repo or full GitHub URLs in team.repos)
         are synced. Give main team write access and admin team admin access.
         """
         repos = self._github_repo_names_for_team(team)

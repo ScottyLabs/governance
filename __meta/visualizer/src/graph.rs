@@ -1,7 +1,13 @@
-use governance::model::{Contributor, EntityKey, Repo, Team};
+use governance::model::{Contributor, EntityKey, Team};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use std::{collections::HashMap, error::Error};
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+struct RepoInfo {
+    name: String,
+    url: String,
+}
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(tag = "nodeType")]
@@ -19,7 +25,7 @@ enum GraphNode {
     Repo {
         id: String,
         #[serde(flatten)]
-        inner: Repo,
+        inner: RepoInfo,
     },
 }
 
@@ -31,67 +37,63 @@ struct GraphLink {
     link_type: String,
 }
 
-fn url_to_owner_repo(url: &str) -> Option<String> {
-    let url = url.trim_end_matches('/').trim_end_matches(".git");
-    if let Some(path) = url.strip_prefix("https://github.com/") {
-        return Some(path.to_string());
-    }
-    if let Some(path) = url.strip_prefix("https://codeberg.org/") {
-        return Some(path.to_string());
-    }
-    None
-}
-
 #[derive(Serialize, Deserialize, Debug)]
 struct GraphData {
     nodes: Vec<GraphNode>,
     links: Vec<GraphLink>,
 }
 
+fn repo_info_from_ref(entry: &str) -> RepoInfo {
+    let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
+    if trimmed.starts_with("https://") || trimmed.starts_with("http://") {
+        let name = trimmed.rsplit('/').next().unwrap_or(trimmed).to_string();
+        RepoInfo {
+            name,
+            url: trimmed.to_string(),
+        }
+    } else if trimmed.contains('/') {
+        RepoInfo {
+            name: trimmed.to_string(),
+            url: format!("https://github.com/{}", trimmed),
+        }
+    } else {
+        RepoInfo {
+            name: trimmed.to_string(),
+            url: String::new(),
+        }
+    }
+}
+
+fn repo_node_id(entry: &str) -> String {
+    let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
+    format!("repo:{}", trimmed.replace('/', ":"))
+}
+
 struct GraphBuilder<'a> {
     contributors: &'a HashMap<EntityKey, Contributor>,
     teams: &'a HashMap<EntityKey, Team>,
-    repos: &'a HashMap<EntityKey, Repo>,
 }
 
 impl<'a> GraphBuilder<'a> {
     fn new(
         contributors: &'a HashMap<EntityKey, Contributor>,
         teams: &'a HashMap<EntityKey, Team>,
-        repos: &'a HashMap<EntityKey, Repo>,
     ) -> Self {
         Self {
             contributors,
             teams,
-            repos,
         }
-    }
-
-    fn repo_node_id(slug: &str) -> String {
-        format!("repo:{}", slug)
     }
 
     fn build_contributors_teams_graph(&self) -> GraphData {
         let mut nodes = Vec::new();
         let mut links = Vec::new();
-
-        let legacy_to_slug: HashMap<String, String> = self
-            .repos
-            .values()
-            .filter_map(|r| url_to_owner_repo(&r.url).map(|legacy| (legacy, r.slug.clone())))
-            .collect();
+        let mut seen_repos = HashMap::<String, ()>::new();
 
         for (id, contributor) in self.contributors {
             nodes.push(GraphNode::Contributor {
                 id: id.scoped_id(),
                 inner: contributor.clone(),
-            });
-        }
-
-        for (id, repo) in self.repos {
-            nodes.push(GraphNode::Repo {
-                id: Self::repo_node_id(&id.name),
-                inner: repo.clone(),
             });
         }
 
@@ -113,51 +115,22 @@ impl<'a> GraphBuilder<'a> {
                 });
             }
 
-            for ref_ in &team.repos {
-                let (repo_node_id, maybe_synthetic) = if ref_.contains('/') {
-                    if let Some(slug) = legacy_to_slug.get(ref_.as_str()) {
-                        (Self::repo_node_id(slug), None)
-                    } else {
-                        let node_id = format!("repo:{}", ref_.replace('/', ":"));
-                        (
-                            node_id.clone(),
-                            Some(Repo {
-                                slug: ref_.replace('/', ":"),
-                                name: ref_.clone(),
-                                description: None,
-                                url: format!("https://github.com/{}", ref_),
-                                key_order: vec![],
-                            }),
-                        )
-                    }
-                } else {
-                    (Self::repo_node_id(ref_), None)
-                };
+            for entry in &team.repos {
+                let node_id = repo_node_id(entry);
 
-                let has_node = if ref_.contains('/') {
-                    true
-                } else {
-                    self.repos.contains_key(&EntityKey {
-                        kind: "repo".to_string(),
-                        name: ref_.clone(),
-                    })
-                };
-                if has_node {
-                    links.push(GraphLink {
-                        source: id.scoped_id(),
-                        target: repo_node_id.clone(),
-                        link_type: "team-repo".to_string(),
+                if !seen_repos.contains_key(&node_id) {
+                    seen_repos.insert(node_id.clone(), ());
+                    nodes.push(GraphNode::Repo {
+                        id: node_id.clone(),
+                        inner: repo_info_from_ref(entry),
                     });
                 }
-                if let Some(syn) = maybe_synthetic {
-                    let node_id = format!("repo:{}", ref_.replace('/', ":"));
-                    if !nodes.iter().any(|n| matches!(n, GraphNode::Repo { id: i, .. } if i == &node_id)) {
-                        nodes.push(GraphNode::Repo {
-                            id: node_id,
-                            inner: syn,
-                        });
-                    }
-                }
+
+                links.push(GraphLink {
+                    source: id.scoped_id(),
+                    target: node_id,
+                    link_type: "team-repo".to_string(),
+                });
             }
         }
 
@@ -168,9 +141,8 @@ impl<'a> GraphBuilder<'a> {
 pub fn build_graph_data(
     contributors: HashMap<EntityKey, Contributor>,
     teams: HashMap<EntityKey, Team>,
-    repos: HashMap<EntityKey, Repo>,
 ) -> Result<Value, Box<dyn Error>> {
-    let builder = GraphBuilder::new(&contributors, &teams, &repos);
+    let builder = GraphBuilder::new(&contributors, &teams);
     Ok(json!({
         "default": builder.build_contributors_teams_graph(),
     }))

@@ -20,7 +20,10 @@ contributors = [
     "Yuxiang-Huang",
     "Gostmeaper",
 ]
-repos = []
+repos = [
+    "ScottyLabs/governance",
+    "https://codeberg.org/ScottyLabs/infrastructure",
+]
 slack-channel-ids = [
 ]
 remove-unlisted = false

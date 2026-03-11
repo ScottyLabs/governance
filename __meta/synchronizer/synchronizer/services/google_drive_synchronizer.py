@@ -9,7 +9,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build  # type: ignore[import-untyped]
 
 from synchronizer.logger import log_operation, print_section
-from synchronizer.models import Contributor, Repo, Team
+from synchronizer.models import Contributor, Team
 
 from .abstract_synchronizer import AbstractSynchronizer
 
@@ -27,10 +27,8 @@ class GoogleDriveSynchronizer(AbstractSynchronizer):
         self,
         contributors: dict[str, Contributor],
         teams: dict[str, Team],
-        *,
-        repos: dict[str, Repo] | None = None,
     ) -> None:
-        super().__init__(contributors, teams, repos=repos)
+        super().__init__(contributors, teams)
 
         # Validate environment variables
         for env_var in [

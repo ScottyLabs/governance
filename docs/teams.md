@@ -28,7 +28,8 @@ ext-admins = [
     "ext-admin-andrew-id" # optional array of external admins
 ]
 repos = [
-    "ScottyLabs/cmumaps", # >= 1 repo, in the format of "ScottyLabs/<repo-name>"
+    "ScottyLabs/cmumaps", # owner/repo for GitHub repos
+    # "https://codeberg.org/org/repo", # full URL for non-GitHub repos
 ]
 
 # The Slack Governance App needs to be added to every private Slack channel.

@@ -10,7 +10,7 @@ from synchronizer.logger import (
     log_team_sync,
     print_section,
 )
-from synchronizer.models import Contributor, Repo, Team
+from synchronizer.models import Contributor, Team
 from synchronizer.utils import (
     ENVS,
     ENVS_LITERAL,
@@ -29,10 +29,8 @@ class SecretsSynchronizer(AbstractSynchronizer):
         self,
         contributors: dict[str, Contributor],
         teams: dict[str, Team],
-        *,
-        repos: dict[str, Repo] | None = None,
     ) -> None:
-        super().__init__(contributors, teams, repos=repos)
+        super().__init__(contributors, teams)
 
         # Initialize the clents
         self.vault_client = get_vault_client()

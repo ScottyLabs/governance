@@ -7,7 +7,7 @@ from synchronizer.logger import (
     log_team_sync,
     print_section,
 )
-from synchronizer.models import Contributor, Repo, Team
+from synchronizer.models import Contributor, Team
 
 from .abstract_synchronizer import AbstractSynchronizer
 
@@ -22,10 +22,8 @@ class VaultSynchronizer(AbstractSynchronizer):
         self,
         contributors: dict[str, Contributor],
         teams: dict[str, Team],
-        *,
-        repos: dict[str, Repo] | None = None,
     ) -> None:
-        super().__init__(contributors, teams, repos=repos)
+        super().__init__(contributors, teams)
 
         # Initialize the Vault client
         self.client = get_vault_client()

@@ -4,7 +4,7 @@ from github.Repository import Repository
 
 from synchronizer.clients import get_github_client
 from synchronizer.logger import log_operation, print_section
-from synchronizer.models import Contributor, Repo, Team
+from synchronizer.models import Contributor, Team
 
 from .abstract_synchronizer import AbstractSynchronizer
 
@@ -18,10 +18,8 @@ class CodeownersSynchronizer(AbstractSynchronizer):
         self,
         contributors: dict[str, Contributor],
         teams: dict[str, Team],
-        *,
-        repos: dict[str, Repo] | None = None,
     ) -> None:
-        super().__init__(contributors, teams, repos=repos)
+        super().__init__(contributors, teams)
         self.g = get_github_client()
 
     @override

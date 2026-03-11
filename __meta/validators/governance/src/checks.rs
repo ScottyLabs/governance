@@ -4,7 +4,7 @@ use anyhow::{Result, anyhow};
 use colored::Colorize;
 use futures::{StreamExt, stream::FuturesUnordered};
 use governance::model::{
-    Contributor, EntityKey, HasKeyOrder, Repo, Team, ValidationError, ValidationWarning,
+    Contributor, EntityKey, HasKeyOrder, Team, ValidationError, ValidationWarning,
 };
 use log::info;
 use reqwest::{Client, StatusCode};
@@ -67,7 +67,6 @@ fn is_subsequence_in_order(actual_order: &[String], expected_order: &[String]) -
 pub fn validate_file_names(
     contributors: &HashMap<EntityKey, Contributor>,
     teams: &HashMap<EntityKey, Team>,
-    repos: &HashMap<EntityKey, Repo>,
 ) -> Vec<ValidationError> {
     info!("Validating file names...");
     let mut errors = Vec::new();
@@ -95,104 +94,6 @@ pub fn validate_file_names(
                     team.slug.red().bold()
                 ),
             });
-        }
-    }
-
-    for (key, repo) in repos {
-        if key.name != repo.slug {
-            errors.push(ValidationError {
-                file: format!("repos/{}.toml", key),
-                message: format!(
-                    "Repo file name '{}' doesn't match slug '{}'",
-                    key.name.red().bold(),
-                    repo.slug.red().bold()
-                ),
-            });
-        }
-    }
-
-    errors
-}
-
-fn url_to_owner_repo(url: &str) -> Option<String> {
-    let url = url.trim_end_matches('/').trim_end_matches(".git");
-    if let Some(path) = url.strip_prefix("https://github.com/") {
-        return Some(path.to_string());
-    }
-    if let Some(path) = url.strip_prefix("https://codeberg.org/") {
-        return Some(path.to_string());
-    }
-    None
-}
-
-pub fn validate_team_repo_refs(
-    teams: &HashMap<EntityKey, Team>,
-    repos: &HashMap<EntityKey, Repo>,
-) -> Vec<ValidationError> {
-    info!("Validating team repo references...");
-    let mut errors = Vec::new();
-    let repo_slugs: HashSet<&String> = repos.values().map(|r| &r.slug).collect();
-
-    for (team_key, team) in teams {
-        for repo_ref in &team.repos {
-            if !repo_ref.contains('/') {
-                if !repo_slugs.contains(repo_ref) {
-                    errors.push(ValidationError {
-                        file: format!("teams/{}.toml", team_key),
-                        message: format!(
-                            "Team references repo slug '{}' but no repos/{}.toml exists",
-                            repo_ref.red().bold(),
-                            repo_ref.red().bold()
-                        ),
-                    });
-                }
-            }
-        }
-    }
-
-    errors
-}
-
-pub fn validate_no_duplicate_team_repos(
-    teams: &HashMap<EntityKey, Team>,
-    repos: &HashMap<EntityKey, Repo>,
-) -> Vec<ValidationError> {
-    info!("Validating no duplicate repos per team...");
-    let mut errors = Vec::new();
-    let legacy_to_slug: HashMap<String, String> = repos
-        .values()
-        .filter_map(|r| url_to_owner_repo(&r.url).map(|legacy| (legacy, r.slug.clone())))
-        .collect();
-
-    for (team_key, team) in teams {
-        let mut canonical_to_refs: HashMap<String, Vec<&str>> = HashMap::new();
-        for ref_ in &team.repos {
-            let canonical = if ref_.contains('/') {
-                legacy_to_slug
-                    .get(ref_.as_str())
-                    .cloned()
-                    .unwrap_or_else(|| ref_.clone())
-            } else {
-                ref_.clone()
-            };
-            canonical_to_refs
-                .entry(canonical)
-                .or_default()
-                .push(ref_.as_str());
-        }
-
-        for (_canonical, refs) in canonical_to_refs {
-            if refs.len() > 1 {
-                let unique_refs: HashSet<&str> = refs.iter().copied().collect();
-                let refs_display = unique_refs.iter().map(|r| format!("'{}'", r)).collect::<Vec<_>>().join(" and ");
-                errors.push(ValidationError {
-                    file: format!("teams/{}.toml", team_key),
-                    message: format!(
-                        "Duplicate repo: {} refer to the same repository",
-                        refs_display.red().bold()
-                    ),
-                });
-            }
         }
     }
 
@@ -360,6 +261,20 @@ async fn check_github_repository_exists(
     }
 }
 
+fn resolve_github_owner_repo(entry: &str) -> Option<String> {
+    let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
+    if let Some(path) = trimmed.strip_prefix("https://github.com/") {
+        return Some(path.to_string());
+    }
+    if trimmed.starts_with("https://") || trimmed.starts_with("http://") {
+        return None;
+    }
+    if trimmed.contains('/') {
+        return Some(trimmed.to_string());
+    }
+    None
+}
+
 pub async fn validate_github_repositories(
     teams: &HashMap<EntityKey, Team>,
     client: &Client,
@@ -370,15 +285,14 @@ pub async fn validate_github_repositories(
     let mut futures = FuturesUnordered::new();
 
     for (team_key, team) in teams {
-        for repository in &team.repos {
-            if !repository.contains('/') {
+        for entry in &team.repos {
+            let Some(owner_repo) = resolve_github_owner_repo(entry) else {
                 continue;
-            }
+            };
             let team_key = team_key.clone();
-            let repository = repository.clone();
             futures.push(async move {
-                let result = check_github_repository_exists(&repository, client).await;
-                (team_key, repository, result)
+                let result = check_github_repository_exists(&owner_repo, client).await;
+                (team_key, owner_repo, result)
             });
         }
     }
