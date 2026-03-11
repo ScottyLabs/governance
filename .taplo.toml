@@ -26,4 +26,3 @@ include = ["teams/*.toml"]
 [rule.schema]
 path = "./__meta/schemas/team.schema.json"
 enabled = true
-
