@@ -10,10 +10,10 @@ and each team are detailed in [synchronizer/README.md](__meta/synchronizer/READM
 ```py
 .
 ├── __meta
-│   ├── schemas      # JSON schemas for validation
-│   ├── synchronizer # Python-based permission synchronizer
-│   ├── validators   # Rust-based validation tools
-│   └── visualizer   # Force graph for visualizing relationships
+│   ├── schemas      # JSON schemas for validation
+│   ├── synchronizer # Python-based permission synchronizer
+│   ├── validators   # Rust-based validation tools
+│   └── visualizer   # Force graph for visualizing relationships
 ├── contributors     # Individual contributor definitions
 ├── docs             # Specific instructions for all file types
 ├── scripts          # Utility scripts for environment secret management
