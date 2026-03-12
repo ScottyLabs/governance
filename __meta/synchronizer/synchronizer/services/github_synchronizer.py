@@ -332,26 +332,6 @@ class GithubSynchronizer(AbstractSynchronizer):
 
             github_team.remove_membership(user)
 
-    def _github_repo_names_for_team(self, team: Team) -> set[str]:
-        """
-        Resolve team.repos entries to GitHub owner/repo strings.
-
-        Entries can be owner/repo (treated as GitHub), full GitHub URLs
-        (https://github.com/owner/repo), or non-GitHub URLs (skipped).
-        """
-        names: set[str] = set()
-        for ref in team.repos:
-            trimmed = ref.strip().rstrip("/").removesuffix(".git")
-            if trimmed.startswith("https://github.com/"):
-                path = trimmed[len("https://github.com/"):]
-                if path:
-                    names.add(path)
-            elif trimmed.startswith("https://") or trimmed.startswith("http://"):
-                continue
-            elif "/" in trimmed:
-                names.add(trimmed)
-        return names
-
     def sync_repos(
         self,
         github_team: GithubTeam,

@@ -263,6 +263,7 @@ async fn check_github_repository_exists(
     }
 }
 
+// Resolve the Website type and repository from a URL string.
 fn resolve_github_owner_repo(entry: &str) -> Option<String> {
     let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
     if let Some(path) = trimmed.strip_prefix("https://github.com/") {
