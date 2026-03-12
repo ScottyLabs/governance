@@ -263,6 +263,25 @@ async fn check_github_repository_exists(
     }
 }
 
+// Resolve the Website type and repository from a URL string.
+fn resolve_github_owner_repo(entry: &str) -> Option<String> {
+    let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
+    if let Some(path) = trimmed.strip_prefix("https://github.com/") {
+        // This is a full GitHub URL, so we need to remove the prefix.
+        return Some(path.to_string());
+    }
+    if trimmed.starts_with("https://") || trimmed.starts_with("http://") {
+        // This is not a valid URL, so we return None.
+        return None;
+    }
+    if trimmed.contains('/') {
+        // This is a full Git note with a owner/repo string, so we return it.
+        return Some(trimmed.to_string());
+    }
+    // It's something else, so we return None.
+    None
+}
+
 pub async fn validate_github_repositories(
     teams: &HashMap<EntityKey, Team>,
     client: &Client,
@@ -273,10 +292,14 @@ pub async fn validate_github_repositories(
     let mut futures = FuturesUnordered::new();
 
     for (team_key, team) in teams {
-        for repository in &team.repos {
+        for entry in &team.repos {
+            let Some(owner_repo) = resolve_github_owner_repo(entry) else {
+                continue;
+            };
+            let team_key = team_key.clone();
             futures.push(async move {
-                let result = check_github_repository_exists(repository, client).await;
-                (team_key, repository, result)
+                let result = check_github_repository_exists(&owner_repo, client).await;
+                (team_key, owner_repo, result)
             });
         }
     }

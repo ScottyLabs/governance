@@ -17,6 +17,22 @@ from synchronizer.models import Contributor, Team
 from .abstract_synchronizer import AbstractSynchronizer
 
 
+# Resolve the repository information (i.e. name and URL) from a reference string.
+def resolve_github_owner_repo(entry: str) -> str | None:
+    """Resolve a repo entry to a GitHub owner/repo string, or None if non-GitHub."""
+    trimmed = entry.rstrip("/").removesuffix(".git")
+    if trimmed.startswith("https://github.com/"):
+        # This is a full GitHub URL, so we need to remove the prefix.
+        return trimmed.removeprefix("https://github.com/")
+    if trimmed.startswith("https://") or trimmed.startswith("http://"):
+        # This is not a valid URL, so we return None.
+        return None
+    if "/" in trimmed:
+        # This is a full Git note with a owner/repo string, so we return it.
+        return trimmed
+    # It's something else, so we return None.
+    return None
+
 class GithubSynchronizer(AbstractSynchronizer):
     MAX_WORKERS = (
         5  # Maximum number of concurrent workers, 5 seems good but is not tested.
@@ -343,9 +359,15 @@ class GithubSynchronizer(AbstractSynchronizer):
         """
         Sync the repositories to the Github team.
 
-        Give main team write access and admin team admin access to the repository.
+        Only repos that are on GitHub (owner/repo or full GitHub URLs in team.repos)
+        are synced. Non-GitHub URLs (e.g. Codeberg) are skipped.
+        Give main team write access and admin team admin access.
         """
-        repos = set(team.repos)
+        repos = {
+            resolved
+            for entry in team.repos
+            if (resolved := resolve_github_owner_repo(entry)) is not None
+        }
         self.add_new_repos_to_team(github_team, repos)
 
         # Check all repo permissions
