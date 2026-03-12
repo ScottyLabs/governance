@@ -78,10 +78,7 @@ async fn main() -> Result<()> {
         insert_error(&mut file_messages, error);
     }
 
-<<<<<<< HEAD
-=======
     // Validate file names
->>>>>>> parent of aeda7d6 (feat: repo info and visuals)
     for error in checks::validate_file_names(&contributors, &teams) {
         insert_error(&mut file_messages, error);
     }
