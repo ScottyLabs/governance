@@ -48,16 +48,19 @@ fn repo_info_from_ref(entry: &str) -> RepoInfo {
     let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
     if trimmed.starts_with("https://") || trimmed.starts_with("http://") {
         let name = trimmed.rsplit('/').next().unwrap_or(trimmed).to_string();
+        // This is a full URL, so we need to remove the prefix and get the name of the repository.
         RepoInfo {
             name,
-            url: trimmed.to_string(),
+            url: trimmed.to_string(), // The URL is the full URL.
         }
     } else if trimmed.contains('/') {
+        // This is a full Git note with a owner/repo string, so we return the name of the repository and the URL.
         RepoInfo {
             name: trimmed.to_string(),
-            url: format!("https://github.com/{}", trimmed),
+            url: format!("https://github.com/{}", trimmed), // The URL is the full Git note plus the GitHub base URL.
         }
     } else {
+        // It's something else, so we return the name of the repository and an empty URL.
         RepoInfo {
             name: trimmed.to_string(),
             url: String::new(),

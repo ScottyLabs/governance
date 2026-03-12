@@ -22,13 +22,16 @@ def resolve_github_owner_repo(entry: str) -> str | None:
     """Resolve a repo entry to a GitHub owner/repo string, or None if non-GitHub."""
     trimmed = entry.rstrip("/").removesuffix(".git")
     if trimmed.startswith("https://github.com/"):
+        # This is a full GitHub URL, so we need to remove the prefix.
         return trimmed.removeprefix("https://github.com/")
     if trimmed.startswith("https://") or trimmed.startswith("http://"):
+        # This is not a valid URL, so we return None.
         return None
     if "/" in trimmed:
+        # This is a full Git note with a owner/repo string, so we return it.
         return trimmed
+    # It's something else, so we return None.
     return None
-
 
 class GithubSynchronizer(AbstractSynchronizer):
     MAX_WORKERS = (
