@@ -43,6 +43,7 @@ struct GraphData {
     links: Vec<GraphLink>,
 }
 
+// Resolve the repository information (i.e. name and URL) from a reference string.
 fn repo_info_from_ref(entry: &str) -> RepoInfo {
     let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
     if trimmed.starts_with("https://") || trimmed.starts_with("http://") {
@@ -64,6 +65,7 @@ fn repo_info_from_ref(entry: &str) -> RepoInfo {
     }
 }
 
+// Resolve the node ID for a repository from a reference string.
 fn repo_node_id(entry: &str) -> String {
     let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
     format!("repo:{}", trimmed.replace('/', ":"))
