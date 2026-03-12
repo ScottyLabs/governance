@@ -7,9 +7,11 @@ Joining Governance means you want to work on the codebase inside the __meta/ dir
 contributing-guide = "https://github.com/ScottyLabs/governance/blob/main/.github/CONTRIBUTING.md"
 maintainers = [
     "Yuxiang-Huang",
+    "thesuperRL",
 ]
 contributors = [
     "Yuxiang-Huang",
+    "thesuperRL",    # responsible for visualizer
 ]
 applicants = [
 ]
