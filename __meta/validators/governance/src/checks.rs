@@ -71,6 +71,7 @@ pub fn validate_file_names(
     info!("Validating file names...");
     let mut errors = Vec::new();
 
+    // Validate contributor filenames match GitHub usernames
     for (key, contributor) in contributors {
         if key.name != contributor.github_username {
             errors.push(ValidationError {
@@ -84,6 +85,7 @@ pub fn validate_file_names(
         }
     }
 
+    // Validate team filenames match slug
     for (key, team) in teams {
         if key.name != team.slug {
             errors.push(ValidationError {
@@ -285,6 +287,7 @@ pub async fn validate_github_repositories(
     let mut futures = FuturesUnordered::new();
 
     for (team_key, team) in teams {
+<<<<<<< HEAD
         for entry in &team.repos {
             let Some(owner_repo) = resolve_github_owner_repo(entry) else {
                 continue;
@@ -293,6 +296,12 @@ pub async fn validate_github_repositories(
             futures.push(async move {
                 let result = check_github_repository_exists(&owner_repo, client).await;
                 (team_key, owner_repo, result)
+=======
+        for repository in &team.repos {
+            futures.push(async move {
+                let result = check_github_repository_exists(repository, client).await;
+                (team_key, repository, result)
+>>>>>>> parent of aeda7d6 (feat: repo info and visuals)
             });
         }
     }

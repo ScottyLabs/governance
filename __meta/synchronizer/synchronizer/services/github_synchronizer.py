@@ -29,9 +29,7 @@ class GithubSynchronizer(AbstractSynchronizer):
 
     @override
     def __init__(
-        self,
-        contributors: dict[str, Contributor],
-        teams: dict[str, Team],
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         """Initialize the GithubSynchronizer."""
         super().__init__(contributors, teams)
@@ -368,7 +366,7 @@ class GithubSynchronizer(AbstractSynchronizer):
         Only repos that are on GitHub (owner/repo or full GitHub URLs in team.repos)
         are synced. Give main team write access and admin team admin access.
         """
-        repos = self._github_repo_names_for_team(team)
+        repos = set(team.repos)
         self.add_new_repos_to_team(github_team, repos)
 
         # Check all repo permissions

@@ -97,6 +97,7 @@ impl<'a> GraphBuilder<'a> {
             });
         }
 
+        // Add team nodes and links
         for (id, team) in self.teams {
             nodes.push(GraphNode::Team {
                 id: id.scoped_id(),
@@ -108,6 +109,7 @@ impl<'a> GraphBuilder<'a> {
                     kind: "contributor".to_string(),
                     name: contributor_id.to_string(),
                 };
+
                 links.push(GraphLink {
                     source: id.scoped_id(),
                     target: target_id.scoped_id(),
@@ -142,7 +144,9 @@ pub fn build_graph_data(
     contributors: HashMap<EntityKey, Contributor>,
     teams: HashMap<EntityKey, Team>,
 ) -> Result<Value, Box<dyn Error>> {
+    // Build filtered views
     let builder = GraphBuilder::new(&contributors, &teams);
+
     Ok(json!({
         "default": builder.build_contributors_teams_graph(),
     }))
