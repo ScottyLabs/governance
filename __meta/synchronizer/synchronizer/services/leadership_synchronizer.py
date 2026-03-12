@@ -18,9 +18,7 @@ class LeadershipSynchronizer(AbstractSynchronizer):
     DEVS_POLICY_NAME = "leadership-devs"
 
     def __init__(
-        self,
-        contributors: dict[str, Contributor],
-        teams: dict[str, Team],
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         super().__init__(contributors, teams)
 

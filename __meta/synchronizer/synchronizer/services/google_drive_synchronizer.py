@@ -24,9 +24,7 @@ class GoogleDriveSynchronizer(AbstractSynchronizer):
     GOOGLE_TOKEN_URI = "https://oauth2.googleapis.com/token"  # noqa: S105
 
     def __init__(
-        self,
-        contributors: dict[str, Contributor],
-        teams: dict[str, Team],
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         super().__init__(contributors, teams)
 

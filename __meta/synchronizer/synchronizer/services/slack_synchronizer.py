@@ -16,9 +16,7 @@ from .abstract_synchronizer import AbstractSynchronizer
 
 class SlackSynchronizer(AbstractSynchronizer):
     def __init__(
-        self,
-        contributors: dict[str, Contributor],
-        teams: dict[str, Team],
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         super().__init__(contributors, teams)
 

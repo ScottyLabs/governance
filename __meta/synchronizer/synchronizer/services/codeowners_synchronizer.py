@@ -15,9 +15,7 @@ class CodeownersSynchronizer(AbstractSynchronizer):
     COMMIT_MESSAGE = "chore: auto-update CODEOWNERS"
 
     def __init__(
-        self,
-        contributors: dict[str, Contributor],
-        teams: dict[str, Team],
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
         super().__init__(contributors, teams)
         self.g = get_github_client()

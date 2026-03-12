@@ -35,6 +35,9 @@ For each team you want to join (and you must join at least one):
 
 3. Review each project's repo's `CONTRIBUTING.md` file to understand any team-specific
    contribution guidelines. For example, some teams might require you submit a Google Form.
+   - The link to each repo is in the format of `https://github.com/<organization>/<repo>`,
+     where `<organization>/<repo>` is listed in the `repos` field of the team file
+     (e.g. <https://github.com/ScottyLabs/governance>).
 
 4. Submit a PR once you are ready. Familiarize yourself with the
    [PR Review Process](https://github.com/ScottyLabs/governance/wiki/PR-Review-Process)
@@ -54,41 +57,6 @@ For each team you want to join (and you must join at least one):
 
 See the [validators README](__meta/validators/README.md) for more information on the checks
 your PR must pass before it can be merged.
-
-### Testing locally before you push
-
-Run the same checks that CI runs so you can fix issues before opening a PR.
-
-1. **From the repo root** (the directory that contains `contributors/` and `teams/`).
-
-2. **EditorConfig** (optional): install [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker) and run:
-   ```bash
-   editorconfig-checker --exclude LICENSE
-   ```
-
-3. **TOML format and schemas**: install [Taplo](https://taplo.tamasfe.dev/cli/introduction.html) (e.g. `cargo binstall taplo-cli`), then:
-   ```bash
-   taplo fmt --check
-   taplo check
-   ```
-
-4. **Governance validator** (Rust; requires [rustup](https://rustup.rs/)):
-   ```bash
-   cargo run --release --bin governance
-   ```
-   Without `SYNC_GITHUB_TOKEN` and `SLACK_TOKEN`, GitHub/Slack checks will report **warnings** instead of failing; the rest of the rules still run. To mimic CI, set those env vars or use a `.env` file.
-
-5. **Visualizer** (optional): build the graph and open the generated page locally:
-   ```bash
-   cargo run --release --bin visualizer
-   # then open dist/index.html in a browser
-   ```
-
-6. **Synchronizer** (optional): only if you need to test sync logic; it needs real secrets and will talk to GitHub/Keycloak/Slack. From the repo root with dependencies installed (e.g. `uv sync`), run:
-   ```bash
-   uv run sync --services github
-   ```
-   See [__meta/synchronizer/README.md](__meta/synchronizer/README.md) for setup.
 
 ## Synchronization
 

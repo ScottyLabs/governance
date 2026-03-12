@@ -2,9 +2,6 @@
 
 This directory contains the JSON schemas for the TOML files in the `contributors/` and `teams/` directories.
 
-- **contributor.schema.json** — `contributors/*.toml` (per-contributor metadata).
-- **team.schema.json** — `teams/*.toml` (per-team metadata; `repos` list uses `owner/repo` for GitHub or full URLs for other hosts like Codeberg).
-
 ## Troubleshooting
 
 If you are using the VSCode extension [tamasfe.even-better-toml](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml), you may need to clear the cache to see the changes after updating a schema.

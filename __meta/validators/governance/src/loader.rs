@@ -11,6 +11,10 @@ use toml::from_str;
 
 const CONTRIBUTORS_PATH: &str = "contributors/*.toml";
 const TEAMS_PATH: &str = "teams/*.toml";
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of aeda7d6 (feat: repo info and visuals)
 pub fn load_from_dir<T: DeserializeOwned + Debug + HasKeyOrder>(
     path_glob: &str,
     item_name: &str,

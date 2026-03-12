@@ -70,6 +70,7 @@ async fn main() -> Result<()> {
         }))
         .collect::<HashMap<_, _>>();
 
+    // Validate the key order in a TOML file against the expected schema order.
     for error in validate_key_orderings(&contributors, &contributor_ordering) {
         insert_error(&mut file_messages, error);
     }
@@ -77,6 +78,10 @@ async fn main() -> Result<()> {
         insert_error(&mut file_messages, error);
     }
 
+<<<<<<< HEAD
+=======
+    // Validate file names
+>>>>>>> parent of aeda7d6 (feat: repo info and visuals)
     for error in checks::validate_file_names(&contributors, &teams) {
         insert_error(&mut file_messages, error);
     }

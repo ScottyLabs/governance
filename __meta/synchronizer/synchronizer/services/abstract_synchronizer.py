@@ -7,11 +7,13 @@ from synchronizer.models import Contributor, Team
 class AbstractSynchronizer(ABC):
     @abstractmethod
     def __init__(
-        self,
-        contributors: dict[str, Contributor],
-        teams: dict[str, Team],
+        self, contributors: dict[str, Contributor], teams: dict[str, Team]
     ) -> None:
-        """Initialize the AbstractSynchronizer."""
+        """
+        Initialize the AbstractSynchronizer.
+
+        Sets the contributors and teams and creates a logger.
+        """
         self.contributors = contributors
         self.teams = teams
         self.logger = get_app_logger()
