@@ -5,8 +5,16 @@ description = "Web application to browse course information and build schedules"
 contributing-guide = """"
 Reach out to Anish Pallati on Slack or an.ish on Discord for more information.
 """
-maintainers = ["xavilien", "ap-1", "yl25946"]
-contributors = ["xavilien", "ap-1", "yl25946"]
+maintainers = [
+    "xavilien",
+    "ap-1",
+    "yl25946",
+]
+contributors = [
+    "xavilien",
+    "ap-1",
+    "yl25946",
+]
 repos = [
     "ScottyLabs/cmucourses",       # Old CMUCourses
     "ScottyLabs/courses-frontend", # New CMUCourses frontend
@@ -14,7 +22,8 @@ repos = [
     "ScottyLabs/courses-scraper",  # Scraping information on CMU Courses
     "ScottyLabs/courses-api",      # API that gives course information
 ]
-slack-channel-ids = []
+slack-channel-ids = [
+]
 remove-unlisted = false
 sync-github = true
 create-oidc-clients = true
