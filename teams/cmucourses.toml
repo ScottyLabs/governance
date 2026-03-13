@@ -15,10 +15,16 @@ contributors = [
     "ap-1",
     "yl25946",
 ]
-repos = []
+repos = [
+    "ScottyLabs/cmucourses",       # Old CMUCourses
+    "ScottyLabs/courses-frontend", # New CMUCourses frontend
+    "ScottyLabs/courses-backend",  # New CMUCourses backend
+    "ScottyLabs/courses-scraper",  # Scraping information on CMU Courses
+    "ScottyLabs/courses-api",      # API that gives course information
+]
 slack-channel-ids = [
 ]
 remove-unlisted = false
-sync-github = false
+sync-github = true
 create-oidc-clients = true
 secrets-population-layout = "none"
