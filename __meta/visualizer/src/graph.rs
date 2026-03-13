@@ -3,6 +3,12 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use std::{collections::HashMap, error::Error};
 
+#[derive(Serialize, Deserialize, Debug, Clone)]
+struct RepoInfo {
+    name: String,
+    url: String,
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(tag = "nodeType")]
 enum GraphNode {
@@ -15,6 +21,11 @@ enum GraphNode {
         id: String,
         #[serde(flatten)]
         inner: Team,
+    },
+    Repo {
+        id: String,
+        #[serde(flatten)]
+        inner: RepoInfo,
     },
 }
 
@@ -30,6 +41,37 @@ struct GraphLink {
 struct GraphData {
     nodes: Vec<GraphNode>,
     links: Vec<GraphLink>,
+}
+
+// Resolve the repository information (i.e. name and URL) from a reference string.
+fn repo_info_from_ref(entry: &str) -> RepoInfo {
+    let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
+    if trimmed.starts_with("https://") || trimmed.starts_with("http://") {
+        let name = trimmed.rsplit('/').next().unwrap_or(trimmed).to_string();
+        // This is a full URL, so we need to remove the prefix and get the name of the repository.
+        RepoInfo {
+            name,
+            url: trimmed.to_string(), // The URL is the full URL.
+        }
+    } else if trimmed.contains('/') {
+        // This is a full Git note with a owner/repo string, so we return the name of the repository and the URL.
+        RepoInfo {
+            name: trimmed.to_string(),
+            url: format!("https://github.com/{}", trimmed), // The URL is the full Git note plus the GitHub base URL.
+        }
+    } else {
+        // It's something else, so we return the name of the repository and an empty URL.
+        RepoInfo {
+            name: trimmed.to_string(),
+            url: String::new(),
+        }
+    }
+}
+
+// Resolve the node ID for a repository from a reference string.
+fn repo_node_id(entry: &str) -> String {
+    let trimmed = entry.trim_end_matches('/').trim_end_matches(".git");
+    format!("repo:{}", trimmed.replace('/', ":"))
 }
 
 struct GraphBuilder<'a> {
@@ -51,8 +93,8 @@ impl<'a> GraphBuilder<'a> {
     fn build_contributors_teams_graph(&self) -> GraphData {
         let mut nodes = Vec::new();
         let mut links = Vec::new();
+        let mut seen_repos = HashMap::<String, ()>::new();
 
-        // Add contributor nodes
         for (id, contributor) in self.contributors {
             nodes.push(GraphNode::Contributor {
                 id: id.scoped_id(),
@@ -77,6 +119,24 @@ impl<'a> GraphBuilder<'a> {
                     source: id.scoped_id(),
                     target: target_id.scoped_id(),
                     link_type: "team-member".to_string(),
+                });
+            }
+
+            for entry in &team.repos {
+                let node_id = repo_node_id(entry);
+
+                if !seen_repos.contains_key(&node_id) {
+                    seen_repos.insert(node_id.clone(), ());
+                    nodes.push(GraphNode::Repo {
+                        id: node_id.clone(),
+                        inner: repo_info_from_ref(entry),
+                    });
+                }
+
+                links.push(GraphLink {
+                    source: id.scoped_id(),
+                    target: node_id,
+                    link_type: "team-repo".to_string(),
                 });
             }
         }

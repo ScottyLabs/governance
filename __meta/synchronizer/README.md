@@ -37,6 +37,8 @@ the following synchronizations will be performed for the team:
 
 - The repos listed in the team file will be added to the Github team.
 
+  - Only GitHub repos are synced. Entries in `owner/repo` format or full `https://github.com/…` URLs are treated as GitHub repos. Full URLs for other hosts (e.g. Codeberg) are skipped.
+
   - The GitHub admin team will be given admin access to the repos.
 
   - The GitHub main team will be given write access to the repos.

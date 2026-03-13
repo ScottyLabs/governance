@@ -47,6 +47,7 @@
     <div id="legend">
         <span style="color:#4CAF50;">● Contributor</span><br />
         <span style="color:#2196F3;">● Team</span><br />
+        <span style="color:#BA00C4;">● Repo</span><br />
     </div>
 
     <script>
@@ -56,6 +57,7 @@
         const NODE_COLORS = {
             Contributor: "#4CAF50", // Green
             Team: "#2196F3",        // Blue
+            Repo: "#BA00C4",        // Purple
         };
 
         // Initialize with default graph
@@ -68,6 +70,8 @@
                     case "Contributor":
                         return node.fullName;
                     case "Team":
+                        return node.name;
+                    case "Repo":
                         return node.name;
                     default:
                         return node.id;
@@ -101,6 +105,9 @@
                 case "Team":
                     const slug = node.name.replace(" ", "-").toLowerCase();
                     url = `https://github.com/orgs/ScottyLabs/teams/${slug}`;
+                    break;
+                case "Repo":
+                    url = node.url;
                     break;
             }
 

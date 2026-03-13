@@ -1,7 +1,7 @@
 # Auto-generated CODEOWNERS file from __meta/synchronizer/synchronizer/services/sync_codeowners.py
 
 # Default owners are the maintainers of the governance team
-* @Yuxiang-Huang
+* @Yuxiang-Huang @thesuperRL
 
 # Default owner of the teams directory is the tech director
 teams @Yuxiang-Huang
@@ -24,7 +24,7 @@ teams/events-api.toml @Yuxiang-Huang
 
 teams/flex.toml @cirex-web
 
-teams/governance.toml @Yuxiang-Huang
+teams/governance.toml @Yuxiang-Huang @thesuperRL
 
 teams/graph.toml @Yuxiang-Huang
 
