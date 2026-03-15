@@ -28,6 +28,7 @@ contributors = [
     "adrian-h-zhuang",
     "pandaaured",
     "Cometgerms",
+    "MaroonCoffee",
 ]
 repos = [
     "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
