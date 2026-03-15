@@ -37,6 +37,7 @@ repos = [
     "ScottyLabs/secrets-sync-scripts", # Scripts to sync secrets to Vault
     "ScottyLabs/bus-sign",             # Live bus sign
     "ScottyLabs/voting-app",           # Voting app for student organizations
+    "ScottyLabs/cmuhousing",           # CMU housing information
 ]
 slack-channel-ids = [
 ]
