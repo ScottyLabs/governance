@@ -12,6 +12,7 @@ maintainers = [
     "TenType",
     "ap-1",
     "Yuxiang-Huang", # Responsible for Secrets Sync Scripts
+    "maybe-yiyi",
 ]
 contributors = [
     "TenType",
