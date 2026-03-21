@@ -15,17 +15,15 @@ We also will probably need designers for frontend and help with backend, so if y
 maintainers = [
     "ellylai",
     "krishsaxena",
-    "parinzee",
 ]
 contributors = [
     "ellylai",
     "alanj268",
     "krishsaxena",
-    "parinzee",
     "tsurbs",
 ]
 repos = [
-    "ScottyLabs/cmugpt",
+    "ScottyLabs/cmugpt", # this is deprecated now!
 
     # CMU Search is a search engine to search for courses, locations, and events on campus.
     # Join if you love search engines!
@@ -35,6 +33,9 @@ repos = [
     "ScottyLabs/cmugpt-frontend",
 
     "ScottyLabs/mcp-server",
+    # our new repos!
+    "ScottyLabs/cmugpt-agent",
+    "ScottyLabs/cmugpt-surface",
 ]
 slack-channel-ids = [
     "C08SRUGUQ05",
