@@ -32,6 +32,7 @@ contributors = [
     "MaroonCoffee",
     "EcstaticPilot",
     "acluous",
+    "KothurVidur"
 ]
 repos = [
     "ScottyLabs/dalmatian",            # Discord bot for CMUCourses, CMUEats, and other ScottyLabs services
