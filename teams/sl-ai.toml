@@ -25,7 +25,7 @@ contributors = [
     "tsurbs",
 ]
 repos = [
-    "ScottyLabs/cmugpt", # this is deprecated now! 
+    "ScottyLabs/cmugpt", # this is deprecated now!
 
     # CMU Search is a search engine to search for courses, locations, and events on campus.
     # Join if you love search engines!
