@@ -30,7 +30,8 @@ repos = [
     "ScottyLabs/cmusearch",
 
     # Currently in dev by theo, will handle the db, users, conversation ui
-    "ScottyLabs/cmugpt-frontend",
+    # This is (likely) a private repo - Ryan
+    # "ScottyLabs/cmugpt-frontend",
 
     "ScottyLabs/mcp-server",
     # our new repos!
