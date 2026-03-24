@@ -22,6 +22,7 @@ contributors = [
 ]
 repos = [
     "ScottyLabs/governance",
+    "ScottyLabs/scottylabs.org",
     "https://codeberg.org/ScottyLabs/infrastructure",
 ]
 slack-channel-ids = [
