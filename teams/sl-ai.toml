@@ -41,7 +41,3 @@ repos = [
 slack-channel-ids = [
     "C08SRUGUQ05",
 ]
-
-# The AI team does not need OIDC clients or secrets population for now.
-create-oidc-clients = false
-secrets-population-layout = "none"
