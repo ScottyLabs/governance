@@ -13,6 +13,7 @@ for clarifications if it's a substantial or very open-ended task! We don't want 
 maintainers = [
     "cirex-web",
     "laasyaaki",
+    "Arom1a",
 ]
 contributors = [
     "cirex-web",
@@ -20,6 +21,7 @@ contributors = [
     "michaeliuedu",
     "cgaul26",
     "stanleymw",
+    "Arom1a",
 ]
 repos = [
     "ScottyLabs/cmueats",
@@ -27,6 +29,6 @@ repos = [
 slack-channel-ids = [
 ]
 remove-unlisted = false
-sync-github = false
+sync-github = true
 create-oidc-clients = false
 secrets-population-layout = "none"
