@@ -1,0 +1,17 @@
+[package]
+name = "governance"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+governance-schema.workspace = true
+governance-core.workspace = true
+governance-tfgen.workspace = true
+schemars.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+clap.workspace = true
+anyhow.workspace = true

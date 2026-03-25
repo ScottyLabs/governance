@@ -1,0 +1,17 @@
+[team]
+name = "DevOps"
+slug = "devops"
+description = "Infrastructure and deployment"
+leads = ["anish", "thesuperRL"]
+
+[[team.repos]]
+name = "infrastructure"
+description = "NixOS configurations for ScottyLabs' VMs"
+
+[[team.repos]]
+name = "governance"
+description = "Definition and automation of the Tech Committee's governance model"
+
+[[team.channels]]
+discord = "1461933322505818156"
+slack = "C08K3Q77ZQF"

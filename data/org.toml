@@ -1,0 +1,29 @@
+[org]
+name = "ScottyLabs"
+tech_director = "anish"
+
+[org.forges.codeberg]
+type = "forgejo"
+org = "ScottyLabs"
+default = true
+
+[org.forges.github]
+type = "github"
+org = "ScottyLabs"
+
+[org.communication]
+discord_guild_id = "1353118209024331948"
+slack_workspace = "scottylabs"
+
+[org.keycloak]
+url = "https://auth.scottylabs.org"
+realm = "scottylabs"
+
+[org.google_groups]
+admin = "sl-admin@andrew.cmu.edu"
+ops = "sl-ops@andrew.cmu.edu"
+tech = "sl-tech@andrew.cmu.edu"
+
+[org.vaultwarden]
+url = "https://vault.scottylabs.org"
+org_id = "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
