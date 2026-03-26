@@ -30,6 +30,14 @@ enum Command {
         output_dir: PathBuf,
     },
     ResolveIdentity,
+    CheckPr {
+        #[arg(long)]
+        author: String,
+        #[arg(long, default_value = "main")]
+        base_ref: String,
+        #[arg(long, value_delimiter = ',')]
+        changed_files: Vec<String>,
+    },
 }
 
 fn main() -> anyhow::Result<()> {
@@ -130,6 +138,27 @@ fn main() -> anyhow::Result<()> {
                 .map_err(|e| anyhow::anyhow!(e))?;
 
             println!("{}", serde_json::to_string(&result)?);
+        }
+        Command::CheckPr {
+            author,
+            base_ref,
+            changed_files,
+        } => {
+            let data = GovernanceData::load(&cli.data_dir)?;
+            let result = governance_core::check_pr::check_pr(
+                &data,
+                &author,
+                &base_ref,
+                &changed_files,
+            );
+            if result.passed {
+                eprintln!("PR check passed");
+            } else {
+                for issue in &result.issues {
+                    eprintln!("denied: {issue}");
+                }
+                process::exit(1);
+            }
         }
     }
 

@@ -3,12 +3,12 @@ use serde::{Deserialize, Serialize};
 
 use crate::org::{ForgeType, RepoVisibility};
 
-#[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct TeamFile {
     pub team: Team,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct GroupFields {
     pub slug: String,
     pub name: Option<String>,
@@ -31,7 +31,7 @@ impl GroupFields {
     }
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct Team {
     #[serde(flatten)]
     pub group: GroupFields,
@@ -39,13 +39,13 @@ pub struct Team {
     pub projects: Vec<Project>,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct Project {
     #[serde(flatten)]
     pub group: GroupFields,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct Repo {
     pub name: String,
     pub description: Option<String>,
@@ -55,7 +55,7 @@ pub struct Repo {
     pub topics: Vec<String>,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct Channel {
     pub discord: Option<String>,
     pub slack: Option<String>,
