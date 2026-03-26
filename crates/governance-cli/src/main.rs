@@ -6,6 +6,7 @@ use clap::{Parser, Subcommand};
 use governance_core::loader::GovernanceData;
 use governance_core::validator;
 use governance_tfgen::codeowners;
+use governance_tfgen::generators::{forgejo, github, identities};
 
 #[derive(Parser)]
 #[command(name = "governance", about = "ScottyLabs governance CLI")]
@@ -28,9 +29,11 @@ enum Command {
         #[arg(long, default_value = "generated/schemas")]
         output_dir: PathBuf,
     },
+    ResolveIdentity,
 }
 
 fn main() -> anyhow::Result<()> {
+    let _ = dotenvy::dotenv();
     let cli = Cli::parse();
 
     match cli.command {
@@ -48,14 +51,6 @@ fn main() -> anyhow::Result<()> {
         }
         Command::Generate { output_dir } => {
             let data = GovernanceData::load(&cli.data_dir)?;
-            let errors = validator::validate(&data);
-            if !errors.is_empty() {
-                for err in &errors {
-                    eprintln!("error: {err}");
-                }
-                process::exit(1);
-            }
-
             std::fs::create_dir_all(&output_dir)?;
 
             std::fs::create_dir_all(".forgejo")?;
@@ -63,7 +58,16 @@ fn main() -> anyhow::Result<()> {
             std::fs::write(".forgejo/CODEOWNERS", codeowners_content)?;
             eprintln!("wrote .forgejo/CODEOWNERS");
 
-            // TODO: generate .tf.json files
+            identities::generate_identity_data_sources(&data).write_to(&output_dir.join("identities.tf.json"))?;
+
+            forgejo::generate_repos(&data).write_to(&output_dir.join("forgejo_repos.tf.json"))?;
+            forgejo::generate_teams(&data).write_to(&output_dir.join("forgejo_teams.tf.json"))?;
+            forgejo::generate_team_memberships(&data).write_to(&output_dir.join("forgejo_memberships.tf.json"))?;
+
+            github::generate_repos(&data).write_to(&output_dir.join("github_repos.tf.json"))?;
+            github::generate_teams(&data).write_to(&output_dir.join("github_teams.tf.json"))?;
+            github::generate_team_memberships(&data).write_to(&output_dir.join("github_memberships.tf.json"))?;
+
             eprintln!("wrote {}", output_dir.display());
         }
         Command::Schema { output_dir } => {
@@ -82,6 +86,41 @@ fn main() -> anyhow::Result<()> {
             )?;
 
             eprintln!("wrote schemas to {}", output_dir.display());
+        }
+        Command::ResolveIdentity => {
+            let query: serde_json::Value =
+                serde_json::from_reader(std::io::stdin())?;
+            let codeberg_user = query["codeberg_user"]
+                .as_str()
+                .ok_or_else(|| anyhow::anyhow!("missing codeberg_user in query"))?;
+
+            let data = GovernanceData::load(&cli.data_dir)?;
+            let keycloak_conf = data.org.org.keycloak
+                .as_ref()
+                .ok_or_else(|| anyhow::anyhow!("keycloak not configured in org.toml"))?;
+
+            let client_id = std::env::var("KEYCLOAK_CLIENT_ID")
+                .map_err(|_| anyhow::anyhow!("KEYCLOAK_CLIENT_ID not set"))?;
+            let client_secret = std::env::var("KEYCLOAK_CLIENT_SECRET")
+                .map_err(|_| anyhow::anyhow!("KEYCLOAK_CLIENT_SECRET not set"))?;
+
+            let kc = governance_core::keycloak::KeycloakClient::connect(
+                &keycloak_conf.url,
+                &keycloak_conf.realm,
+                &client_id,
+                &client_secret,
+            )
+            .map_err(|e| anyhow::anyhow!(e))?;
+
+            let forgejo_url = data.org.org.forgejo
+                .as_ref()
+                .map(|f| f.url().to_string())
+                .unwrap_or_default();
+
+            let result = kc.lookup_identity_links(codeberg_user, &forgejo_url)
+                .map_err(|e| anyhow::anyhow!(e))?;
+
+            println!("{}", serde_json::to_string(&result)?);
         }
     }
 

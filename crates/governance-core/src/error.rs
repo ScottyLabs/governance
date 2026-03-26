@@ -37,4 +37,34 @@ pub enum ValidationError {
 
     #[error("forge not configured: {0}")]
     ForgeNotConfigured(String),
+
+    #[error("DISCORD_BOT_TOKEN not set")]
+    MissingDiscordToken,
+
+    #[error("SLACK_BOT_TOKEN not set")]
+    MissingSlackToken,
+
+    #[error("discord channel {channel_id} does not exist or is inaccessible")]
+    DiscordChannelNotFound { channel_id: String },
+
+    #[error("slack channel {channel_id} does not exist or is inaccessible")]
+    SlackChannelNotFound { channel_id: String },
+
+    #[error("discord API error: {0}")]
+    DiscordApiError(String),
+
+    #[error("slack API error: {0}")]
+    SlackApiError(String),
+
+    #[error("KEYCLOAK_CLIENT_ID and KEYCLOAK_CLIENT_SECRET must be set")]
+    MissingKeycloakCredentials,
+
+    #[error("user {user} not found in keycloak (no linked codeberg account)")]
+    KeycloakUserNotFound { user: String },
+
+    #[error("user {user} has not linked their {provider} account in keycloak")]
+    MissingIdentityLink { user: String, provider: String },
+
+    #[error("keycloak API error: {0}")]
+    KeycloakApiError(String),
 }

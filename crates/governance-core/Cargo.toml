@@ -11,3 +11,7 @@ serde.workspace = true
 serde_json.workspace = true
 thiserror.workspace = true
 toml.workspace = true
+ureq = { version = "3.3.0", features = ["json"] }
+
+[dev-dependencies]
+dotenvy = "0.15.7"

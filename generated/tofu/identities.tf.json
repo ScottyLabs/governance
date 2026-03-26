@@ -1,0 +1,15 @@
+{
+  "data": {
+    "external": {
+      "identity_anish": {
+        "program": [
+          "governance",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "anish"
+        }
+      }
+    }
+  }
+}

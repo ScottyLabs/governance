@@ -1,0 +1,10 @@
+{
+  "resource": {
+    "forgejo_team_member": {
+      "devops_anish": {
+        "team_id": "${forgejo_team.devops.id}",
+        "username": "${data.external.identity_anish.result.codeberg}"
+      }
+    }
+  }
+}

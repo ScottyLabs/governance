@@ -1,0 +1,22 @@
+{
+  "resource": {
+    "forgejo_repository": {
+      "devops_governance": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Definition and automation of the Tech Committee's governance model",
+        "name": "governance",
+        "owner": "ScottyLabs",
+        "visibility": "public"
+      },
+      "devops_infrastructure": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "NixOS configurations for ScottyLabs' VMs",
+        "name": "infrastructure",
+        "owner": "ScottyLabs",
+        "visibility": "public"
+      }
+    }
+  }
+}

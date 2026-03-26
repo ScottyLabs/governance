@@ -1,0 +1,16 @@
+{
+  "resource": {
+    "forgejo_team": {
+      "devops": {
+        "name": "DevOps",
+        "organization": "ScottyLabs",
+        "permission": "write",
+        "units": [
+          "repo.code",
+          "repo.issues",
+          "repo.pulls"
+        ]
+      }
+    }
+  }
+}

@@ -25,6 +25,12 @@ pub struct GroupFields {
     pub figma_projects: Vec<String>,
 }
 
+impl GroupFields {
+    pub fn all_members(&self) -> impl Iterator<Item = &str> {
+        self.leads.iter().chain(self.members.iter()).map(|s| s.as_str())
+    }
+}
+
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
 pub struct Team {
     #[serde(flatten)]

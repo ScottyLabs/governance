@@ -4,7 +4,7 @@ pub fn generate_codeowners(data: &GovernanceData) -> String {
     let td = &data.org.org.tech_director;
 
     let mut lines = vec![
-        "# AUTO-GENERATED - do not edit manually".to_string(),
+        "# AUTO-GENERATED".to_string(),
         format!("* @{td}"),
         format!("/data/org.toml @{td}"),
     ];
@@ -31,5 +31,6 @@ pub fn generate_codeowners(data: &GovernanceData) -> String {
     lines.push(format!("/crates/ @{td}"));
     lines.push(format!("/.forgejo/ @{td}"));
 
+    lines.push(String::new());
     lines.join("\n")
 }

@@ -1,7 +1,7 @@
-# AUTO-GENERATED - do not edit manually
+# AUTO-GENERATED
 * @anish
 /data/org.toml @anish
-/data/teams/devops.toml @anish @thesuperRL
+/data/teams/devops.toml @anish
 /tofu/ @anish
 /crates/ @anish
 /.forgejo/ @anish

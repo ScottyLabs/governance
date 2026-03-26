@@ -1,0 +1,11 @@
+{
+  "resource": {
+    "github_team_membership": {
+      "devops_anish": {
+        "role": "maintainer",
+        "team_id": "${github_team.devops.id}",
+        "username": "${data.external.identity_anish.result.github}"
+      }
+    }
+  }
+}
