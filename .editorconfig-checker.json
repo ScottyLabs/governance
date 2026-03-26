@@ -1,3 +1,9 @@
 {
-    "Exclude": ["generated/", ".forgejo/CODEOWNERS", "LICENSE-MIT", "LICENSE-APACHE-2.0"]
+    "Exclude": [
+        "tofu/",
+        "schemas/",
+        ".forgejo/CODEOWNERS",
+        "LICENSE-MIT",
+        "LICENSE-APACHE-2.0"
+    ]
 }

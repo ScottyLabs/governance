@@ -22,11 +22,11 @@ struct Cli {
 enum Command {
     Validate,
     Generate {
-        #[arg(long, default_value = "generated/tofu")]
+        #[arg(long, default_value = "tofu")]
         output_dir: PathBuf,
     },
     Schema {
-        #[arg(long, default_value = "generated/schemas")]
+        #[arg(long, default_value = "schemas")]
         output_dir: PathBuf,
     },
     ResolveIdentity,

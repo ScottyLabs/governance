@@ -1,0 +1,69 @@
+name: Validate
+on: [pull_request]
+
+jobs:
+  editorconfig:
+    name: EditorConfig
+    runs-on: docker
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: editorconfig-checker
+          fallback: none
+
+      - run: editorconfig-checker
+
+  toml:
+    name: TOML
+    needs: editorconfig
+    runs-on: docker
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: taplo
+          fallback: none
+
+      - run: taplo fmt --check
+      - run: taplo check
+
+  governance:
+    name: Governance
+    needs: toml
+    runs-on: docker
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - run: cargo build --release -p governance
+
+      - name: Validate
+        run: ./target/release/governance validate
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+          KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
+
+      - name: Check generated files are up to date
+        run: |
+          cp .forgejo/CODEOWNERS /tmp/CODEOWNERS-old
+          ./target/release/governance generate --output-dir /tmp/tofu
+          ./target/release/governance schema --output-dir /tmp/schemas
+          diff -r /tmp/tofu tofu/
+          diff -r /tmp/schemas schemas/
+          diff /tmp/CODEOWNERS-old .forgejo/CODEOWNERS
+
+      - name: Check PR permissions
+        run: |
+          CHANGED=$(git diff --name-only ${{ github.event.pull_request.base.sha }}..HEAD | tr '\n' ',')
+          ./target/release/governance check-pr \
+            --author "${{ github.event.pull_request.user.login }}" \
+            --base-ref "${{ github.event.pull_request.base.sha }}" \
+            --changed-files "$CHANGED"

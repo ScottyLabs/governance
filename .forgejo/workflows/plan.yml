@@ -1,0 +1,29 @@
+name: OpenTofu Plan
+on:
+  pull_request:
+    paths:
+      - 'data/**'
+      - 'tofu/**'
+
+jobs:
+  plan:
+    name: Plan
+    runs-on: docker
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install OpenTofu
+        uses: opentofu/setup-opentofu@v1
+
+      - name: Init
+        working-directory: tofu
+        run: tofu init
+
+      - name: Plan
+        working-directory: tofu
+        run: tofu plan -no-color
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_GOVERNANCE_TOKEN }}
+          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
+          KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+          KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}

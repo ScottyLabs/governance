@@ -9,10 +9,10 @@ indent_string = "    "
 include = ["data/org.toml"]
 
 [rule.schema]
-path = "./generated/schemas/org.schema.json"
+path = "./schemas/org.schema.json"
 
 [[rule]]
 include = ["data/teams/*.toml"]
 
 [rule.schema]
-path = "./generated/schemas/team.schema.json"
+path = "./schemas/team.schema.json"

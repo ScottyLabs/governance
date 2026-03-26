@@ -1,1 +1,2 @@
-generated/** linguist-generated=true
+tofu/*.tf.json linguist-generated
+schemas/** linguist-generated
