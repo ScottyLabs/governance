@@ -1,0 +1,22 @@
+{
+  "resource": {
+    "restapi_object": {
+      "devops_governance_push_mirror": {
+        "data": "{\"interval\":\"8h0m0s\",\"private_key\":\"${tls_private_key.devops_governance_mirror_key.private_key_openssh}\",\"remote_address\":\"git@github.com:ScottyLabs/governance.git\",\"sync_on_commit\":true,\"use_ssh\":true}",
+        "depends_on": [
+          "github_repository_deploy_key.devops_governance_mirror_deploy_key",
+          "forgejo_repository.devops_governance"
+        ],
+        "path": "/api/v1/repos/ScottyLabs/governance/push_mirrors"
+      },
+      "devops_infrastructure_push_mirror": {
+        "data": "{\"interval\":\"8h0m0s\",\"private_key\":\"${tls_private_key.devops_infrastructure_mirror_key.private_key_openssh}\",\"remote_address\":\"git@github.com:ScottyLabs/infrastructure.git\",\"sync_on_commit\":true,\"use_ssh\":true}",
+        "depends_on": [
+          "github_repository_deploy_key.devops_infrastructure_mirror_deploy_key",
+          "forgejo_repository.devops_infrastructure"
+        ],
+        "path": "/api/v1/repos/ScottyLabs/infrastructure/push_mirrors"
+      }
+    }
+  }
+}

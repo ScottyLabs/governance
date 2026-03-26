@@ -1,0 +1,18 @@
+{
+  "resource": {
+    "slack_conversation_member": {
+      "devops_ch0_anish": {
+        "channel_id": "C08K3Q77ZQF",
+        "user_ids": [
+          "${data.external.identity_anish.result.slack}"
+        ]
+      },
+      "hub_anish": {
+        "channel_id": "C096TM8EMS8",
+        "user_ids": [
+          "${data.external.identity_anish.result.slack}"
+        ]
+      }
+    }
+  }
+}

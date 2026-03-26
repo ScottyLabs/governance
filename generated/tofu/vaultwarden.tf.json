@@ -1,0 +1,24 @@
+{
+  "resource": {
+    "bitwarden_org_collection": {
+      "tech": {
+        "member": [
+          {
+            "id": "${data.external.identity_anish.result.keycloak_user_id}",
+            "manage": true
+          }
+        ],
+        "name": "Tech"
+      },
+      "tech_leads": {
+        "member": [
+          {
+            "id": "${data.external.identity_anish.result.keycloak_user_id}",
+            "manage": true
+          }
+        ],
+        "name": "Tech/Tech Leads"
+      }
+    }
+  }
+}

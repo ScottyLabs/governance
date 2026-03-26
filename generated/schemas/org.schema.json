@@ -17,13 +17,21 @@
         "discord_guild_id": {
           "type": "string"
         },
+        "discord_hub_channel_id": {
+          "type": "string"
+        },
+        "slack_hub_channel_id": {
+          "type": "string"
+        },
         "slack_workspace": {
           "type": "string"
         }
       },
       "required": [
         "discord_guild_id",
-        "slack_workspace"
+        "discord_hub_channel_id",
+        "slack_workspace",
+        "slack_hub_channel_id"
       ]
     },
     "FigmaConnection": {

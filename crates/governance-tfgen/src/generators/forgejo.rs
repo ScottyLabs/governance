@@ -95,6 +95,48 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
     tf
 }
 
+pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
+    let mut tf = TfJsonFile::default();
+    let org = &data.org.org;
+    let forgejo = match &org.forgejo {
+        Some(f) => f,
+        None => return tf,
+    };
+    if org.github.is_none() {
+        return tf;
+    }
+    let github_org = org.github.as_ref().unwrap().org.as_str();
+    let is_default = org.default_forge == ForgeType::Forgejo;
+
+    for team in &data.teams {
+        for repo in repos_for_forgejo(team, is_default) {
+            let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
+            let github_ssh_url = format!("git@github.com:{github_org}/{}.git", repo.name);
+
+            tf.add_resource(
+                "restapi_object",
+                &format!("{key}_push_mirror"),
+                json!({
+                    "path": format!("/api/v1/repos/{}/{}/push_mirrors", forgejo.org, repo.name),
+                    "data": serde_json::to_string(&json!({
+                        "remote_address": github_ssh_url,
+                        "interval": "8h0m0s",
+                        "sync_on_commit": true,
+                        "use_ssh": true,
+                        "private_key": format!("${{tls_private_key.{key}_mirror_key.private_key_openssh}}"),
+                    })).unwrap(),
+                    "depends_on": [
+                        format!("github_repository_deploy_key.{key}_mirror_deploy_key"),
+                        format!("forgejo_repository.{key}"),
+                    ],
+                }),
+            );
+        }
+    }
+
+    tf
+}
+
 fn repos_for_forgejo<'a>(team: &'a TeamFile, is_default: bool) -> Vec<&'a Repo> {
     let mut repos = Vec::new();
     collect_repos(&team.team.group, is_default, &mut repos);

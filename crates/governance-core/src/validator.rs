@@ -238,7 +238,7 @@ fn validate_identities(data: &GovernanceData, errors: &mut Vec<ValidationError>)
     };
 
     let org = &data.org.org;
-    let mut required_providers: Vec<&str> = Vec::new();
+    let mut required_providers: Vec<&str> = vec!["cmu-saml"];
     if org.forgejo.is_some() {
         required_providers.push("codeberg");
     }

@@ -16,7 +16,7 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
 
     for team in &data.teams {
         for (repo, is_mirror) in repos_for_github(team, is_default) {
-            let resource_name = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
+            let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
 
             if is_mirror {
                 let codeberg_url = format!(
@@ -27,7 +27,7 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                 );
                 tf.add_resource(
                     "github_repository",
-                    &resource_name,
+                    &key,
                     json!({
                         "name": repo.name,
                         "description": "READ-ONLY MIRROR",
@@ -36,6 +36,60 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                         "has_issues": false,
                         "has_projects": false,
                         "has_wiki": false,
+                        "has_discussions": false,
+                        "has_downloads": false,
+                    }),
+                );
+
+                tf.add_resource(
+                    "tls_private_key",
+                    &format!("{key}_mirror_key"),
+                    json!({
+                        "algorithm": "ED25519",
+                    }),
+                );
+
+                tf.add_resource(
+                    "github_repository_deploy_key",
+                    &format!("{key}_mirror_deploy_key"),
+                    json!({
+                        "repository": format!("${{github_repository.{key}.name}}"),
+                        "title": "Codeberg Mirroring",
+                        "key": format!("${{tls_private_key.{key}_mirror_key.public_key_openssh}}"),
+                        "read_only": false,
+                    }),
+                );
+
+                tf.add_resource(
+                    "github_repository_ruleset",
+                    &format!("{key}_ruleset"),
+                    json!({
+                        "name": "Default",
+                        "repository": format!("${{github_repository.{key}.name}}"),
+                        "target": "branch",
+                        "enforcement": "active",
+                        "conditions": {
+                            "ref_name": {
+                                "include": ["~ALL"],
+                                "exclude": [],
+                            },
+                        },
+                        "bypass_actors": [
+                            {
+                                "actor_id": format!("${{github_repository_deploy_key.{key}_mirror_deploy_key.etag}}"),
+                                "actor_type": "DeployKey",
+                                "bypass_mode": "always",
+                            },
+                        ],
+                        "rules": {
+                            "creation": true,
+                            "update": true,
+                            "deletion": true,
+                            "non_fast_forward": true,
+                            "pull_request": {
+                                "required_approving_review_count": 1,
+                            },
+                        },
                     }),
                 );
             } else {
@@ -45,7 +99,7 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                     .unwrap_or(&org.defaults.repo_visibility);
                 tf.add_resource(
                     "github_repository",
-                    &resource_name,
+                    &key,
                     json!({
                         "name": repo.name,
                         "description": repo.description.as_deref().unwrap_or(""),

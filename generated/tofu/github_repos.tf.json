@@ -3,6 +3,8 @@
     "github_repository": {
       "devops_governance": {
         "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_downloads": false,
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
@@ -12,12 +14,98 @@
       },
       "devops_infrastructure": {
         "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_downloads": false,
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/infrastructure",
         "name": "infrastructure",
         "visibility": "public"
+      }
+    },
+    "github_repository_deploy_key": {
+      "devops_governance_mirror_deploy_key": {
+        "key": "${tls_private_key.devops_governance_mirror_key.public_key_openssh}",
+        "read_only": false,
+        "repository": "${github_repository.devops_governance.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "devops_infrastructure_mirror_deploy_key": {
+        "key": "${tls_private_key.devops_infrastructure_mirror_key.public_key_openssh}",
+        "read_only": false,
+        "repository": "${github_repository.devops_infrastructure.name}",
+        "title": "Codeberg Mirroring"
+      }
+    },
+    "github_repository_ruleset": {
+      "devops_governance_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${github_repository_deploy_key.devops_governance_mirror_deploy_key.etag}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.devops_governance.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "devops_infrastructure_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${github_repository_deploy_key.devops_infrastructure_mirror_deploy_key.etag}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.devops_infrastructure.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      }
+    },
+    "tls_private_key": {
+      "devops_governance_mirror_key": {
+        "algorithm": "ED25519"
+      },
+      "devops_infrastructure_mirror_key": {
+        "algorithm": "ED25519"
       }
     }
   }

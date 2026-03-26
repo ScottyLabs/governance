@@ -59,7 +59,9 @@ impl GithubConfig {
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
 pub struct CommunicationConfig {
     pub discord_guild_id: String,
+    pub discord_hub_channel_id: String,
     pub slack_workspace: String,
+    pub slack_hub_channel_id: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]

@@ -6,7 +6,7 @@ use clap::{Parser, Subcommand};
 use governance_core::loader::GovernanceData;
 use governance_core::validator;
 use governance_tfgen::codeowners;
-use governance_tfgen::generators::{forgejo, github, identities};
+use governance_tfgen::generators::{discord, forgejo, github, google_groups, identities, keycloak, slack, vaultwarden};
 
 #[derive(Parser)]
 #[command(name = "governance", about = "ScottyLabs governance CLI")]
@@ -63,6 +63,15 @@ fn main() -> anyhow::Result<()> {
             forgejo::generate_repos(&data).write_to(&output_dir.join("forgejo_repos.tf.json"))?;
             forgejo::generate_teams(&data).write_to(&output_dir.join("forgejo_teams.tf.json"))?;
             forgejo::generate_team_memberships(&data).write_to(&output_dir.join("forgejo_memberships.tf.json"))?;
+            forgejo::generate_push_mirrors(&data).write_to(&output_dir.join("forgejo_push_mirrors.tf.json"))?;
+
+            keycloak::generate_groups(&data).write_to(&output_dir.join("keycloak_groups.tf.json"))?;
+            keycloak::generate_group_memberships(&data).write_to(&output_dir.join("keycloak_memberships.tf.json"))?;
+
+            vaultwarden::generate(&data).write_to(&output_dir.join("vaultwarden.tf.json"))?;
+            google_groups::generate(&data).write_to(&output_dir.join("google_groups.tf.json"))?;
+            discord::generate(&data).write_to(&output_dir.join("discord.tf.json"))?;
+            slack::generate(&data).write_to(&output_dir.join("slack.tf.json"))?;
 
             github::generate_repos(&data).write_to(&output_dir.join("github_repos.tf.json"))?;
             github::generate_teams(&data).write_to(&output_dir.join("github_teams.tf.json"))?;

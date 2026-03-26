@@ -81,14 +81,18 @@ impl KeycloakClient {
             .read_json()
             .map_err(|e| format!("parse error: {e}"))?;
 
-        Ok(links
+        let mut result: HashMap<String, String> = links
             .iter()
             .filter_map(|l| {
                 let provider = l["identityProvider"].as_str()?;
                 let username = l["userName"].as_str()?;
                 Some((provider.to_string(), username.to_string()))
             })
-            .collect())
+            .collect();
+
+        result.insert("keycloak_user_id".to_string(), user_id.to_string());
+
+        Ok(result)
     }
 }
 

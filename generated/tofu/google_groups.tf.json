@@ -1,0 +1,71 @@
+{
+  "resource": {
+    "google_cloud_identity_group": {
+      "admin": {
+        "display_name": "sl-admin",
+        "group_key": {
+          "id": "sl-admin@andrew.cmu.edu"
+        },
+        "labels": {
+          "cloudidentity.googleapis.com/groups.discussion_forum": ""
+        },
+        "parent": "customers/placeholder"
+      },
+      "ops": {
+        "display_name": "sl-ops",
+        "group_key": {
+          "id": "sl-ops@andrew.cmu.edu"
+        },
+        "labels": {
+          "cloudidentity.googleapis.com/groups.discussion_forum": ""
+        },
+        "parent": "customers/placeholder"
+      },
+      "tech": {
+        "display_name": "sl-tech",
+        "group_key": {
+          "id": "sl-tech@andrew.cmu.edu"
+        },
+        "labels": {
+          "cloudidentity.googleapis.com/groups.discussion_forum": ""
+        },
+        "parent": "customers/placeholder"
+      }
+    },
+    "google_cloud_identity_group_membership": {
+      "admin_anish": {
+        "group": "${google_cloud_identity_group.admin.id}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_anish.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
+      "ops_anish": {
+        "group": "${google_cloud_identity_group.ops.id}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_anish.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
+      "tech_anish": {
+        "group": "${google_cloud_identity_group.tech.id}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_anish.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      }
+    }
+  }
+}

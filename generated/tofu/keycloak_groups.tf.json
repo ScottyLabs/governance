@@ -1,0 +1,20 @@
+{
+  "resource": {
+    "keycloak_group": {
+      "project_devops": {
+        "name": "devops",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${keycloak_realm.scottylabs.id}"
+      },
+      "project_devops_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_devops.id}",
+        "realm_id": "${keycloak_realm.scottylabs.id}"
+      },
+      "projects": {
+        "name": "projects",
+        "realm_id": "${keycloak_realm.scottylabs.id}"
+      }
+    }
+  }
+}

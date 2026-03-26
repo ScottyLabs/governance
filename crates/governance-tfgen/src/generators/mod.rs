@@ -1,3 +1,8 @@
+pub mod discord;
 pub mod forgejo;
 pub mod github;
+pub mod google_groups;
 pub mod identities;
+pub mod keycloak;
+pub mod slack;
+pub mod vaultwarden;

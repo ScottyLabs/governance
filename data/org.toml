@@ -11,7 +11,9 @@ org = "ScottyLabs"
 
 [org.communication]
 discord_guild_id = "1353118209024331948"
+discord_hub_channel_id = "1462522753709248533"
 slack_workspace = "scottylabs"
+slack_hub_channel_id = "C096TM8EMS8"
 
 [org.keycloak]
 url = "https://idp.scottylabs.org"
