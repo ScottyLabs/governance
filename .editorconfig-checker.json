@@ -1,0 +1,3 @@
+{
+    "Exclude": ["generated/", ".forgejo/CODEOWNERS", "LICENSE-MIT", "LICENSE-APACHE-2.0"]
+}

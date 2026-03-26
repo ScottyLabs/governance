@@ -35,12 +35,6 @@ pub enum ValidationError {
     #[error("team {team}: lead {lead} also listed as member")]
     LeadAlsoMember { team: String, lead: String },
 
-    #[error("team {team}: references unknown forge instance {forge}")]
-    UnknownForge { team: String, forge: String },
-
-    #[error("no default forge configured")]
-    NoDefaultForge,
-
-    #[error("multiple default forges configured")]
-    MultipleDefaultForges,
+    #[error("forge not configured: {0}")]
+    ForgeNotConfigured(String),
 }

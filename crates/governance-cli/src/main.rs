@@ -21,11 +21,11 @@ struct Cli {
 enum Command {
     Validate,
     Generate {
-        #[arg(long, default_value = "tofu/generated")]
+        #[arg(long, default_value = "generated/tofu")]
         output_dir: PathBuf,
     },
     Schema {
-        #[arg(long, default_value = "schemas")]
+        #[arg(long, default_value = "generated/schemas")]
         output_dir: PathBuf,
     },
 }
@@ -58,9 +58,10 @@ fn main() -> anyhow::Result<()> {
 
             std::fs::create_dir_all(&output_dir)?;
 
+            std::fs::create_dir_all(".forgejo")?;
             let codeowners_content = codeowners::generate_codeowners(&data);
-            std::fs::write("CODEOWNERS", codeowners_content)?;
-            eprintln!("wrote CODEOWNERS");
+            std::fs::write(".forgejo/CODEOWNERS", codeowners_content)?;
+            eprintln!("wrote .forgejo/CODEOWNERS");
 
             // TODO: generate .tf.json files
             eprintln!("wrote {}", output_dir.display());

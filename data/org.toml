@@ -1,14 +1,12 @@
 [org]
 name = "ScottyLabs"
 tech_director = "anish"
+default_forge = "forgejo"
 
-[org.forges.codeberg]
-type = "forgejo"
+[org.forgejo]
 org = "ScottyLabs"
-default = true
 
-[org.forges.github]
-type = "github"
+[org.github]
 org = "ScottyLabs"
 
 [org.communication]

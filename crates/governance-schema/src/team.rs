@@ -1,7 +1,7 @@
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-use crate::org::RepoVisibility;
+use crate::org::{ForgeType, RepoVisibility};
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
 pub struct TeamFile {
@@ -43,7 +43,7 @@ pub struct Project {
 pub struct Repo {
     pub name: String,
     pub description: Option<String>,
-    pub forge: Option<String>,
+    pub forge: Option<ForgeType>,
     pub visibility: Option<RepoVisibility>,
     #[serde(default)]
     pub topics: Vec<String>,

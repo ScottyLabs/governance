@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OrgFile",
+  "type": "object",
+  "properties": {
+    "org": {
+      "$ref": "#/$defs/OrgConfig"
+    }
+  },
+  "required": [
+    "org"
+  ],
+  "$defs": {
+    "CommunicationConfig": {
+      "type": "object",
+      "properties": {
+        "discord_guild_id": {
+          "type": "string"
+        },
+        "slack_workspace": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "discord_guild_id",
+        "slack_workspace"
+      ]
+    },
+    "FigmaConnection": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "org_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "org_id"
+      ]
+    },
+    "ForgeType": {
+      "type": "string",
+      "enum": [
+        "github",
+        "forgejo"
+      ]
+    },
+    "ForgejoConfig": {
+      "type": "object",
+      "properties": {
+        "org": {
+          "type": "string"
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "org"
+      ]
+    },
+    "GithubConfig": {
+      "type": "object",
+      "properties": {
+        "org": {
+          "type": "string"
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "org"
+      ]
+    },
+    "GoogleGroupsConnection": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "string"
+        },
+        "ops": {
+          "type": "string"
+        },
+        "tech": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "admin",
+        "ops",
+        "tech"
+      ]
+    },
+    "KeycloakConnection": {
+      "type": "object",
+      "properties": {
+        "realm": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "realm"
+      ]
+    },
+    "OrgConfig": {
+      "type": "object",
+      "properties": {
+        "communication": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CommunicationConfig"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "default_forge": {
+          "$ref": "#/$defs/ForgeType"
+        },
+        "defaults": {
+          "$ref": "#/$defs/OrgDefaults",
+          "default": {
+            "allow_merge_commit": false,
+            "allow_rebase_merge": true,
+            "allow_squash_merge": true,
+            "default_branch": "main",
+            "repo_visibility": "public",
+            "required_approvals": 1
+          }
+        },
+        "figma": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FigmaConnection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "forgejo": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ForgejoConfig"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "github": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GithubConfig"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "google_groups": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GoogleGroupsConnection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "keycloak": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/KeycloakConnection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "tech_director": {
+          "type": "string"
+        },
+        "vaultwarden": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VaultwardenConnection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "tech_director",
+        "default_forge"
+      ]
+    },
+    "OrgDefaults": {
+      "type": "object",
+      "properties": {
+        "allow_merge_commit": {
+          "type": "boolean"
+        },
+        "allow_rebase_merge": {
+          "type": "boolean"
+        },
+        "allow_squash_merge": {
+          "type": "boolean"
+        },
+        "default_branch": {
+          "type": "string"
+        },
+        "repo_visibility": {
+          "$ref": "#/$defs/RepoVisibility"
+        },
+        "required_approvals": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "repo_visibility",
+        "default_branch",
+        "allow_squash_merge",
+        "allow_merge_commit",
+        "allow_rebase_merge",
+        "required_approvals"
+      ]
+    },
+    "RepoVisibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private"
+      ]
+    },
+    "VaultwardenConnection": {
+      "type": "object",
+      "properties": {
+        "org_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "org_id"
+      ]
+    }
+  }
+}

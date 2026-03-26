@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TeamFile",
+  "type": "object",
+  "properties": {
+    "team": {
+      "$ref": "#/$defs/Team"
+    }
+  },
+  "required": [
+    "team"
+  ],
+  "$defs": {
+    "Channel": {
+      "type": "object",
+      "properties": {
+        "discord": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "slack": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ForgeType": {
+      "type": "string",
+      "enum": [
+        "github",
+        "forgejo"
+      ]
+    },
+    "Project": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Channel"
+          }
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "figma_projects": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "leads": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "members": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "repos": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Repo"
+          }
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "slug"
+      ]
+    },
+    "Repo": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "forge": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ForgeType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "topics": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "visibility": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RepoVisibility"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "RepoVisibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private"
+      ]
+    },
+    "Team": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Channel"
+          }
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "figma_projects": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "leads": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "members": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "projects": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Project"
+          }
+        },
+        "repos": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Repo"
+          }
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "slug"
+      ]
+    }
+  }
+}

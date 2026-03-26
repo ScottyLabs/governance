@@ -1,5 +1,3 @@
-use std::collections::BTreeMap;
-
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
@@ -12,8 +10,10 @@ pub struct OrgFile {
 pub struct OrgConfig {
     pub name: String,
     pub tech_director: String,
+    pub default_forge: ForgeType,
 
-    pub forges: BTreeMap<String, ForgeInstance>,
+    pub forgejo: Option<ForgejoConfig>,
+    pub github: Option<GithubConfig>,
     pub communication: Option<CommunicationConfig>,
 
     pub keycloak: Option<KeycloakConnection>,
@@ -33,28 +33,33 @@ pub enum ForgeType {
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
-pub struct ForgeInstance {
-    #[serde(rename = "type")]
-    pub forge_type: ForgeType,
+pub struct ForgejoConfig {
     pub org: String,
     pub url: Option<String>,
-    #[serde(default)]
-    pub default: bool,
 }
 
-impl ForgeInstance {
+impl ForgejoConfig {
     pub fn url(&self) -> &str {
-        self.url.as_deref().unwrap_or(match self.forge_type {
-            ForgeType::Github => "https://github.com",
-            ForgeType::Forgejo => "https://codeberg.org",
-        })
+        self.url.as_deref().unwrap_or("https://codeberg.org")
+    }
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
+pub struct GithubConfig {
+    pub org: String,
+    pub url: Option<String>,
+}
+
+impl GithubConfig {
+    pub fn url(&self) -> &str {
+        self.url.as_deref().unwrap_or("https://github.com")
     }
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
 pub struct CommunicationConfig {
-    pub discord_guild_id: Option<String>,
-    pub slack_workspace: Option<String>,
+    pub discord_guild_id: String,
+    pub slack_workspace: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]

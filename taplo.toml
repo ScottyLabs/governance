@@ -1,0 +1,18 @@
+[formatting]
+trailing_newline = true
+indent_string = "    "
+
+# the above options agree with .editorconfig and are only specified so that
+# taplo-cli can use them in CI
+
+[[rule]]
+include = ["data/org.toml"]
+
+[rule.schema]
+path = "./generated/schemas/org.schema.json"
+
+[[rule]]
+include = ["data/teams/*.toml"]
+
+[rule.schema]
+path = "./generated/schemas/team.schema.json"

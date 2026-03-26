@@ -1,5 +1,6 @@
 use std::collections::HashSet;
 
+use governance_schema::org::ForgeType;
 use governance_schema::team::{GroupFields, TeamFile};
 
 use crate::error::ValidationError;
@@ -8,7 +9,7 @@ use crate::loader::GovernanceData;
 pub fn validate(data: &GovernanceData) -> Vec<ValidationError> {
     let mut errors = Vec::new();
 
-    validate_forges(data, &mut errors);
+    validate_default_forge(data, &mut errors);
     validate_team_slugs(data, &mut errors);
     validate_repo_names(data, &mut errors);
     validate_groups(data, &mut errors);
@@ -17,19 +18,16 @@ pub fn validate(data: &GovernanceData) -> Vec<ValidationError> {
     errors
 }
 
-fn validate_forges(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
-    let default_count = data
-        .org
-        .org
-        .forges
-        .values()
-        .filter(|f| f.default)
-        .count();
-
-    if default_count == 0 {
-        errors.push(ValidationError::NoDefaultForge);
-    } else if default_count > 1 {
-        errors.push(ValidationError::MultipleDefaultForges);
+fn validate_default_forge(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
+    let org = &data.org.org;
+    match org.default_forge {
+        ForgeType::Github if org.github.is_none() => {
+            errors.push(ValidationError::ForgeNotConfigured("github".into()));
+        }
+        ForgeType::Forgejo if org.forgejo.is_none() => {
+            errors.push(ValidationError::ForgeNotConfigured("forgejo".into()));
+        }
+        _ => {}
     }
 }
 
@@ -77,16 +75,19 @@ fn validate_leads_not_members(group: &GroupFields, errors: &mut Vec<ValidationEr
 }
 
 fn validate_forge_refs(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
-    let forge_names: HashSet<&str> = data.org.org.forges.keys().map(|s| s.as_str()).collect();
+    let org = &data.org.org;
     for team in &data.teams {
         let slug = &team.team.group.slug;
         for repo in all_repos(team) {
             if let Some(forge) = &repo.forge {
-                if !forge_names.contains(forge.as_str()) {
-                    errors.push(ValidationError::UnknownForge {
-                        team: slug.clone(),
-                        forge: forge.clone(),
-                    });
+                let configured = match forge {
+                    ForgeType::Github => org.github.is_some(),
+                    ForgeType::Forgejo => org.forgejo.is_some(),
+                };
+                if !configured {
+                    errors.push(ValidationError::ForgeNotConfigured(
+                        format!("{forge:?} (referenced by repo {} in team {slug})", repo.name),
+                    ));
                 }
             }
         }

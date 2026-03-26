@@ -53,13 +53,8 @@ impl GovernanceData {
         leads
     }
 
-    pub fn default_forge_name(&self) -> Option<&str> {
-        self.org
-            .org
-            .forges
-            .iter()
-            .find(|(_, f)| f.default)
-            .map(|(name, _)| name.as_str())
+    pub fn default_forge(&self) -> &governance_schema::org::ForgeType {
+        &self.org.org.default_forge
     }
 }
 
