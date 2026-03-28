@@ -15,13 +15,17 @@ contributors = [
     "ap-1",
     "yl25946",
     "maybe-yiyi",
+    "devnmoor",
+    "deBrian07",
+    "KhushShah1",
 ]
 repos = [
-    "ScottyLabs/cmucourses",       # Old CMUCourses
-    "ScottyLabs/courses-frontend", # New CMUCourses frontend
-    "ScottyLabs/courses-backend",  # New CMUCourses backend
-    "ScottyLabs/courses-scraper",  # Scraping information on CMU Courses
-    "ScottyLabs/courses-api",      # API that gives course information
+    "ScottyLabs/cmucourses",              # Old CMUCourses
+    "ScottyLabs/courses-frontend",        # New CMUCourses frontend
+    "ScottyLabs/courses-frontend-svelte", # New CMUCourses frontend in Svelte
+    "ScottyLabs/courses-backend",         # New CMUCourses backend
+    "ScottyLabs/courses-scraper",         # Scraping information on CMU Courses
+    "ScottyLabs/courses-api",             # API that gives course information
 ]
 slack-channel-ids = [
 ]
