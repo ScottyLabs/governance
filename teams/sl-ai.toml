@@ -22,6 +22,7 @@ contributors = [
     "alanj268",
     "krishsaxena",
     "tsurbs",
+    "Jc-965",
 ]
 repos = [
     "ScottyLabs/cmugpt", # this is deprecated now!
