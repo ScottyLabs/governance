@@ -7,12 +7,14 @@ maintainers = [
 ]
 contributors = [
     "kath45823",
+    "JessCai06"
 ]
 repos = [
     "ScottyLabs/corgi",
 ]
 slack-channel-ids = [
     "C09CT14UBA5",
+    "U07NR5EJP8U"
 ]
 
 # There is no auth for this team.
