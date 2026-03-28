@@ -7,6 +7,7 @@ maintainers = [
 ]
 contributors = [
     "kath45823",
+    "JessCai06",
 ]
 repos = [
     "ScottyLabs/corgi",
