@@ -15,6 +15,7 @@ contributors = [
     "ap-1",
     "yl25946",
     "maybe-yiyi",
+    "deBrian07",
 ]
 repos = [
     "ScottyLabs/cmucourses",       # Old CMUCourses
