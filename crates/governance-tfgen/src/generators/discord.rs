@@ -43,7 +43,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
             json!({
                 "server_id": guild,
                 "user_id": format!("${{data.external.identity_{key}.result.discord}}"),
-                "role": ["${discord_role.tech.id}"],
+                "role": [{ "role_id": "${discord_role.tech.id}" }],
             }),
         );
     }
@@ -64,8 +64,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
 
         // Team role gives access to all team/project channels
         let role_id = format!("${{discord_role.{slug}.id}}");
-        let mut ch_idx = 0;
-        for channel_id in discord_channel_ids(team) {
+        for (ch_idx, channel_id) in discord_channel_ids(team).into_iter().enumerate() {
             tf.add_resource(
                 "discord_channel_permission",
                 &format!("{slug}_ch{ch_idx}"),
@@ -73,10 +72,9 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
                     "channel_id": channel_id,
                     "type": "role",
                     "overwrite_id": role_id,
-                    "allow": 1024,
+                    "allow": 1024, // VIEW_CHANNEL
                 }),
             );
-            ch_idx += 1;
         }
 
         // All team members, including project members, get the team role
@@ -95,7 +93,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
                 json!({
                     "server_id": guild,
                     "user_id": format!("${{data.external.identity_{key}.result.discord}}"),
-                    "role": [role_id],
+                    "role": [{ "role_id": role_id }],
                 }),
             );
         }

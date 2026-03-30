@@ -37,3 +37,38 @@ variable "keycloak_client_secret" {
     type      = string
     sensitive = true
 }
+
+variable "slack_token" {
+    type      = string
+    sensitive = true
+}
+
+variable "discord_token" {
+    type      = string
+    sensitive = true
+}
+
+variable "vaultwarden_url" {
+    type    = string
+    default = "https://vault.scottylabs.org"
+}
+
+variable "vaultwarden_email" {
+    type      = string
+    sensitive = true
+}
+
+variable "vaultwarden_master_password" {
+    type      = string
+    sensitive = true
+}
+
+variable "google_credentials_json" {
+    type      = string
+    sensitive = true
+}
+
+variable "google_project_id" {
+    type    = string
+    default = "sl-governance"
+}

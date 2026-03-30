@@ -1,17 +1,41 @@
 {
   "resource": {
-    "slack_conversation_member": {
-      "devops_ch0_anish": {
-        "channel_id": "C08K3Q77ZQF",
-        "user_ids": [
-          "${data.external.identity_anish.result.slack}"
-        ]
+    "slack_usergroup": {
+      "devops": {
+        "handle": "devops",
+        "name": "DevOps"
       },
-      "hub_anish": {
-        "channel_id": "C096TM8EMS8",
-        "user_ids": [
+      "tech": {
+        "handle": "tech",
+        "name": "Tech"
+      }
+    },
+    "slack_usergroup_channels": {
+      "devops": {
+        "channels": [
+          "C08K3Q77ZQF"
+        ],
+        "usergroup_id": "${slack_usergroup.devops.id}"
+      },
+      "tech": {
+        "channels": [
+          "C096TM8EMS8"
+        ],
+        "usergroup_id": "${slack_usergroup.tech.id}"
+      }
+    },
+    "slack_usergroup_members": {
+      "devops": {
+        "members": [
           "${data.external.identity_anish.result.slack}"
-        ]
+        ],
+        "usergroup_id": "${slack_usergroup.devops.id}"
+      },
+      "tech": {
+        "members": [
+          "${data.external.identity_anish.result.slack}"
+        ],
+        "usergroup_id": "${slack_usergroup.tech.id}"
       }
     }
   }

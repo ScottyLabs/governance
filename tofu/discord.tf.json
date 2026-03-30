@@ -17,14 +17,18 @@
     "discord_member_roles": {
       "devops_anish": {
         "role": [
-          "${discord_role.devops.id}"
+          {
+            "role_id": "${discord_role.devops.id}"
+          }
         ],
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_anish.result.discord}"
       },
       "tech_anish": {
         "role": [
-          "${discord_role.tech.id}"
+          {
+            "role_id": "${discord_role.tech.id}"
+          }
         ],
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_anish.result.discord}"

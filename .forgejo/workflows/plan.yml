@@ -9,11 +9,31 @@ jobs:
   plan:
     name: Plan
     runs-on: docker
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_VAR_github_token: ${{ secrets.GH_GOVERNANCE_TOKEN }}
+      TF_VAR_forgejo_token: ${{ secrets.FORGEJO_TOKEN }}
+      TF_VAR_keycloak_client_id: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+      TF_VAR_keycloak_client_secret: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
+      TF_VAR_discord_token: ${{ secrets.DISCORD_TOKEN }}
+      TF_VAR_slack_token: ${{ secrets.SLACK_TOKEN }}
+      TF_VAR_google_credentials_json: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+      TF_VAR_vaultwarden_email: ${{ secrets.VAULTWARDEN_EMAIL }}
+      TF_VAR_vaultwarden_master_password: ${{ secrets.VAULTWARDEN_MASTER_PASSWORD }}
+      KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+      KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
 
       - name: Install OpenTofu
         uses: https://github.com/opentofu/setup-opentofu@v2
+
+      - name: Build CLI
+        uses: https://github.com/dtolnay/rust-toolchain@stable
+      - uses: https://github.com/Swatinem/rust-cache@v2
+      - run: cargo build --release -p governance
+      - run: echo "$(pwd)/target/release" >> $GITHUB_PATH
 
       - name: Init
         working-directory: tofu
@@ -22,8 +42,3 @@ jobs:
       - name: Plan
         working-directory: tofu
         run: tofu plan -no-color
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_GOVERNANCE_TOKEN }}
-          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
-          KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
-          KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}

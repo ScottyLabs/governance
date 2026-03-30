@@ -1,13 +1,21 @@
 {
   "resource": {
     "forgejo_repository": {
+      "devops_devenv": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Shared Nix development environment for ScottyLabs projects",
+        "name": "devenv",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "devops_governance": {
         "auto_init": true,
         "default_branch": "main",
         "description": "Definition and automation of the Tech Committee's governance model",
         "name": "governance",
         "owner": "ScottyLabs",
-        "visibility": "public"
+        "private": false
       },
       "devops_infrastructure": {
         "auto_init": true,
@@ -15,7 +23,7 @@
         "description": "NixOS configurations for ScottyLabs' VMs",
         "name": "infrastructure",
         "owner": "ScottyLabs",
-        "visibility": "public"
+        "private": false
       }
     }
   }

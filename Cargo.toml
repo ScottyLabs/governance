@@ -1,6 +1,11 @@
 [workspace]
 resolver = "2"
-members = ["crates/governance-cli","crates/governance-core","crates/governance-schema", "crates/governance-tfgen"]
+members = [
+    "crates/governance-cli",
+    "crates/governance-core",
+    "crates/governance-schema",
+    "crates/governance-tfgen",
+]
 
 [workspace.package]
 version = "0.1.0"

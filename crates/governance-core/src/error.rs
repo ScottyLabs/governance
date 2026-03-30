@@ -38,10 +38,10 @@ pub enum ValidationError {
     #[error("forge not configured: {0}")]
     ForgeNotConfigured(String),
 
-    #[error("DISCORD_BOT_TOKEN not set")]
+    #[error("DISCORD_TOKEN not set")]
     MissingDiscordToken,
 
-    #[error("SLACK_BOT_TOKEN not set")]
+    #[error("SLACK_TOKEN not set")]
     MissingSlackToken,
 
     #[error("discord channel {channel_id} does not exist or is inaccessible")]

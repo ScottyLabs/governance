@@ -4,6 +4,8 @@
       "identity_anish": {
         "program": [
           "governance",
+          "--data-dir",
+          "../data",
           "resolve-identity"
         ],
         "query": {

@@ -1,10 +1,19 @@
 {
   "resource": {
     "github_repository": {
+      "devops_devenv": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/devenv",
+        "name": "devenv",
+        "visibility": "public"
+      },
       "devops_governance": {
         "description": "READ-ONLY MIRROR",
         "has_discussions": false,
-        "has_downloads": false,
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
@@ -15,7 +24,6 @@
       "devops_infrastructure": {
         "description": "READ-ONLY MIRROR",
         "has_discussions": false,
-        "has_downloads": false,
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
@@ -25,6 +33,12 @@
       }
     },
     "github_repository_deploy_key": {
+      "devops_devenv_mirror_deploy_key": {
+        "key": "${tls_private_key.devops_devenv_mirror_key.public_key_openssh}",
+        "read_only": false,
+        "repository": "${github_repository.devops_devenv.name}",
+        "title": "Codeberg Mirroring"
+      },
       "devops_governance_mirror_deploy_key": {
         "key": "${tls_private_key.devops_governance_mirror_key.public_key_openssh}",
         "read_only": false,
@@ -39,6 +53,36 @@
       }
     },
     "github_repository_ruleset": {
+      "devops_devenv_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${github_repository_deploy_key.devops_devenv_mirror_deploy_key.etag}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.devops_devenv.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
       "devops_governance_ruleset": {
         "bypass_actors": [
           {
@@ -101,6 +145,9 @@
       }
     },
     "tls_private_key": {
+      "devops_devenv_mirror_key": {
+        "algorithm": "ED25519"
+      },
       "devops_governance_mirror_key": {
         "algorithm": "ED25519"
       },

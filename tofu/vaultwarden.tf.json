@@ -8,7 +8,8 @@
             "manage": true
           }
         ],
-        "name": "Tech"
+        "name": "Tech",
+        "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
       },
       "tech_leads": {
         "member": [
@@ -17,7 +18,8 @@
             "manage": true
           }
         ],
-        "name": "Tech/Tech Leads"
+        "name": "Tech/Tech Leads",
+        "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
       }
     }
   }

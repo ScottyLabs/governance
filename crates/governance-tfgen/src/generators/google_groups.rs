@@ -47,17 +47,12 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
 }
 
 fn emit_group(tf: &mut TfJsonFile, key: &str, email: &str, members: &[&str]) {
-    tf.add_resource(
-        "google_cloud_identity_group",
+    tf.add_data(
+        "google_cloud_identity_group_lookup",
         key,
         json!({
-            "display_name": email.split('@').next().unwrap_or(key),
             "group_key": {
                 "id": email,
-            },
-            "parent": "customers/placeholder",
-            "labels": {
-                "cloudidentity.googleapis.com/groups.discussion_forum": "",
             },
         }),
     );
@@ -68,7 +63,7 @@ fn emit_group(tf: &mut TfJsonFile, key: &str, email: &str, members: &[&str]) {
             "google_cloud_identity_group_membership",
             &format!("{key}_{user_key}"),
             json!({
-                "group": format!("${{google_cloud_identity_group.{key}.id}}"),
+                "group": format!("${{data.google_cloud_identity_group_lookup.{key}.name}}"),
                 "preferred_member_key": {
                     "id": format!("${{data.external.identity_{user_key}.result.cmu-saml}}@andrew.cmu.edu"),
                 },

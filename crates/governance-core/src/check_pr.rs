@@ -188,8 +188,8 @@ fn diff_team(old: &TeamFile, new: &TeamFile) -> Vec<TeamDiff> {
     diff_members(
         &old.team.group.members,
         &new.team.group.members,
-        |m| TeamDiff::MemberAdded(m),
-        |m| TeamDiff::MemberRemoved(m),
+        TeamDiff::MemberAdded,
+        TeamDiff::MemberRemoved,
         &mut diffs,
     );
 

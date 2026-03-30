@@ -37,7 +37,6 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                         "has_projects": false,
                         "has_wiki": false,
                         "has_discussions": false,
-                        "has_downloads": false,
                     }),
                 );
 
@@ -175,7 +174,7 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
     tf
 }
 
-fn repos_for_github<'a>(team: &'a TeamFile, is_default: bool) -> Vec<(&'a Repo, bool)> {
+fn repos_for_github(team: &TeamFile, is_default: bool) -> Vec<(&Repo, bool)> {
     let mut repos = Vec::new();
     collect_repos(&team.team.group, is_default, &mut repos);
     for project in &team.team.projects {

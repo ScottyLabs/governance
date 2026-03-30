@@ -9,7 +9,14 @@ pub fn generate_groups(data: &GovernanceData) -> TfJsonFile {
         Some(k) => k,
         None => return tf,
     };
-    let realm_id = format!("${{keycloak_realm.{}.id}}", keycloak.realm);
+    tf.add_data(
+        "keycloak_realm",
+        "this",
+        json!({
+            "realm": keycloak.realm,
+        }),
+    );
+    let realm_id = "${data.keycloak_realm.this.id}";
 
     tf.add_resource(
         "keycloak_group",
@@ -79,11 +86,10 @@ pub fn generate_groups(data: &GovernanceData) -> TfJsonFile {
 
 pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
-    let keycloak = match &data.org.org.keycloak {
-        Some(k) => k,
-        None => return tf,
-    };
-    let realm_id = format!("${{keycloak_realm.{}.id}}", keycloak.realm);
+    if data.org.org.keycloak.is_none() {
+        return tf;
+    }
+    let realm_id = "${data.keycloak_realm.this.id}";
 
     for team in &data.teams {
         let slug = &team.team.group.slug;

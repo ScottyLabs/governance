@@ -22,15 +22,15 @@ terraform {
         }
         forgejo = {
             source  = "svalabs/forgejo"
-            version = "~> 0.2"
+            version = "~> 1.0"
         }
         keycloak = {
             source  = "keycloak/keycloak"
             version = "~> 5.0"
         }
         discord = {
-            source  = "spaceshuttl/discord"
-            version = "~> 0.1"
+            source  = "Lucky3028/discord"
+            version = "~> 2.0"
         }
         slack = {
             source  = "jmatsu/slack"
@@ -41,7 +41,7 @@ terraform {
             version = "~> 5.0"
         }
         bitwarden = {
-            source  = "maxlaverse/bitwarden"
+            source  = "registry.terraform.io/maxlaverse/bitwarden"
             version = "~> 0.8"
         }
         restapi = {
@@ -65,8 +65,8 @@ provider "github" {
 }
 
 provider "forgejo" {
-    host  = var.forgejo_url
-    token = var.forgejo_token
+    host      = var.forgejo_url
+    api_token = var.forgejo_token
 }
 
 provider "keycloak" {
@@ -74,6 +74,28 @@ provider "keycloak" {
     client_secret = var.keycloak_client_secret
     url           = var.keycloak_url
     realm         = var.keycloak_realm
+}
+
+provider "discord" {
+    token = var.discord_token
+}
+
+provider "slack" {
+    token = var.slack_token
+}
+
+provider "google" {
+    credentials           = var.google_credentials_json
+    project               = var.google_project_id
+    user_project_override = true
+    billing_project       = var.google_project_id
+}
+
+provider "bitwarden" {
+    server                = var.vaultwarden_url
+    email                 = var.vaultwarden_email
+    master_password       = var.vaultwarden_master_password
+    client_implementation = "embedded"
 }
 
 provider "restapi" {

@@ -36,6 +36,8 @@ jobs:
     runs-on: docker
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - uses: https://github.com/dtolnay/rust-toolchain@stable
 
@@ -46,8 +48,8 @@ jobs:
       - name: Validate
         run: ./target/release/governance validate
         env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
           KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
           KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
 
@@ -56,14 +58,15 @@ jobs:
           cp .forgejo/CODEOWNERS /tmp/CODEOWNERS-old
           ./target/release/governance generate --output-dir /tmp/tofu
           ./target/release/governance schema --output-dir /tmp/schemas
-          diff -r /tmp/tofu tofu/
+          diff -r /tmp/tofu tofu/ --exclude='*.tf' --exclude='.gitignore'
           diff -r /tmp/schemas schemas/
           diff /tmp/CODEOWNERS-old .forgejo/CODEOWNERS
 
       - name: Check PR permissions
         run: |
-          CHANGED=$(git diff --name-only ${{ github.event.pull_request.base.sha }}..HEAD | tr '\n' ',')
+          git fetch origin ${{ github.base_ref }}
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | tr '\n' ',')
           ./target/release/governance check-pr \
             --author "${{ github.event.pull_request.user.login }}" \
-            --base-ref "${{ github.event.pull_request.base.sha }}" \
+            --base-ref "origin/${{ github.base_ref }}" \
             --changed-files "$CHANGED"

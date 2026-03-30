@@ -17,10 +17,11 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
     for team in &data.teams {
         for repo in repos_for_forgejo(team, is_default) {
             let resource_name = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
-            let visibility = repo
+            let is_private = repo
                 .visibility
                 .as_ref()
-                .unwrap_or(&org.defaults.repo_visibility);
+                .unwrap_or(&org.defaults.repo_visibility)
+                == &governance_schema::org::RepoVisibility::Private;
 
             tf.add_resource(
                 "forgejo_repository",
@@ -31,7 +32,7 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                     "owner": forgejo.org,
                     "auto_init": true,
                     "default_branch": org.defaults.default_branch,
-                    "visibility": format!("{visibility:?}").to_lowercase(),
+                    "private": is_private,
                 }),
             );
         }
@@ -47,6 +48,14 @@ pub fn generate_teams(data: &GovernanceData) -> TfJsonFile {
         None => return tf,
     };
 
+    tf.add_data(
+        "forgejo_organization",
+        "this",
+        json!({
+            "name": forgejo.org,
+        }),
+    );
+
     for team in &data.teams {
         let slug = &team.team.group.slug;
         let name = team.team.group.name.as_deref().unwrap_or(slug);
@@ -56,7 +65,7 @@ pub fn generate_teams(data: &GovernanceData) -> TfJsonFile {
             slug,
             json!({
                 "name": name,
-                "organization": forgejo.org,
+                "organization_id": "${data.forgejo_organization.this.id}",
                 "permission": "write",
                 "units": ["repo.code", "repo.issues", "repo.pulls"],
             }),
@@ -86,7 +95,7 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
                 &format!("{slug}_{key}"),
                 json!({
                     "team_id": team_id,
-                    "username": format!("${{data.external.identity_{key}.result.codeberg}}"),
+                    "user": format!("${{data.external.identity_{key}.result.codeberg}}"),
                 }),
             );
         }
@@ -137,7 +146,7 @@ pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
     tf
 }
 
-fn repos_for_forgejo<'a>(team: &'a TeamFile, is_default: bool) -> Vec<&'a Repo> {
+fn repos_for_forgejo(team: &TeamFile, is_default: bool) -> Vec<&Repo> {
     let mut repos = Vec::new();
     collect_repos(&team.team.group, is_default, &mut repos);
     for project in &team.team.projects {

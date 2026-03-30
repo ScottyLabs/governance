@@ -5,9 +5,10 @@ use crate::tf_json::TfJsonFile;
 
 pub fn generate(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
-    if data.org.org.vaultwarden.is_none() {
-        return tf;
-    }
+    let vw = match &data.org.org.vaultwarden {
+        Some(v) => v,
+        None => return tf,
+    };
 
     let td = &data.org.org.tech_director;
     let td_key = td.replace('-', "_");
@@ -37,6 +38,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         "bitwarden_org_collection",
         "tech",
         json!({
+            "organization_id": vw.org_id,
             "name": "Tech",
             "member": tech_members,
         }),
@@ -58,6 +60,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         "bitwarden_org_collection",
         "tech_leads",
         json!({
+            "organization_id": vw.org_id,
             "name": "Tech/Tech Leads",
             "member": lead_members,
         }),

@@ -3,13 +3,20 @@
     "forgejo_team": {
       "devops": {
         "name": "DevOps",
-        "organization": "ScottyLabs",
+        "organization_id": "${data.forgejo_organization.this.id}",
         "permission": "write",
         "units": [
           "repo.code",
           "repo.issues",
           "repo.pulls"
         ]
+      }
+    }
+  },
+  "data": {
+    "forgejo_organization": {
+      "this": {
+        "name": "ScottyLabs"
       }
     }
   }

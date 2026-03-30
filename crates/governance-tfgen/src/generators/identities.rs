@@ -12,7 +12,7 @@ pub fn generate_identity_data_sources(data: &GovernanceData) -> TfJsonFile {
             "external",
             &format!("identity_{key}"),
             json!({
-                "program": ["governance", "resolve-identity"],
+                "program": ["governance", "--data-dir", "../data", "resolve-identity"],
                 "query": {
                     "codeberg_user": username,
                 },

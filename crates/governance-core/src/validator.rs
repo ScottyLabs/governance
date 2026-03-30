@@ -89,9 +89,10 @@ fn validate_forge_refs(data: &GovernanceData, errors: &mut Vec<ValidationError>)
                     ForgeType::Forgejo => org.forgejo.is_some(),
                 };
                 if !configured {
-                    errors.push(ValidationError::ForgeNotConfigured(
-                        format!("{forge:?} (referenced by repo {} in team {slug})", repo.name),
-                    ));
+                    errors.push(ValidationError::ForgeNotConfigured(format!(
+                        "{forge:?} (referenced by repo {} in team {slug})",
+                        repo.name
+                    )));
                 }
             }
         }
@@ -107,8 +108,8 @@ fn validate_channels(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
     let has_discord = channels.iter().any(|c| c.discord.is_some());
     let has_slack = channels.iter().any(|c| c.slack.is_some());
 
-    let discord_token = std::env::var("DISCORD_BOT_TOKEN").ok();
-    let slack_token = std::env::var("SLACK_BOT_TOKEN").ok();
+    let discord_token = std::env::var("DISCORD_TOKEN").ok();
+    let slack_token = std::env::var("SLACK_TOKEN").ok();
 
     if has_discord && discord_token.is_none() {
         errors.push(ValidationError::MissingDiscordToken);
@@ -158,11 +159,9 @@ fn check_discord_channel(channel_id: &str, token: &str) -> Result<(), Validation
 
     match response {
         Ok(_) => Ok(()),
-        Err(ureq::Error::StatusCode(400 | 404)) => {
-            Err(ValidationError::DiscordChannelNotFound {
-                channel_id: channel_id.to_string(),
-            })
-        }
+        Err(ureq::Error::StatusCode(400 | 404)) => Err(ValidationError::DiscordChannelNotFound {
+            channel_id: channel_id.to_string(),
+        }),
         Err(e) => Err(ValidationError::DiscordApiError(format!(
             "channel {channel_id}: {e}"
         ))),
@@ -176,9 +175,10 @@ fn check_slack_channel(channel_id: &str, token: &str) -> Result<(), ValidationEr
         .call()
         .map_err(|e| ValidationError::SlackApiError(format!("channel {channel_id}: {e}")))?;
 
-    let body: serde_json::Value = response.body_mut().read_json().map_err(|e| {
-        ValidationError::SlackApiError(format!("failed to parse response: {e}"))
-    })?;
+    let body: serde_json::Value = response
+        .body_mut()
+        .read_json()
+        .map_err(|e| ValidationError::SlackApiError(format!("failed to parse response: {e}")))?;
 
     if body["ok"].as_bool() == Some(true) {
         Ok(())
@@ -245,10 +245,18 @@ fn validate_identities(data: &GovernanceData, errors: &mut Vec<ValidationError>)
     if org.github.is_some() {
         required_providers.push("github");
     }
-    if org.communication.as_ref().is_some_and(|c| !c.discord_guild_id.is_empty()) {
+    if org
+        .communication
+        .as_ref()
+        .is_some_and(|c| !c.discord_guild_id.is_empty())
+    {
         required_providers.push("discord");
     }
-    if org.communication.as_ref().is_some_and(|c| !c.slack_workspace.is_empty()) {
+    if org
+        .communication
+        .as_ref()
+        .is_some_and(|c| !c.slack_workspace.is_empty())
+    {
         required_providers.push("slack");
     }
 
@@ -265,36 +273,40 @@ fn validate_identities(data: &GovernanceData, errors: &mut Vec<ValidationError>)
             let required = &required_providers;
             let errs = &collected_errors;
 
-            let forgejo_url = org.forgejo.as_ref().map(|f| f.url().to_string()).unwrap_or_default();
-            s.spawn(move || {
-                match kc.lookup_identity_links(username, &forgejo_url) {
+            let forgejo_url = org
+                .forgejo
+                .as_ref()
+                .map(|f| f.url().to_string())
+                .unwrap_or_default();
+            s.spawn(
+                move || match kc.lookup_identity_links(username, &forgejo_url) {
                     Ok(links) => {
                         for provider in required {
                             if !links.contains_key(*provider) {
-                                errs.lock().unwrap().push(
-                                    ValidationError::MissingIdentityLink {
+                                errs.lock()
+                                    .unwrap()
+                                    .push(ValidationError::MissingIdentityLink {
                                         user: username.to_string(),
                                         provider: provider.to_string(),
-                                    },
-                                );
+                                    });
                             }
                         }
                     }
                     Err(e) => {
                         if e.contains("no keycloak user found") {
-                            errs.lock().unwrap().push(
-                                ValidationError::KeycloakUserNotFound {
+                            errs.lock()
+                                .unwrap()
+                                .push(ValidationError::KeycloakUserNotFound {
                                     user: username.to_string(),
-                                },
-                            );
+                                });
                         } else {
-                            errs.lock().unwrap().push(
-                                ValidationError::KeycloakApiError(e),
-                            );
+                            errs.lock()
+                                .unwrap()
+                                .push(ValidationError::KeycloakApiError(e));
                         }
                     }
-                }
-            });
+                },
+            );
         }
     });
 
