@@ -37,7 +37,8 @@ pub fn check_pr(
         } else if file == "data/org.toml" {
             issues.push(format!("{author} cannot modify org.toml"));
         } else if file.starts_with("crates/")
-            || file.starts_with("generated/")
+            || file.starts_with("tofu/")
+            || file.starts_with("schemas/")
             || file.starts_with(".forgejo/")
         {
             issues.push(format!("{author} cannot modify {file}"));
