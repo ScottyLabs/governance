@@ -23,6 +23,8 @@ jobs:
       TF_VAR_google_credentials_json: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
       TF_VAR_vaultwarden_email: ${{ secrets.VAULTWARDEN_EMAIL }}
       TF_VAR_vaultwarden_master_password: ${{ secrets.VAULTWARDEN_MASTER_PASSWORD }}
+      KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+      KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
       DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
       SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
     steps:
