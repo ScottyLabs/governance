@@ -5,6 +5,7 @@ on:
     paths:
       - "data/**"
       - "tofu/**"
+      - ".forgejo/workflows/apply.yml"
 
 jobs:
   apply:
