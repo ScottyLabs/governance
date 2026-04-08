@@ -35,6 +35,7 @@ jobs:
       - run: cargo build --release -p governance
       - run: echo "$(pwd)/target/release" >> $GITHUB_PATH
 
+      # TODO: remove once https://github.com/svalabs/terraform-provider-forgejo/pull/123 is merged
       - name: Install patched Forgejo provider
         run: |
           mkdir -p /tmp/forgejo-provider
