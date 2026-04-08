@@ -19,7 +19,7 @@ jobs:
       TF_VAR_keycloak_client_id: ${{ secrets.KEYCLOAK_CLIENT_ID }}
       TF_VAR_keycloak_client_secret: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
       TF_VAR_discord_token: ${{ secrets.DISCORD_TOKEN }}
-      TF_VAR_slack_token: ${{ secrets.SLACK_TOKEN }}
+
       TF_VAR_google_credentials_json: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
       TF_VAR_vaultwarden_email: ${{ secrets.VAULTWARDEN_EMAIL }}
       TF_VAR_vaultwarden_master_password: ${{ secrets.VAULTWARDEN_MASTER_PASSWORD }}
@@ -38,6 +38,23 @@ jobs:
       - uses: https://github.com/Swatinem/rust-cache@v2
       - run: cargo build --release -p governance
       - run: echo "$(pwd)/target/release" >> $GITHUB_PATH
+
+      - name: Install patched Forgejo provider
+        run: |
+          mkdir -p /tmp/forgejo-provider
+          curl -sL https://github.com/ap-1/terraform-provider-forgejo/releases/download/v1.4.1/terraform-provider-forgejo_1.4.1_linux_amd64.zip -o /tmp/fp.zip
+          unzip -o /tmp/fp.zip -d /tmp/forgejo-provider
+          chmod +x /tmp/forgejo-provider/terraform-provider-forgejo_*
+          mkdir -p ~/.terraform.d
+          cat > ~/.terraform.d/dev_overrides.tfrc << EOF
+          provider_installation {
+            dev_overrides {
+              "svalabs/forgejo" = "/tmp/forgejo-provider"
+            }
+            direct {}
+          }
+          EOF
+          echo "TF_CLI_CONFIG_FILE=$HOME/.terraform.d/dev_overrides.tfrc" >> $GITHUB_ENV
 
       - name: Init
         working-directory: tofu
