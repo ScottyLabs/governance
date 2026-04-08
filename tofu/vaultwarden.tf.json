@@ -4,7 +4,7 @@
       "tech": {
         "member": [
           {
-            "id": "${data.external.identity_anish.result.keycloak_user_id}",
+            "id": "${data.bitwarden_org_member.vw_anish.id}",
             "manage": true
           }
         ],
@@ -14,11 +14,19 @@
       "tech_leads": {
         "member": [
           {
-            "id": "${data.external.identity_anish.result.keycloak_user_id}",
+            "id": "${data.bitwarden_org_member.vw_anish.id}",
             "manage": true
           }
         ],
         "name": "Tech/Tech Leads",
+        "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
+      }
+    }
+  },
+  "data": {
+    "bitwarden_org_member": {
+      "vw_anish": {
+        "email": "${data.external.identity_anish.result.cmu-saml}@andrew.cmu.edu",
         "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
       }
     }

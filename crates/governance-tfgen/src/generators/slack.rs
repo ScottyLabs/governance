@@ -10,87 +10,68 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         return tf;
     }
 
-    // Usergroup for all tech members, assigned to hub channel
     let hub_channel = &data.org.org.communication.as_ref().unwrap().slack_hub_channel_id;
-    let all_member_ids: Vec<String> = data
-        .all_members()
-        .iter()
-        .map(|u| format!("${{data.external.identity_{}.result.slack}}", u.replace('-', "_")))
-        .collect();
 
-    tf.add_resource(
-        "slack_usergroup",
-        "tech",
-        json!({
-            "handle": "tech",
-            "name": "Tech",
-        }),
-    );
+    for username in data.all_members() {
+        let key = username.replace('-', "_");
+        let slack_id = format!("${{data.external.identity_{key}.result.slack_id}}");
 
-    tf.add_resource(
-        "slack_usergroup_members",
-        "tech",
-        json!({
-            "usergroup_id": "${slack_usergroup.tech.id}",
-            "members": all_member_ids,
-        }),
-    );
+        emit_channel_invite(&mut tf, &format!("slack_hub_{key}"), hub_channel, &slack_id);
+    }
 
-    tf.add_resource(
-        "slack_usergroup_channels",
-        "tech",
-        json!({
-            "usergroup_id": "${slack_usergroup.tech.id}",
-            "channels": [hub_channel],
-        }),
-    );
-
-    // Per-team usergroups
     for team in &data.teams {
         let slug = &team.team.group.slug;
-        let name = team.team.group.name.as_deref().unwrap_or(slug);
+        let channel_ids = slack_channel_ids(team);
 
-        let member_ids: Vec<String> = team
+        let all: Vec<&str> = team
             .team
             .group
             .all_members()
             .chain(team.team.projects.iter().flat_map(|p| p.group.all_members()))
-            .map(|u| format!("${{data.external.identity_{}.result.slack}}", u.replace('-', "_")))
             .collect();
 
-        let channel_ids: Vec<&str> = slack_channel_ids(team);
+        for (ch_idx, channel_id) in channel_ids.iter().enumerate() {
+            for username in &all {
+                let key = username.replace('-', "_");
+                let slack_id = format!("${{data.external.identity_{key}.result.slack_id}}");
 
-        tf.add_resource(
-            "slack_usergroup",
-            slug,
-            json!({
-                "handle": slug,
-                "name": name,
-            }),
-        );
-
-        tf.add_resource(
-            "slack_usergroup_members",
-            slug,
-            json!({
-                "usergroup_id": format!("${{slack_usergroup.{slug}.id}}"),
-                "members": member_ids,
-            }),
-        );
-
-        if !channel_ids.is_empty() {
-            tf.add_resource(
-                "slack_usergroup_channels",
-                slug,
-                json!({
-                    "usergroup_id": format!("${{slack_usergroup.{slug}.id}}"),
-                    "channels": channel_ids,
-                }),
-            );
+                emit_channel_invite(
+                    &mut tf,
+                    &format!("slack_{slug}_ch{ch_idx}_{key}"),
+                    channel_id,
+                    &slack_id,
+                );
+            }
         }
     }
 
     tf
+}
+
+fn emit_channel_invite(tf: &mut TfJsonFile, resource_name: &str, channel: &str, user: &str) {
+    tf.add_resource(
+        "null_resource",
+        resource_name,
+        json!({
+            "triggers": {
+                "channel": channel,
+                "user": user,
+            },
+            "provisioner": [
+                {
+                    "local-exec": {
+                        "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}",
+                    },
+                },
+                {
+                    "local-exec": {
+                        "when": "destroy",
+                        "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+                    },
+                },
+            ],
+        }),
+    );
 }
 
 fn slack_channel_ids(team: &TeamFile) -> Vec<&str> {

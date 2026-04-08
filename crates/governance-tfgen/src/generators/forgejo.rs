@@ -67,7 +67,11 @@ pub fn generate_teams(data: &GovernanceData) -> TfJsonFile {
                 "name": name,
                 "organization_id": "${data.forgejo_organization.this.id}",
                 "permission": "write",
-                "units": ["repo.code", "repo.issues", "repo.pulls"],
+                "units_map": {
+                    "repo.code": "write",
+                    "repo.issues": "write",
+                    "repo.pulls": "write",
+                },
             }),
         );
     }

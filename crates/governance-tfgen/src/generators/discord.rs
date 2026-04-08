@@ -42,7 +42,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
             &format!("tech_{key}"),
             json!({
                 "server_id": guild,
-                "user_id": format!("${{data.external.identity_{key}.result.discord}}"),
+                "user_id": format!("${{data.external.identity_{key}.result.discord_id}}"),
                 "role": [{ "role_id": "${discord_role.tech.id}" }],
             }),
         );
@@ -92,7 +92,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
                 &format!("{slug}_{key}"),
                 json!({
                     "server_id": guild,
-                    "user_id": format!("${{data.external.identity_{key}.result.discord}}"),
+                    "user_id": format!("${{data.external.identity_{key}.result.discord_id}}"),
                     "role": [{ "role_id": role_id }],
                 }),
             );

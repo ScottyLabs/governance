@@ -32,10 +32,6 @@ terraform {
             source  = "Lucky3028/discord"
             version = "~> 2.0"
         }
-        slack = {
-            source  = "jmatsu/slack"
-            version = "~> 0.3"
-        }
         google = {
             source  = "hashicorp/google"
             version = "~> 5.0"
@@ -78,10 +74,6 @@ provider "keycloak" {
 
 provider "discord" {
     token = var.discord_token
-}
-
-provider "slack" {
-    token = var.slack_token
 }
 
 provider "google" {

@@ -38,6 +38,18 @@ enum Command {
         #[arg(long, value_delimiter = ',')]
         changed_files: Vec<String>,
     },
+    SlackInvite {
+        #[arg(long)]
+        channel: String,
+        #[arg(long)]
+        user: String,
+    },
+    SlackKick {
+        #[arg(long)]
+        channel: String,
+        #[arg(long)]
+        user: String,
+    },
 }
 
 fn main() -> anyhow::Result<()> {
@@ -158,6 +170,50 @@ fn main() -> anyhow::Result<()> {
                     eprintln!("denied: {issue}");
                 }
                 process::exit(1);
+            }
+        }
+        Command::SlackInvite { channel, user } => {
+            let token = std::env::var("SLACK_TOKEN")
+                .map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))?;
+            let resp = ureq::post("https://slack.com/api/conversations.invite")
+                .header("Authorization", &format!("Bearer {token}"))
+                .send_json(&serde_json::json!({
+                    "channel": channel,
+                    "users": user,
+                }));
+            match resp {
+                Ok(mut r) => {
+                    let body: serde_json::Value = r.body_mut().read_json()?;
+                    if body["ok"].as_bool() != Some(true) {
+                        let err = body["error"].as_str().unwrap_or("unknown");
+                        if err != "already_in_channel" {
+                            anyhow::bail!("slack invite failed: {err}");
+                        }
+                    }
+                }
+                Err(e) => anyhow::bail!("slack invite request failed: {e}"),
+            }
+        }
+        Command::SlackKick { channel, user } => {
+            let token = std::env::var("SLACK_TOKEN")
+                .map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))?;
+            let resp = ureq::post("https://slack.com/api/conversations.kick")
+                .header("Authorization", &format!("Bearer {token}"))
+                .send_json(&serde_json::json!({
+                    "channel": channel,
+                    "user": user,
+                }));
+            match resp {
+                Ok(mut r) => {
+                    let body: serde_json::Value = r.body_mut().read_json()?;
+                    if body["ok"].as_bool() != Some(true) {
+                        let err = body["error"].as_str().unwrap_or("unknown");
+                        if err != "not_in_channel" {
+                            anyhow::bail!("slack kick failed: {err}");
+                        }
+                    }
+                }
+                Err(e) => anyhow::bail!("slack kick request failed: {e}"),
             }
         }
     }

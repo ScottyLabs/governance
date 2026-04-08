@@ -38,11 +38,6 @@ variable "keycloak_client_secret" {
     sensitive = true
 }
 
-variable "slack_token" {
-    type      = string
-    sensitive = true
-}
-
 variable "discord_token" {
     type      = string
     sensitive = true

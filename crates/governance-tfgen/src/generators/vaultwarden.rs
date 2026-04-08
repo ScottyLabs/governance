@@ -20,15 +20,40 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         .flat_map(|t| t.team.group.leads.iter().map(|s| s.as_str()))
         .collect();
 
+    // Look up Vaultwarden org member IDs by andrew email
+    let mut all_vw_users: Vec<&str> = vec![td.as_str()];
+    for lead in &devops_leads {
+        if *lead != td.as_str() {
+            all_vw_users.push(lead);
+        }
+    }
+    for lead in data.all_leads() {
+        if !all_vw_users.contains(&lead) {
+            all_vw_users.push(lead);
+        }
+    }
+
+    for username in &all_vw_users {
+        let key = username.replace('-', "_");
+        tf.add_data(
+            "bitwarden_org_member",
+            &format!("vw_{key}"),
+            json!({
+                "organization_id": vw.org_id,
+                "email": format!("${{data.external.identity_{key}.result.cmu-saml}}@andrew.cmu.edu"),
+            }),
+        );
+    }
+
     let mut tech_members = vec![json!({
-        "id": format!("${{data.external.identity_{td_key}.result.keycloak_user_id}}"),
+        "id": format!("${{data.bitwarden_org_member.vw_{td_key}.id}}"),
         "manage": true,
     })];
     for lead in &devops_leads {
         if *lead != td.as_str() {
             let key = lead.replace('-', "_");
             tech_members.push(json!({
-                "id": format!("${{data.external.identity_{key}.result.keycloak_user_id}}"),
+                "id": format!("${{data.bitwarden_org_member.vw_{key}.id}}"),
                 "manage": true,
             }));
         }
@@ -50,7 +75,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         .map(|username| {
             let key = username.replace('-', "_");
             json!({
-                "id": format!("${{data.external.identity_{key}.result.keycloak_user_id}}"),
+                "id": format!("${{data.bitwarden_org_member.vw_{key}.id}}"),
                 "manage": true,
             })
         })
