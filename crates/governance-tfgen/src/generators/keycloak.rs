@@ -101,7 +101,7 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
 
             for username in team.team.group.all_members() {
                 let user_key = username.replace('-', "_");
-                let user_id = format!("${{data.external.identity_{user_key}.result.keycloak_user_id}}");
+                let user_id = format!("${{data.external.identity_{user_key}.result.cmu-saml}}");
 
                 tf.add_resource(
                     "keycloak_group_memberships",
@@ -116,7 +116,7 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
 
             for lead in &team.team.group.leads {
                 let user_key = lead.replace('-', "_");
-                let user_id = format!("${{data.external.identity_{user_key}.result.keycloak_user_id}}");
+                let user_id = format!("${{data.external.identity_{user_key}.result.cmu-saml}}");
 
                 tf.add_resource(
                     "keycloak_group_memberships",
@@ -140,7 +140,7 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
 
                 for username in members {
                     let user_key = username.replace('-', "_");
-                    let user_id = format!("${{data.external.identity_{user_key}.result.keycloak_user_id}}");
+                    let user_id = format!("${{data.external.identity_{user_key}.result.cmu-saml}}");
 
                     tf.add_resource(
                         "keycloak_group_memberships",
@@ -158,7 +158,7 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
 
                 for lead in leads {
                     let user_key = lead.replace('-', "_");
-                    let user_id = format!("${{data.external.identity_{user_key}.result.keycloak_user_id}}");
+                    let user_id = format!("${{data.external.identity_{user_key}.result.cmu-saml}}");
 
                     tf.add_resource(
                         "keycloak_group_memberships",

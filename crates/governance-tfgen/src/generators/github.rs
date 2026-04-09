@@ -75,7 +75,7 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                         },
                         "bypass_actors": [
                             {
-                                "actor_id": format!("${{github_repository_deploy_key.{key}_mirror_deploy_key.etag}}"),
+                                "actor_id": format!("${{tonumber(element(split(\":\", github_repository_deploy_key.{key}_mirror_deploy_key.id), 1))}}"),
                                 "actor_type": "DeployKey",
                                 "bypass_mode": "always",
                             },

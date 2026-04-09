@@ -56,7 +56,7 @@
       "devops_devenv_ruleset": {
         "bypass_actors": [
           {
-            "actor_id": "${github_repository_deploy_key.devops_devenv_mirror_deploy_key.etag}",
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.devops_devenv_mirror_deploy_key.id), 1))}",
             "actor_type": "DeployKey",
             "bypass_mode": "always"
           }
@@ -86,7 +86,7 @@
       "devops_governance_ruleset": {
         "bypass_actors": [
           {
-            "actor_id": "${github_repository_deploy_key.devops_governance_mirror_deploy_key.etag}",
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.devops_governance_mirror_deploy_key.id), 1))}",
             "actor_type": "DeployKey",
             "bypass_mode": "always"
           }
@@ -116,7 +116,7 @@
       "devops_infrastructure_ruleset": {
         "bypass_actors": [
           {
-            "actor_id": "${github_repository_deploy_key.devops_infrastructure_mirror_deploy_key.etag}",
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.devops_infrastructure_mirror_deploy_key.id), 1))}",
             "actor_type": "DeployKey",
             "bypass_mode": "always"
           }

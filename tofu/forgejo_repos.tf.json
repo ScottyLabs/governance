@@ -5,6 +5,11 @@
         "auto_init": true,
         "default_branch": "main",
         "description": "Shared Nix development environment for ScottyLabs projects",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
         "name": "devenv",
         "owner": "ScottyLabs",
         "private": false
@@ -13,6 +18,11 @@
         "auto_init": true,
         "default_branch": "main",
         "description": "Definition and automation of the Tech Committee's governance model",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
         "name": "governance",
         "owner": "ScottyLabs",
         "private": false
@@ -21,6 +31,11 @@
         "auto_init": true,
         "default_branch": "main",
         "description": "NixOS configurations for ScottyLabs' VMs",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
         "name": "infrastructure",
         "owner": "ScottyLabs",
         "private": false
