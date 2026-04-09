@@ -147,7 +147,6 @@ pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
                 json!({
                     "path": format!("/api/v1/repos/{}/{}/push_mirrors", forgejo.org, repo.name),
                     "data": format!("${{jsonencode(local.{local_name})}}"),
-                    "write_returns_object": true,
                     "depends_on": [
                         format!("github_repository_deploy_key.{key}_mirror_deploy_key"),
                         format!("forgejo_repository.{key}"),
