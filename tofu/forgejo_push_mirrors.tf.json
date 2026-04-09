@@ -30,6 +30,7 @@
           "github_repository_deploy_key.devops_devenv_mirror_deploy_key",
           "forgejo_repository.devops_devenv"
         ],
+        "id_attribute": "remote_name",
         "path": "/api/v1/repos/ScottyLabs/devenv/push_mirrors"
       },
       "devops_governance_push_mirror": {
@@ -38,6 +39,7 @@
           "github_repository_deploy_key.devops_governance_mirror_deploy_key",
           "forgejo_repository.devops_governance"
         ],
+        "id_attribute": "remote_name",
         "path": "/api/v1/repos/ScottyLabs/governance/push_mirrors"
       },
       "devops_infrastructure_push_mirror": {
@@ -46,6 +48,7 @@
           "github_repository_deploy_key.devops_infrastructure_mirror_deploy_key",
           "forgejo_repository.devops_infrastructure"
         ],
+        "id_attribute": "remote_name",
         "path": "/api/v1/repos/ScottyLabs/infrastructure/push_mirrors"
       }
     }
