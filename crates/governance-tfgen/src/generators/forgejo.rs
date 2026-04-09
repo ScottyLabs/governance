@@ -126,18 +126,24 @@ pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
             let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
             let github_ssh_url = format!("git@github.com:{github_org}/{}.git", repo.name);
 
+            let local_name = format!("{key}_mirror_data");
+            tf.add_local(
+                &local_name,
+                json!({
+                    "remote_address": github_ssh_url,
+                    "interval": "8h0m0s",
+                    "sync_on_commit": true,
+                    "use_ssh": true,
+                    "private_key": format!("${{tls_private_key.{key}_mirror_key.private_key_openssh}}"),
+                }),
+            );
+
             tf.add_resource(
                 "restapi_object",
                 &format!("{key}_push_mirror"),
                 json!({
                     "path": format!("/api/v1/repos/{}/{}/push_mirrors", forgejo.org, repo.name),
-                    "data": serde_json::to_string(&json!({
-                        "remote_address": github_ssh_url,
-                        "interval": "8h0m0s",
-                        "sync_on_commit": true,
-                        "use_ssh": true,
-                        "private_key": format!("${{tls_private_key.{key}_mirror_key.private_key_openssh}}"),
-                    })).unwrap(),
+                    "data": format!("${{jsonencode(local.{local_name})}}"),
                     "depends_on": [
                         format!("github_repository_deploy_key.{key}_mirror_deploy_key"),
                         format!("forgejo_repository.{key}"),

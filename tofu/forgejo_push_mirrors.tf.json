@@ -1,8 +1,31 @@
 {
+  "locals": {
+    "devops_devenv_mirror_data": {
+      "interval": "8h0m0s",
+      "private_key": "${tls_private_key.devops_devenv_mirror_key.private_key_openssh}",
+      "remote_address": "git@github.com:ScottyLabs/devenv.git",
+      "sync_on_commit": true,
+      "use_ssh": true
+    },
+    "devops_governance_mirror_data": {
+      "interval": "8h0m0s",
+      "private_key": "${tls_private_key.devops_governance_mirror_key.private_key_openssh}",
+      "remote_address": "git@github.com:ScottyLabs/governance.git",
+      "sync_on_commit": true,
+      "use_ssh": true
+    },
+    "devops_infrastructure_mirror_data": {
+      "interval": "8h0m0s",
+      "private_key": "${tls_private_key.devops_infrastructure_mirror_key.private_key_openssh}",
+      "remote_address": "git@github.com:ScottyLabs/infrastructure.git",
+      "sync_on_commit": true,
+      "use_ssh": true
+    }
+  },
   "resource": {
     "restapi_object": {
       "devops_devenv_push_mirror": {
-        "data": "{\"interval\":\"8h0m0s\",\"private_key\":\"${tls_private_key.devops_devenv_mirror_key.private_key_openssh}\",\"remote_address\":\"git@github.com:ScottyLabs/devenv.git\",\"sync_on_commit\":true,\"use_ssh\":true}",
+        "data": "${jsonencode(local.devops_devenv_mirror_data)}",
         "depends_on": [
           "github_repository_deploy_key.devops_devenv_mirror_deploy_key",
           "forgejo_repository.devops_devenv"
@@ -10,7 +33,7 @@
         "path": "/api/v1/repos/ScottyLabs/devenv/push_mirrors"
       },
       "devops_governance_push_mirror": {
-        "data": "{\"interval\":\"8h0m0s\",\"private_key\":\"${tls_private_key.devops_governance_mirror_key.private_key_openssh}\",\"remote_address\":\"git@github.com:ScottyLabs/governance.git\",\"sync_on_commit\":true,\"use_ssh\":true}",
+        "data": "${jsonencode(local.devops_governance_mirror_data)}",
         "depends_on": [
           "github_repository_deploy_key.devops_governance_mirror_deploy_key",
           "forgejo_repository.devops_governance"
@@ -18,7 +41,7 @@
         "path": "/api/v1/repos/ScottyLabs/governance/push_mirrors"
       },
       "devops_infrastructure_push_mirror": {
-        "data": "{\"interval\":\"8h0m0s\",\"private_key\":\"${tls_private_key.devops_infrastructure_mirror_key.private_key_openssh}\",\"remote_address\":\"git@github.com:ScottyLabs/infrastructure.git\",\"sync_on_commit\":true,\"use_ssh\":true}",
+        "data": "${jsonencode(local.devops_infrastructure_mirror_data)}",
         "depends_on": [
           "github_repository_deploy_key.devops_infrastructure_mirror_deploy_key",
           "forgejo_repository.devops_infrastructure"

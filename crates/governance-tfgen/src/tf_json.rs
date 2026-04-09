@@ -7,12 +7,18 @@ use serde_json::Value;
 #[derive(Default, Serialize)]
 pub struct TfJsonFile {
     #[serde(skip_serializing_if = "BTreeMap::is_empty")]
+    pub locals: BTreeMap<String, Value>,
+    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
     pub resource: BTreeMap<String, BTreeMap<String, Value>>,
     #[serde(skip_serializing_if = "BTreeMap::is_empty")]
     pub data: BTreeMap<String, BTreeMap<String, Value>>,
 }
 
 impl TfJsonFile {
+    pub fn add_local(&mut self, name: &str, value: Value) {
+        self.locals.insert(name.to_string(), value);
+    }
+
     pub fn add_resource(&mut self, resource_type: &str, name: &str, body: Value) {
         self.resource
             .entry(resource_type.to_string())
