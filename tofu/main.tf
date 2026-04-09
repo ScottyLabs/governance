@@ -88,6 +88,9 @@ provider "bitwarden" {
     email                 = var.vaultwarden_email
     master_password       = var.vaultwarden_master_password
     client_implementation = "embedded"
+    experimental {
+        disable_sync_after_write_verification = true
+    }
 }
 
 provider "restapi" {
