@@ -34,19 +34,19 @@
     },
     "github_repository_deploy_key": {
       "devops_devenv_mirror_deploy_key": {
-        "key": "${tls_private_key.devops_devenv_mirror_key.public_key_openssh}",
+        "key": "${restapi_object.devops_devenv_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_devenv.name}",
         "title": "Codeberg Mirroring"
       },
       "devops_governance_mirror_deploy_key": {
-        "key": "${tls_private_key.devops_governance_mirror_key.public_key_openssh}",
+        "key": "${restapi_object.devops_governance_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_governance.name}",
         "title": "Codeberg Mirroring"
       },
       "devops_infrastructure_mirror_deploy_key": {
-        "key": "${tls_private_key.devops_infrastructure_mirror_key.public_key_openssh}",
+        "key": "${restapi_object.devops_infrastructure_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_infrastructure.name}",
         "title": "Codeberg Mirroring"
@@ -142,17 +142,6 @@
           "update": true
         },
         "target": "branch"
-      }
-    },
-    "tls_private_key": {
-      "devops_devenv_mirror_key": {
-        "algorithm": "ED25519"
-      },
-      "devops_governance_mirror_key": {
-        "algorithm": "ED25519"
-      },
-      "devops_infrastructure_mirror_key": {
-        "algorithm": "ED25519"
       }
     }
   }

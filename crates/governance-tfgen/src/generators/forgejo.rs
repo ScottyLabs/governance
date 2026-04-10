@@ -137,7 +137,6 @@ pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
                     "interval": "8h0m0s",
                     "sync_on_commit": true,
                     "use_ssh": true,
-                    "private_key": format!("${{tls_private_key.{key}_mirror_key.private_key_openssh}}"),
                 }),
             );
 
@@ -149,7 +148,6 @@ pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
                     "data": format!("${{jsonencode(local.{local_name})}}"),
                     "id_attribute": "remote_name",
                     "depends_on": [
-                        format!("github_repository_deploy_key.{key}_mirror_deploy_key"),
                         format!("forgejo_repository.{key}"),
                     ],
                 }),

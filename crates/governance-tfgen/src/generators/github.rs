@@ -41,20 +41,12 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                 );
 
                 tf.add_resource(
-                    "tls_private_key",
-                    &format!("{key}_mirror_key"),
-                    json!({
-                        "algorithm": "ED25519",
-                    }),
-                );
-
-                tf.add_resource(
                     "github_repository_deploy_key",
                     &format!("{key}_mirror_deploy_key"),
                     json!({
                         "repository": format!("${{github_repository.{key}.name}}"),
                         "title": "Codeberg Mirroring",
-                        "key": format!("${{tls_private_key.{key}_mirror_key.public_key_openssh}}"),
+                        "key": format!("${{restapi_object.{key}_push_mirror.api_data.public_key}}"),
                         "read_only": false,
                     }),
                 );
