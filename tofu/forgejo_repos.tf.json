@@ -39,6 +39,19 @@
         "name": "infrastructure",
         "owner": "ScottyLabs",
         "private": false
+      },
+      "devops_kennel": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Branch-based deployment platform",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "kennel",
+        "owner": "ScottyLabs",
+        "private": false
       }
     }
   }

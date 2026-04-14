@@ -1,1 +1,29 @@
-{}
+{
+  "locals": {
+    "devops_kennel_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request"
+      ],
+      "type": "forgejo"
+    }
+  },
+  "resource": {
+    "restapi_object": {
+      "devops_kennel_kennel_webhook": {
+        "data": "${jsonencode(local.devops_kennel_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.devops_kennel"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/kennel/hooks"
+      }
+    }
+  }
+}

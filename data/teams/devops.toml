@@ -13,6 +13,11 @@ name = "governance"
 description = "Definition and automation of the Tech Committee's governance model"
 
 [[team.repos]]
+name = "kennel"
+description = "Branch-based deployment platform"
+kennel = true
+
+[[team.repos]]
 name = "devenv"
 description = "Shared Nix development environment for ScottyLabs projects"
 

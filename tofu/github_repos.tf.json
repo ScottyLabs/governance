@@ -30,6 +30,16 @@
         "homepage_url": "https://codeberg.org/ScottyLabs/infrastructure",
         "name": "infrastructure",
         "visibility": "public"
+      },
+      "devops_kennel": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/kennel",
+        "name": "kennel",
+        "visibility": "public"
       }
     },
     "github_repository_deploy_key": {
@@ -49,6 +59,12 @@
         "key": "${restapi_object.devops_infrastructure_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_infrastructure.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "devops_kennel_mirror_deploy_key": {
+        "key": "${restapi_object.devops_kennel_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.devops_kennel.name}",
         "title": "Codeberg Mirroring"
       }
     },
@@ -132,6 +148,36 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.devops_infrastructure.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "devops_kennel_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.devops_kennel_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.devops_kennel.name}",
         "rules": {
           "creation": true,
           "deletion": true,
