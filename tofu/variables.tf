@@ -73,6 +73,16 @@ variable "vault_addr" {
     default = "https://secrets2.scottylabs.org"
 }
 
+variable "vault_approle_role_id" {
+    type      = string
+    sensitive = true
+}
+
+variable "vault_approle_secret_id" {
+    type      = string
+    sensitive = true
+}
+
 variable "kennel_webhook_url" {
     type    = string
     default = "https://kennel.scottylabs.org/webhook"
