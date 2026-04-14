@@ -4,5 +4,6 @@ pub mod github;
 pub mod google_groups;
 pub mod identities;
 pub mod keycloak;
+pub mod openbao;
 pub mod slack;
 pub mod vaultwarden;

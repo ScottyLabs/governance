@@ -5,28 +5,10 @@ use crate::tf_json::TfJsonFile;
 
 pub fn generate_groups(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
-    let keycloak = match &data.org.org.keycloak {
-        Some(k) => k,
-        None => return tf,
-    };
-    tf.add_data(
-        "keycloak_realm",
-        "this",
-        json!({
-            "realm": keycloak.realm,
-        }),
-    );
+    if data.org.org.keycloak.is_none() {
+        return tf;
+    }
     let realm_id = "${data.keycloak_realm.this.id}";
-
-    tf.add_resource(
-        "keycloak_group",
-        "projects",
-        json!({
-            "realm_id": realm_id,
-            "name": "projects",
-        }),
-    );
-
     let projects_id = "${keycloak_group.projects.id}".to_string();
 
     for team in &data.teams {
@@ -135,7 +117,10 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
                 let group_id = format!("${{keycloak_group.{group_key}.id}}");
                 let admins_id = format!("${{keycloak_group.{group_key}_admins.id}}");
 
-                let members = team.team.group.all_members()
+                let members = team
+                    .team
+                    .group
+                    .all_members()
                     .chain(project.group.all_members());
 
                 for username in members {
@@ -153,7 +138,11 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
                     );
                 }
 
-                let leads = team.team.group.leads.iter()
+                let leads = team
+                    .team
+                    .group
+                    .leads
+                    .iter()
                     .chain(project.group.leads.iter());
 
                 for lead in leads {

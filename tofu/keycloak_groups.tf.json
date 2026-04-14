@@ -10,17 +10,6 @@
         "name": "admins",
         "parent_id": "${keycloak_group.project_devops.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "projects": {
-        "name": "projects",
-        "realm_id": "${data.keycloak_realm.this.id}"
-      }
-    }
-  },
-  "data": {
-    "keycloak_realm": {
-      "this": {
-        "realm": "scottylabs"
       }
     }
   }

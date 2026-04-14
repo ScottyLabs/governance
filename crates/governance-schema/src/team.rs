@@ -27,7 +27,10 @@ pub struct GroupFields {
 
 impl GroupFields {
     pub fn all_members(&self) -> impl Iterator<Item = &str> {
-        self.leads.iter().chain(self.members.iter()).map(|s| s.as_str())
+        self.leads
+            .iter()
+            .chain(self.members.iter())
+            .map(|s| s.as_str())
     }
 }
 

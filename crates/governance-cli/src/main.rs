@@ -6,7 +6,9 @@ use clap::{Parser, Subcommand};
 use governance_core::loader::GovernanceData;
 use governance_core::validator;
 use governance_tfgen::codeowners;
-use governance_tfgen::generators::{discord, forgejo, github, google_groups, identities, keycloak, slack, vaultwarden};
+use governance_tfgen::generators::{
+    discord, forgejo, github, google_groups, identities, keycloak, openbao, slack, vaultwarden,
+};
 
 #[derive(Parser)]
 #[command(name = "governance", about = "ScottyLabs governance CLI")]
@@ -78,16 +80,25 @@ fn main() -> anyhow::Result<()> {
             std::fs::write(".forgejo/CODEOWNERS", codeowners_content)?;
             eprintln!("wrote .forgejo/CODEOWNERS");
 
-            identities::generate_identity_data_sources(&data).write_to(&output_dir.join("identities.tf.json"))?;
+            identities::generate_identity_data_sources(&data)
+                .write_to(&output_dir.join("identities.tf.json"))?;
 
             forgejo::generate_repos(&data).write_to(&output_dir.join("forgejo_repos.tf.json"))?;
             forgejo::generate_teams(&data).write_to(&output_dir.join("forgejo_teams.tf.json"))?;
-            forgejo::generate_team_memberships(&data).write_to(&output_dir.join("forgejo_memberships.tf.json"))?;
-            forgejo::generate_push_mirrors(&data).write_to(&output_dir.join("forgejo_push_mirrors.tf.json"))?;
-            forgejo::generate_kennel_webhooks(&data).write_to(&output_dir.join("forgejo_kennel_webhooks.tf.json"))?;
+            forgejo::generate_team_memberships(&data)
+                .write_to(&output_dir.join("forgejo_memberships.tf.json"))?;
+            forgejo::generate_push_mirrors(&data)
+                .write_to(&output_dir.join("forgejo_push_mirrors.tf.json"))?;
+            forgejo::generate_kennel_webhooks(&data)
+                .write_to(&output_dir.join("forgejo_kennel_webhooks.tf.json"))?;
 
-            keycloak::generate_groups(&data).write_to(&output_dir.join("keycloak_groups.tf.json"))?;
-            keycloak::generate_group_memberships(&data).write_to(&output_dir.join("keycloak_memberships.tf.json"))?;
+            keycloak::generate_groups(&data)
+                .write_to(&output_dir.join("keycloak_groups.tf.json"))?;
+            keycloak::generate_group_memberships(&data)
+                .write_to(&output_dir.join("keycloak_memberships.tf.json"))?;
+
+            openbao::generate_project_policies(&data)
+                .write_to(&output_dir.join("openbao.tf.json"))?;
 
             vaultwarden::generate(&data).write_to(&output_dir.join("vaultwarden.tf.json"))?;
             google_groups::generate(&data).write_to(&output_dir.join("google_groups.tf.json"))?;
@@ -96,7 +107,8 @@ fn main() -> anyhow::Result<()> {
 
             github::generate_repos(&data).write_to(&output_dir.join("github_repos.tf.json"))?;
             github::generate_teams(&data).write_to(&output_dir.join("github_teams.tf.json"))?;
-            github::generate_team_memberships(&data).write_to(&output_dir.join("github_memberships.tf.json"))?;
+            github::generate_team_memberships(&data)
+                .write_to(&output_dir.join("github_memberships.tf.json"))?;
 
             eprintln!("wrote {}", output_dir.display());
         }
@@ -118,14 +130,16 @@ fn main() -> anyhow::Result<()> {
             eprintln!("wrote schemas to {}", output_dir.display());
         }
         Command::ResolveIdentity => {
-            let query: serde_json::Value =
-                serde_json::from_reader(std::io::stdin())?;
+            let query: serde_json::Value = serde_json::from_reader(std::io::stdin())?;
             let codeberg_user = query["codeberg_user"]
                 .as_str()
                 .ok_or_else(|| anyhow::anyhow!("missing codeberg_user in query"))?;
 
             let data = GovernanceData::load(&cli.data_dir)?;
-            let keycloak_conf = data.org.org.keycloak
+            let keycloak_conf = data
+                .org
+                .org
+                .keycloak
                 .as_ref()
                 .ok_or_else(|| anyhow::anyhow!("keycloak not configured in org.toml"))?;
 
@@ -142,12 +156,16 @@ fn main() -> anyhow::Result<()> {
             )
             .map_err(|e| anyhow::anyhow!(e))?;
 
-            let forgejo_url = data.org.org.forgejo
+            let forgejo_url = data
+                .org
+                .org
+                .forgejo
                 .as_ref()
                 .map(|f| f.url().to_string())
                 .unwrap_or_default();
 
-            let result = kc.lookup_identity_links(codeberg_user, &forgejo_url)
+            let result = kc
+                .lookup_identity_links(codeberg_user, &forgejo_url)
                 .map_err(|e| anyhow::anyhow!(e))?;
 
             println!("{}", serde_json::to_string(&result)?);
@@ -158,12 +176,8 @@ fn main() -> anyhow::Result<()> {
             changed_files,
         } => {
             let data = GovernanceData::load(&cli.data_dir)?;
-            let result = governance_core::check_pr::check_pr(
-                &data,
-                &author,
-                &base_ref,
-                &changed_files,
-            );
+            let result =
+                governance_core::check_pr::check_pr(&data, &author, &base_ref, &changed_files);
             if result.passed {
                 eprintln!("PR check passed");
             } else {
@@ -174,8 +188,8 @@ fn main() -> anyhow::Result<()> {
             }
         }
         Command::SlackInvite { channel, user } => {
-            let token = std::env::var("SLACK_TOKEN")
-                .map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))?;
+            let token =
+                std::env::var("SLACK_TOKEN").map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))?;
             // Join the channel first so the bot can invite others
             let _ = ureq::post("https://slack.com/api/conversations.join")
                 .header("Authorization", &format!("Bearer {token}"))
@@ -200,8 +214,8 @@ fn main() -> anyhow::Result<()> {
             }
         }
         Command::SlackKick { channel, user } => {
-            let token = std::env::var("SLACK_TOKEN")
-                .map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))?;
+            let token =
+                std::env::var("SLACK_TOKEN").map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))?;
             let resp = ureq::post("https://slack.com/api/conversations.kick")
                 .header("Authorization", &format!("Bearer {token}"))
                 .send_json(&serde_json::json!({

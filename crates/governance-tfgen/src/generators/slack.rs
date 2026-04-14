@@ -6,11 +6,23 @@ use crate::tf_json::TfJsonFile;
 
 pub fn generate(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
-    if data.org.org.communication.as_ref().is_none_or(|c| c.slack_workspace.is_empty()) {
+    if data
+        .org
+        .org
+        .communication
+        .as_ref()
+        .is_none_or(|c| c.slack_workspace.is_empty())
+    {
         return tf;
     }
 
-    let hub_channel = &data.org.org.communication.as_ref().unwrap().slack_hub_channel_id;
+    let hub_channel = &data
+        .org
+        .org
+        .communication
+        .as_ref()
+        .unwrap()
+        .slack_hub_channel_id;
 
     for username in data.all_members() {
         let key = username.replace('-', "_");
@@ -27,7 +39,12 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
             .team
             .group
             .all_members()
-            .chain(team.team.projects.iter().flat_map(|p| p.group.all_members()))
+            .chain(
+                team.team
+                    .projects
+                    .iter()
+                    .flat_map(|p| p.group.all_members()),
+            )
             .collect();
 
         for (ch_idx, channel_id) in channel_ids.iter().enumerate() {

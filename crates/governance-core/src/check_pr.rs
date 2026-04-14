@@ -67,9 +67,7 @@ fn check_team_file_change(
     if old_team.is_none() {
         let is_lead = is_lead_anywhere(data, author);
         if !is_lead {
-            issues.push(format!(
-                "{author} cannot create team {slug}"
-            ));
+            issues.push(format!("{author} cannot create team {slug}"));
         }
         return;
     }
@@ -78,9 +76,7 @@ fn check_team_file_change(
     let new_team = match new_team {
         Some(t) => t,
         None => {
-            issues.push(format!(
-                "{author} cannot delete team {slug}"
-            ));
+            issues.push(format!("{author} cannot delete team {slug}"));
             return;
         }
     };

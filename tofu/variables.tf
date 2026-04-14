@@ -68,6 +68,11 @@ variable "google_project_id" {
     default = "sl-governance"
 }
 
+variable "vault_addr" {
+    type    = string
+    default = "https://secrets2.scottylabs.org"
+}
+
 variable "kennel_webhook_url" {
     type    = string
     default = "https://kennel.scottylabs.org/webhook"

@@ -83,10 +83,9 @@ impl KeycloakClient {
 
         let mut result: HashMap<String, String> = HashMap::new();
         for l in &links {
-            if let (Some(provider), Some(username)) = (
-                l["identityProvider"].as_str(),
-                l["userName"].as_str(),
-            ) {
+            if let (Some(provider), Some(username)) =
+                (l["identityProvider"].as_str(), l["userName"].as_str())
+            {
                 result.insert(provider.to_string(), username.to_string());
                 if let Some(user_id_val) = l["userId"].as_str() {
                     result.insert(format!("{provider}_id"), user_id_val.to_string());

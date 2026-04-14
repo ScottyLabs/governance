@@ -24,9 +24,14 @@ impl GovernanceData {
             .flat_map(|t| {
                 let team = &t.team.group;
                 let project_people = t.team.projects.iter().flat_map(|p| {
-                    p.group.leads.iter().chain(p.group.members.iter()).map(|s| s.as_str())
+                    p.group
+                        .leads
+                        .iter()
+                        .chain(p.group.members.iter())
+                        .map(|s| s.as_str())
                 });
-                team.leads.iter()
+                team.leads
+                    .iter()
                     .chain(team.members.iter())
                     .map(|s| s.as_str())
                     .chain(project_people)
@@ -42,10 +47,17 @@ impl GovernanceData {
             .teams
             .iter()
             .flat_map(|t| {
-                let project_leads = t.team.projects.iter().flat_map(|p| {
-                    p.group.leads.iter().map(|s| s.as_str())
-                });
-                t.team.group.leads.iter().map(|s| s.as_str()).chain(project_leads)
+                let project_leads = t
+                    .team
+                    .projects
+                    .iter()
+                    .flat_map(|p| p.group.leads.iter().map(|s| s.as_str()));
+                t.team
+                    .group
+                    .leads
+                    .iter()
+                    .map(|s| s.as_str())
+                    .chain(project_leads)
             })
             .collect();
         leads.sort();
@@ -89,16 +101,14 @@ fn load_teams(data_dir: &Path) -> Result<Vec<TeamFile>, GovernanceError> {
     entries.sort();
 
     for path in entries {
-        let content =
-            std::fs::read_to_string(&path).map_err(|e| GovernanceError::ReadFile {
-                path: path.clone(),
-                source: e,
-            })?;
-        let team: TeamFile =
-            toml::from_str(&content).map_err(|e| GovernanceError::ParseToml {
-                path: path.clone(),
-                source: e,
-            })?;
+        let content = std::fs::read_to_string(&path).map_err(|e| GovernanceError::ReadFile {
+            path: path.clone(),
+            source: e,
+        })?;
+        let team: TeamFile = toml::from_str(&content).map_err(|e| GovernanceError::ParseToml {
+            path: path.clone(),
+            source: e,
+        })?;
         teams.push(team);
     }
 

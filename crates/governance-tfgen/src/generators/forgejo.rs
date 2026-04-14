@@ -46,18 +46,9 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
 
 pub fn generate_teams(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
-    let forgejo = match &data.org.org.forgejo {
-        Some(f) => f,
-        None => return tf,
-    };
-
-    tf.add_data(
-        "forgejo_organization",
-        "this",
-        json!({
-            "name": forgejo.org,
-        }),
-    );
+    if data.org.org.forgejo.is_none() {
+        return tf;
+    }
 
     for team in &data.teams {
         let slug = &team.team.group.slug;
@@ -92,8 +83,12 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
         let slug = &team.team.group.slug;
         let team_id = format!("${{forgejo_team.{slug}.id}}");
 
-        let all = team.team.group.all_members()
-            .chain(team.team.projects.iter().flat_map(|p| p.group.all_members()));
+        let all = team.team.group.all_members().chain(
+            team.team
+                .projects
+                .iter()
+                .flat_map(|p| p.group.all_members()),
+        );
 
         for username in all {
             let key = username.replace('-', "_");

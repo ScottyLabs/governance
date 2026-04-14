@@ -44,6 +44,10 @@ terraform {
             source  = "Mastercard/restapi"
             version = "~> 1.0"
         }
+        vault = {
+            source  = "hashicorp/vault"
+            version = "~> 5.0"
+        }
         random = {
             source  = "hashicorp/random"
             version = "~> 3.0"
@@ -55,9 +59,8 @@ terraform {
     }
 }
 
-resource "random_password" "kennel_webhook_secret" {
-    length  = 64
-    special = false
+provider "vault" {
+    address = var.vault_addr
 }
 
 provider "github" {

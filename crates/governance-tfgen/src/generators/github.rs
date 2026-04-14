@@ -144,8 +144,12 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
         let slug = &team.team.group.slug;
         let team_id = format!("${{github_team.{slug}.id}}");
 
-        let all = team.team.group.all_members()
-            .chain(team.team.projects.iter().flat_map(|p| p.group.all_members()));
+        let all = team.team.group.all_members().chain(
+            team.team
+                .projects
+                .iter()
+                .flat_map(|p| p.group.all_members()),
+        );
 
         for username in all {
             let key = username.replace('-', "_");
