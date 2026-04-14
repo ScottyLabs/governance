@@ -158,6 +158,56 @@ pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
     tf
 }
 
+pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
+    let mut tf = TfJsonFile::default();
+    let org = &data.org.org;
+    let forgejo = match &org.forgejo {
+        Some(f) => f,
+        None => return tf,
+    };
+    let is_default = org.default_forge == ForgeType::Forgejo;
+
+    for team in &data.teams {
+        for repo in repos_for_forgejo(team, is_default) {
+            if !repo.kennel {
+                continue;
+            }
+
+            let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
+            let local_name = format!("{key}_kennel_webhook_data");
+
+            tf.add_local(
+                &local_name,
+                json!({
+                    "type": "forgejo",
+                    "active": true,
+                    "config": {
+                        "url": "${var.kennel_webhook_url}",
+                        "content_type": "json",
+                        "secret": "${random_password.kennel_webhook_secret.result}",
+                    },
+                    "events": ["push", "pull_request"],
+                }),
+            );
+
+            tf.add_resource(
+                "restapi_object",
+                &format!("{key}_kennel_webhook"),
+                json!({
+                    "path": format!("/api/v1/repos/{}/{}/hooks", forgejo.org, repo.name),
+                    "data": format!("${{jsonencode(local.{local_name})}}"),
+                    "id_attribute": "id",
+                    "depends_on": [
+                        format!("forgejo_repository.{key}"),
+                    ],
+                }),
+            );
+        }
+    }
+
+    tf
+}
+
 fn repos_for_forgejo(team: &TeamFile, is_default: bool) -> Vec<&Repo> {
     let mut repos = Vec::new();
     collect_repos(&team.team.group, is_default, &mut repos);

@@ -44,11 +44,20 @@ terraform {
             source  = "Mastercard/restapi"
             version = "~> 1.0"
         }
+        random = {
+            source  = "hashicorp/random"
+            version = "~> 3.0"
+        }
         external = {
             source  = "hashicorp/external"
             version = "~> 2.0"
         }
     }
+}
+
+resource "random_password" "kennel_webhook_secret" {
+    length  = 64
+    special = false
 }
 
 provider "github" {

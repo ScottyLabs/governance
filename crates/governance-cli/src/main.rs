@@ -84,6 +84,7 @@ fn main() -> anyhow::Result<()> {
             forgejo::generate_teams(&data).write_to(&output_dir.join("forgejo_teams.tf.json"))?;
             forgejo::generate_team_memberships(&data).write_to(&output_dir.join("forgejo_memberships.tf.json"))?;
             forgejo::generate_push_mirrors(&data).write_to(&output_dir.join("forgejo_push_mirrors.tf.json"))?;
+            forgejo::generate_kennel_webhooks(&data).write_to(&output_dir.join("forgejo_kennel_webhooks.tf.json"))?;
 
             keycloak::generate_groups(&data).write_to(&output_dir.join("keycloak_groups.tf.json"))?;
             keycloak::generate_group_memberships(&data).write_to(&output_dir.join("keycloak_memberships.tf.json"))?;

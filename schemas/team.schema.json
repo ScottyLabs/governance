@@ -112,6 +112,10 @@
             }
           ]
         },
+        "kennel": {
+          "type": "boolean",
+          "default": false
+        },
         "name": {
           "type": "string"
         },

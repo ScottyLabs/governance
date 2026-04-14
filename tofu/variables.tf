@@ -67,3 +67,8 @@ variable "google_project_id" {
     type    = string
     default = "sl-governance"
 }
+
+variable "kennel_webhook_url" {
+    type    = string
+    default = "https://kennel.scottylabs.org/webhook"
+}

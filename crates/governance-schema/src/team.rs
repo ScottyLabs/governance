@@ -53,6 +53,8 @@ pub struct Repo {
     pub visibility: Option<RepoVisibility>,
     #[serde(default)]
     pub topics: Vec<String>,
+    #[serde(default)]
+    pub kennel: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
