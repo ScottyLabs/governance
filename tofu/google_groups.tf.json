@@ -23,10 +23,32 @@
           }
         ]
       },
+      "ops_tentype": {
+        "group": "${data.google_cloud_identity_group_lookup.ops.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_tentype.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
       "tech_anish": {
         "group": "${data.google_cloud_identity_group_lookup.tech.name}",
         "preferred_member_key": {
           "id": "${data.external.identity_anish.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
+      "tech_tentype": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_tentype.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {

@@ -1,6 +1,19 @@
 {
   "resource": {
     "forgejo_repository": {
+      "cbp_bus_sign": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "A real-time bus sign for the Cohon University Center at Carnegie Mellon University",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "bus-sign",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "devops_devenv": {
         "auto_init": true,
         "default_branch": "main",

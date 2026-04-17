@@ -1,6 +1,18 @@
 {
   "resource": {
     "discord_channel_permission": {
+      "cbp_ch0": {
+        "allow": 1024,
+        "channel_id": "1450023430224216237",
+        "overwrite_id": "${discord_role.cbp.id}",
+        "type": "role"
+      },
+      "cbp_ch1": {
+        "allow": 1024,
+        "channel_id": "1472669342108750087",
+        "overwrite_id": "${discord_role.cbp.id}",
+        "type": "role"
+      },
       "devops_ch0": {
         "allow": 1024,
         "channel_id": "1461933322505818156",
@@ -15,6 +27,24 @@
       }
     },
     "discord_member_roles": {
+      "cbp_anish": {
+        "role": [
+          {
+            "role_id": "${discord_role.cbp.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_anish.result.discord_id}"
+      },
+      "cbp_tentype": {
+        "role": [
+          {
+            "role_id": "${discord_role.cbp.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_tentype.result.discord_id}"
+      },
       "devops_anish": {
         "role": [
           {
@@ -32,9 +62,22 @@
         ],
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_anish.result.discord_id}"
+      },
+      "tech_tentype": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_tentype.result.discord_id}"
       }
     },
     "discord_role": {
+      "cbp": {
+        "name": "Community-Based Projects",
+        "server_id": "1353118209024331948"
+      },
       "devops": {
         "name": "DevOps",
         "server_id": "1353118209024331948"

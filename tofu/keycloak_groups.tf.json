@@ -1,6 +1,16 @@
 {
   "resource": {
     "keycloak_group": {
+      "project_cbp_bus-sign": {
+        "name": "bus-sign",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_bus-sign_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_cbp_bus-sign.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops": {
         "name": "devops",
         "parent_id": "${keycloak_group.projects.id}",

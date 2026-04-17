@@ -1,6 +1,10 @@
 {
   "resource": {
     "github_team": {
+      "cbp": {
+        "name": "Community-Based Projects",
+        "privacy": "closed"
+      },
       "devops": {
         "name": "DevOps",
         "privacy": "closed"

@@ -1,6 +1,16 @@
 {
   "resource": {
     "forgejo_team": {
+      "cbp": {
+        "name": "Community-Based Projects",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "write",
+        "units_map": {
+          "repo.code": "write",
+          "repo.issues": "write",
+          "repo.pulls": "write"
+        }
+      },
       "devops": {
         "name": "DevOps",
         "organization_id": "${data.forgejo_organization.this.id}",

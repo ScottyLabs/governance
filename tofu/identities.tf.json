@@ -11,6 +11,17 @@
         "query": {
           "codeberg_user": "anish"
         }
+      },
+      "identity_tentype": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "tentype"
+        }
       }
     }
   }

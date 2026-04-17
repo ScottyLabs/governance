@@ -1,1 +1,42 @@
-{}
+{
+  "resource": {
+    "vault_identity_group": {
+      "bus-sign_admins": {
+        "name": "bus-sign-admins",
+        "policies": [
+          "bus-sign-prod"
+        ],
+        "type": "external"
+      },
+      "bus-sign_members": {
+        "name": "bus-sign-members",
+        "policies": [
+          "bus-sign-dev"
+        ],
+        "type": "external"
+      }
+    },
+    "vault_identity_group_alias": {
+      "bus-sign_admins": {
+        "canonical_id": "${vault_identity_group.bus-sign_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/bus-sign/admins"
+      },
+      "bus-sign_members": {
+        "canonical_id": "${vault_identity_group.bus-sign_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/bus-sign"
+      }
+    },
+    "vault_policy": {
+      "bus-sign_dev": {
+        "name": "bus-sign-dev",
+        "policy": "path \"secret/data/secretspec/bus-sign/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/bus-sign/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "bus-sign_prod": {
+        "name": "bus-sign-prod",
+        "policy": "path \"secret/data/secretspec/bus-sign/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/bus-sign/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      }
+    }
+  }
+}

@@ -1,6 +1,14 @@
 {
   "resource": {
     "forgejo_team_member": {
+      "cbp_anish": {
+        "team_id": "${forgejo_team.cbp.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "cbp_tentype": {
+        "team_id": "${forgejo_team.cbp.id}",
+        "user": "${data.external.identity_tentype.result.codeberg}"
+      },
       "devops_anish": {
         "team_id": "${forgejo_team.devops.id}",
         "user": "${data.external.identity_anish.result.codeberg}"

@@ -1,6 +1,16 @@
 {
   "resource": {
     "github_repository": {
+      "cbp_bus_sign": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/bus-sign",
+        "name": "bus-sign",
+        "visibility": "public"
+      },
       "devops_devenv": {
         "description": "READ-ONLY MIRROR",
         "has_discussions": false,
@@ -43,6 +53,12 @@
       }
     },
     "github_repository_deploy_key": {
+      "cbp_bus_sign_mirror_deploy_key": {
+        "key": "${restapi_object.cbp_bus_sign_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.cbp_bus_sign.name}",
+        "title": "Codeberg Mirroring"
+      },
       "devops_devenv_mirror_deploy_key": {
         "key": "${restapi_object.devops_devenv_push_mirror.api_data.public_key}",
         "read_only": false,
@@ -69,6 +85,36 @@
       }
     },
     "github_repository_ruleset": {
+      "cbp_bus_sign_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.cbp_bus_sign_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.cbp_bus_sign.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
       "devops_devenv_ruleset": {
         "bypass_actors": [
           {

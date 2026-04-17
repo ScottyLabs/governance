@@ -38,6 +38,25 @@
           "channel": "C096TM8EMS8",
           "user": "${data.external.identity_anish.result.slack_id}"
         }
+      },
+      "slack_hub_tentype": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C096TM8EMS8",
+          "user": "${data.external.identity_tentype.result.slack_id}"
+        }
       }
     }
   }

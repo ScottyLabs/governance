@@ -1,5 +1,18 @@
 {
   "locals": {
+    "cbp_bus_sign_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request"
+      ],
+      "type": "forgejo"
+    },
     "devops_kennel_kennel_webhook_data": {
       "active": true,
       "config": {
@@ -16,6 +29,14 @@
   },
   "resource": {
     "restapi_object": {
+      "cbp_bus_sign_kennel_webhook": {
+        "data": "${jsonencode(local.cbp_bus_sign_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.cbp_bus_sign"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/bus-sign/hooks"
+      },
       "devops_kennel_kennel_webhook": {
         "data": "${jsonencode(local.devops_kennel_kennel_webhook_data)}",
         "depends_on": [

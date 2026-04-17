@@ -1,6 +1,7 @@
 # AUTO-GENERATED
 * @anish
 /data/org.toml @anish
+/data/teams/cbp.toml @tentype @anish
 /data/teams/devops.toml @anish
 /tofu/ @anish
 /crates/ @anish

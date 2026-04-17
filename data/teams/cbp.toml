@@ -1,0 +1,18 @@
+[team]
+name = "Community-Based Projects"
+slug = "cbp"
+leads = ["tentype", "anish"]
+
+[[team.channels]]
+discord = "1450023430224216237"
+
+[[team.projects]]
+slug = "bus-sign"
+
+[[team.projects.repos]]
+name = "bus-sign"
+description = "A real-time bus sign for the Cohon University Center at Carnegie Mellon University"
+kennel = true
+
+[[team.projects.channels]]
+discord = "1472669342108750087"
