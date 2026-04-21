@@ -2,7 +2,7 @@
 * @anish
 /data/org.toml @anish
 /data/teams/cbp.toml @tentype @anish
-/data/teams/devops.toml @anish
+/data/teams/devops.toml @anish @thesuperRL
 /tofu/ @anish
 /crates/ @anish
 /.forgejo/ @anish

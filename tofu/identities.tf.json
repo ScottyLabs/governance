@@ -22,6 +22,17 @@
         "query": {
           "codeberg_user": "tentype"
         }
+      },
+      "identity_thesuperRL": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "thesuperRL"
+        }
       }
     }
   }
