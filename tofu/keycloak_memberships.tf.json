@@ -36,10 +36,24 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_devops_admins_thesuperRL": {
+        "group_id": "${keycloak_group.project_devops_admins.id}",
+        "members": [
+          "${data.external.identity_thesuperRL.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops_anish": {
         "group_id": "${keycloak_group.project_devops.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_thesuperRL": {
+        "group_id": "${keycloak_group.project_devops.id}",
+        "members": [
+          "${data.external.identity_thesuperRL.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       }
