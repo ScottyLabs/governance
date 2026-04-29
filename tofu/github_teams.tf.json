@@ -8,6 +8,10 @@
       "devops": {
         "name": "DevOps",
         "privacy": "closed"
+      },
+      "quest": {
+        "name": "Quest",
+        "privacy": "closed"
       }
     }
   }

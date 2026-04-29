@@ -20,6 +20,16 @@
         "name": "admins",
         "parent_id": "${keycloak_group.project_devops.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_quest": {
+        "name": "quest",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_quest_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_quest.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
       }
     }
   }

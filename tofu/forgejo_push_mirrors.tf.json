@@ -29,6 +29,12 @@
       "remote_address": "git@github.com:ScottyLabs/kennel.git",
       "sync_on_commit": true,
       "use_ssh": true
+    },
+    "quest_quest_mirror_data": {
+      "interval": "8h0m0s",
+      "remote_address": "git@github.com:ScottyLabs/quest.git",
+      "sync_on_commit": true,
+      "use_ssh": true
     }
   },
   "resource": {
@@ -72,6 +78,14 @@
         ],
         "id_attribute": "remote_name",
         "path": "/api/v1/repos/ScottyLabs/kennel/push_mirrors"
+      },
+      "quest_quest_push_mirror": {
+        "data": "${jsonencode(local.quest_quest_mirror_data)}",
+        "depends_on": [
+          "forgejo_repository.quest_quest"
+        ],
+        "id_attribute": "remote_name",
+        "path": "/api/v1/repos/ScottyLabs/quest/push_mirrors"
       }
     }
   }

@@ -16,6 +16,10 @@
       "devops_thesuperRL": {
         "team_id": "${forgejo_team.devops.id}",
         "user": "${data.external.identity_thesuperRL.result.codeberg}"
+      },
+      "quest_anish": {
+        "team_id": "${forgejo_team.quest.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
       }
     }
   }

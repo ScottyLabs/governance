@@ -65,6 +65,19 @@
         "name": "kennel",
         "owner": "ScottyLabs",
         "private": false
+      },
+      "quest_quest": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "CMU Orientation Quest",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "quest",
+        "owner": "ScottyLabs",
+        "private": false
       }
     }
   }

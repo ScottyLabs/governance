@@ -56,6 +56,20 @@
           "${data.external.identity_thesuperRL.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_quest_admins_anish": {
+        "group_id": "${keycloak_group.project_quest_admins.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_quest_anish": {
+        "group_id": "${keycloak_group.project_quest.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
       }
     }
   }

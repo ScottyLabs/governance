@@ -1,0 +1,10 @@
+[team]
+name = "Quest"
+slug = "quest"
+description = "CMU Orientation Quest"
+leads = ["anish"]
+
+[[team.repos]]
+name = "quest"
+description = "CMU Orientation Quest"
+kennel = true

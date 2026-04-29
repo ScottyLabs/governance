@@ -22,6 +22,17 @@
           "repo.issues": "write",
           "repo.pulls": "write"
         }
+      },
+      "quest": {
+        "description": "Quest",
+        "name": "quest",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "write",
+        "units_map": {
+          "repo.code": "write",
+          "repo.issues": "write",
+          "repo.pulls": "write"
+        }
       }
     }
   }
