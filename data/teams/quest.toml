@@ -8,3 +8,7 @@ leads = ["anish"]
 name = "quest"
 description = "CMU Orientation Quest"
 kennel = true
+
+[[team.channels]]
+discord = "1459385784615440471"
+slack = "C08MHDYA12B"
