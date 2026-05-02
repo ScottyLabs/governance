@@ -11,6 +11,16 @@
         "parent_id": "${keycloak_group.project_cbp_bus-sign.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cmu-courses": {
+        "name": "cmu-courses",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-courses_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_cmu-courses.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops": {
         "name": "devops",
         "parent_id": "${keycloak_group.projects.id}",

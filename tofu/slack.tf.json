@@ -1,6 +1,25 @@
 {
   "resource": {
     "null_resource": {
+      "slack_cmu-courses_ch0_anish": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0150RGAG1L",
+          "user": "${data.external.identity_anish.result.slack_id}"
+        }
+      },
       "slack_devops_ch0_anish": {
         "provisioner": [
           {
@@ -94,6 +113,25 @@
         "triggers": {
           "channel": "C096TM8EMS8",
           "user": "${data.external.identity_thesuperRL.result.slack_id}"
+        }
+      },
+      "slack_quest_ch0_anish": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08MHDYA12B",
+          "user": "${data.external.identity_anish.result.slack_id}"
         }
       }
     }

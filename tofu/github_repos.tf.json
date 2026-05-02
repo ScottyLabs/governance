@@ -11,6 +11,26 @@
         "name": "bus-sign",
         "visibility": "public"
       },
+      "cmu-courses_courses": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/courses",
+        "name": "courses",
+        "visibility": "public"
+      },
+      "cmu-courses_internet_archive": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/internet-archive",
+        "name": "internet-archive",
+        "visibility": "public"
+      },
       "devops_devenv": {
         "description": "READ-ONLY MIRROR",
         "has_discussions": false,
@@ -69,6 +89,18 @@
         "repository": "${github_repository.cbp_bus_sign.name}",
         "title": "Codeberg Mirroring"
       },
+      "cmu-courses_courses_mirror_deploy_key": {
+        "key": "${restapi_object.cmu-courses_courses_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.cmu-courses_courses.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "cmu-courses_internet_archive_mirror_deploy_key": {
+        "key": "${restapi_object.cmu-courses_internet_archive_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.cmu-courses_internet_archive.name}",
+        "title": "Codeberg Mirroring"
+      },
       "devops_devenv_mirror_deploy_key": {
         "key": "${restapi_object.devops_devenv_push_mirror.api_data.public_key}",
         "read_only": false,
@@ -120,6 +152,66 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.cbp_bus_sign.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "cmu-courses_courses_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.cmu-courses_courses_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.cmu-courses_courses.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "cmu-courses_internet_archive_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.cmu-courses_internet_archive_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.cmu-courses_internet_archive.name}",
         "rules": {
           "creation": true,
           "deletion": true,

@@ -12,6 +12,17 @@
           "repo.pulls": "write"
         }
       },
+      "cmu-courses": {
+        "description": "CMU Courses",
+        "name": "cmu-courses",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "write",
+        "units_map": {
+          "repo.code": "write",
+          "repo.issues": "write",
+          "repo.pulls": "write"
+        }
+      },
       "devops": {
         "description": "DevOps",
         "name": "devops",

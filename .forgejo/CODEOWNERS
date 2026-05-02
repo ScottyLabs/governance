@@ -2,6 +2,7 @@
 * @anish
 /data/org.toml @anish
 /data/teams/cbp.toml @tentype @anish
+/data/teams/cmu-courses.toml @anish
 /data/teams/devops.toml @anish @thesuperRL
 /data/teams/quest.toml @anish
 /tofu/ @anish

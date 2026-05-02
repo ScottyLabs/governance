@@ -13,10 +13,22 @@
         "overwrite_id": "${discord_role.cbp.id}",
         "type": "role"
       },
+      "cmu-courses_ch0": {
+        "allow": 1024,
+        "channel_id": "1459389616007282709",
+        "overwrite_id": "${discord_role.cmu-courses.id}",
+        "type": "role"
+      },
       "devops_ch0": {
         "allow": 1024,
         "channel_id": "1461933322505818156",
         "overwrite_id": "${discord_role.devops.id}",
+        "type": "role"
+      },
+      "quest_ch0": {
+        "allow": 1024,
+        "channel_id": "1459385784615440471",
+        "overwrite_id": "${discord_role.quest.id}",
         "type": "role"
       },
       "tech_hub": {
@@ -44,6 +56,15 @@
         ],
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_tentype.result.discord_id}"
+      },
+      "cmu-courses_anish": {
+        "role": [
+          {
+            "role_id": "${discord_role.cmu-courses.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_anish.result.discord_id}"
       },
       "devops_anish": {
         "role": [
@@ -103,6 +124,10 @@
     "discord_role": {
       "cbp": {
         "name": "Community-Based Projects",
+        "server_id": "1353118209024331948"
+      },
+      "cmu-courses": {
+        "name": "CMU Courses",
         "server_id": "1353118209024331948"
       },
       "devops": {

@@ -14,6 +14,32 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "cmu-courses_courses": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "CMU Courses",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "courses",
+        "owner": "ScottyLabs",
+        "private": false
+      },
+      "cmu-courses_internet_archive": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Script that automatically saves a page of your choice to the internet archive under the ScottyLabs account",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "internet-archive",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "devops_devenv": {
         "auto_init": true,
         "default_branch": "main",

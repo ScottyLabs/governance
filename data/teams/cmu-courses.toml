@@ -1,0 +1,17 @@
+[team]
+name = "CMU Courses"
+slug = "cmu-courses"
+leads = ["anish"]
+
+[[team.repos]]
+name = "internet-archive"
+description = "Script that automatically saves a page of your choice to the internet archive under the ScottyLabs account"
+
+[[team.repos]]
+name = "courses"
+description = "CMU Courses"
+kennel = true
+
+[[team.channels]]
+discord = "1459389616007282709"
+slack = "C0150RGAG1L"

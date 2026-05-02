@@ -11,6 +11,11 @@
         "team_id": "${github_team.cbp.id}",
         "username": "${data.external.identity_tentype.result.github}"
       },
+      "cmu-courses_anish": {
+        "role": "maintainer",
+        "team_id": "${github_team.cmu-courses.id}",
+        "username": "${data.external.identity_anish.result.github}"
+      },
       "devops_anish": {
         "role": "maintainer",
         "team_id": "${github_team.devops.id}",

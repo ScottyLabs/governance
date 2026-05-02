@@ -5,6 +5,10 @@
         "name": "Community-Based Projects",
         "privacy": "closed"
       },
+      "cmu-courses": {
+        "name": "CMU Courses",
+        "privacy": "closed"
+      },
       "devops": {
         "name": "DevOps",
         "privacy": "closed"
