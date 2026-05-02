@@ -41,6 +41,18 @@ jobs:
       - run: cargo build --release -p governance
       - run: echo "$(pwd)/target/release" >> $GITHUB_PATH
 
+      - name: Validate
+        run: ./target/release/governance validate
+
+      - name: Check generated files are up to date
+        run: |
+          cp .forgejo/CODEOWNERS /tmp/CODEOWNERS-old
+          ./target/release/governance generate --output-dir /tmp/tofu
+          ./target/release/governance schema --output-dir /tmp/schemas
+          diff -r /tmp/tofu tofu/ --exclude='*.tf' --exclude='.gitignore'
+          diff -r /tmp/schemas schemas/
+          diff /tmp/CODEOWNERS-old .forgejo/CODEOWNERS
+
       - name: Init
         working-directory: tofu
         run: tofu init
