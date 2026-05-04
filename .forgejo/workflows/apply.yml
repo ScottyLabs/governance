@@ -6,6 +6,7 @@ on:
       - "data/**"
       - "tofu/**"
       - ".forgejo/workflows/apply.yml"
+  workflow_dispatch:
 
 jobs:
   apply:
@@ -56,6 +57,10 @@ jobs:
       - name: Init
         working-directory: tofu
         run: tofu init
+
+      - name: Refresh state from providers
+        working-directory: tofu
+        run: tofu apply -refresh-only -auto-approve
 
       - name: Apply
         working-directory: tofu
