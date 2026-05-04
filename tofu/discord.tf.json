@@ -39,53 +39,20 @@
       }
     },
     "discord_member_roles": {
-      "cbp_anish": {
+      "anish": {
         "role": [
           {
-            "role_id": "${discord_role.cbp.id}"
-          }
-        ],
-        "server_id": "1353118209024331948",
-        "user_id": "${data.external.identity_anish.result.discord_id}"
-      },
-      "cbp_tentype": {
-        "role": [
+            "role_id": "${discord_role.tech.id}"
+          },
           {
             "role_id": "${discord_role.cbp.id}"
-          }
-        ],
-        "server_id": "1353118209024331948",
-        "user_id": "${data.external.identity_tentype.result.discord_id}"
-      },
-      "cmu-courses_anish": {
-        "role": [
+          },
           {
             "role_id": "${discord_role.cmu-courses.id}"
-          }
-        ],
-        "server_id": "1353118209024331948",
-        "user_id": "${data.external.identity_anish.result.discord_id}"
-      },
-      "devops_anish": {
-        "role": [
+          },
           {
             "role_id": "${discord_role.devops.id}"
-          }
-        ],
-        "server_id": "1353118209024331948",
-        "user_id": "${data.external.identity_anish.result.discord_id}"
-      },
-      "devops_thesuperRL": {
-        "role": [
-          {
-            "role_id": "${discord_role.devops.id}"
-          }
-        ],
-        "server_id": "1353118209024331948",
-        "user_id": "${data.external.identity_thesuperRL.result.discord_id}"
-      },
-      "quest_anish": {
-        "role": [
+          },
           {
             "role_id": "${discord_role.quest.id}"
           }
@@ -93,28 +60,25 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_anish.result.discord_id}"
       },
-      "tech_anish": {
+      "tentype": {
         "role": [
           {
             "role_id": "${discord_role.tech.id}"
-          }
-        ],
-        "server_id": "1353118209024331948",
-        "user_id": "${data.external.identity_anish.result.discord_id}"
-      },
-      "tech_tentype": {
-        "role": [
+          },
           {
-            "role_id": "${discord_role.tech.id}"
+            "role_id": "${discord_role.cbp.id}"
           }
         ],
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_tentype.result.discord_id}"
       },
-      "tech_thesuperRL": {
+      "thesuperRL": {
         "role": [
           {
             "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.devops.id}"
           }
         ],
         "server_id": "1353118209024331948",

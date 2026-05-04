@@ -73,92 +73,62 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
     }
     let realm_id = "${data.keycloak_realm.this.id}";
 
+    let user_id = |username: &str| {
+        let user_key = username.replace('-', "_");
+        format!("${{data.external.identity_{user_key}.result.cmu-saml}}")
+    };
+
+    let mut emit = |group_key: &str, members: Vec<String>, leads: Vec<String>| {
+        let group_id = format!("${{keycloak_group.{group_key}.id}}");
+        let admins_id = format!("${{keycloak_group.{group_key}_admins.id}}");
+
+        tf.add_resource(
+            "keycloak_group_memberships",
+            group_key,
+            json!({
+                "realm_id": realm_id,
+                "group_id": group_id,
+                "members": members,
+            }),
+        );
+
+        tf.add_resource(
+            "keycloak_group_memberships",
+            &format!("{group_key}_admins"),
+            json!({
+                "realm_id": realm_id,
+                "group_id": admins_id,
+                "members": leads,
+            }),
+        );
+    };
+
     for team in &data.teams {
         let slug = &team.team.group.slug;
 
         if team.team.projects.is_empty() {
-            let group_key = format!("project_{slug}");
-            let group_id = format!("${{keycloak_group.{group_key}.id}}");
-            let admins_id = format!("${{keycloak_group.{group_key}_admins.id}}");
-
-            for username in team.team.group.all_members() {
-                let user_key = username.replace('-', "_");
-                let user_id = format!("${{data.external.identity_{user_key}.result.cmu-saml}}");
-
-                tf.add_resource(
-                    "keycloak_group_memberships",
-                    &format!("{group_key}_{user_key}"),
-                    json!({
-                        "realm_id": realm_id,
-                        "group_id": group_id,
-                        "members": [user_id],
-                    }),
-                );
-            }
-
-            for lead in &team.team.group.leads {
-                let user_key = lead.replace('-', "_");
-                let user_id = format!("${{data.external.identity_{user_key}.result.cmu-saml}}");
-
-                tf.add_resource(
-                    "keycloak_group_memberships",
-                    &format!("{group_key}_admins_{user_key}"),
-                    json!({
-                        "realm_id": realm_id,
-                        "group_id": admins_id,
-                        "members": [user_id],
-                    }),
-                );
-            }
+            let members = team.team.group.all_members().map(user_id).collect();
+            let leads = team.team.group.leads.iter().map(|s| user_id(s)).collect();
+            emit(&format!("project_{slug}"), members, leads);
         } else {
             for project in &team.team.projects {
                 let project_slug = &project.group.slug;
-                let group_key = format!("project_{slug}_{project_slug}");
-                let group_id = format!("${{keycloak_group.{group_key}.id}}");
-                let admins_id = format!("${{keycloak_group.{group_key}_admins.id}}");
-
                 let members = team
                     .team
                     .group
                     .all_members()
-                    .chain(project.group.all_members());
-
-                for username in members {
-                    let user_key = username.replace('-', "_");
-                    let user_id = format!("${{data.external.identity_{user_key}.result.cmu-saml}}");
-
-                    tf.add_resource(
-                        "keycloak_group_memberships",
-                        &format!("{group_key}_{user_key}"),
-                        json!({
-                            "realm_id": realm_id,
-                            "group_id": group_id,
-                            "members": [user_id],
-                        }),
-                    );
-                }
-
+                    .chain(project.group.all_members())
+                    .map(user_id)
+                    .collect();
                 let leads = team
                     .team
                     .group
                     .leads
                     .iter()
-                    .chain(project.group.leads.iter());
-
-                for lead in leads {
-                    let user_key = lead.replace('-', "_");
-                    let user_id = format!("${{data.external.identity_{user_key}.result.cmu-saml}}");
-
-                    tf.add_resource(
-                        "keycloak_group_memberships",
-                        &format!("{group_key}_admins_{user_key}"),
-                        json!({
-                            "realm_id": realm_id,
-                            "group_id": admins_id,
-                            "members": [user_id],
-                        }),
-                    );
-                }
+                    .chain(project.group.leads.iter())
+                    .map(|s| user_id(s))
+                    .collect();
+                emit(&format!("project_{slug}_{project_slug}"), members, leads);
             }
         }
     }

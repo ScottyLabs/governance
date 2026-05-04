@@ -1,3 +1,5 @@
+use std::collections::BTreeMap;
+
 use governance_core::loader::GovernanceData;
 use governance_schema::team::TeamFile;
 use serde_json::json;
@@ -34,18 +36,16 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         }),
     );
 
-    // All members get the Tech role
+    // user_key -> ordered list of role expressions; one resource per user.
+    let mut roles_by_user: BTreeMap<String, Vec<String>> = BTreeMap::new();
+
+    // Tech role for everyone
     for username in data.all_members() {
         let key = username.replace('-', "_");
-        tf.add_resource(
-            "discord_member_roles",
-            &format!("tech_{key}"),
-            json!({
-                "server_id": guild,
-                "user_id": format!("${{data.external.identity_{key}.result.discord_id}}"),
-                "role": [{ "role_id": "${discord_role.tech.id}" }],
-            }),
-        );
+        roles_by_user
+            .entry(key)
+            .or_default()
+            .push("${discord_role.tech.id}".to_string());
     }
 
     // Per-team roles
@@ -63,7 +63,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         );
 
         // Team role gives access to all team/project channels
-        let role_id = format!("${{discord_role.{slug}.id}}");
+        let role_ref = format!("${{discord_role.{slug}.id}}");
         for (ch_idx, channel_id) in discord_channel_ids(team).into_iter().enumerate() {
             tf.add_resource(
                 "discord_channel_permission",
@@ -71,7 +71,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
                 json!({
                     "channel_id": channel_id,
                     "type": "role",
-                    "overwrite_id": role_id,
+                    "overwrite_id": role_ref,
                     "allow": 1024, // VIEW_CHANNEL
                 }),
             );
@@ -87,16 +87,27 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
 
         for username in all {
             let key = username.replace('-', "_");
-            tf.add_resource(
-                "discord_member_roles",
-                &format!("{slug}_{key}"),
-                json!({
-                    "server_id": guild,
-                    "user_id": format!("${{data.external.identity_{key}.result.discord_id}}"),
-                    "role": [{ "role_id": role_id }],
-                }),
-            );
+            roles_by_user
+                .entry(key)
+                .or_default()
+                .push(role_ref.clone());
         }
+    }
+
+    for (user_key, role_ids) in roles_by_user {
+        let role_blocks: Vec<_> = role_ids
+            .into_iter()
+            .map(|id| json!({ "role_id": id }))
+            .collect();
+        tf.add_resource(
+            "discord_member_roles",
+            &user_key,
+            json!({
+                "server_id": guild,
+                "user_id": format!("${{data.external.identity_{user_key}.result.discord_id}}"),
+                "role": role_blocks,
+            }),
+        );
     }
 
     tf

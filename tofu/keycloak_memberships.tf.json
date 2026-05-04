@@ -1,85 +1,61 @@
 {
   "resource": {
     "keycloak_group_memberships": {
-      "project_cbp_bus-sign_admins_anish": {
-        "group_id": "${keycloak_group.project_cbp_bus-sign_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}"
-        ],
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "project_cbp_bus-sign_admins_tentype": {
-        "group_id": "${keycloak_group.project_cbp_bus-sign_admins.id}",
-        "members": [
-          "${data.external.identity_tentype.result.cmu-saml}"
-        ],
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "project_cbp_bus-sign_anish": {
+      "project_cbp_bus-sign": {
         "group_id": "${keycloak_group.project_cbp_bus-sign.id}",
         "members": [
+          "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_anish.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_cbp_bus-sign_tentype": {
-        "group_id": "${keycloak_group.project_cbp_bus-sign.id}",
+      "project_cbp_bus-sign_admins": {
+        "group_id": "${keycloak_group.project_cbp_bus-sign_admins.id}",
         "members": [
-          "${data.external.identity_tentype.result.cmu-saml}"
-        ],
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "project_cmu-courses_admins_anish": {
-        "group_id": "${keycloak_group.project_cmu-courses_admins.id}",
-        "members": [
+          "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_anish.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_cmu-courses_anish": {
+      "project_cmu-courses": {
         "group_id": "${keycloak_group.project_cmu-courses.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_devops_admins_anish": {
-        "group_id": "${keycloak_group.project_devops_admins.id}",
+      "project_cmu-courses_admins": {
+        "group_id": "${keycloak_group.project_cmu-courses_admins.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_devops_admins_thesuperRL": {
-        "group_id": "${keycloak_group.project_devops_admins.id}",
+      "project_devops": {
+        "group_id": "${keycloak_group.project_devops.id}",
         "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
           "${data.external.identity_thesuperRL.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_devops_anish": {
-        "group_id": "${keycloak_group.project_devops.id}",
+      "project_devops_admins": {
+        "group_id": "${keycloak_group.project_devops_admins.id}",
         "members": [
-          "${data.external.identity_anish.result.cmu-saml}"
-        ],
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "project_devops_thesuperRL": {
-        "group_id": "${keycloak_group.project_devops.id}",
-        "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
           "${data.external.identity_thesuperRL.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_quest_admins_anish": {
-        "group_id": "${keycloak_group.project_quest_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}"
-        ],
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "project_quest_anish": {
+      "project_quest": {
         "group_id": "${keycloak_group.project_quest.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_quest_admins": {
+        "group_id": "${keycloak_group.project_quest_admins.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}"
         ],
