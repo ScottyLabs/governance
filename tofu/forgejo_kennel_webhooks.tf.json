@@ -52,7 +52,7 @@
       ],
       "type": "forgejo"
     },
-    "uia_component_library_kennel_webhook_data": {
+    "uia_components_kennel_webhook_data": {
       "active": true,
       "config": {
         "content_type": "json",
@@ -100,13 +100,13 @@
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/quest/hooks"
       },
-      "uia_component_library_kennel_webhook": {
-        "data": "${jsonencode(local.uia_component_library_kennel_webhook_data)}",
+      "uia_components_kennel_webhook": {
+        "data": "${jsonencode(local.uia_components_kennel_webhook_data)}",
         "depends_on": [
-          "forgejo_repository.uia_component_library"
+          "forgejo_repository.uia_components"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/component-library/hooks"
+        "path": "/api/v1/repos/ScottyLabs/components/hooks"
       }
     }
   }

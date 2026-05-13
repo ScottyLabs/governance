@@ -81,14 +81,14 @@
         "name": "quest",
         "visibility": "public"
       },
-      "uia_component_library": {
+      "uia_components": {
         "description": "READ-ONLY MIRROR",
         "has_discussions": false,
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/component-library",
-        "name": "component-library",
+        "homepage_url": "https://codeberg.org/ScottyLabs/components",
+        "name": "components",
         "visibility": "public"
       }
     },
@@ -141,10 +141,10 @@
         "repository": "${github_repository.quest_quest.name}",
         "title": "Codeberg Mirroring"
       },
-      "uia_component_library_mirror_deploy_key": {
-        "key": "${restapi_object.uia_component_library_push_mirror.api_data.public_key}",
+      "uia_components_mirror_deploy_key": {
+        "key": "${restapi_object.uia_components_push_mirror.api_data.public_key}",
         "read_only": false,
-        "repository": "${github_repository.uia_component_library.name}",
+        "repository": "${github_repository.uia_components.name}",
         "title": "Codeberg Mirroring"
       }
     },
@@ -389,10 +389,10 @@
         },
         "target": "branch"
       },
-      "uia_component_library_ruleset": {
+      "uia_components_ruleset": {
         "bypass_actors": [
           {
-            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.uia_component_library_mirror_deploy_key.id), 1))}",
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.uia_components_mirror_deploy_key.id), 1))}",
             "actor_type": "DeployKey",
             "bypass_mode": "always"
           }
@@ -407,7 +407,7 @@
         },
         "enforcement": "active",
         "name": "Default",
-        "repository": "${github_repository.uia_component_library.name}",
+        "repository": "${github_repository.uia_components.name}",
         "rules": {
           "creation": true,
           "deletion": true,

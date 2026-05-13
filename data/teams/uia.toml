@@ -4,6 +4,6 @@ slug = "uia"
 leads = ["anish"]
 
 [[team.repos]]
-name = "component-library"
+name = "components"
 description = "ScottyLabs design system"
 kennel = true
