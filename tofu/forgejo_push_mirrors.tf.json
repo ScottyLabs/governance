@@ -47,6 +47,12 @@
       "remote_address": "git@github.com:ScottyLabs/quest.git",
       "sync_on_commit": true,
       "use_ssh": true
+    },
+    "uia_component_library_mirror_data": {
+      "interval": "8h0m0s",
+      "remote_address": "git@github.com:ScottyLabs/component-library.git",
+      "sync_on_commit": true,
+      "use_ssh": true
     }
   },
   "resource": {
@@ -114,6 +120,14 @@
         ],
         "id_attribute": "remote_name",
         "path": "/api/v1/repos/ScottyLabs/quest/push_mirrors"
+      },
+      "uia_component_library_push_mirror": {
+        "data": "${jsonencode(local.uia_component_library_mirror_data)}",
+        "depends_on": [
+          "forgejo_repository.uia_component_library"
+        ],
+        "id_attribute": "remote_name",
+        "path": "/api/v1/repos/ScottyLabs/component-library/push_mirrors"
       }
     }
   }

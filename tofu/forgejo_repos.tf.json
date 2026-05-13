@@ -104,6 +104,19 @@
         "name": "quest",
         "owner": "ScottyLabs",
         "private": false
+      },
+      "uia_component_library": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "ScottyLabs design system",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "component-library",
+        "owner": "ScottyLabs",
+        "private": false
       }
     }
   }

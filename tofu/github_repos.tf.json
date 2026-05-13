@@ -80,6 +80,16 @@
         "homepage_url": "https://codeberg.org/ScottyLabs/quest",
         "name": "quest",
         "visibility": "public"
+      },
+      "uia_component_library": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/component-library",
+        "name": "component-library",
+        "visibility": "public"
       }
     },
     "github_repository_deploy_key": {
@@ -129,6 +139,12 @@
         "key": "${restapi_object.quest_quest_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.quest_quest.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "uia_component_library_mirror_deploy_key": {
+        "key": "${restapi_object.uia_component_library_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.uia_component_library.name}",
         "title": "Codeberg Mirroring"
       }
     },
@@ -362,6 +378,36 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.quest_quest.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "uia_component_library_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.uia_component_library_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.uia_component_library.name}",
         "rules": {
           "creation": true,
           "deletion": true,

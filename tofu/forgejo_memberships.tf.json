@@ -24,6 +24,10 @@
       "quest_anish": {
         "team_id": "${forgejo_team.quest.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "uia_anish": {
+        "team_id": "${forgejo_team.uia.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
       }
     }
   }

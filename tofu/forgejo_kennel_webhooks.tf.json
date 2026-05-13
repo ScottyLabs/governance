@@ -51,6 +51,19 @@
         "pull_request"
       ],
       "type": "forgejo"
+    },
+    "uia_component_library_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request"
+      ],
+      "type": "forgejo"
     }
   },
   "resource": {
@@ -86,6 +99,14 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/quest/hooks"
+      },
+      "uia_component_library_kennel_webhook": {
+        "data": "${jsonencode(local.uia_component_library_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.uia_component_library"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/component-library/hooks"
       }
     }
   }

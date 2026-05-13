@@ -16,6 +16,10 @@
       "quest": {
         "name": "Quest",
         "privacy": "closed"
+      },
+      "uia": {
+        "name": "UI Architecture",
+        "privacy": "closed"
       }
     }
   }

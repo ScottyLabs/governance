@@ -30,6 +30,11 @@
         "role": "maintainer",
         "team_id": "${github_team.quest.id}",
         "username": "${data.external.identity_anish.result.github}"
+      },
+      "uia_anish": {
+        "role": "maintainer",
+        "team_id": "${github_team.uia.id}",
+        "username": "${data.external.identity_anish.result.github}"
       }
     }
   }

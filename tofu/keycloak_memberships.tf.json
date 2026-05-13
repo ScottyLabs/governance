@@ -60,6 +60,20 @@
           "${data.external.identity_anish.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_uia": {
+        "group_id": "${keycloak_group.project_uia.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_uia_admins": {
+        "group_id": "${keycloak_group.project_uia_admins.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
       }
     }
   }

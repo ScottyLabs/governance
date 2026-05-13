@@ -55,6 +55,9 @@
           },
           {
             "role_id": "${discord_role.quest.id}"
+          },
+          {
+            "role_id": "${discord_role.uia.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -104,6 +107,10 @@
       },
       "tech": {
         "name": "Tech",
+        "server_id": "1353118209024331948"
+      },
+      "uia": {
+        "name": "UI Architecture",
         "server_id": "1353118209024331948"
       }
     }
