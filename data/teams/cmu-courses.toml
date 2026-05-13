@@ -11,6 +11,7 @@ description = "Script that automatically saves a page of your choice to the inte
 name = "courses"
 description = "CMU Courses"
 kennel = true
+sentry = true
 
 [[team.channels]]
 discord = "1459389616007282709"

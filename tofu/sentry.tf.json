@@ -1,0 +1,104 @@
+{
+  "resource": {
+    "sentry_key": {
+      "cbp_bus_sign": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.cbp_bus_sign.slug}"
+      },
+      "cmu-courses_courses": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.cmu-courses_courses.slug}"
+      },
+      "devops_kennel": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.devops_kennel.slug}"
+      },
+      "quest_quest": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.quest_quest.slug}"
+      }
+    },
+    "sentry_project": {
+      "cbp_bus_sign": {
+        "name": "bus-sign",
+        "organization": "${var.sentry_organization}",
+        "slug": "bus-sign",
+        "teams": [
+          "${sentry_team.cbp.slug}"
+        ]
+      },
+      "cmu-courses_courses": {
+        "name": "courses",
+        "organization": "${var.sentry_organization}",
+        "slug": "courses",
+        "teams": [
+          "${sentry_team.cmu-courses.slug}"
+        ]
+      },
+      "devops_kennel": {
+        "name": "kennel",
+        "organization": "${var.sentry_organization}",
+        "slug": "kennel",
+        "teams": [
+          "${sentry_team.devops.slug}"
+        ]
+      },
+      "quest_quest": {
+        "name": "quest",
+        "organization": "${var.sentry_organization}",
+        "slug": "quest",
+        "teams": [
+          "${sentry_team.quest.slug}"
+        ]
+      }
+    },
+    "sentry_team": {
+      "cbp": {
+        "name": "Community-Based Projects",
+        "organization": "${var.sentry_organization}",
+        "slug": "cbp"
+      },
+      "cmu-courses": {
+        "name": "CMU Courses",
+        "organization": "${var.sentry_organization}",
+        "slug": "cmu-courses"
+      },
+      "devops": {
+        "name": "DevOps",
+        "organization": "${var.sentry_organization}",
+        "slug": "devops"
+      },
+      "quest": {
+        "name": "Quest",
+        "organization": "${var.sentry_organization}",
+        "slug": "quest"
+      }
+    },
+    "vault_kv_secret_v2": {
+      "cbp_bus_sign_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cbp_bus_sign.dsn_public })}",
+        "mount": "secret",
+        "name": "secretspec/bus-sign/prod/SENTRY_DSN"
+      },
+      "cmu-courses_courses_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cmu-courses_courses.dsn_public })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/SENTRY_DSN"
+      },
+      "devops_kennel_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.devops_kennel.dsn_public })}",
+        "mount": "secret",
+        "name": "secretspec/kennel/prod/SENTRY_DSN"
+      },
+      "quest_quest_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.quest_quest.dsn_public })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/SENTRY_DSN"
+      }
+    }
+  }
+}

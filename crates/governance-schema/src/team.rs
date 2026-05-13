@@ -58,6 +58,8 @@ pub struct Repo {
     pub topics: Vec<String>,
     #[serde(default)]
     pub kennel: bool,
+    #[serde(default)]
+    pub sentry: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]

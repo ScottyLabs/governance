@@ -92,6 +92,19 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "devops_observability": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Grafana dashboards and alert rules for ScottyLabs services",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "observability",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "quest_quest": {
         "auto_init": true,
         "default_branch": "main",

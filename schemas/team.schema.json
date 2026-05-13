@@ -119,6 +119,10 @@
         "name": {
           "type": "string"
         },
+        "sentry": {
+          "type": "boolean",
+          "default": false
+        },
         "topics": {
           "type": "array",
           "default": [],

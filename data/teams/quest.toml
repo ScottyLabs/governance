@@ -8,6 +8,7 @@ leads = ["anish"]
 name = "quest"
 description = "CMU Orientation Quest"
 kennel = true
+sentry = true
 
 [[team.channels]]
 discord = "1459385784615440471"

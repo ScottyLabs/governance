@@ -13,6 +13,7 @@ slug = "bus-sign"
 name = "bus-sign"
 description = "A real-time bus sign for the Cohon University Center at Carnegie Mellon University"
 kennel = true
+sentry = true
 
 [[team.projects.channels]]
 discord = "1472669342108750087"

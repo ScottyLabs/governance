@@ -87,3 +87,18 @@ variable "kennel_webhook_url" {
     type    = string
     default = "https://kennel.scottylabs.org/webhook"
 }
+
+variable "sentry_organization" {
+    type    = string
+    default = "scottylabs"
+}
+
+variable "sentry_token" {
+    type      = string
+    sensitive = true
+}
+
+variable "sentry_base_url" {
+    type    = string
+    default = "https://sentry.io/api/"
+}

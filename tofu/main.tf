@@ -52,6 +52,10 @@ terraform {
             source  = "hashicorp/random"
             version = "~> 3.0"
         }
+        sentry = {
+            source  = "jianyuan/sentry"
+            version = "~> 0.13"
+        }
         external = {
             source  = "hashicorp/external"
             version = "~> 2.0"
@@ -115,4 +119,9 @@ provider "restapi" {
         Authorization = "token ${var.forgejo_token}"
         Content-Type  = "application/json"
     }
+}
+
+provider "sentry" {
+    token    = var.sentry_token
+    base_url = var.sentry_base_url
 }

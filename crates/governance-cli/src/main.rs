@@ -7,7 +7,8 @@ use governance_core::loader::GovernanceData;
 use governance_core::validator;
 use governance_tfgen::codeowners;
 use governance_tfgen::generators::{
-    discord, forgejo, github, google_groups, identities, keycloak, openbao, slack, vaultwarden,
+    discord, forgejo, github, google_groups, identities, keycloak, openbao, sentry, slack,
+    vaultwarden,
 };
 
 #[derive(Parser)]
@@ -99,6 +100,8 @@ fn main() -> anyhow::Result<()> {
 
             openbao::generate_project_policies(&data)
                 .write_to(&output_dir.join("openbao.tf.json"))?;
+
+            sentry::generate(&data).write_to(&output_dir.join("sentry.tf.json"))?;
 
             vaultwarden::generate(&data).write_to(&output_dir.join("vaultwarden.tf.json"))?;
             google_groups::generate(&data).write_to(&output_dir.join("google_groups.tf.json"))?;
