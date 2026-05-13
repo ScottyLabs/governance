@@ -1,0 +1,9 @@
+[team]
+name = "UI Architecture"
+slug = "uia"
+leads = ["anish"]
+
+[[team.repos]]
+name = "component-library"
+description = "ScottyLabs design system"
+kennel = true
