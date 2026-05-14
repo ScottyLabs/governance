@@ -66,3 +66,35 @@ jobs:
       - name: Apply
         working-directory: tofu
         run: tofu apply -auto-approve
+
+      - name: Sync observability CODEOWNERS
+        env:
+          BOT_TOKEN: ${{ secrets.CB_GOVERNANCE_TOKEN }}
+          SIGNING_KEY: ${{ secrets.BOT_SSH_SIGNING_KEY }}
+        run: |
+          set -euo pipefail
+          ./target/release/governance observability-codeowners > /tmp/CODEOWNERS-new
+
+          git clone "https://scottylabs-bot:${BOT_TOKEN}@codeberg.org/ScottyLabs/observability.git" /tmp/observability
+          mkdir -p /tmp/observability/.forgejo
+
+          if [ -f /tmp/observability/.forgejo/CODEOWNERS ] && \
+             cmp -s /tmp/CODEOWNERS-new /tmp/observability/.forgejo/CODEOWNERS; then
+            echo "observability CODEOWNERS already up to date"
+            exit 0
+          fi
+
+          cp /tmp/CODEOWNERS-new /tmp/observability/.forgejo/CODEOWNERS
+
+          cd /tmp/observability
+          echo "$SIGNING_KEY" > /tmp/signing_key
+          chmod 600 /tmp/signing_key
+          git config user.name "scottylabs-bot"
+          git config user.email "ops+codeberg@scottylabs.org"
+          git config gpg.format ssh
+          git config user.signingkey /tmp/signing_key
+          git config commit.gpgsign true
+
+          git add .forgejo/CODEOWNERS
+          git commit -m "chore: regenerate CODEOWNERS"
+          git push

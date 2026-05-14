@@ -53,6 +53,7 @@ enum Command {
         #[arg(long)]
         user: String,
     },
+    ObservabilityCodeowners,
 }
 
 fn main() -> anyhow::Result<()> {
@@ -215,6 +216,10 @@ fn main() -> anyhow::Result<()> {
                 }
                 Err(e) => anyhow::bail!("slack invite request failed: {e}"),
             }
+        }
+        Command::ObservabilityCodeowners => {
+            let data = GovernanceData::load(&cli.data_dir)?;
+            print!("{}", codeowners::generate_observability_codeowners(&data));
         }
         Command::SlackKick { channel, user } => {
             let token =
