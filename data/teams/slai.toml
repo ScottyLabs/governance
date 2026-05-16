@@ -1,0 +1,15 @@
+[team]
+name = "ScottyLabs AI"
+slug = "slai"
+leads = ["krishsaxena"]
+
+[[team.repos]]
+name = "cmugpt-surface"
+description = "Fullstack for users to interface with CMU GPT"
+
+[[team.repos]]
+name = "cmugpt-agent"
+description = "Running the model, doing RAG, etc. for CMU GPT"
+
+[[team.channels]]
+slack = "C08SRUGUQ05"
