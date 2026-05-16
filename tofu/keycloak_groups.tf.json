@@ -41,6 +41,16 @@
         "parent_id": "${keycloak_group.project_quest.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_slai": {
+        "name": "slai",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_slai.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_uia": {
         "name": "uia",
         "parent_id": "${keycloak_group.projects.id}",

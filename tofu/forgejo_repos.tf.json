@@ -118,6 +118,32 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "slai_cmugpt_agent": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Running the model, doing RAG, etc. for CMU GPT",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "cmugpt-agent",
+        "owner": "ScottyLabs",
+        "private": false
+      },
+      "slai_cmugpt_surface": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Fullstack for users to interface with CMU GPT",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "cmugpt-surface",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "uia_components": {
         "auto_init": true,
         "default_branch": "main",

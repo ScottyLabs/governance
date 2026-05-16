@@ -12,6 +12,17 @@
           "codeberg_user": "anish"
         }
       },
+      "identity_krishsaxena": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "krishsaxena"
+        }
+      },
       "identity_tentype": {
         "program": [
           "governance",

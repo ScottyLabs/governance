@@ -31,6 +31,11 @@
         "team_id": "${github_team.quest.id}",
         "username": "${data.external.identity_anish.result.github}"
       },
+      "slai_krishsaxena": {
+        "role": "maintainer",
+        "team_id": "${github_team.slai.id}",
+        "username": "${data.external.identity_krishsaxena.result.github}"
+      },
       "uia_anish": {
         "role": "maintainer",
         "team_id": "${github_team.uia.id}",

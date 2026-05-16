@@ -63,6 +63,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_anish.result.discord_id}"
       },
+      "krishsaxena": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.slai.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_krishsaxena.result.discord_id}"
+      },
       "tentype": {
         "role": [
           {
@@ -103,6 +115,10 @@
       },
       "quest": {
         "name": "Quest",
+        "server_id": "1353118209024331948"
+      },
+      "slai": {
+        "name": "ScottyLabs AI",
         "server_id": "1353118209024331948"
       },
       "tech": {

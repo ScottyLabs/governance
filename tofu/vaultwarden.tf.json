@@ -22,6 +22,10 @@
             "manage": true
           },
           {
+            "id": "${data.bitwarden_org_member.vw_krishsaxena.id}",
+            "manage": true
+          },
+          {
             "id": "${data.bitwarden_org_member.vw_tentype.id}",
             "manage": true
           },
@@ -39,6 +43,10 @@
     "bitwarden_org_member": {
       "vw_anish": {
         "email": "${data.external.identity_anish.result.cmu-saml}@andrew.cmu.edu",
+        "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
+      },
+      "vw_krishsaxena": {
+        "email": "${data.external.identity_krishsaxena.result.cmu-saml}@andrew.cmu.edu",
         "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
       },
       "vw_tentype": {

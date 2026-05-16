@@ -34,6 +34,17 @@
           }
         ]
       },
+      "ops_krishsaxena": {
+        "group": "${data.google_cloud_identity_group_lookup.ops.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_krishsaxena.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
       "ops_tentype": {
         "group": "${data.google_cloud_identity_group_lookup.ops.name}",
         "preferred_member_key": {
@@ -60,6 +71,17 @@
         "group": "${data.google_cloud_identity_group_lookup.tech.name}",
         "preferred_member_key": {
           "id": "${data.external.identity_anish.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
+      "tech_krishsaxena": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_krishsaxena.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {

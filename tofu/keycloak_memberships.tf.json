@@ -61,6 +61,20 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_slai": {
+        "group_id": "${keycloak_group.project_slai.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_admins": {
+        "group_id": "${keycloak_group.project_slai_admins.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_uia": {
         "group_id": "${keycloak_group.project_uia.id}",
         "members": [

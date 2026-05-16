@@ -17,6 +17,10 @@
         "name": "Quest",
         "privacy": "closed"
       },
+      "slai": {
+        "name": "ScottyLabs AI",
+        "privacy": "closed"
+      },
       "uia": {
         "name": "UI Architecture",
         "privacy": "closed"

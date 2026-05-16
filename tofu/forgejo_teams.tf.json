@@ -45,6 +45,17 @@
           "repo.pulls": "write"
         }
       },
+      "slai": {
+        "description": "ScottyLabs AI",
+        "name": "slai",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "write",
+        "units_map": {
+          "repo.code": "write",
+          "repo.issues": "write",
+          "repo.pulls": "write"
+        }
+      },
       "uia": {
         "description": "UI Architecture",
         "name": "uia",

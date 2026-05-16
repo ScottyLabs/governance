@@ -91,6 +91,26 @@
         "name": "quest",
         "visibility": "public"
       },
+      "slai_cmugpt_agent": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/cmugpt-agent",
+        "name": "cmugpt-agent",
+        "visibility": "public"
+      },
+      "slai_cmugpt_surface": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/cmugpt-surface",
+        "name": "cmugpt-surface",
+        "visibility": "public"
+      },
       "uia_components": {
         "description": "READ-ONLY MIRROR",
         "has_discussions": false,
@@ -155,6 +175,18 @@
         "key": "${restapi_object.quest_quest_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.quest_quest.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "slai_cmugpt_agent_mirror_deploy_key": {
+        "key": "${restapi_object.slai_cmugpt_agent_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.slai_cmugpt_agent.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "slai_cmugpt_surface_mirror_deploy_key": {
+        "key": "${restapi_object.slai_cmugpt_surface_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.slai_cmugpt_surface.name}",
         "title": "Codeberg Mirroring"
       },
       "uia_components_mirror_deploy_key": {
@@ -424,6 +456,66 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.quest_quest.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "slai_cmugpt_agent_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.slai_cmugpt_agent_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.slai_cmugpt_agent.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "slai_cmugpt_surface_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.slai_cmugpt_surface_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.slai_cmugpt_surface.name}",
         "rules": {
           "creation": true,
           "deletion": true,
