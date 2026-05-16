@@ -40,7 +40,7 @@ jobs:
       - name: Install patched Forgejo provider
         run: |
           mkdir -p /tmp/forgejo-provider
-          curl -sL https://github.com/ap-1/terraform-provider-forgejo/releases/download/v1.4.2-team-repository.1/terraform-provider-forgejo_1.4.2-team-repository.1_linux_amd64.zip -o /tmp/fp.zip
+          curl -sL https://github.com/ap-1/terraform-provider-forgejo/releases/download/v1.4.2-team-repository.2/terraform-provider-forgejo_1.4.2-team-repository.2_linux_amd64.zip -o /tmp/fp.zip
           unzip -o /tmp/fp.zip -d /tmp/forgejo-provider
           chmod +x /tmp/forgejo-provider/terraform-provider-forgejo_*
           mkdir -p ~/.terraform.d
