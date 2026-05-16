@@ -37,6 +37,23 @@ jobs:
       - name: Install OpenTofu
         uses: https://github.com/opentofu/setup-opentofu@v2
 
+      - name: Install patched Forgejo provider
+        run: |
+          mkdir -p /tmp/forgejo-provider
+          curl -sL https://github.com/ap-1/terraform-provider-forgejo/releases/download/v1.4.2-team-repository/terraform-provider-forgejo_1.4.2-team-repository_linux_amd64.zip -o /tmp/fp.zip
+          unzip -o /tmp/fp.zip -d /tmp/forgejo-provider
+          chmod +x /tmp/forgejo-provider/terraform-provider-forgejo_*
+          mkdir -p ~/.terraform.d
+          cat > ~/.terraform.d/dev_overrides.tfrc << EOF
+          provider_installation {
+            dev_overrides {
+              "svalabs/forgejo" = "/tmp/forgejo-provider"
+            }
+            direct {}
+          }
+          EOF
+          echo "TF_CLI_CONFIG_FILE=$HOME/.terraform.d/dev_overrides.tfrc" >> $GITHUB_ENV
+
       - name: Build CLI
         uses: https://github.com/dtolnay/rust-toolchain@stable
       - uses: https://github.com/Swatinem/rust-cache@v2

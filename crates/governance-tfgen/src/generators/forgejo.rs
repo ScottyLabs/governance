@@ -204,6 +204,41 @@ pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
     tf
 }
 
+pub fn generate_team_repos(data: &GovernanceData) -> TfJsonFile {
+    let mut tf = TfJsonFile::default();
+    let org = &data.org.org;
+    let forgejo = match &org.forgejo {
+        Some(f) => f,
+        None => return tf,
+    };
+    let is_default = org.default_forge == ForgeType::Forgejo;
+
+    for team in &data.teams {
+        let slug = &team.team.group.slug;
+        let team_ref = format!("${{forgejo_team.{slug}.id}}");
+
+        for repo in repos_for_forgejo(team, is_default) {
+            let key = format!("{}_{}", slug, repo.name.replace('-', "_"));
+
+            tf.add_resource(
+                "forgejo_team_repository",
+                &key,
+                json!({
+                    "team_id": team_ref,
+                    "owner": forgejo.org,
+                    "repository": repo.name,
+                    "depends_on": [
+                        format!("forgejo_repository.{key}"),
+                        format!("forgejo_team.{slug}"),
+                    ],
+                }),
+            );
+        }
+    }
+
+    tf
+}
+
 fn repos_for_forgejo(team: &TeamFile, is_default: bool) -> Vec<&Repo> {
     let mut repos = Vec::new();
     collect_repos(&team.team.group, is_default, &mut repos);

@@ -1,0 +1,114 @@
+{
+  "resource": {
+    "forgejo_team_repository": {
+      "cbp_bus_sign": {
+        "depends_on": [
+          "forgejo_repository.cbp_bus_sign",
+          "forgejo_team.cbp"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "bus-sign",
+        "team_id": "${forgejo_team.cbp.id}"
+      },
+      "cmu-courses_courses": {
+        "depends_on": [
+          "forgejo_repository.cmu-courses_courses",
+          "forgejo_team.cmu-courses"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "courses",
+        "team_id": "${forgejo_team.cmu-courses.id}"
+      },
+      "cmu-courses_internet_archive": {
+        "depends_on": [
+          "forgejo_repository.cmu-courses_internet_archive",
+          "forgejo_team.cmu-courses"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "internet-archive",
+        "team_id": "${forgejo_team.cmu-courses.id}"
+      },
+      "devops_devenv": {
+        "depends_on": [
+          "forgejo_repository.devops_devenv",
+          "forgejo_team.devops"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "devenv",
+        "team_id": "${forgejo_team.devops.id}"
+      },
+      "devops_governance": {
+        "depends_on": [
+          "forgejo_repository.devops_governance",
+          "forgejo_team.devops"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "governance",
+        "team_id": "${forgejo_team.devops.id}"
+      },
+      "devops_infrastructure": {
+        "depends_on": [
+          "forgejo_repository.devops_infrastructure",
+          "forgejo_team.devops"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "infrastructure",
+        "team_id": "${forgejo_team.devops.id}"
+      },
+      "devops_kennel": {
+        "depends_on": [
+          "forgejo_repository.devops_kennel",
+          "forgejo_team.devops"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "kennel",
+        "team_id": "${forgejo_team.devops.id}"
+      },
+      "devops_observability": {
+        "depends_on": [
+          "forgejo_repository.devops_observability",
+          "forgejo_team.devops"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "observability",
+        "team_id": "${forgejo_team.devops.id}"
+      },
+      "quest_quest": {
+        "depends_on": [
+          "forgejo_repository.quest_quest",
+          "forgejo_team.quest"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "quest",
+        "team_id": "${forgejo_team.quest.id}"
+      },
+      "slai_cmugpt_agent": {
+        "depends_on": [
+          "forgejo_repository.slai_cmugpt_agent",
+          "forgejo_team.slai"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "cmugpt-agent",
+        "team_id": "${forgejo_team.slai.id}"
+      },
+      "slai_cmugpt_surface": {
+        "depends_on": [
+          "forgejo_repository.slai_cmugpt_surface",
+          "forgejo_team.slai"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "cmugpt-surface",
+        "team_id": "${forgejo_team.slai.id}"
+      },
+      "uia_components": {
+        "depends_on": [
+          "forgejo_repository.uia_components",
+          "forgejo_team.uia"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "components",
+        "team_id": "${forgejo_team.uia.id}"
+      }
+    }
+  }
+}
