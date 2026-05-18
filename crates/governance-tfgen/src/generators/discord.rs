@@ -51,7 +51,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
     // Per-team roles
     for team in &data.teams {
         let slug = &team.team.group.slug;
-        let name = team.team.group.name.as_deref().unwrap_or(slug);
+        let name = team.team.group.name.as_str();
 
         tf.add_resource(
             "discord_role",

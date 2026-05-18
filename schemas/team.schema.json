@@ -66,10 +66,7 @@
           }
         },
         "name": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         },
         "repos": {
           "type": "array",
@@ -83,7 +80,8 @@
         }
       },
       "required": [
-        "slug"
+        "slug",
+        "name"
       ]
     },
     "Repo": {
@@ -173,10 +171,7 @@
           }
         },
         "name": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         },
         "projects": {
           "type": "array",
@@ -197,7 +192,8 @@
         }
       },
       "required": [
-        "slug"
+        "slug",
+        "name"
       ]
     }
   }

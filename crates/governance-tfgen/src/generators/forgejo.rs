@@ -50,7 +50,7 @@ pub fn generate_teams(data: &GovernanceData) -> TfJsonFile {
 
     for team in &data.teams {
         let slug = &team.team.group.slug;
-        let description = team.team.group.name.as_deref().unwrap_or("");
+        let description = team.team.group.name.as_str();
 
         tf.add_resource(
             "forgejo_team",

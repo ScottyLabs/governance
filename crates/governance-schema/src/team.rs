@@ -11,7 +11,7 @@ pub struct TeamFile {
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct GroupFields {
     pub slug: String,
-    pub name: Option<String>,
+    pub name: String,
     pub description: Option<String>,
     #[serde(default)]
     pub leads: Vec<String>,

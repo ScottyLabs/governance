@@ -94,7 +94,7 @@ pub fn generate_teams(data: &GovernanceData) -> TfJsonFile {
 
     for team in &data.teams {
         let slug = &team.team.group.slug;
-        let name = team.team.group.name.as_deref().unwrap_or(slug);
+        let name = team.team.group.name.as_str();
 
         tf.add_resource(
             "github_team",

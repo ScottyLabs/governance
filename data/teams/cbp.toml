@@ -7,6 +7,7 @@ leads = ["tentype", "anish"]
 discord = "1450023430224216237"
 
 [[team.projects]]
+name = "Bus Sign"
 slug = "bus-sign"
 
 [[team.projects.repos]]

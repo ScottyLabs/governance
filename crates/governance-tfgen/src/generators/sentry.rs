@@ -14,12 +14,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         }
 
         let team_slug = &team.team.group.slug;
-        let team_name = team
-            .team
-            .group
-            .name
-            .clone()
-            .unwrap_or_else(|| team_slug.clone());
+        let team_name = team.team.group.name.as_str();
 
         tf.add_resource(
             "sentry_team",
