@@ -10,8 +10,6 @@ pub struct OrgFile {
 pub struct OrgConfig {
     pub name: String,
     pub tech_director: String,
-    pub default_forge: ForgeType,
-
     pub forgejo: Option<ForgejoConfig>,
     pub github: Option<GithubConfig>,
     pub communication: Option<CommunicationConfig>,
@@ -25,12 +23,6 @@ pub struct OrgConfig {
     pub defaults: OrgDefaults,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, JsonSchema)]
-#[serde(rename_all = "lowercase")]
-pub enum ForgeType {
-    Github,
-    Forgejo,
-}
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
 pub struct ForgejoConfig {

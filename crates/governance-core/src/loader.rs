@@ -64,10 +64,6 @@ impl GovernanceData {
         leads.dedup();
         leads
     }
-
-    pub fn default_forge(&self) -> &governance_schema::org::ForgeType {
-        &self.org.org.default_forge
-    }
 }
 
 fn load_org(data_dir: &Path) -> Result<OrgFile, GovernanceError> {

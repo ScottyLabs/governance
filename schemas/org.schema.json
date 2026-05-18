@@ -49,13 +49,6 @@
         "org_id"
       ]
     },
-    "ForgeType": {
-      "type": "string",
-      "enum": [
-        "github",
-        "forgejo"
-      ]
-    },
     "ForgejoConfig": {
       "type": "object",
       "properties": {
@@ -137,9 +130,6 @@
             }
           ]
         },
-        "default_forge": {
-          "$ref": "#/$defs/ForgeType"
-        },
         "defaults": {
           "$ref": "#/$defs/OrgDefaults",
           "default": {
@@ -220,8 +210,7 @@
       },
       "required": [
         "name",
-        "tech_director",
-        "default_forge"
+        "tech_director"
       ]
     },
     "OrgDefaults": {

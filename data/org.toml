@@ -1,7 +1,6 @@
 [org]
 name = "ScottyLabs"
 tech_director = "anish"
-default_forge = "forgejo"
 
 [org.forgejo]
 org = "ScottyLabs"

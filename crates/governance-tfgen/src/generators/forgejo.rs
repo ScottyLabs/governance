@@ -1,5 +1,4 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::org::ForgeType;
 use governance_schema::team::{GroupFields, Repo, TeamFile};
 use serde_json::json;
 
@@ -12,10 +11,9 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
         Some(f) => f,
         None => return tf,
     };
-    let is_default = org.default_forge == ForgeType::Forgejo;
 
     for team in &data.teams {
-        for repo in repos_for_forgejo(team, is_default) {
+        for repo in repos_for_forgejo(team) {
             let resource_name = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
             let is_private = repo
                 .visibility
@@ -118,10 +116,9 @@ pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
         return tf;
     }
     let github_org = org.github.as_ref().unwrap().org.as_str();
-    let is_default = org.default_forge == ForgeType::Forgejo;
 
     for team in &data.teams {
-        for repo in repos_for_forgejo(team, is_default) {
+        for repo in repos_for_forgejo(team) {
             let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
             let github_ssh_url = format!("git@github.com:{github_org}/{}.git", repo.name);
 
@@ -161,10 +158,9 @@ pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
         Some(f) => f,
         None => return tf,
     };
-    let is_default = org.default_forge == ForgeType::Forgejo;
 
     for team in &data.teams {
-        for repo in repos_for_forgejo(team, is_default) {
+        for repo in repos_for_forgejo(team) {
             if !repo.kennel {
                 continue;
             }
@@ -211,13 +207,12 @@ pub fn generate_team_repos(data: &GovernanceData) -> TfJsonFile {
         Some(f) => f,
         None => return tf,
     };
-    let is_default = org.default_forge == ForgeType::Forgejo;
 
     for team in &data.teams {
         let slug = &team.team.group.slug;
         let team_ref = format!("${{forgejo_team.{slug}.id}}");
 
-        for repo in repos_for_forgejo(team, is_default) {
+        for repo in repos_for_forgejo(team) {
             let key = format!("{}_{}", slug, repo.name.replace('-', "_"));
 
             tf.add_resource(
@@ -239,24 +234,15 @@ pub fn generate_team_repos(data: &GovernanceData) -> TfJsonFile {
     tf
 }
 
-fn repos_for_forgejo(team: &TeamFile, is_default: bool) -> Vec<&Repo> {
+fn repos_for_forgejo(team: &TeamFile) -> Vec<&Repo> {
     let mut repos = Vec::new();
-    collect_repos(&team.team.group, is_default, &mut repos);
+    collect_repos(&team.team.group, &mut repos);
     for project in &team.team.projects {
-        collect_repos(&project.group, is_default, &mut repos);
+        collect_repos(&project.group, &mut repos);
     }
     repos
 }
 
-fn collect_repos<'a>(group: &'a GroupFields, is_default: bool, repos: &mut Vec<&'a Repo>) {
-    for repo in &group.repos {
-        let on_forgejo = match &repo.forge {
-            Some(ForgeType::Forgejo) => true,
-            Some(ForgeType::Github) => false,
-            None => is_default,
-        };
-        if on_forgejo {
-            repos.push(repo);
-        }
-    }
+fn collect_repos<'a>(group: &'a GroupFields, repos: &mut Vec<&'a Repo>) {
+    repos.extend(group.repos.iter());
 }

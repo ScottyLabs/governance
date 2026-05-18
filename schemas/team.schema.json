@@ -28,13 +28,6 @@
         }
       }
     },
-    "ForgeType": {
-      "type": "string",
-      "enum": [
-        "github",
-        "forgejo"
-      ]
-    },
     "Project": {
       "type": "object",
       "properties": {
@@ -100,16 +93,6 @@
           "type": [
             "string",
             "null"
-          ]
-        },
-        "forge": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ForgeType"
-            },
-            {
-              "type": "null"
-            }
           ]
         },
         "kennel": {

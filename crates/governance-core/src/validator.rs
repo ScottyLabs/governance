@@ -2,7 +2,6 @@ use std::collections::HashSet;
 use std::sync::Mutex;
 use std::thread;
 
-use governance_schema::org::ForgeType;
 use governance_schema::team::{Channel, GroupFields, TeamFile};
 
 use crate::error::ValidationError;
@@ -11,28 +10,13 @@ use crate::loader::GovernanceData;
 pub fn validate(data: &GovernanceData) -> Vec<ValidationError> {
     let mut errors = Vec::new();
 
-    validate_default_forge(data, &mut errors);
     validate_team_slugs(data, &mut errors);
     validate_repo_names(data, &mut errors);
     validate_groups(data, &mut errors);
-    validate_forge_refs(data, &mut errors);
     validate_channels(data, &mut errors);
     validate_identities(data, &mut errors);
 
     errors
-}
-
-fn validate_default_forge(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
-    let org = &data.org.org;
-    match org.default_forge {
-        ForgeType::Github if org.github.is_none() => {
-            errors.push(ValidationError::ForgeNotConfigured("github".into()));
-        }
-        ForgeType::Forgejo if org.forgejo.is_none() => {
-            errors.push(ValidationError::ForgeNotConfigured("forgejo".into()));
-        }
-        _ => {}
-    }
 }
 
 fn validate_team_slugs(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
@@ -74,27 +58,6 @@ fn validate_leads_not_members(group: &GroupFields, errors: &mut Vec<ValidationEr
                 team: group.slug.clone(),
                 lead: member.clone(),
             });
-        }
-    }
-}
-
-fn validate_forge_refs(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
-    let org = &data.org.org;
-    for team in &data.teams {
-        let slug = &team.team.group.slug;
-        for repo in all_repos(team) {
-            if let Some(forge) = &repo.forge {
-                let configured = match forge {
-                    ForgeType::Github => org.github.is_some(),
-                    ForgeType::Forgejo => org.forgejo.is_some(),
-                };
-                if !configured {
-                    errors.push(ValidationError::ForgeNotConfigured(format!(
-                        "{forge:?} (referenced by repo {} in team {slug})",
-                        repo.name
-                    )));
-                }
-            }
         }
     }
 }

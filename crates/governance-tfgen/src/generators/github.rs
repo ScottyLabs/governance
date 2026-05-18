@@ -1,5 +1,4 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::org::ForgeType;
 use governance_schema::team::{GroupFields, Repo, TeamFile};
 use serde_json::json;
 
@@ -12,99 +11,75 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
         return tf;
     }
     let forgejo_url = org.forgejo.as_ref().map(|f| f.url());
-    let is_default = org.default_forge == ForgeType::Github;
 
     for team in &data.teams {
-        for (repo, is_mirror) in repos_for_github(team, is_default) {
+        for repo in repos_for_github(team) {
             let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
+            let codeberg_url = format!(
+                "{}/{}/{}",
+                forgejo_url.unwrap_or("https://codeberg.org"),
+                org.forgejo.as_ref().map(|f| f.org.as_str()).unwrap_or(""),
+                repo.name
+            );
 
-            if is_mirror {
-                let codeberg_url = format!(
-                    "{}/{}/{}",
-                    forgejo_url.unwrap_or("https://codeberg.org"),
-                    org.forgejo.as_ref().map(|f| f.org.as_str()).unwrap_or(""),
-                    repo.name
-                );
-                tf.add_resource(
-                    "github_repository",
-                    &key,
-                    json!({
-                        "name": repo.name,
-                        "description": "READ-ONLY MIRROR",
-                        "homepage_url": codeberg_url,
-                        "visibility": "public",
-                        "has_issues": false,
-                        "has_projects": false,
-                        "has_wiki": false,
-                        "has_discussions": false,
-                    }),
-                );
+            tf.add_resource(
+                "github_repository",
+                &key,
+                json!({
+                    "name": repo.name,
+                    "description": "READ-ONLY MIRROR",
+                    "homepage_url": codeberg_url,
+                    "visibility": "public",
+                    "has_issues": false,
+                    "has_projects": false,
+                    "has_wiki": false,
+                    "has_discussions": false,
+                }),
+            );
 
-                tf.add_resource(
-                    "github_repository_deploy_key",
-                    &format!("{key}_mirror_deploy_key"),
-                    json!({
-                        "repository": format!("${{github_repository.{key}.name}}"),
-                        "title": "Codeberg Mirroring",
-                        "key": format!("${{restapi_object.{key}_push_mirror.api_data.public_key}}"),
-                        "read_only": false,
-                    }),
-                );
+            tf.add_resource(
+                "github_repository_deploy_key",
+                &format!("{key}_mirror_deploy_key"),
+                json!({
+                    "repository": format!("${{github_repository.{key}.name}}"),
+                    "title": "Codeberg Mirroring",
+                    "key": format!("${{restapi_object.{key}_push_mirror.api_data.public_key}}"),
+                    "read_only": false,
+                }),
+            );
 
-                tf.add_resource(
-                    "github_repository_ruleset",
-                    &format!("{key}_ruleset"),
-                    json!({
-                        "name": "Default",
-                        "repository": format!("${{github_repository.{key}.name}}"),
-                        "target": "branch",
-                        "enforcement": "active",
-                        "conditions": {
-                            "ref_name": {
-                                "include": ["~ALL"],
-                                "exclude": [],
-                            },
+            tf.add_resource(
+                "github_repository_ruleset",
+                &format!("{key}_ruleset"),
+                json!({
+                    "name": "Default",
+                    "repository": format!("${{github_repository.{key}.name}}"),
+                    "target": "branch",
+                    "enforcement": "active",
+                    "conditions": {
+                        "ref_name": {
+                            "include": ["~ALL"],
+                            "exclude": [],
                         },
-                        "bypass_actors": [
-                            {
-                                "actor_id": format!("${{tonumber(element(split(\":\", github_repository_deploy_key.{key}_mirror_deploy_key.id), 1))}}"),
-                                "actor_type": "DeployKey",
-                                "bypass_mode": "always",
-                            },
-                        ],
-                        "rules": {
-                            "creation": true,
-                            "update": true,
-                            "deletion": true,
-                            "non_fast_forward": true,
-                            "pull_request": {
-                                "required_approving_review_count": 1,
-                            },
+                    },
+                    "bypass_actors": [
+                        {
+                            "actor_id": format!("${{tonumber(element(split(\":\", github_repository_deploy_key.{key}_mirror_deploy_key.id), 1))}}"),
+                            "actor_type": "DeployKey",
+                            "bypass_mode": "always",
                         },
-                    }),
-                );
-            } else {
-                let visibility = repo
-                    .visibility
-                    .as_ref()
-                    .unwrap_or(&org.defaults.repo_visibility);
-                tf.add_resource(
-                    "github_repository",
-                    &key,
-                    json!({
-                        "name": repo.name,
-                        "description": repo.description.as_deref().unwrap_or(""),
-                        "visibility": format!("{visibility:?}").to_lowercase(),
-                        "default_branch": org.defaults.default_branch,
-                        "allow_squash_merge": org.defaults.allow_squash_merge,
-                        "allow_merge_commit": org.defaults.allow_merge_commit,
-                        "allow_rebase_merge": org.defaults.allow_rebase_merge,
-                        "has_issues": true,
-                        "has_projects": false,
-                        "has_wiki": false,
-                    }),
-                );
-            }
+                    ],
+                    "rules": {
+                        "creation": true,
+                        "update": true,
+                        "deletion": true,
+                        "non_fast_forward": true,
+                        "pull_request": {
+                            "required_approving_review_count": 1,
+                        },
+                    },
+                }),
+            );
         }
     }
 
@@ -170,22 +145,15 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
     tf
 }
 
-fn repos_for_github(team: &TeamFile, is_default: bool) -> Vec<(&Repo, bool)> {
+fn repos_for_github(team: &TeamFile) -> Vec<&Repo> {
     let mut repos = Vec::new();
-    collect_repos(&team.team.group, is_default, &mut repos);
+    collect_repos(&team.team.group, &mut repos);
     for project in &team.team.projects {
-        collect_repos(&project.group, is_default, &mut repos);
+        collect_repos(&project.group, &mut repos);
     }
     repos
 }
 
-fn collect_repos<'a>(group: &'a GroupFields, is_default: bool, repos: &mut Vec<(&'a Repo, bool)>) {
-    for repo in &group.repos {
-        match &repo.forge {
-            Some(ForgeType::Github) => repos.push((repo, false)),
-            Some(ForgeType::Forgejo) => repos.push((repo, true)),
-            None if is_default => repos.push((repo, false)),
-            None => repos.push((repo, true)),
-        }
-    }
+fn collect_repos<'a>(group: &'a GroupFields, repos: &mut Vec<&'a Repo>) {
+    repos.extend(group.repos.iter());
 }
