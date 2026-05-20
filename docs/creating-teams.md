@@ -75,6 +75,7 @@ kennel = false
 # Project-specific comms (same shape as team-level `[[team.channels]]`).
 [[team.projects.channels]]
 discord = "9876543210987654321"
+slack = "18ASC8CJSA6"
 ```
 
 1. Add `data/teams/<slug>.toml`.
