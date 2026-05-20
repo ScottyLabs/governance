@@ -8,11 +8,12 @@ Everyone already has a Keycloak account.
 
 Opening a pull request runs CI, which checks that every listed member can be resolved before the change can merge. If your identities are not linked this fails and we can't merge your PR.
 
-Suggested links (you don't need to link them unless your team uses them):
+These are required, the PR won't be cleared if you don't have them:
 
 - **CMU SSO** (`cmu-saml`), which helps give access to Google Groups
 - **Codeberg** and **GitHub**, which helps give Codeberg org membership and GitHub team membership.
-- **Discord** and **Slack**, which helps team channels use your ids from Keycloak if everyone has it.
+
+**Discord** and **Slack**, helps team channels use your ids from Keycloak if everyone has it. You don't need to link these unless your team uses them.
 
 ## Steps
 

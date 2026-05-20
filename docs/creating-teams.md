@@ -28,11 +28,11 @@ members = ["member1-cb"]
 # Repositories belonging to the team. Each `name` must be unique across the whole org.
 # Repos are created on Codeberg (Forgejo) and mirrored to GitHub.
 [[team.repos]]
-# Repository name on Codeberg (also used as the repo id in automation).
+# Repository name on Codeberg
 name = "example-app"
-# Short description pushed to the forge host.
+# Short description for the repo
 description = "Main application for Example Team."
-# "public" or "private". Omit to use the org default visibility.
+# Repo visibility (defaults to public)
 visibility = "private"
 # Optional topic labels on the forge.
 topics = ["web", "demo"]
@@ -52,30 +52,18 @@ discord = "1234567890123456789"
 # Slack channel id (omit if unused).
 slack = "C0123456789"
 
-# Optional Figma identifiers for integrations that consume this list (omit the key if unused).
-# figma_projects = ["abc123figma"]
-
-# Sub-projects: separate repos, channels, and membership under the same team umbrella.
+# Sub-projects: separate repos, channels, and membership under the same team. Check the heading below.
 [[team.projects]]
-# Required per project; used in paths and group names (keep stable).
-slug = "subproject-alpha"
-# Optional display name for humans.
-name = "Alpha track"
-description = "Optional project-level description."
-# Project-level leads (Codeberg usernames).
-leads = ["lead3-cb"]
-# Members only for this sub-project (Codeberg usernames).
-members = ["member2-cb"]
+# . . .
+# . . .
 
 [[team.projects.repos]]
-name = "alpha-service"
-description = "Backend for the alpha track."
-kennel = false
+# . . .
+# . . .
 
-# Project-specific comms (same shape as team-level `[[team.channels]]`).
 [[team.projects.channels]]
-discord = "9876543210987654321"
-slack = "18ASC8CJSA6"
+# . . .
+# . . .
 ```
 
 After this, open a pull request on Codeberg (Note everyone you list on this doc must already have the required Keycloak links. See [docs/adding-yourself-to-a-team.md](docs/adding-yourself-to-a-team.md)).
@@ -83,3 +71,7 @@ After this, open a pull request on Codeberg (Note everyone you list on this doc 
 **Permissions:** only people who are already a **lead** on some team or sub-project (`leads` anywhere in this repo) may add a *new* team file. The tech director and DevOps leads can also do this.
 
 After merge, permissions are automatically applied.
+
+## `team.projects` Note
+
+Note that this system is defined recursively. What this means is that you can add more and more `.projects` to these headers and each `team.projects` has all the headers available for what `team` generally has.
