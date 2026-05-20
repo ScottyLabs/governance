@@ -1,0 +1,14 @@
+[team]
+name = "Tartan Vote"
+slug = "tartan-vote"
+leads = ["maybe-yiyi"]
+members = []
+
+[[team.repos]]
+name = "Tartan Vote"
+description = "Voting app for the Undergraduate Senate and other student orgs."
+kennel = true
+sentry = true
+
+[[team.channels]]
+discord = "1472669361624842483"
