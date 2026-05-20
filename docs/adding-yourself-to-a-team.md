@@ -2,26 +2,15 @@
 
 ## Before you open a PR
 
-Everyone already has a Keycloak account. 
+1. **[Link your identities in Keycloak first](https://idp.scottylabs.org/realms/scottylabs/account/account-security/linked-accounts)**, and remember to check the second page.
+1. If any member listed in the team file lacks the linked accounts necssary for that team, CI will fail.
 
-**[Link your identities in Keycloak first (remember theres a second page)](https://idp.scottylabs.org/realms/scottylabs/account/account-security/linked-accounts)**. 
-
-Opening a pull request runs CI, which checks that every listed member can be resolved before the change can merge. If your identities are not linked this fails and we can't merge your PR.
-
-These are required, the PR won't be cleared if you don't have them:
-
-- **CMU SSO** (`cmu-saml`), which helps give access to Google Groups
-- **Codeberg** and **GitHub**, which helps give Codeberg org membership and GitHub team membership.
-
-**Discord** and **Slack**, helps team channels use your ids from Keycloak if everyone has it. You don't need to link these unless your team uses them.
+  - Linking **Codeberg** and **GitHub** is necessary for everyone. These allow governance to add you to the team's repositories on Codeberg and GitHub.
+  - **Discord** and **Slack** are only necessary if your team has these communication channels defined in the team file.
 
 ## Steps
 
-1. Edit `data/teams/<team-slug>.toml` and add your **Codeberg username** to `members` (whole team) or to a project’s `members` under `[[team.projects]]` if membership is per-project. If your team is not yet created, [create it.](creating-teams.md)
+1. Edit `data/teams/<team-slug>.toml` and add your **Codeberg username** to `members` (to join the whole team) or to a project’s `members` under `[[team.projects]]` if membership is per-project. If your team is not yet created, follow the [team creation docs](creating-teams.md) instead.
 2. Open a pull request on Codeberg.
 
-
-
-**Permissions:** if you are **not** a lead on that team, the PR should only add or remove **your own** username from `members` / project `members`. 
-
-Changing leads, repos, channels, names, project structure, or anyone else’s membership requires being a lead on that team, or being the tech director / a DevOps lead.
+**Permissions:** if you are not a lead on a team, a PR editing it should only involve you adding or removing yourself from `members` / project `members`. Changing any other field is restricted to the Tech Director and Tech Leads already declared in governance.
