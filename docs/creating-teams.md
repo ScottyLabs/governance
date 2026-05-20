@@ -78,9 +78,8 @@ discord = "9876543210987654321"
 slack = "18ASC8CJSA6"
 ```
 
-1. Add `data/teams/<slug>.toml`.
-2. Open a pull request on Codeberg (CI runs on the PR; everyone you list must already have the required Keycloak links. See [docs/adding-yourself-to-a-team.md](docs/adding-yourself-to-a-team.md)).
+After this, open a pull request on Codeberg (Note everyone you list on this doc must already have the required Keycloak links. See [docs/adding-yourself-to-a-team.md](docs/adding-yourself-to-a-team.md)).
 
 **Permissions:** only people who are already a **lead** on some team or sub-project (`leads` anywhere in this repo) may add a *new* team file. The tech director and DevOps leads can also do this.
 
-After merge, CI applies repos, Keycloak groups, comms access, and other integrations from the file.
+After merge, permissions are automatically applied.
