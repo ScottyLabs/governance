@@ -1,55 +1,56 @@
 # Creating a team
 
-Governance stores teams as `data/teams/<slug>.toml`. Reference existing teams for some samples. See [schemas/team.schema.json](schemas/team.schema.json) for more detail.
+Governance stores teams as `data/teams/<slug>.toml`. Reference existing teams for samples, and see [schemas/team.schema.json](schemas/team.schema.json) for the complete specification.
+
+After merge, the `Apply` step will automatically configure everything specified. If `Apply` fails, it's likely because you tried to declare pre-existing resources. Ask someone in DevOps to manually import them into governance for you.
 
 ## Example team file
 
-Save as `data/teams/<slug>.toml` where `<slug>` matches `slug` below.
-
 ```toml
-# data/teams/example-team.toml — template only; not a real team.
+# data/teams/example-team.toml
 
 [team]
-# Human-readable title (required).
+# Human-readable title
 name = "Example Team"
 
-# Stable id for this team: must match the filename (<slug>.toml), used in Terraform resources and integrations.
+# Stable id for this team matching the filename
 slug = "example-team"
 
-# Longer blurb shown in tooling (optional).
+# Description for documentation purposes (optional)
 description = "Demonstrates common team.toml fields."
 
-# Codeberg usernames with lead privileges (Keycloak admin subgroup, GitHub maintainer where applicable, etc.).
+# Codeberg usernames corresponding to Tech Leads
+# These are added to the "admin" subgroup under the team group in Keycloak,
+# as well as given maintainer access on repositories belonging to the team
 leads = ["lead1-cb", "lead2-cb"]
 
-# Codeberg usernames for regular members. Do not repeat anyone who is already in `leads` (validator rejects overlap).
+# Codeberg usernames for team members; mutually exclusive with the `leads` array
 members = ["member1-cb"]
 
 # Repositories belonging to the team. Each `name` must be unique across the whole org.
 # Repos are created on Codeberg (Forgejo) and mirrored to GitHub.
 [[team.repos]]
-# Repository name on Codeberg
 name = "example-app"
-# Short description for the repo
+# Repo description
 description = "Main application for Example Team."
-# Repo visibility (defaults to public)
+# Repo visibility (optional, default: public)
 visibility = "private"
-# Optional topic labels on the forge.
+# Repo topic labels (optional)
 topics = ["web", "demo"]
-# If true, register Kennel deploy webhooks for this repo.
+# Set to true if this project uses Kennel
 kennel = true
-# If true, link or provision Sentry for this repo where configured.
+# Set to true if this project uses observability
 sentry = true
 
 [[team.repos]]
 name = "example-lib"
 description = "Shared library; uses org default visibility when `visibility` is omitted."
 
-# Discord / Slack channels scoped to this team. Provisioning maps members to these channels via Keycloak-linked ids.
+# Discord / Slack channels scoped to this team; governance adds members to these channels via Keycloak-linked ids.
 [[team.channels]]
-# Discord channel snowflake (omit this key or leave unset if the team does not use Discord here).
+# Discord channel ID (optional)
 discord = "1234567890123456789"
-# Slack channel id (omit if unused).
+# Slack channel ID (optional)
 slack = "C0123456789"
 
 # Sub-projects: separate repos, channels, and membership under the same team. Check the heading below.
@@ -66,12 +67,12 @@ slack = "C0123456789"
 # . . .
 ```
 
-After this, open a pull request on Codeberg (Note everyone you list on this doc must already have the required Keycloak links. See [docs/adding-yourself-to-a-team.md](docs/adding-yourself-to-a-team.md)).
-
-**Permissions:** only people who are already a **lead** on some team or sub-project (`leads` anywhere in this repo) may add a *new* team file. The tech director and DevOps leads can also do this.
-
-After merge, permissions are automatically applied.
+After this, open a pull request on Codeberg. Everyone you list in this file must have the required accounts linked. See [docs/adding-yourself-to-a-team.md](docs/adding-yourself-to-a-team.md)).
 
 ## `team.projects` Note
 
-Note that this system is defined recursively. What this means is that you can add more and more `.projects` to these headers and each `team.projects` has all the headers available for what `team` generally has.
+Note that this system is defined recursively. You can repeatedly add `.projects` to these headers and each `team.projects` has all the headers available for what `team` generally has.
+
+
+**Permissions:** creating new teams is restricted to the Tech Director and Tech Leads already declared in governance.
+
