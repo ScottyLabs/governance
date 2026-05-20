@@ -2,36 +2,20 @@
 
 ## Before you open a PR
 
-Everyone already has a Keycloak account. **Link your identities in Keycloak first** — opening a pull request runs CI, which checks that every listed member can be resolved before the change can merge.
+Everyone already has a Keycloak account. **[Link your identities in Keycloak first (remember theres a second page)](https://idp.scottylabs.org/realms/scottylabs/account/account-security/linked-accounts)**. Opening a pull request runs CI, which checks that every listed member can be resolved before the change can merge. If your identities are not linked this fails and we can't merge your PR.
 
-Link what the org expects (the validator checks these for listed members):
+Suggested links (you don't need to link them unless your team uses them):
 
-- **CMU SSO** (`cmu-saml`) — used for Google Groups
-- **Codeberg** and **GitHub** — Forgejo/Codeberg org membership and mirrored GitHub team access.
-- **Discord** and **Slack** — when those integrations are enabled org-wide; team channels use your ids from Keycloak.
+- **CMU SSO** (`cmu-saml`), which helps give access to Google Groups
+- **Codeberg** and **GitHub**, which helps give Codeberg org membership and GitHub team membership.
+- **Discord** and **Slack**, which helps team channels use your ids from Keycloak if everyone has it.
 
 Governance treats **Keycloak** as the source of truth: your row in team data is your **Codeberg username**, and automation looks up that account in Keycloak and reads your linked IdPs.
 
 ## Steps
 
-1. Edit `data/teams/<team-slug>.toml` and add your **Codeberg username** to `members` (whole team) or to a project’s `members` under `[[team.projects]]` if membership is per-project.
+1. Edit `data/teams/<team-slug>.toml` and add your **Codeberg username** to `members` (whole team) or to a project’s `members` under `[[team.projects]]` if membership is per-project. If your team is not yet created, [create it.](creating-teams.md)
 2. Open a pull request on Codeberg.
-
-Typical edits (your real file already has repos, channels, and other sections—change only the `members` arrays you care about):
-
-```toml
-# Team-wide membership: everyone listed gets access to team-level repos and channels.
-[team]
-slug = "example-team"
-leads = ["lead-cb"]
-members = ["member-cb", "your-codeberg-username"]  # add yourself here
-
-# Or project-only membership: access limited to that project’s repos and channels.
-[[team.projects]]
-slug = "subproject-alpha"
-leads = ["lead-cb"]
-members = ["your-codeberg-username"]  # add yourself here instead (or in addition to team.members)
-```
 
 For a full commented team file (repos, channels, etc.), see `docs/creating-teams.md`.
 

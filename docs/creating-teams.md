@@ -1,6 +1,6 @@
 # Creating a team
 
-Governance stores teams as `data/teams/<slug>.toml`. Shape matches existing teams (`slug`, `name`, optional `description`, `leads`, `members`, `repos`, optional `[[team.projects]]`, `[[team.channels]]`, …). See `schemas/team.schema.json`.
+Governance stores teams as `data/teams/<slug>.toml`. Reference existing teams for some samples. See [schemas/team.schema.json](schemas/team.schema.json) for more detail.
 
 ## Example team file
 
@@ -78,10 +78,8 @@ discord = "9876543210987654321"
 ```
 
 1. Add `data/teams/<slug>.toml`.
-2. Open a pull request on Codeberg (CI runs on the PR; everyone you list must already have the required Keycloak links — see `docs/adding-yourself-to-a-team.md`).
+2. Open a pull request on Codeberg (CI runs on the PR; everyone you list must already have the required Keycloak links. See [docs/adding-yourself-to-a-team.md](docs/adding-yourself-to-a-team.md)).
 
-**Permissions:** only people who are already a **lead** on some team or sub-project (`leads` anywhere in this repo) may add a *new* team file. The tech director and DevOps leads bypass that rule.
+**Permissions:** only people who are already a **lead** on some team or sub-project (`leads` anywhere in this repo) may add a *new* team file. The tech director and DevOps leads can also do this.
 
 After merge, CI applies repos, Keycloak groups, comms access, and other integrations from the file.
-
-**Usernames:** `leads` and `members` are **Codeberg usernames**. Provisioning resolves each via **Keycloak** (Codeberg linked to your Keycloak user, then other linked IdPs).
