@@ -67,6 +67,13 @@ slack = "C0123456789"
 # . . .
 ```
 
+Run this afterwards:
+
+```bash
+cargo run --bin governance -- generate
+cargo run --bin governance -- schema
+```
+
 After this, open a pull request on Codeberg. Everyone you list in this file must have the required accounts linked. See [docs/adding-yourself-to-a-team.md](docs/adding-yourself-to-a-team.md).
 
 ## `team.projects` Note

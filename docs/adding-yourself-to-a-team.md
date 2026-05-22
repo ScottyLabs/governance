@@ -11,6 +11,13 @@
 ## Steps
 
 1. Edit `data/teams/<team-slug>.toml` and add your **Codeberg username** to `members` (to join the whole team) or to a project’s `members` under `[[team.projects]]` if membership is per-project. If your team is not yet created, follow the [team creation docs](creating-teams.md) instead.
-2. Open a pull request on Codeberg.
+2. Run this:
+
+    ```bash
+    cargo run --bin governance -- generate
+    cargo run --bin governance -- schema
+    ```
+
+3. Open a pull request on Codeberg.
 
 **Permissions:** if you are not a lead on a team, a PR editing it should only involve you adding or removing yourself from `members` / project `members`. Changing any other field is restricted to the Tech Director and Tech Leads already declared in governance.
