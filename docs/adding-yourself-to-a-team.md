@@ -5,8 +5,8 @@
 1. **[Link your identities in Keycloak first](https://idp.scottylabs.org/realms/scottylabs/account/account-security/linked-accounts)**, and remember to check the second page.
 1. If any member listed in the team file lacks the linked accounts necssary for that team, CI will fail.
 
-  - Linking **Codeberg** and **GitHub** is necessary for everyone. These allow governance to add you to the team's repositories on Codeberg and GitHub.
-  - **Discord** and **Slack** are only necessary if your team has these communication channels defined in the team file.
+- Linking **Codeberg** and **GitHub** is necessary for everyone. These allow governance to add you to the team's repositories on Codeberg and GitHub.
+- **Discord** and **Slack** are only necessary if your team has these communication channels defined in the team file.
 
 ## Steps
 

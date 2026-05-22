@@ -67,12 +67,10 @@ slack = "C0123456789"
 # . . .
 ```
 
-After this, open a pull request on Codeberg. Everyone you list in this file must have the required accounts linked. See [docs/adding-yourself-to-a-team.md](docs/adding-yourself-to-a-team.md)).
+After this, open a pull request on Codeberg. Everyone you list in this file must have the required accounts linked. See [docs/adding-yourself-to-a-team.md](docs/adding-yourself-to-a-team.md).
 
 ## `team.projects` Note
 
 Note that this system is defined recursively. You can repeatedly add `.projects` to these headers and each `team.projects` has all the headers available for what `team` generally has.
 
-
 **Permissions:** creating new teams is restricted to the Tech Director and Tech Leads already declared in governance.
-
