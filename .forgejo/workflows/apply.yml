@@ -96,7 +96,7 @@ jobs:
           mkdir -p /tmp/observability/.forgejo
 
           if [ -f /tmp/observability/.forgejo/CODEOWNERS ] && \
-             cmp -s /tmp/CODEOWNERS-new /tmp/observability/.forgejo/CODEOWNERS; then
+            cmp -s /tmp/CODEOWNERS-new /tmp/observability/.forgejo/CODEOWNERS; then
             echo "observability CODEOWNERS already up to date"
             exit 0
           fi
