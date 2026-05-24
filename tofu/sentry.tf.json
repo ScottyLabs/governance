@@ -20,6 +20,11 @@
         "name": "default",
         "organization": "${var.sentry_organization}",
         "project": "${sentry_project.quest_quest.slug}"
+      },
+      "tartan-vote_Tartan Vote": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.tartan-vote_Tartan Vote.slug}"
       }
     },
     "sentry_project": {
@@ -54,6 +59,14 @@
         "teams": [
           "${sentry_team.quest.slug}"
         ]
+      },
+      "tartan-vote_Tartan Vote": {
+        "name": "Tartan Vote",
+        "organization": "${var.sentry_organization}",
+        "slug": "Tartan Vote",
+        "teams": [
+          "${sentry_team.tartan-vote.slug}"
+        ]
       }
     },
     "sentry_team": {
@@ -76,6 +89,11 @@
         "name": "Quest",
         "organization": "${var.sentry_organization}",
         "slug": "quest"
+      },
+      "tartan-vote": {
+        "name": "Tartan Vote",
+        "organization": "${var.sentry_organization}",
+        "slug": "tartan-vote"
       }
     },
     "vault_kv_secret_v2": {
@@ -98,6 +116,11 @@
         "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.quest_quest.dsn })}",
         "mount": "secret",
         "name": "secretspec/quest/prod/SENTRY_DSN"
+      },
+      "tartan-vote_Tartan Vote_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.tartan-vote_Tartan Vote.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/Tartan Vote/prod/SENTRY_DSN"
       }
     }
   }

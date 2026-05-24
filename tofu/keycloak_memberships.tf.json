@@ -75,6 +75,20 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_tartan-vote": {
+        "group_id": "${keycloak_group.project_tartan-vote.id}",
+        "members": [
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_tartan-vote_admins": {
+        "group_id": "${keycloak_group.project_tartan-vote_admins.id}",
+        "members": [
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_uia": {
         "group_id": "${keycloak_group.project_uia.id}",
         "members": [

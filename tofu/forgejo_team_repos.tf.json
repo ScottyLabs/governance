@@ -100,6 +100,15 @@
         "repository": "cmugpt-surface",
         "team_id": "${forgejo_team.slai.id}"
       },
+      "tartan-vote_Tartan Vote": {
+        "depends_on": [
+          "forgejo_repository.tartan-vote_Tartan Vote",
+          "forgejo_team.tartan-vote"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "Tartan Vote",
+        "team_id": "${forgejo_team.tartan-vote.id}"
+      },
       "uia_components": {
         "depends_on": [
           "forgejo_repository.uia_components",

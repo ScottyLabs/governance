@@ -51,6 +51,16 @@
         "parent_id": "${keycloak_group.project_slai.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_tartan-vote": {
+        "name": "tartan-vote",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_tartan-vote_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_tartan-vote.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_uia": {
         "name": "uia",
         "parent_id": "${keycloak_group.projects.id}",

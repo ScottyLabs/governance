@@ -52,6 +52,19 @@
       ],
       "type": "forgejo"
     },
+    "tartan-vote_Tartan Vote_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request"
+      ],
+      "type": "forgejo"
+    },
     "uia_components_kennel_webhook_data": {
       "active": true,
       "config": {
@@ -99,6 +112,14 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/quest/hooks"
+      },
+      "tartan-vote_Tartan Vote_kennel_webhook": {
+        "data": "${jsonencode(local.tartan-vote_Tartan Vote_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.tartan-vote_Tartan Vote"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/Tartan Vote/hooks"
       },
       "uia_components_kennel_webhook": {
         "data": "${jsonencode(local.uia_components_kennel_webhook_data)}",

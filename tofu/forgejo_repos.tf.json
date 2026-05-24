@@ -144,6 +144,19 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "tartan-vote_Tartan Vote": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Voting app for the Undergraduate Senate and other student orgs.",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "Tartan Vote",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "uia_components": {
         "auto_init": true,
         "default_branch": "main",

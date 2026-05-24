@@ -21,6 +21,10 @@
         "name": "ScottyLabs AI",
         "privacy": "closed"
       },
+      "tartan-vote": {
+        "name": "Tartan Vote",
+        "privacy": "closed"
+      },
       "uia": {
         "name": "UI Architecture",
         "privacy": "closed"

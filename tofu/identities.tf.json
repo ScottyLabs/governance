@@ -23,6 +23,17 @@
           "codeberg_user": "krishsaxena"
         }
       },
+      "identity_maybe_yiyi": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "maybe-yiyi"
+        }
+      },
       "identity_tentype": {
         "program": [
           "governance",
