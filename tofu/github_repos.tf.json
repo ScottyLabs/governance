@@ -111,14 +111,14 @@
         "name": "cmugpt-surface",
         "visibility": "public"
       },
-      "tartan-vote_Tartan Vote": {
+      "tartan-vote_tartan_vote": {
         "description": "READ-ONLY MIRROR",
         "has_discussions": false,
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/Tartan Vote",
-        "name": "Tartan Vote",
+        "homepage_url": "https://codeberg.org/ScottyLabs/tartan-vote",
+        "name": "tartan-vote",
         "visibility": "public"
       },
       "uia_components": {
@@ -199,10 +199,10 @@
         "repository": "${github_repository.slai_cmugpt_surface.name}",
         "title": "Codeberg Mirroring"
       },
-      "tartan-vote_Tartan Vote_mirror_deploy_key": {
-        "key": "${restapi_object.tartan-vote_Tartan Vote_push_mirror.api_data.public_key}",
+      "tartan-vote_tartan_vote_mirror_deploy_key": {
+        "key": "${restapi_object.tartan-vote_tartan_vote_push_mirror.api_data.public_key}",
         "read_only": false,
-        "repository": "${github_repository.tartan-vote_Tartan Vote.name}",
+        "repository": "${github_repository.tartan-vote_tartan_vote.name}",
         "title": "Codeberg Mirroring"
       },
       "uia_components_mirror_deploy_key": {
@@ -543,10 +543,10 @@
         },
         "target": "branch"
       },
-      "tartan-vote_Tartan Vote_ruleset": {
+      "tartan-vote_tartan_vote_ruleset": {
         "bypass_actors": [
           {
-            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.tartan-vote_Tartan Vote_mirror_deploy_key.id), 1))}",
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.tartan-vote_tartan_vote_mirror_deploy_key.id), 1))}",
             "actor_type": "DeployKey",
             "bypass_mode": "always"
           }
@@ -561,7 +561,7 @@
         },
         "enforcement": "active",
         "name": "Default",
-        "repository": "${github_repository.tartan-vote_Tartan Vote.name}",
+        "repository": "${github_repository.tartan-vote_tartan_vote.name}",
         "rules": {
           "creation": true,
           "deletion": true,

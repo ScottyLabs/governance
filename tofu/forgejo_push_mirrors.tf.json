@@ -66,9 +66,9 @@
       "sync_on_commit": true,
       "use_ssh": true
     },
-    "tartan-vote_Tartan Vote_mirror_data": {
+    "tartan-vote_tartan_vote_mirror_data": {
       "interval": "8h0m0s",
-      "remote_address": "git@github.com:ScottyLabs/Tartan Vote.git",
+      "remote_address": "git@github.com:ScottyLabs/tartan-vote.git",
       "sync_on_commit": true,
       "use_ssh": true
     },
@@ -169,13 +169,13 @@
         "id_attribute": "remote_name",
         "path": "/api/v1/repos/ScottyLabs/cmugpt-surface/push_mirrors"
       },
-      "tartan-vote_Tartan Vote_push_mirror": {
-        "data": "${jsonencode(local.tartan-vote_Tartan Vote_mirror_data)}",
+      "tartan-vote_tartan_vote_push_mirror": {
+        "data": "${jsonencode(local.tartan-vote_tartan_vote_mirror_data)}",
         "depends_on": [
-          "forgejo_repository.tartan-vote_Tartan Vote"
+          "forgejo_repository.tartan-vote_tartan_vote"
         ],
         "id_attribute": "remote_name",
-        "path": "/api/v1/repos/ScottyLabs/Tartan Vote/push_mirrors"
+        "path": "/api/v1/repos/ScottyLabs/tartan-vote/push_mirrors"
       },
       "uia_components_push_mirror": {
         "data": "${jsonencode(local.uia_components_mirror_data)}",

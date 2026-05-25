@@ -5,7 +5,7 @@ leads = ["maybe-yiyi"]
 members = []
 
 [[team.repos]]
-name = "Tartan Vote"
+name = "tartan-vote"
 description = "Voting app for the Undergraduate Senate and other student orgs."
 kennel = true
 sentry = true
