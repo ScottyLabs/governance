@@ -3,10 +3,9 @@
 ## Before you open a PR
 
 1. **[Link your identities in Keycloak first](https://idp.scottylabs.org/realms/scottylabs/account/account-security/linked-accounts)**, and remember to check the second page.
-1. If any member listed in the team file lacks the linked accounts necssary for that team, CI will fail.
+1. If any member listed in the team file lacks the required linked accounts, CI will fail.
 
-- Linking **Codeberg** and **GitHub** is necessary for everyone. These allow governance to add you to the team's repositories on Codeberg and GitHub.
-- **Discord** and **Slack** are only necessary if your team has these communication channels defined in the team file.
+- **Codeberg**, **GitHub**, **Discord**, and **Slack** must all be linked. Codeberg and GitHub are needed so governance can add you to team repositories. Discord and Slack are needed even if your team has no channels of its own: governance gives every member the org-wide "Tech" Discord role and invites everyone to the Slack hub channel.
 
 ## Steps
 
