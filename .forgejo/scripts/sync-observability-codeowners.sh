@@ -15,8 +15,8 @@ set -euo pipefail
 git clone "https://scottylabs-bot:${BOT_TOKEN}@codeberg.org/ScottyLabs/observability.git" /tmp/observability
 mkdir -p /tmp/observability/.forgejo
 
-if [ -f /tmp/observability/.forgejo/CODEOWNERS ] && \
-   cmp -s /tmp/CODEOWNERS-new /tmp/observability/.forgejo/CODEOWNERS; then
+if [ -f /tmp/observability/.forgejo/CODEOWNERS ] \
+  && cmp -s /tmp/CODEOWNERS-new /tmp/observability/.forgejo/CODEOWNERS; then
   echo "observability CODEOWNERS already up to date"
   exit 0
 fi
