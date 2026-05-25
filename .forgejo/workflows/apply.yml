@@ -38,21 +38,7 @@ jobs:
         uses: https://github.com/opentofu/setup-opentofu@v2
 
       - name: Install patched Forgejo provider
-        run: |
-          mkdir -p /tmp/forgejo-provider
-          curl -sL https://github.com/ap-1/terraform-provider-forgejo/releases/download/v1.4.2-team-repository.2/terraform-provider-forgejo_1.4.2-team-repository.2_linux_amd64.zip -o /tmp/fp.zip
-          unzip -o /tmp/fp.zip -d /tmp/forgejo-provider
-          chmod +x /tmp/forgejo-provider/terraform-provider-forgejo_*
-          mkdir -p ~/.terraform.d
-          cat > ~/.terraform.d/dev_overrides.tfrc << EOF
-          provider_installation {
-            dev_overrides {
-              "svalabs/forgejo" = "/tmp/forgejo-provider"
-            }
-            direct {}
-          }
-          EOF
-          echo "TF_CLI_CONFIG_FILE=$HOME/.terraform.d/dev_overrides.tfrc" >> $GITHUB_ENV
+        run: ./.forgejo/scripts/install-forgejo-provider.sh
 
       - name: Build CLI
         uses: https://github.com/dtolnay/rust-toolchain@stable
@@ -64,13 +50,7 @@ jobs:
         run: ./target/release/governance validate
 
       - name: Check generated files are up to date
-        run: |
-          cp .forgejo/CODEOWNERS /tmp/CODEOWNERS-old
-          ./target/release/governance generate --output-dir /tmp/tofu
-          ./target/release/governance schema --output-dir /tmp/schemas
-          diff -r /tmp/tofu tofu/ --exclude='*.tf' --exclude='.gitignore'
-          diff -r /tmp/schemas schemas/
-          diff /tmp/CODEOWNERS-old .forgejo/CODEOWNERS
+        run: ./.forgejo/scripts/check-generated.sh
 
       - name: Init
         working-directory: tofu
@@ -88,30 +68,4 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.CB_GOVERNANCE_TOKEN }}
           SIGNING_KEY: ${{ secrets.BOT_SSH_SIGNING_KEY }}
-        run: |
-          set -euo pipefail
-          ./target/release/governance observability-codeowners > /tmp/CODEOWNERS-new
-
-          git clone "https://scottylabs-bot:${BOT_TOKEN}@codeberg.org/ScottyLabs/observability.git" /tmp/observability
-          mkdir -p /tmp/observability/.forgejo
-
-          if [ -f /tmp/observability/.forgejo/CODEOWNERS ] && \
-            cmp -s /tmp/CODEOWNERS-new /tmp/observability/.forgejo/CODEOWNERS; then
-            echo "observability CODEOWNERS already up to date"
-            exit 0
-          fi
-
-          cp /tmp/CODEOWNERS-new /tmp/observability/.forgejo/CODEOWNERS
-
-          cd /tmp/observability
-          echo "$SIGNING_KEY" > /tmp/signing_key
-          chmod 600 /tmp/signing_key
-          git config user.name "scottylabs-bot"
-          git config user.email "ops+codeberg@scottylabs.org"
-          git config gpg.format ssh
-          git config user.signingkey /tmp/signing_key
-          git config commit.gpgsign true
-
-          git add .forgejo/CODEOWNERS
-          git commit -m "chore: regenerate CODEOWNERS"
-          git push
+        run: ./.forgejo/scripts/sync-observability-codeowners.sh

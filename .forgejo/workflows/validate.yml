@@ -1,5 +1,5 @@
 name: Validate
-on: [pull_request]
+on: [pull_request_target]
 
 jobs:
   editorconfig:
@@ -7,6 +7,9 @@ jobs:
     runs-on: docker
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
 
       - uses: https://github.com/taiki-e/install-action@v2
         with:
@@ -21,6 +24,9 @@ jobs:
     runs-on: docker
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
 
       - uses: https://github.com/taiki-e/install-action@v2
         with:
@@ -37,6 +43,8 @@ jobs:
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
           fetch-depth: 0
 
       - uses: https://github.com/dtolnay/rust-toolchain@stable
@@ -53,20 +61,22 @@ jobs:
           KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
           KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
 
-      - name: Check generated files are up to date
-        run: |
-          cp .forgejo/CODEOWNERS /tmp/CODEOWNERS-old
-          ./target/release/governance generate --output-dir /tmp/tofu
-          ./target/release/governance schema --output-dir /tmp/schemas
-          diff -r /tmp/tofu tofu/ --exclude='*.tf' --exclude='.gitignore'
-          diff -r /tmp/schemas schemas/
-          diff /tmp/CODEOWNERS-old .forgejo/CODEOWNERS
-
       - name: Check PR permissions
-        run: |
-          git fetch origin ${{ github.base_ref }}
-          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | tr '\n' ',')
-          ./target/release/governance check-pr \
-            --author "${{ github.event.pull_request.user.login }}" \
-            --base-ref "origin/${{ github.base_ref }}" \
-            --changed-files "$CHANGED"
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: ./.forgejo/scripts/check-pr-perms.sh
+
+      - name: Regenerate tofu, schemas, CODEOWNERS
+        run: ./.forgejo/scripts/regenerate.sh
+
+      - name: Commit regenerated files if changed
+        env:
+          BOT_TOKEN: ${{ secrets.CB_GOVERNANCE_TOKEN }}
+          SIGNING_KEY: ${{ secrets.BOT_SSH_SIGNING_KEY }}
+          HEAD_CLONE_URL: ${{ github.event.pull_request.head.repo.clone_url }}
+          HEAD_FULL: ${{ github.event.pull_request.head.repo.full_name }}
+          BASE_FULL: ${{ github.event.pull_request.base.repo.full_name }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          ALLOW_EDIT: ${{ github.event.pull_request.allow_maintainer_edit }}
+        run: ./.forgejo/scripts/commit-regen.sh
