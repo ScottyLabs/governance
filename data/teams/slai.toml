@@ -2,6 +2,7 @@
 name = "ScottyLabs AI"
 slug = "slai"
 leads = ["krishsaxena"]
+members = ["Jc-965"]
 
 [[team.repos]]
 name = "cmugpt-surface"
