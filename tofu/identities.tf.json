@@ -1,6 +1,17 @@
 {
   "data": {
     "external": {
+      "identity_Jc_965": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "Jc-965"
+        }
+      },
       "identity_anish": {
         "program": [
           "governance",

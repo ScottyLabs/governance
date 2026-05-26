@@ -45,6 +45,18 @@
       }
     },
     "discord_member_roles": {
+      "Jc_965": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.slai.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_Jc_965.result.discord_id}"
+      },
       "anish": {
         "role": [
           {

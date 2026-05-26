@@ -25,6 +25,10 @@
         "team_id": "${forgejo_team.quest.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
+      "slai_Jc_965": {
+        "team_id": "${forgejo_team.slai.id}",
+        "user": "${data.external.identity_Jc_965.result.codeberg}"
+      },
       "slai_krishsaxena": {
         "team_id": "${forgejo_team.slai.id}",
         "user": "${data.external.identity_krishsaxena.result.codeberg}"
