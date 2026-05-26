@@ -7,10 +7,13 @@
 #   PR_AUTHOR  PR submitter's Codeberg login
 set -euo pipefail
 
+# shellcheck source=lib/retry.sh
+source "$(dirname "$0")/lib/retry.sh"
+
 : "${BASE_REF:?BASE_REF required}"
 : "${PR_AUTHOR:?PR_AUTHOR required}"
 
-git fetch origin "$BASE_REF"
+retry 5 git fetch origin "$BASE_REF"
 changed=$(git diff --name-only "origin/${BASE_REF}...HEAD" | tr '\n' ',')
 
 ./target/release/governance check-pr \

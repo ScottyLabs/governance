@@ -13,6 +13,9 @@
 #   ALLOW_EDIT      "true" if maintainers may edit the PR
 set -euo pipefail
 
+# shellcheck source=lib/retry.sh
+source "$(dirname "$0")/lib/retry.sh"
+
 : "${BOT_TOKEN:?}"
 : "${SIGNING_KEY:?}"
 : "${HEAD_CLONE_URL:?}"
@@ -47,14 +50,4 @@ git add tofu schemas .forgejo/CODEOWNERS
 git commit -m "chore: regenerate tofu, schemas, CODEOWNERS"
 
 push_url="${HEAD_CLONE_URL/https:\/\//https://scottylabs-bot:${BOT_TOKEN}@}"
-
-# Codeberg's git gateway intermittently returns 504; retry with backoff.
-for attempt in 1 2 3 4 5; do
-  if git push "$push_url" "HEAD:refs/heads/${HEAD_REF}"; then
-    exit 0
-  fi
-  echo "push attempt $attempt failed; sleeping $((attempt * 10))s" >&2
-  sleep $((attempt * 10))
-done
-echo "::error::push to ${HEAD_REF} failed after 5 attempts"
-exit 1
+retry 5 git push "$push_url" "HEAD:refs/heads/${HEAD_REF}"
