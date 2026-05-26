@@ -4,6 +4,7 @@ on: [pull_request_target]
 jobs:
   editorconfig:
     name: EditorConfig
+    if: ${{ github.actor != 'scottylabs-bot' }}
     runs-on: docker
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
@@ -20,6 +21,7 @@ jobs:
 
   toml:
     name: TOML
+    if: ${{ github.actor != 'scottylabs-bot' }}
     needs: editorconfig
     runs-on: docker
     steps:
@@ -38,6 +40,7 @@ jobs:
 
   governance:
     name: Governance
+    if: ${{ github.actor != 'scottylabs-bot' }}
     needs: toml
     runs-on: docker
     steps:
