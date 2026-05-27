@@ -3,10 +3,12 @@ use governance_schema::team::{GroupFields, Repo, TeamFile};
 
 pub fn generate_codeowners(data: &GovernanceData) -> String {
     let td = &data.org.org.tech_director;
+    let td_handle = format!("@{td}");
+    let global_owners = team_owners(data, "devops", &td_handle);
 
     let mut lines = vec![
         "# AUTO-GENERATED".to_string(),
-        format!("* @{td}"),
+        format!("* {}", global_owners.join(" ")),
         format!("/data/org.toml @{td}"),
     ];
 
@@ -40,12 +42,12 @@ pub fn generate_observability_codeowners(data: &GovernanceData) -> String {
     let td = &data.org.org.tech_director;
     let td_handle = format!("@{td}");
 
+    let devops_owners = team_owners(data, "devops", &td_handle);
+
     let mut lines = vec![
         "# AUTO-GENERATED".to_string(),
-        format!("* {td_handle}"),
+        format!("* {}", devops_owners.join(" ")),
     ];
-
-    let devops_owners = team_owners(data, "devops", &td_handle);
     lines.push(format!(
         "/dashboards/infra/ {}",
         devops_owners.join(" ")
