@@ -5,6 +5,7 @@ on:
       - "data/**"
       - "tofu/**"
       - "crates/**"
+      - ".forgejo/**"
 
 jobs:
   plan:
@@ -27,6 +28,7 @@ jobs:
       TF_VAR_vault_approle_secret_id: ${{ secrets.VAULT_APPROLE_SECRET_ID }}
       KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
       KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
+      TF_VAR_matrix_admin_token: ${{ secrets.MATRIX_ADMIN_TOKEN }}
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
         with:
@@ -51,4 +53,4 @@ jobs:
 
       - name: Plan
         working-directory: tofu
-        run: tofu plan -no-color
+        run: tofu plan -no-color -input=false
