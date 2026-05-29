@@ -1,0 +1,22 @@
+name: Trigger Documentation Rebuild
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "data/**"
+
+jobs:
+  trigger-docs:
+    name: Trigger docs rebuild
+    runs-on: docker
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Trigger documentation rebuild
+        env:
+          DOCS_TRIGGER_TOKEN: ${{ secrets.DOCS_TRIGGER_TOKEN }}
+        run: ./.forgejo/scripts/trigger-docs-rebuild.sh
