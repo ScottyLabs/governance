@@ -73,4 +73,32 @@ With this file created, open a pull request on Codeberg. Everyone you list must 
 
 Note that this system is defined recursively. You can repeatedly add `.projects` to these headers and each `team.projects` has all the headers available for what `team` generally has.
 
+## Slack-Discord bridging
+
+Discord is the source of truth, i.e. mautrix-discord creates Matrix portal rooms from Discord channels (guild bridge / channel activity) rather than creating Matrix hub rooms.
+
+Set both channel IDs on the same `[[team.channels]]` or `[[team.projects.channels]]` entry to selectively link Slack into the existing mautrix-discord portal for that Discord channel (via `synapse_mautrix_slack_link` in OpenTofu). Channels with only Discord or only Slack are not mirrored:
+
+```toml
+[[team.channels]]
+discord = "1461933322505818156"
+slack = "C08K3Q77ZQF"
+```
+
+The Discord channel must already exist on Discord and have a mautrix-discord portal before apply succeeds. You can still set only `discord` or only `slack` if you do not want mirroring but still want membership permissions applied.
+
+### Org-wide channels
+
+The **hub** (`slack_hub_channel_id` / `discord_hub_channel_id` in `data/org.toml`) is linked the same way when communication is configured.
+
+Other org-wide channels (e.g. open-source, merch, finance) that are not owned by a team can be declared in `data/org.toml`:
+
+```toml
+[[org.communication.channels]]
+name = "Open Source"
+slug = "open-source"
+discord = "<discord-channel-id>"
+slack = "<slack-channel-id>"
+```
+
 **Permissions:** creating new teams is restricted to the Tech Director and Tech Leads already declared in governance.

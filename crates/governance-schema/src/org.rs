@@ -53,7 +53,21 @@ pub struct CommunicationConfig {
     pub discord_guild_id: String,
     pub discord_hub_channel_id: String,
     pub slack_workspace: String,
+    /// Slack workspace ID (e.g. T03EVH29W) for mautrix-slack bridge chat IDs.
+    pub slack_team_id: String,
     pub slack_hub_channel_id: String,
+    /// Org-wide channels that are not owned by a team (e.g. open-source, merch, finance).
+    /// Set both `slack` and `discord` to bridge via Matrix.
+    #[serde(default)]
+    pub channels: Vec<OrgChannel>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
+pub struct OrgChannel {
+    pub name: String,
+    pub slug: String,
+    pub discord: Option<String>,
+    pub slack: Option<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]

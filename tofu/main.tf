@@ -60,6 +60,10 @@ terraform {
             source  = "hashicorp/external"
             version = "~> 2.0"
         }
+        synapse = {
+            source  = "thesuperrl/synapse"
+            version = "0.2.0"
+        }
     }
 }
 
@@ -124,4 +128,13 @@ provider "restapi" {
 provider "sentry" {
     token    = var.sentry_token
     base_url = var.sentry_base_url
+}
+
+provider "synapse" {
+    homeserver_url         = var.matrix_homeserver_url
+    domain                 = var.matrix_domain
+    admin_token            = var.matrix_admin_token
+    bridge_command_room_id = var.matrix_bridge_command_room_id
+    slack_team_id          = try(local.matrix_slack_team_id, "")
+    slack_relay_login_id   = var.matrix_slack_relay_login_id
 }

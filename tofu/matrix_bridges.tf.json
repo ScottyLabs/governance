@@ -1,0 +1,35 @@
+{
+  "locals": {
+    "matrix_slack_team_id": "T03EVH29W"
+  },
+  "resource": {
+    "synapse_mautrix_slack_link": {
+      "cmu_courses": {
+        "discord_channel_id": "1459389616007282709",
+        "slack_channel_id": "C0150RGAG1L",
+        "team_name": "CMU Courses",
+        "team_slug": "cmu-courses"
+      },
+      "devops": {
+        "discord_channel_id": "1461933322505818156",
+        "slack_channel_id": "C08K3Q77ZQF",
+        "team_name": "DevOps",
+        "team_slug": "devops"
+      },
+      "org_hub": {
+        "discord_channel_id": "1462522753709248533",
+        "project_name": "Hub",
+        "project_slug": "hub",
+        "slack_channel_id": "C096TM8EMS8",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "quest": {
+        "discord_channel_id": "1459385784615440471",
+        "slack_channel_id": "C08MHDYA12B",
+        "team_name": "Quest",
+        "team_slug": "quest"
+      }
+    }
+  }
+}

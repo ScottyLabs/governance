@@ -29,6 +29,7 @@ jobs:
       KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
       KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
       TF_VAR_matrix_admin_token: ${{ secrets.MATRIX_ADMIN_TOKEN }}
+      TF_VAR_matrix_slack_relay_login_id: ${{ secrets.MATRIX_SLACK_RELAY_LOGIN_ID }}
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
         with:
@@ -38,7 +39,7 @@ jobs:
       - name: Install OpenTofu
         uses: https://github.com/opentofu/setup-opentofu@v2
 
-      - name: Install patched Forgejo provider
+      - name: Install local providers
         run: ./.forgejo/scripts/install-forgejo-provider.sh
 
       - name: Build CLI

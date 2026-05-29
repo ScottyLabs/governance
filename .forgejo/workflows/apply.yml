@@ -5,7 +5,9 @@ on:
     paths:
       - "data/**"
       - "tofu/**"
+      - "crates/**"
       - ".forgejo/workflows/apply.yml"
+      - ".forgejo/scripts/install-forgejo-provider.sh"
   workflow_dispatch:
 
 jobs:
@@ -31,13 +33,15 @@ jobs:
       KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
       DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
       SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      TF_VAR_matrix_admin_token: ${{ secrets.MATRIX_ADMIN_TOKEN }}
+      TF_VAR_matrix_slack_relay_login_id: ${{ secrets.MATRIX_SLACK_RELAY_LOGIN_ID }}
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
 
       - name: Install OpenTofu
         uses: https://github.com/opentofu/setup-opentofu@v2
 
-      - name: Install patched Forgejo provider
+      - name: Install local providers
         run: ./.forgejo/scripts/install-forgejo-provider.sh
 
       - name: Build CLI

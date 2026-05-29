@@ -102,3 +102,30 @@ variable "sentry_base_url" {
     type    = string
     default = "https://sentry.io/api/"
 }
+
+variable "matrix_homeserver_url" {
+    type    = string
+    default = "https://matrix.doggylabs.org"
+}
+
+variable "matrix_domain" {
+    type    = string
+    default = "doggylabs.org"
+}
+
+variable "matrix_admin_token" {
+    type      = string
+    sensitive = true
+}
+
+variable "matrix_bridge_command_room_id" {
+    type        = string
+    default     = ""
+    description = "Optional Matrix room ID for !discord create-portal when a portal is missing."
+}
+
+variable "matrix_slack_relay_login_id" {
+    type        = string
+    default     = ""
+    description = "mautrix-slack relay login ID from `list-logins` after `login app` in @slack"
+}

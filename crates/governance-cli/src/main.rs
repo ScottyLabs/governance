@@ -7,8 +7,8 @@ use governance_core::loader::GovernanceData;
 use governance_core::validator;
 use governance_tfgen::codeowners;
 use governance_tfgen::generators::{
-    discord, forgejo, github, google_groups, identities, keycloak, openbao, sentry, slack,
-    vaultwarden,
+    discord, forgejo, github, google_groups, identities, keycloak, matrix_bridges, openbao, sentry,
+    slack, vaultwarden,
 };
 
 #[derive(Parser)]
@@ -110,11 +110,11 @@ fn main() -> anyhow::Result<()> {
             google_groups::generate(&data).write_to(&output_dir.join("google_groups.tf.json"))?;
             discord::generate(&data).write_to(&output_dir.join("discord.tf.json"))?;
             slack::generate(&data).write_to(&output_dir.join("slack.tf.json"))?;
-
             github::generate_repos(&data).write_to(&output_dir.join("github_repos.tf.json"))?;
             github::generate_teams(&data).write_to(&output_dir.join("github_teams.tf.json"))?;
             github::generate_team_memberships(&data)
                 .write_to(&output_dir.join("github_memberships.tf.json"))?;
+            matrix_bridges::generate(&data).write_to(&output_dir.join("matrix_bridges.tf.json"))?;
 
             eprintln!("wrote {}", output_dir.display());
         }
