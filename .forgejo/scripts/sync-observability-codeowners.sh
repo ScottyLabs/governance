@@ -7,12 +7,15 @@
 #   SIGNING_KEY  SSH signing key for commits
 set -euo pipefail
 
+# shellcheck source=lib/retry.sh
+source "$(dirname "$0")/lib/retry.sh"
+
 : "${BOT_TOKEN:?}"
 : "${SIGNING_KEY:?}"
 
 ./target/release/governance observability-codeowners > /tmp/CODEOWNERS-new
 
-git clone "https://scottylabs-bot:${BOT_TOKEN}@codeberg.org/ScottyLabs/observability.git" /tmp/observability
+retry 5 git clone "https://scottylabs-bot:${BOT_TOKEN}@codeberg.org/ScottyLabs/observability.git" /tmp/observability
 mkdir -p /tmp/observability/.forgejo
 
 if [ -f /tmp/observability/.forgejo/CODEOWNERS ] \
@@ -36,4 +39,4 @@ git config commit.gpgsign true
 
 git add .forgejo/CODEOWNERS
 git commit -m "chore: regenerate CODEOWNERS"
-git push
+retry 5 git push

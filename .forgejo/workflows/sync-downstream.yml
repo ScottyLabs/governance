@@ -1,0 +1,43 @@
+name: Sync Downstream
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "crates/**"
+      - ".forgejo/workflows/sync-downstream.yml"
+      - ".forgejo/scripts/sync-observability-codeowners.sh"
+      - ".forgejo/scripts/sync-docs.sh"
+
+jobs:
+  docs:
+    name: Sync docs
+    runs-on: docker
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Sync docs
+        env:
+          DOCS_TRIGGER_TOKEN: ${{ secrets.DOCS_TRIGGER_TOKEN }}
+        run: ./.forgejo/scripts/sync-docs.sh
+
+  observability-codeowners:
+    name: Sync observability CODEOWNERS
+    runs-on: docker
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: https://github.com/dtolnay/rust-toolchain@stable
+      - uses: https://github.com/Swatinem/rust-cache@v2
+      - run: cargo build --release -p governance
+
+      - name: Sync observability CODEOWNERS
+        env:
+          BOT_TOKEN: ${{ secrets.CB_GOVERNANCE_TOKEN }}
+          SIGNING_KEY: ${{ secrets.BOT_SSH_SIGNING_KEY }}
+        run: ./.forgejo/scripts/sync-observability-codeowners.sh

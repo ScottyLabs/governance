@@ -5,9 +5,12 @@
 #   DOCS_TRIGGER_TOKEN  Codeberg token with write:repository on ScottyLabs/documentation
 set -euo pipefail
 
+# shellcheck source=lib/retry.sh
+source "$(dirname "$0")/lib/retry.sh"
+
 : "${DOCS_TRIGGER_TOKEN:?DOCS_TRIGGER_TOKEN required}"
 
-curl -fsS -X POST \
+retry 5 curl -fsS -X POST \
   -H "Authorization: token ${DOCS_TRIGGER_TOKEN}" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \

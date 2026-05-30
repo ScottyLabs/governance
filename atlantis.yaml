@@ -1,0 +1,29 @@
+version: 3
+projects:
+  - name: governance
+    dir: tofu
+    workflow: governance
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+
+workflows:
+  governance:
+    plan:
+      steps:
+        - run: bash ../.forgejo/scripts/install-forgejo-provider.sh
+        - env:
+            name: TF_CLI_CONFIG_FILE
+            command: 'echo "$HOME/.terraform.d/dev_overrides.tfrc"'
+        - init
+        - plan
+    apply:
+      steps:
+        - run: bash ../.forgejo/scripts/install-forgejo-provider.sh
+        - env:
+            name: TF_CLI_CONFIG_FILE
+            command: 'echo "$HOME/.terraform.d/dev_overrides.tfrc"'
+        - apply
