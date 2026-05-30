@@ -41,6 +41,16 @@
         "name": "devenv",
         "visibility": "public"
       },
+      "devops_documentation": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/documentation",
+        "name": "documentation",
+        "visibility": "public"
+      },
       "devops_governance": {
         "description": "READ-ONLY MIRROR",
         "has_discussions": false,
@@ -155,6 +165,12 @@
         "key": "${restapi_object.devops_devenv_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_devenv.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "devops_documentation_mirror_deploy_key": {
+        "key": "${restapi_object.devops_documentation_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.devops_documentation.name}",
         "title": "Codeberg Mirroring"
       },
       "devops_governance_mirror_deploy_key": {
@@ -322,6 +338,36 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.devops_devenv.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "devops_documentation_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.devops_documentation_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.devops_documentation.name}",
         "rules": {
           "creation": true,
           "deletion": true,

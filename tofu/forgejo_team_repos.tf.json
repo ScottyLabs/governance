@@ -37,6 +37,15 @@
         "repository": "devenv",
         "team_id": "${forgejo_team.devops.id}"
       },
+      "devops_documentation": {
+        "depends_on": [
+          "forgejo_repository.devops_documentation",
+          "forgejo_team.devops"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "documentation",
+        "team_id": "${forgejo_team.devops.id}"
+      },
       "devops_governance": {
         "depends_on": [
           "forgejo_repository.devops_governance",

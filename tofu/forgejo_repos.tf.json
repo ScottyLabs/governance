@@ -53,6 +53,19 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "devops_documentation": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Centralized documentation hub for ScottyLabs projects",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "documentation",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "devops_governance": {
         "auto_init": true,
         "default_branch": "main",
