@@ -67,7 +67,7 @@ SYNAPSE_PROVIDER_SRC="$(synapse_provider_src)"
 mkdir -p "$SYNAPSE_DIR"
 (
   cd "$SYNAPSE_PROVIDER_SRC"
-  go build -mod=readonly -o "$SYNAPSE_DIR/terraform-provider-synapse" .
+  CGO_ENABLED=0 go build -mod=readonly -o "$SYNAPSE_DIR/terraform-provider-synapse" .
 )
 
 SYNAPSE_PLUGIN_ROOT="${HOME}/.terraform.d/plugins/registry.opentofu.org/thesuperrl/synapse/${SYNAPSE_VERSION}/${TARGET}"
