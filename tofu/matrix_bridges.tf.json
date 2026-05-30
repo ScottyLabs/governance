@@ -16,6 +16,22 @@
         "team_name": "DevOps",
         "team_slug": "devops"
       },
+      "org_block_sharing": {
+        "discord_channel_id": "1510374179378040973",
+        "project_name": "Block Sharing",
+        "project_slug": "block-sharing",
+        "slack_channel_id": "C0B3E3E9ZJ5",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_general": {
+        "discord_channel_id": "1396542948509876270",
+        "project_name": "General",
+        "project_slug": "general",
+        "slack_channel_id": "C019R0WM1T4",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
       "org_hub": {
         "discord_channel_id": "1462522753709248533",
         "project_name": "Hub",
