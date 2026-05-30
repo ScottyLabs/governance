@@ -26,6 +26,10 @@ description = "Shared Nix development environment for ScottyLabs projects"
 name = "observability"
 description = "Grafana dashboards and alert rules for ScottyLabs services"
 
+[[team.repos]]
+name = "documentation"
+description = "Centralized documentation hub for ScottyLabs projects"
+
 [[team.channels]]
 discord = "1461933322505818156"
 slack = "C08K3Q77ZQF"
