@@ -41,6 +41,8 @@ topics = ["web", "demo"]
 kennel = true
 # Set to true if this project uses observability
 sentry = true
+# Set to false to exclude this repo from the docs hub, it is by default included.
+# docs = false
 
 [[team.repos]]
 name = "example-lib"

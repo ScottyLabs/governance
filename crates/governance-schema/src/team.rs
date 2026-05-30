@@ -56,6 +56,10 @@ pub enum DocsType {
     Openapi,
 }
 
+fn default_docs_enabled() -> bool {
+    true
+}
+
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct Repo {
     pub name: String,
@@ -67,7 +71,7 @@ pub struct Repo {
     pub kennel: bool,
     #[serde(default)]
     pub sentry: bool,
-    #[serde(default)]
+    #[serde(default = "default_docs_enabled")]
     pub docs: bool,
     pub docs_type: Option<DocsType>,
     pub docs_dir: Option<String>,

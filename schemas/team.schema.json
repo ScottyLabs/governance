@@ -103,7 +103,7 @@
         },
         "docs": {
           "type": "boolean",
-          "default": false
+          "default": true
         },
         "docs_dir": {
           "type": [
