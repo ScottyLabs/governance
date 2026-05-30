@@ -15,6 +15,18 @@ slack_workspace = "scottylabs"
 slack_team_id = "T03EVH29W"
 slack_hub_channel_id = "C096TM8EMS8"
 
+[[org.communication.channels]]
+name = "General"
+slug = "general"
+discord = "1396542948509876270"
+slack = "C019R0WM1T4"
+
+[[org.communication.channels]]
+name = "Block Sharing"
+slug = "block-sharing"
+discord = "1510374179378040973"
+slack = "C0B3E3E9ZJ5"
+
 [org.keycloak]
 url = "https://idp.scottylabs.org"
 realm = "scottylabs"
