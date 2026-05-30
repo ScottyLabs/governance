@@ -28,6 +28,14 @@
         }
       }
     },
+    "DocsType": {
+      "type": "string",
+      "enum": [
+        "starlight",
+        "rust",
+        "openapi"
+      ]
+    },
     "Project": {
       "type": "object",
       "properties": {
@@ -93,12 +101,44 @@
             "null"
           ]
         },
+        "docs": {
+          "type": "boolean",
+          "default": false
+        },
+        "docs_dir": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "docs_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DocsType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "export_command": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "kennel": {
           "type": "boolean",
           "default": false
         },
         "name": {
           "type": "string"
+        },
+        "openapi_spec": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "sentry": {
           "type": "boolean",

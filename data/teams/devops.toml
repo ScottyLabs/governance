@@ -7,28 +7,35 @@ leads = ["anish", "thesuperRL"]
 [[team.repos]]
 name = "infrastructure"
 description = "NixOS configurations for ScottyLabs' VMs"
+docs = true
 
 [[team.repos]]
 name = "governance"
 description = "Definition and automation of the Tech Committee's governance model"
+docs = true
 
 [[team.repos]]
 name = "kennel"
 description = "Branch-based deployment platform"
 kennel = true
 sentry = true
+docs = true
 
 [[team.repos]]
 name = "devenv"
 description = "Shared Nix development environment for ScottyLabs projects"
+docs = true
 
 [[team.repos]]
 name = "observability"
 description = "Grafana dashboards and alert rules for ScottyLabs services"
+docs = true
 
 [[team.repos]]
 name = "documentation"
 description = "Centralized documentation hub for ScottyLabs projects"
+docs = true
+docs_dir = "docs"
 
 [[team.channels]]
 discord = "1461933322505818156"

@@ -48,6 +48,14 @@ pub struct Project {
     pub group: GroupFields,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, Serialize, JsonSchema)]
+#[serde(rename_all = "lowercase")]
+pub enum DocsType {
+    Starlight,
+    Rust,
+    Openapi,
+}
+
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct Repo {
     pub name: String,
@@ -59,6 +67,12 @@ pub struct Repo {
     pub kennel: bool,
     #[serde(default)]
     pub sentry: bool,
+    #[serde(default)]
+    pub docs: bool,
+    pub docs_type: Option<DocsType>,
+    pub docs_dir: Option<String>,
+    pub openapi_spec: Option<String>,
+    pub export_command: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
