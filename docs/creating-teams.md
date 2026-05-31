@@ -89,6 +89,8 @@ slack = "C08K3Q77ZQF"
 
 The Discord channel must already exist on Discord and have a mautrix-discord portal before apply succeeds. You can still set only `discord` or only `slack` if you do not want mirroring but still want membership permissions applied.
 
+The Slack channel must be public. mautrix-slack mirrors through a single relay user, and Slack only lets users self-join public channels. For a private channel, an existing member of that channel must invite the relay user by hand before apply will succeed. Without that manual invite, governance fails with an error naming the channel.
+
 ### Org-wide channels
 
 The **hub** (`slack_hub_channel_id` / `discord_hub_channel_id` in `data/org.toml`) is linked the same way when communication is configured.

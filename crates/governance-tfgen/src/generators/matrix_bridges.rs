@@ -113,11 +113,15 @@ fn emit_channel_pairs(
     for channel in channels {
         if let (Some(slack), Some(discord)) = (&channel.slack, &channel.discord) {
             let resource_name = resource_name(team_slug, project_slug);
+            let invite_name = format!("slack_bridge_login_{resource_name}");
+            emit_relay_login_invite(tf, &invite_name, slack);
+
             let mut body = json!({
                 "discord_channel_id": discord,
                 "slack_channel_id": slack,
                 "team_name": team_name,
                 "team_slug": team_slug,
+                "depends_on": [format!("null_resource.{invite_name}")],
             });
             if let Some(name) = project_name {
                 body["project_name"] = json!(name);
@@ -136,4 +140,29 @@ fn resource_name(team_slug: &str, project_slug: Option<&str>) -> String {
         None => team_slug.to_string(),
     };
     raw.replace('-', "_")
+}
+
+fn emit_relay_login_invite(tf: &mut TfJsonFile, resource_name: &str, channel: &str) {
+    tf.add_resource(
+        "null_resource",
+        resource_name,
+        json!({
+            "triggers": {
+                "channel": channel,
+            },
+            "provisioner": [
+                {
+                    "local-exec": {
+                        "command": "governance slack-join --channel ${self.triggers.channel}",
+                    },
+                },
+                {
+                    "local-exec": {
+                        "when": "destroy",
+                        "command": "governance slack-leave --channel ${self.triggers.channel}",
+                    },
+                },
+            ],
+        }),
+    );
 }

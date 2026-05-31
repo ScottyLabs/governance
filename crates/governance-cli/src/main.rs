@@ -2,6 +2,7 @@ use std::path::PathBuf;
 use std::process;
 
 use clap::{Parser, Subcommand};
+use serde_json::json;
 
 use governance_core::loader::GovernanceData;
 use governance_core::validator;
@@ -52,6 +53,14 @@ enum Command {
         channel: String,
         #[arg(long)]
         user: String,
+    },
+    SlackJoin {
+        #[arg(long)]
+        channel: String,
+    },
+    SlackLeave {
+        #[arg(long)]
+        channel: String,
     },
     ObservabilityCodeowners,
 }
@@ -193,59 +202,103 @@ fn main() -> anyhow::Result<()> {
                 process::exit(1);
             }
         }
-        Command::SlackInvite { channel, user } => {
-            let token =
-                std::env::var("SLACK_TOKEN").map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))?;
-            // Join the channel first so the bot can invite others
-            let _ = ureq::post("https://slack.com/api/conversations.join")
-                .header("Authorization", &format!("Bearer {token}"))
-                .send_json(serde_json::json!({ "channel": channel }));
-            let resp = ureq::post("https://slack.com/api/conversations.invite")
-                .header("Authorization", &format!("Bearer {token}"))
-                .send_json(serde_json::json!({
-                    "channel": channel,
-                    "users": user,
-                }));
-            match resp {
-                Ok(mut r) => {
-                    let body: serde_json::Value = r.body_mut().read_json()?;
-                    if body["ok"].as_bool() != Some(true) {
-                        let err = body["error"].as_str().unwrap_or("unknown");
-                        if err != "already_in_channel" {
-                            anyhow::bail!("slack invite failed: {err}");
-                        }
-                    }
-                }
-                Err(e) => anyhow::bail!("slack invite request failed: {e}"),
-            }
-        }
         Command::ObservabilityCodeowners => {
             let data = GovernanceData::load(&cli.data_dir)?;
             print!("{}", codeowners::generate_observability_codeowners(&data));
         }
+        Command::SlackInvite { channel, user } => {
+            let token = slack_token()?;
+            let (channel, user) = (channel.as_str(), user.as_str());
+            // Best-effort self-join so a freshly authed relay user can invite others
+            let _ = slack_post(&token, "conversations.join", &json!({ "channel": channel }));
+            let body = slack_post(
+                &token,
+                "conversations.invite",
+                &json!({ "channel": channel, "users": user }),
+            )?;
+            slack_check(&body, "invite", channel, &["already_in_channel"])?;
+        }
         Command::SlackKick { channel, user } => {
-            let token =
-                std::env::var("SLACK_TOKEN").map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))?;
-            let resp = ureq::post("https://slack.com/api/conversations.kick")
-                .header("Authorization", &format!("Bearer {token}"))
-                .send_json(serde_json::json!({
-                    "channel": channel,
-                    "user": user,
-                }));
-            match resp {
-                Ok(mut r) => {
-                    let body: serde_json::Value = r.body_mut().read_json()?;
-                    if body["ok"].as_bool() != Some(true) {
-                        let err = body["error"].as_str().unwrap_or("unknown");
-                        if err != "not_in_channel" {
-                            anyhow::bail!("slack kick failed: {err}");
-                        }
-                    }
-                }
-                Err(e) => anyhow::bail!("slack kick request failed: {e}"),
+            let token = slack_token()?;
+            let (channel, user) = (channel.as_str(), user.as_str());
+            let body = slack_post(
+                &token,
+                "conversations.kick",
+                &json!({ "channel": channel, "user": user }),
+            )?;
+            slack_check(&body, "kick", channel, &["not_in_channel"])?;
+        }
+        Command::SlackJoin { channel } => {
+            let token = slack_token()?;
+            let channel = channel.as_str();
+            let info = slack_get(&token, "conversations.info", &[("channel", channel)])?;
+            slack_check(&info, "info", channel, &[])?;
+            if info["channel"]["is_private"].as_bool() == Some(true) {
+                anyhow::bail!(
+                    "channel {channel} is private; the slack relay login must be invited manually by an existing member"
+                );
             }
+            let body = slack_post(&token, "conversations.join", &json!({ "channel": channel }))?;
+            slack_check(&body, "join", channel, &["already_in_channel"])?;
+        }
+        Command::SlackLeave { channel } => {
+            let token = slack_token()?;
+            let channel = channel.as_str();
+            let body = slack_post(&token, "conversations.leave", &json!({ "channel": channel }))?;
+            slack_check(&body, "leave", channel, &["not_in_channel"])?;
         }
     }
 
     Ok(())
+}
+
+fn slack_token() -> anyhow::Result<String> {
+    std::env::var("SLACK_TOKEN").map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))
+}
+
+fn slack_post(
+    token: &str,
+    method: &str,
+    body: &serde_json::Value,
+) -> anyhow::Result<serde_json::Value> {
+    ureq::post(&format!("https://slack.com/api/{method}"))
+        .header("Authorization", &format!("Bearer {token}"))
+        .send_json(body)
+        .map_err(|e| anyhow::anyhow!("slack {method} request failed: {e}"))?
+        .body_mut()
+        .read_json()
+        .map_err(|e| anyhow::anyhow!("slack {method} response read failed: {e}"))
+}
+
+fn slack_get(
+    token: &str,
+    method: &str,
+    query: &[(&str, &str)],
+) -> anyhow::Result<serde_json::Value> {
+    let mut req = ureq::get(&format!("https://slack.com/api/{method}"))
+        .header("Authorization", &format!("Bearer {token}"));
+    for (k, v) in query {
+        req = req.query(*k, *v);
+    }
+    req.call()
+        .map_err(|e| anyhow::anyhow!("slack {method} request failed: {e}"))?
+        .body_mut()
+        .read_json()
+        .map_err(|e| anyhow::anyhow!("slack {method} response read failed: {e}"))
+}
+
+fn slack_check(
+    body: &serde_json::Value,
+    label: &str,
+    channel: &str,
+    tolerate: &[&str],
+) -> anyhow::Result<()> {
+    if body["ok"].as_bool() == Some(true) {
+        return Ok(());
+    }
+    let err = body["error"].as_str().unwrap_or("unknown");
+    if tolerate.contains(&err) {
+        return Ok(());
+    }
+    anyhow::bail!("slack {label} {channel}: {err}")
 }

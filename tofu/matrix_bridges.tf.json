@@ -3,20 +3,319 @@
     "matrix_slack_team_id": "T03EVH29W"
   },
   "resource": {
+    "null_resource": {
+      "slack_bridge_login_cmu_courses": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0150RGAG1L"
+        }
+      },
+      "slack_bridge_login_devops": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08K3Q77ZQF"
+        }
+      },
+      "slack_bridge_login_org_block_sharing": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0B3E3E9ZJ5"
+        }
+      },
+      "slack_bridge_login_org_design": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C01A5DC3CTZ"
+        }
+      },
+      "slack_bridge_login_org_events": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0194M4C31T"
+        }
+      },
+      "slack_bridge_login_org_finance": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C04261ENHSR"
+        }
+      },
+      "slack_bridge_login_org_general": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C019R0WM1T4"
+        }
+      },
+      "slack_bridge_login_org_hub": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C096TM8EMS8"
+        }
+      },
+      "slack_bridge_login_org_merch": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0AVBRB75SQ"
+        }
+      },
+      "slack_bridge_login_org_opportunities": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C043SPAD8KB"
+        }
+      },
+      "slack_bridge_login_org_quotes": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0392EKMJBD"
+        }
+      },
+      "slack_bridge_login_org_random": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C03EVH2A8"
+        }
+      },
+      "slack_bridge_login_org_schedules": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0B6T6MTA8P"
+        }
+      },
+      "slack_bridge_login_org_show_off": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0B7ASU1FBK"
+        }
+      },
+      "slack_bridge_login_org_xkcd": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0B7297T29H"
+        }
+      },
+      "slack_bridge_login_quest": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08MHDYA12B"
+        }
+      }
+    },
     "synapse_mautrix_slack_link": {
       "cmu_courses": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_cmu_courses"
+        ],
         "discord_channel_id": "1459389616007282709",
         "slack_channel_id": "C0150RGAG1L",
         "team_name": "CMU Courses",
         "team_slug": "cmu-courses"
       },
       "devops": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_devops"
+        ],
         "discord_channel_id": "1461933322505818156",
         "slack_channel_id": "C08K3Q77ZQF",
         "team_name": "DevOps",
         "team_slug": "devops"
       },
       "org_block_sharing": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_block_sharing"
+        ],
         "discord_channel_id": "1510374179378040973",
         "project_name": "Block Sharing",
         "project_slug": "block-sharing",
@@ -25,6 +324,9 @@
         "team_slug": "org"
       },
       "org_design": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_design"
+        ],
         "discord_channel_id": "1510581852103245855",
         "project_name": "Design",
         "project_slug": "design",
@@ -33,6 +335,9 @@
         "team_slug": "org"
       },
       "org_events": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_events"
+        ],
         "discord_channel_id": "1510581627565117450",
         "project_name": "Events",
         "project_slug": "events",
@@ -41,6 +346,9 @@
         "team_slug": "org"
       },
       "org_finance": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_finance"
+        ],
         "discord_channel_id": "1506501481564602518",
         "project_name": "Finance",
         "project_slug": "finance",
@@ -49,6 +357,9 @@
         "team_slug": "org"
       },
       "org_general": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_general"
+        ],
         "discord_channel_id": "1396542948509876270",
         "project_name": "General",
         "project_slug": "general",
@@ -57,6 +368,9 @@
         "team_slug": "org"
       },
       "org_hub": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_hub"
+        ],
         "discord_channel_id": "1462522753709248533",
         "project_name": "Hub",
         "project_slug": "hub",
@@ -65,6 +379,9 @@
         "team_slug": "org"
       },
       "org_merch": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_merch"
+        ],
         "discord_channel_id": "1506501467929051246",
         "project_name": "Merch",
         "project_slug": "merch",
@@ -73,6 +390,9 @@
         "team_slug": "org"
       },
       "org_opportunities": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_opportunities"
+        ],
         "discord_channel_id": "1396542737834049648",
         "project_name": "Opportunities",
         "project_slug": "opportunities",
@@ -81,6 +401,9 @@
         "team_slug": "org"
       },
       "org_quotes": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_quotes"
+        ],
         "discord_channel_id": "1463357783985492081",
         "project_name": "Quotes",
         "project_slug": "quotes",
@@ -89,6 +412,9 @@
         "team_slug": "org"
       },
       "org_random": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_random"
+        ],
         "discord_channel_id": "1396552968345747466",
         "project_name": "Random",
         "project_slug": "random",
@@ -97,6 +423,9 @@
         "team_slug": "org"
       },
       "org_schedules": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_schedules"
+        ],
         "discord_channel_id": "1493965283482800228",
         "project_name": "Schedules",
         "project_slug": "schedules",
@@ -105,6 +434,9 @@
         "team_slug": "org"
       },
       "org_show_off": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_show_off"
+        ],
         "discord_channel_id": "1396543120484728942",
         "project_name": "Show Off",
         "project_slug": "show-off",
@@ -113,6 +445,9 @@
         "team_slug": "org"
       },
       "org_xkcd": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_xkcd"
+        ],
         "discord_channel_id": "1437677701816389725",
         "project_name": "xkcd",
         "project_slug": "xkcd",
@@ -121,6 +456,9 @@
         "team_slug": "org"
       },
       "quest": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_quest"
+        ],
         "discord_channel_id": "1459385784615440471",
         "slack_channel_id": "C08MHDYA12B",
         "team_name": "Quest",
