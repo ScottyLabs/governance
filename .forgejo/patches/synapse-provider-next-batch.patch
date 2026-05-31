@@ -1,0 +1,22 @@
+diff --git a/synapse/mautrixbridge/client.go b/synapse/mautrixbridge/client.go
+index a118c29..163b660 100644
+--- a/synapse/mautrixbridge/client.go
++++ b/synapse/mautrixbridge/client.go
+@@ -93,7 +93,7 @@ type adminRoomsListResponse struct {
+ 	Rooms []struct {
+ 		RoomID string `json:"room_id"`
+ 	} `json:"rooms"`
+-	NextBatch string `json:"next_batch"`
++	NextBatch json.Number `json:"next_batch"`
+ }
+ 
+ type adminRoomStateEvent struct {
+@@ -270,7 +270,7 @@ func (c *Client) findPortalRoomByChannelID(discordChannelID string) (string, err
+ 		if resp.NextBatch == "" {
+ 			break
+ 		}
+-		from = resp.NextBatch
++		from = string(resp.NextBatch)
+ 	}
+ 	return "", fmt.Errorf("no portal room with m.bridge channel id %s", discordChannelID)
+ }
