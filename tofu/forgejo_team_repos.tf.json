@@ -109,6 +109,15 @@
         "repository": "cmugpt-surface",
         "team_id": "${forgejo_team.slai.id}"
       },
+      "slai_mcp_server": {
+        "depends_on": [
+          "forgejo_repository.slai_mcp_server",
+          "forgejo_team.slai"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "mcp-server",
+        "team_id": "${forgejo_team.slai.id}"
+      },
       "tartan-vote_tartan_vote": {
         "depends_on": [
           "forgejo_repository.tartan-vote_tartan_vote",

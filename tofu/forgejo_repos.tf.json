@@ -157,6 +157,19 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "slai_mcp_server": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "MCP servers for CMU GPT",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "mcp-server",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "tartan-vote_tartan_vote": {
         "auto_init": true,
         "default_branch": "main",
