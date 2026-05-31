@@ -29,6 +29,18 @@ slack_team_id = "T03EVH29W"
 slack_hub_channel_id = "C096TM8EMS8"
 
 [[org.communication.channels]]
+name = "Announcements"
+slug = "announcements"
+discord = "1396542641440690336"
+slack = "C03EVH2A6"
+
+[[org.communication.channels]]
+name = "Project Updates"
+slug = "project-updates"
+discord = "1396542890687070238"
+slack = "C0B7ANPMBL2"
+
+[[org.communication.channels]]
 name = "General"
 slug = "general"
 discord = "1396542948509876270"
@@ -87,6 +99,18 @@ name = "Schedules"
 slug = "schedules"
 discord = "1493965283482800228"
 slack = "C0B6T6MTA8P"
+
+[[org.communication.channels]]
+name = "Open Source"
+slug = "open-source"
+discord = "1396543045444435980"
+slack = "C0AUQPHS615"
+
+[[org.communication.channels]]
+name = "AI"
+slug = "ai"
+discord = "1396546226672898058"
+slack = "C0B6V901LET"
 
 [[org.communication.channels]]
 name = "Block Sharing"

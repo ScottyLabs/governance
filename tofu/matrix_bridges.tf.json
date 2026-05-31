@@ -40,6 +40,42 @@
           "channel": "C08K3Q77ZQF"
         }
       },
+      "slack_bridge_login_org_ai": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0B6V901LET"
+        }
+      },
+      "slack_bridge_login_org_announcements": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C03EVH2A6"
+        }
+      },
       "slack_bridge_login_org_block_sharing": {
         "provisioner": [
           {
@@ -166,6 +202,24 @@
           "channel": "C0AVBRB75SQ"
         }
       },
+      "slack_bridge_login_org_open_source": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0AUQPHS615"
+        }
+      },
       "slack_bridge_login_org_opportunities": {
         "provisioner": [
           {
@@ -182,6 +236,24 @@
         ],
         "triggers": {
           "channel": "C043SPAD8KB"
+        }
+      },
+      "slack_bridge_login_org_project_updates": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0B7ANPMBL2"
         }
       },
       "slack_bridge_login_org_quotes": {
@@ -312,6 +384,28 @@
         "team_name": "DevOps",
         "team_slug": "devops"
       },
+      "org_ai": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_ai"
+        ],
+        "discord_channel_id": "1396546226672898058",
+        "project_name": "AI",
+        "project_slug": "ai",
+        "slack_channel_id": "C0B6V901LET",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_announcements": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_announcements"
+        ],
+        "discord_channel_id": "1396542641440690336",
+        "project_name": "Announcements",
+        "project_slug": "announcements",
+        "slack_channel_id": "C03EVH2A6",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
       "org_block_sharing": {
         "depends_on": [
           "null_resource.slack_bridge_login_org_block_sharing"
@@ -389,6 +483,17 @@
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },
+      "org_open_source": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_open_source"
+        ],
+        "discord_channel_id": "1396543045444435980",
+        "project_name": "Open Source",
+        "project_slug": "open-source",
+        "slack_channel_id": "C0AUQPHS615",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
       "org_opportunities": {
         "depends_on": [
           "null_resource.slack_bridge_login_org_opportunities"
@@ -397,6 +502,17 @@
         "project_name": "Opportunities",
         "project_slug": "opportunities",
         "slack_channel_id": "C043SPAD8KB",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_project_updates": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_project_updates"
+        ],
+        "discord_channel_id": "1396542890687070238",
+        "project_name": "Project Updates",
+        "project_slug": "project-updates",
+        "slack_channel_id": "C0B7ANPMBL2",
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },
