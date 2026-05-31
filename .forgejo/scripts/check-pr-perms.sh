@@ -33,7 +33,7 @@ fi
 
 changed=$(IFS=','; echo "${human_changed[*]}")
 
-./target/release/governance check-pr \
+./target/debug/governance check-pr \
   --author "$PR_AUTHOR" \
   --base-ref "origin/${BASE_REF}" \
   --changed-files "$changed"

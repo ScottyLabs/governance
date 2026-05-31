@@ -4,8 +4,8 @@
 set -euo pipefail
 
 cp .forgejo/CODEOWNERS /tmp/CODEOWNERS-old
-./target/release/governance generate --output-dir /tmp/tofu
-./target/release/governance schema --output-dir /tmp/schemas
+./target/debug/governance generate --output-dir /tmp/tofu
+./target/debug/governance schema --output-dir /tmp/schemas
 diff -r /tmp/tofu tofu/ --exclude='*.tf' --exclude='.gitignore'
 diff -r /tmp/schemas schemas/
 diff /tmp/CODEOWNERS-old .forgejo/CODEOWNERS

@@ -54,10 +54,10 @@ jobs:
 
       - uses: https://github.com/Swatinem/rust-cache@v2
 
-      - run: cargo build --release -p governance
+      - run: cargo build -p governance
 
       - name: Validate
-        run: ./target/release/governance validate
+        run: ./target/debug/governance validate
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
