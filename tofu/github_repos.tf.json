@@ -1,5 +1,63 @@
 {
   "resource": {
+    "github_actions_repository_permissions": {
+      "cbp_bus_sign_actions": {
+        "enabled": false,
+        "repository": "${github_repository.cbp_bus_sign.name}"
+      },
+      "cmu-courses_courses_actions": {
+        "enabled": false,
+        "repository": "${github_repository.cmu-courses_courses.name}"
+      },
+      "cmu-courses_internet_archive_actions": {
+        "enabled": false,
+        "repository": "${github_repository.cmu-courses_internet_archive.name}"
+      },
+      "devops_devenv_actions": {
+        "enabled": false,
+        "repository": "${github_repository.devops_devenv.name}"
+      },
+      "devops_documentation_actions": {
+        "enabled": false,
+        "repository": "${github_repository.devops_documentation.name}"
+      },
+      "devops_governance_actions": {
+        "enabled": false,
+        "repository": "${github_repository.devops_governance.name}"
+      },
+      "devops_infrastructure_actions": {
+        "enabled": false,
+        "repository": "${github_repository.devops_infrastructure.name}"
+      },
+      "devops_kennel_actions": {
+        "enabled": false,
+        "repository": "${github_repository.devops_kennel.name}"
+      },
+      "devops_observability_actions": {
+        "enabled": false,
+        "repository": "${github_repository.devops_observability.name}"
+      },
+      "quest_quest_actions": {
+        "enabled": false,
+        "repository": "${github_repository.quest_quest.name}"
+      },
+      "slai_cmugpt_agent_actions": {
+        "enabled": false,
+        "repository": "${github_repository.slai_cmugpt_agent.name}"
+      },
+      "slai_cmugpt_surface_actions": {
+        "enabled": false,
+        "repository": "${github_repository.slai_cmugpt_surface.name}"
+      },
+      "tartan-vote_tartan_vote_actions": {
+        "enabled": false,
+        "repository": "${github_repository.tartan-vote_tartan_vote.name}"
+      },
+      "uia_components_actions": {
+        "enabled": false,
+        "repository": "${github_repository.uia_components.name}"
+      }
+    },
     "github_repository": {
       "cbp_bus_sign": {
         "description": "READ-ONLY MIRROR",

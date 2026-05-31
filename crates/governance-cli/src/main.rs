@@ -199,10 +199,10 @@ fn main() -> anyhow::Result<()> {
             // Join the channel first so the bot can invite others
             let _ = ureq::post("https://slack.com/api/conversations.join")
                 .header("Authorization", &format!("Bearer {token}"))
-                .send_json(&serde_json::json!({ "channel": channel }));
+                .send_json(serde_json::json!({ "channel": channel }));
             let resp = ureq::post("https://slack.com/api/conversations.invite")
                 .header("Authorization", &format!("Bearer {token}"))
-                .send_json(&serde_json::json!({
+                .send_json(serde_json::json!({
                     "channel": channel,
                     "users": user,
                 }));
@@ -228,7 +228,7 @@ fn main() -> anyhow::Result<()> {
                 std::env::var("SLACK_TOKEN").map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))?;
             let resp = ureq::post("https://slack.com/api/conversations.kick")
                 .header("Authorization", &format!("Bearer {token}"))
-                .send_json(&serde_json::json!({
+                .send_json(serde_json::json!({
                     "channel": channel,
                     "user": user,
                 }));

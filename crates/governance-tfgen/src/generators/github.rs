@@ -80,6 +80,15 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                     },
                 }),
             );
+
+            tf.add_resource(
+                "github_actions_repository_permissions",
+                &format!("{key}_actions"),
+                json!({
+                    "repository": format!("${{github_repository.{key}.name}}"),
+                    "enabled": false,
+                }),
+            );
         }
     }
 

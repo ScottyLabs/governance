@@ -23,7 +23,6 @@ pub struct OrgConfig {
     pub defaults: OrgDefaults,
 }
 
-
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
 pub struct ForgejoConfig {
     pub org: String,

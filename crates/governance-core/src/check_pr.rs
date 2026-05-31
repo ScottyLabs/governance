@@ -34,9 +34,10 @@ pub fn check_pr(
             .and_then(|f| f.strip_suffix(".toml"))
         {
             check_team_file_change(data, author, base_ref, slug, &mut issues);
-        } else if matches!(file.as_str(), "data/org.toml" | "atlantis.yaml" | "Cargo.toml" | "Cargo.lock") {
-            issues.push(format!("{author} cannot modify {file}"));
-        } else if file.starts_with("crates/")
+        } else if matches!(
+            file.as_str(),
+            "data/org.toml" | "atlantis.yaml" | "Cargo.toml" | "Cargo.lock"
+        ) || file.starts_with("crates/")
             || file.starts_with("tofu/")
             || file.starts_with("schemas/")
             || file.starts_with(".forgejo/")

@@ -48,20 +48,13 @@ pub fn generate_observability_codeowners(data: &GovernanceData) -> String {
         "# AUTO-GENERATED".to_string(),
         format!("* {}", devops_owners.join(" ")),
     ];
-    lines.push(format!(
-        "/dashboards/infra/ {}",
-        devops_owners.join(" ")
-    ));
+    lines.push(format!("/dashboards/infra/ {}", devops_owners.join(" ")));
     lines.push(format!("/alerts/infra/ {}", devops_owners.join(" ")));
 
     for team in &data.teams {
         let owners = team_lead_handles(&team.team.group, &td_handle);
         for repo in sentry_repos(team) {
-            lines.push(format!(
-                "/dashboards/{}/ {}",
-                repo.name,
-                owners.join(" ")
-            ));
+            lines.push(format!("/dashboards/{}/ {}", repo.name, owners.join(" ")));
             lines.push(format!("/alerts/{}/ {}", repo.name, owners.join(" ")));
         }
     }
@@ -79,11 +72,7 @@ fn team_owners(data: &GovernanceData, slug: &str, td_handle: &str) -> Vec<String
 }
 
 fn team_lead_handles(group: &GroupFields, td_handle: &str) -> Vec<String> {
-    let mut owners: Vec<String> = group
-        .leads
-        .iter()
-        .map(|l| format!("@{l}"))
-        .collect();
+    let mut owners: Vec<String> = group.leads.iter().map(|l| format!("@{l}")).collect();
     if !owners.iter().any(|o| o == td_handle) {
         owners.push(td_handle.to_string());
     }

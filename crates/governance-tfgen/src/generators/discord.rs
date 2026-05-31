@@ -87,10 +87,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
 
         for username in all {
             let key = username.replace('-', "_");
-            roles_by_user
-                .entry(key)
-                .or_default()
-                .push(role_ref.clone());
+            roles_by_user.entry(key).or_default().push(role_ref.clone());
         }
     }
 
