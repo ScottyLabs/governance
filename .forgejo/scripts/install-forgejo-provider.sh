@@ -2,10 +2,6 @@
 # Installs local-only OpenTofu providers for CI until they are on the registry:
 #   - patched Forgejo (temporary; team-repository support is being upstreamed)
 #   - thesuperrl/synapse (fork of https://gitlab.com/risson/terraform-provider-synapse)
-#
-# Patches in .forgejo/patches/synapse-provider-*.patch are applied to the
-# upstream synapse provider clone before build. Remove them once the
-# corresponding fixes land upstream.
 set -euo pipefail
 
 readonly FORGEJO_URL="https://github.com/ap-1/terraform-provider-forgejo/releases/download/v1.4.2-team-repository.2/terraform-provider-forgejo_1.4.2-team-repository.2_linux_amd64.zip"
@@ -41,21 +37,9 @@ synapse_provider_src() {
     echo "${sibling}"
     return
   fi
-  local patches_dir="${REPO_ROOT}/.forgejo/patches"
-  local has_patches=
-  if compgen -G "${patches_dir}/synapse-provider-*.patch" >/dev/null; then
-    has_patches=1
-  fi
-  if [ ! -f "${SYNAPSE_SRC_CACHE}/go.mod" ] || [ -n "${has_patches}" ]; then
+  if [ ! -f "${SYNAPSE_SRC_CACHE}/go.mod" ]; then
     rm -rf "${SYNAPSE_SRC_CACHE}"
     git clone --depth 1 "${SYNAPSE_REPO_URL}" "${SYNAPSE_SRC_CACHE}" >&2
-    if [ -n "${has_patches}" ]; then
-      local patch
-      for patch in "${patches_dir}"/synapse-provider-*.patch; do
-        echo "Applying $(basename "${patch}")" >&2
-        git -C "${SYNAPSE_SRC_CACHE}" apply "${patch}" >&2
-      done
-    fi
   fi
   echo "${SYNAPSE_SRC_CACHE}"
 }
