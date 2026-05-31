@@ -24,6 +24,30 @@
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },
+      "org_design": {
+        "discord_channel_id": "1510581852103245855",
+        "project_name": "Design",
+        "project_slug": "design",
+        "slack_channel_id": "C01A5DC3CTZ",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_events": {
+        "discord_channel_id": "1510581627565117450",
+        "project_name": "Events",
+        "project_slug": "events",
+        "slack_channel_id": "C0194M4C31T",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_finance": {
+        "discord_channel_id": "1506501481564602518",
+        "project_name": "Finance",
+        "project_slug": "finance",
+        "slack_channel_id": "C04261ENHSR",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
       "org_general": {
         "discord_channel_id": "1396542948509876270",
         "project_name": "General",
@@ -37,6 +61,62 @@
         "project_name": "Hub",
         "project_slug": "hub",
         "slack_channel_id": "C096TM8EMS8",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_merch": {
+        "discord_channel_id": "1506501467929051246",
+        "project_name": "Merch",
+        "project_slug": "merch",
+        "slack_channel_id": "C0AVBRB75SQ",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_opportunities": {
+        "discord_channel_id": "1396542737834049648",
+        "project_name": "Opportunities",
+        "project_slug": "opportunities",
+        "slack_channel_id": "C043SPAD8KB",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_quotes": {
+        "discord_channel_id": "1463357783985492081",
+        "project_name": "Quotes",
+        "project_slug": "quotes",
+        "slack_channel_id": "C0392EKMJBD",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_random": {
+        "discord_channel_id": "1396552968345747466",
+        "project_name": "Random",
+        "project_slug": "random",
+        "slack_channel_id": "C03EVH2A8",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_schedules": {
+        "discord_channel_id": "1493965283482800228",
+        "project_name": "Schedules",
+        "project_slug": "schedules",
+        "slack_channel_id": "C0B6T6MTA8P",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_show_off": {
+        "discord_channel_id": "1396543120484728942",
+        "project_name": "Show Off",
+        "project_slug": "show-off",
+        "slack_channel_id": "C0B7ASU1FBK",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_xkcd": {
+        "discord_channel_id": "1437677701816389725",
+        "project_name": "xkcd",
+        "project_slug": "xkcd",
+        "slack_channel_id": "C0B7297T29H",
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },

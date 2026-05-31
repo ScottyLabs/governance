@@ -8,6 +8,19 @@ org = "ScottyLabs"
 [org.github]
 org = "ScottyLabs"
 
+[org.keycloak]
+url = "https://idp.scottylabs.org"
+realm = "scottylabs"
+
+[org.google_groups]
+admin = "sl-admin@andrew.cmu.edu"
+ops = "sl-ops@andrew.cmu.edu"
+tech = "sl-tech@andrew.cmu.edu"
+
+[org.vaultwarden]
+url = "https://vault.scottylabs.org"
+org_id = "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
+
 [org.communication]
 discord_guild_id = "1353118209024331948"
 discord_hub_channel_id = "1462522753709248533"
@@ -22,20 +35,67 @@ discord = "1396542948509876270"
 slack = "C019R0WM1T4"
 
 [[org.communication.channels]]
+name = "Random"
+slug = "random"
+discord = "1396552968345747466"
+slack = "C03EVH2A8"
+
+[[org.communication.channels]]
+name = "Finance"
+slug = "finance"
+discord = "1506501481564602518"
+slack = "C04261ENHSR"
+
+[[org.communication.channels]]
+name = "Events"
+slug = "events"
+discord = "1510581627565117450"
+slack = "C0194M4C31T"
+
+[[org.communication.channels]]
+name = "Design"
+slug = "design"
+discord = "1510581852103245855"
+slack = "C01A5DC3CTZ"
+
+[[org.communication.channels]]
+name = "Show Off"
+slug = "show-off"
+discord = "1396543120484728942"
+slack = "C0B7ASU1FBK"
+
+[[org.communication.channels]]
+name = "Opportunities"
+slug = "opportunities"
+discord = "1396542737834049648"
+slack = "C043SPAD8KB"
+
+[[org.communication.channels]]
+name = "Quotes"
+slug = "quotes"
+discord = "1463357783985492081"
+slack = "C0392EKMJBD"
+
+[[org.communication.channels]]
+name = "Merch"
+slug = "merch"
+discord = "1506501467929051246"
+slack = "C0AVBRB75SQ"
+
+[[org.communication.channels]]
+name = "Schedules"
+slug = "schedules"
+discord = "1493965283482800228"
+slack = "C0B6T6MTA8P"
+
+[[org.communication.channels]]
 name = "Block Sharing"
 slug = "block-sharing"
 discord = "1510374179378040973"
 slack = "C0B3E3E9ZJ5"
 
-[org.keycloak]
-url = "https://idp.scottylabs.org"
-realm = "scottylabs"
-
-[org.google_groups]
-admin = "sl-admin@andrew.cmu.edu"
-ops = "sl-ops@andrew.cmu.edu"
-tech = "sl-tech@andrew.cmu.edu"
-
-[org.vaultwarden]
-url = "https://vault.scottylabs.org"
-org_id = "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
+[[org.communication.channels]]
+name = "xkcd"
+slug = "xkcd"
+discord = "1437677701816389725"
+slack = "C0B7297T29H"
