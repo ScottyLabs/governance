@@ -71,6 +71,12 @@ discord = "1510581852103245855"
 slack = "C01A5DC3CTZ"
 
 [[org.communication.channels]]
+name = "Intros"
+slug = "intros"
+discord = "1396675840338563092"
+slack = "C0B6WB37QHM"
+
+[[org.communication.channels]]
 name = "Show Off"
 slug = "show-off"
 discord = "1396543120484728942"

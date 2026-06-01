@@ -184,6 +184,24 @@
           "channel": "C096TM8EMS8"
         }
       },
+      "slack_bridge_login_org_intros": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0B6WB37QHM"
+        }
+      },
       "slack_bridge_login_org_merch": {
         "provisioner": [
           {
@@ -469,6 +487,17 @@
         "project_name": "Hub",
         "project_slug": "hub",
         "slack_channel_id": "C096TM8EMS8",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_intros": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_intros"
+        ],
+        "discord_channel_id": "1396675840338563092",
+        "project_name": "Intros",
+        "project_slug": "intros",
+        "slack_channel_id": "C0B6WB37QHM",
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },
