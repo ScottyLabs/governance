@@ -66,10 +66,6 @@ fn check_team_file_change(
 
     // Team creation
     if old_team.is_none() {
-        let is_lead = is_lead_anywhere(data, author);
-        if !is_lead {
-            issues.push(format!("{author} cannot create team {slug}"));
-        }
         return;
     }
 
@@ -109,16 +105,6 @@ fn is_devops_lead(data: &GovernanceData, username: &str) -> bool {
         .iter()
         .filter(|t| t.team.group.slug == "devops")
         .any(|t| t.team.group.leads.iter().any(|l| l == username))
-}
-
-fn is_lead_anywhere(data: &GovernanceData, username: &str) -> bool {
-    data.teams.iter().any(|t| {
-        t.team.group.leads.iter().any(|l| l == username)
-            || t.team
-                .projects
-                .iter()
-                .any(|p| p.group.leads.iter().any(|l| l == username))
-    })
 }
 
 fn git_show(base_ref: &str, path: &str) -> Option<String> {

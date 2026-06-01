@@ -105,4 +105,4 @@ discord = "<discord-channel-id>"
 slack = "<slack-channel-id>"
 ```
 
-**Permissions:** creating new teams is restricted to the Tech Director and Tech Leads already declared in governance.
+**Permissions:** anyone can open a PR creating a new team. Modifying or deleting an existing team is restricted to that team's leads (and org admins); non-leads may only add or remove themselves.
