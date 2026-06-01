@@ -1,7 +1,7 @@
 [team]
 name = "Community-Based Projects"
 slug = "cbp"
-leads = ["tentype", "anish"]
+leads = ["tentype"]
 
 [[team.channels]]
 discord = "1450023430224216237"

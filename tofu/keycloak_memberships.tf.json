@@ -4,16 +4,14 @@
       "project_cbp_bus-sign": {
         "group_id": "${keycloak_group.project_cbp_bus-sign.id}",
         "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_anish.result.cmu-saml}"
+          "${data.external.identity_tentype.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cbp_bus-sign_admins": {
         "group_id": "${keycloak_group.project_cbp_bus-sign_admins.id}",
         "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_anish.result.cmu-saml}"
+          "${data.external.identity_tentype.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

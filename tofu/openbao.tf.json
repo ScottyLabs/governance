@@ -14,6 +14,76 @@
           "bus-sign-dev"
         ],
         "type": "external"
+      },
+      "cmu-courses_admins": {
+        "name": "cmu-courses-admins",
+        "policies": [
+          "cmu-courses-prod"
+        ],
+        "type": "external"
+      },
+      "cmu-courses_members": {
+        "name": "cmu-courses-members",
+        "policies": [
+          "cmu-courses-dev"
+        ],
+        "type": "external"
+      },
+      "quest_admins": {
+        "name": "quest-admins",
+        "policies": [
+          "quest-prod"
+        ],
+        "type": "external"
+      },
+      "quest_members": {
+        "name": "quest-members",
+        "policies": [
+          "quest-dev"
+        ],
+        "type": "external"
+      },
+      "slai_admins": {
+        "name": "slai-admins",
+        "policies": [
+          "slai-prod"
+        ],
+        "type": "external"
+      },
+      "slai_members": {
+        "name": "slai-members",
+        "policies": [
+          "slai-dev"
+        ],
+        "type": "external"
+      },
+      "tartan-vote_admins": {
+        "name": "tartan-vote-admins",
+        "policies": [
+          "tartan-vote-prod"
+        ],
+        "type": "external"
+      },
+      "tartan-vote_members": {
+        "name": "tartan-vote-members",
+        "policies": [
+          "tartan-vote-dev"
+        ],
+        "type": "external"
+      },
+      "uia_admins": {
+        "name": "uia-admins",
+        "policies": [
+          "uia-prod"
+        ],
+        "type": "external"
+      },
+      "uia_members": {
+        "name": "uia-members",
+        "policies": [
+          "uia-dev"
+        ],
+        "type": "external"
       }
     },
     "vault_identity_group_alias": {
@@ -26,6 +96,56 @@
         "canonical_id": "${vault_identity_group.bus-sign_members.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/bus-sign"
+      },
+      "cmu-courses_admins": {
+        "canonical_id": "${vault_identity_group.cmu-courses_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmu-courses/admins"
+      },
+      "cmu-courses_members": {
+        "canonical_id": "${vault_identity_group.cmu-courses_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmu-courses"
+      },
+      "quest_admins": {
+        "canonical_id": "${vault_identity_group.quest_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/quest/admins"
+      },
+      "quest_members": {
+        "canonical_id": "${vault_identity_group.quest_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/quest"
+      },
+      "slai_admins": {
+        "canonical_id": "${vault_identity_group.slai_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/slai/admins"
+      },
+      "slai_members": {
+        "canonical_id": "${vault_identity_group.slai_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/slai"
+      },
+      "tartan-vote_admins": {
+        "canonical_id": "${vault_identity_group.tartan-vote_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/tartan-vote/admins"
+      },
+      "tartan-vote_members": {
+        "canonical_id": "${vault_identity_group.tartan-vote_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/tartan-vote"
+      },
+      "uia_admins": {
+        "canonical_id": "${vault_identity_group.uia_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/uia/admins"
+      },
+      "uia_members": {
+        "canonical_id": "${vault_identity_group.uia_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/uia"
       }
     },
     "vault_policy": {
@@ -36,6 +156,46 @@
       "bus-sign_prod": {
         "name": "bus-sign-prod",
         "policy": "path \"secret/data/secretspec/bus-sign/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/bus-sign/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmu-courses_dev": {
+        "name": "cmu-courses-dev",
+        "policy": "path \"secret/data/secretspec/cmu-courses/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-courses/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmu-courses_prod": {
+        "name": "cmu-courses-prod",
+        "policy": "path \"secret/data/secretspec/cmu-courses/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-courses/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "quest_dev": {
+        "name": "quest-dev",
+        "policy": "path \"secret/data/secretspec/quest/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/quest/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "quest_prod": {
+        "name": "quest-prod",
+        "policy": "path \"secret/data/secretspec/quest/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/quest/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "slai_dev": {
+        "name": "slai-dev",
+        "policy": "path \"secret/data/secretspec/slai/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/slai/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/slai/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/slai/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "slai_prod": {
+        "name": "slai-prod",
+        "policy": "path \"secret/data/secretspec/slai/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/slai/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/slai/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/slai/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "tartan-vote_dev": {
+        "name": "tartan-vote-dev",
+        "policy": "path \"secret/data/secretspec/tartan-vote/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/tartan-vote/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/tartan-vote/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/tartan-vote/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "tartan-vote_prod": {
+        "name": "tartan-vote-prod",
+        "policy": "path \"secret/data/secretspec/tartan-vote/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/tartan-vote/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/tartan-vote/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/tartan-vote/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "uia_dev": {
+        "name": "uia-dev",
+        "policy": "path \"secret/data/secretspec/uia/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/uia/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/uia/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/uia/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "uia_prod": {
+        "name": "uia-prod",
+        "policy": "path \"secret/data/secretspec/uia/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/uia/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/uia/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/uia/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       }
     }
   }

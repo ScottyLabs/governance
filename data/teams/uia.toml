@@ -7,3 +7,7 @@ leads = ["anish"]
 name = "components"
 description = "ScottyLabs design system"
 kennel = true
+
+[[team.channels]]
+discord = "1510885385461567589"
+slack = "C08MAT652CE"

@@ -381,6 +381,24 @@
         "triggers": {
           "channel": "C08MHDYA12B"
         }
+      },
+      "slack_bridge_login_uia": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08MAT652CE"
+        }
       }
     },
     "synapse_mautrix_slack_link": {
@@ -608,6 +626,15 @@
         "slack_channel_id": "C08MHDYA12B",
         "team_name": "Quest",
         "team_slug": "quest"
+      },
+      "uia": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_uia"
+        ],
+        "discord_channel_id": "1510885385461567589",
+        "slack_channel_id": "C08MAT652CE",
+        "team_name": "UI Architecture",
+        "team_slug": "uia"
       }
     }
   }

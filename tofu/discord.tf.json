@@ -42,6 +42,12 @@
         "channel_id": "1462522753709248533",
         "overwrite_id": "${discord_role.tech.id}",
         "type": "role"
+      },
+      "uia_ch0": {
+        "allow": 1024,
+        "channel_id": "1510885385461567589",
+        "overwrite_id": "${discord_role.uia.id}",
+        "type": "role"
       }
     },
     "discord_member_roles": {
@@ -61,9 +67,6 @@
         "role": [
           {
             "role_id": "${discord_role.tech.id}"
-          },
-          {
-            "role_id": "${discord_role.cbp.id}"
           },
           {
             "role_id": "${discord_role.cmu-courses.id}"
