@@ -1,3 +1,4 @@
+pub mod bridge_identity;
 pub mod check_pr;
 pub mod error;
 pub mod keycloak;

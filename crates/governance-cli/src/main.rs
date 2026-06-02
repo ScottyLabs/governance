@@ -34,6 +34,11 @@ enum Command {
         output_dir: PathBuf,
     },
     ResolveIdentity,
+    /// Write infrastructure/services/matrix/bridge-identity-map.json from Keycloak IdP links.
+    GenerateBridgeIdentityMap {
+        #[arg(long, default_value = "../../infrastructure/services/matrix/bridge-identity-map.json")]
+        output: PathBuf,
+    },
     CheckPr {
         #[arg(long)]
         author: String,
@@ -143,6 +148,12 @@ fn main() -> anyhow::Result<()> {
             )?;
 
             eprintln!("wrote schemas to {}", output_dir.display());
+        }
+        Command::GenerateBridgeIdentityMap { output } => {
+            let data = GovernanceData::load(&cli.data_dir)?;
+            governance_core::bridge_identity::write_bridge_identity_map(&data, &output)
+                .map_err(|e| anyhow::anyhow!(e))?;
+            eprintln!("wrote {}", output.display());
         }
         Command::ResolveIdentity => {
             let query: serde_json::Value = serde_json::from_reader(std::io::stdin())?;
