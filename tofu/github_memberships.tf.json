@@ -31,6 +31,11 @@
         "team_id": "${github_team.slai.id}",
         "username": "${data.external.identity_Jc_965.result.github}"
       },
+      "slai_kath45823": {
+        "role": "member",
+        "team_id": "${github_team.slai.id}",
+        "username": "${data.external.identity_kath45823.result.github}"
+      },
       "slai_krishsaxena": {
         "role": "maintainer",
         "team_id": "${github_team.slai.id}",

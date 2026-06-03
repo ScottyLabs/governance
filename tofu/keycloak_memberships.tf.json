@@ -63,7 +63,8 @@
         "group_id": "${keycloak_group.project_slai.id}",
         "members": [
           "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_Jc_965.result.cmu-saml}"
+          "${data.external.identity_Jc_965.result.cmu-saml}",
+          "${data.external.identity_kath45823.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

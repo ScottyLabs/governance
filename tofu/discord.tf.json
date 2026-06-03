@@ -84,6 +84,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_anish.result.discord_id}"
       },
+      "kath45823": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.slai.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_kath45823.result.discord_id}"
+      },
       "krishsaxena": {
         "role": [
           {
