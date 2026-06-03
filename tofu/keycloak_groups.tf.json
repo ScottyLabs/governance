@@ -11,6 +11,26 @@
         "parent_id": "${keycloak_group.project_cbp_bus-sign.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cbp_dalmatian": {
+        "name": "dalmatian",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_dalmatian_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_cbp_dalmatian.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_discord-verify": {
+        "name": "discord-verify",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_discord-verify_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_cbp_discord-verify.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_cmu-courses": {
         "name": "cmu-courses",
         "parent_id": "${keycloak_group.projects.id}",

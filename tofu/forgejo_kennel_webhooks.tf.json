@@ -13,6 +13,32 @@
       ],
       "type": "forgejo"
     },
+    "cbp_dalmatian_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request"
+      ],
+      "type": "forgejo"
+    },
+    "cbp_discord_verify_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request"
+      ],
+      "type": "forgejo"
+    },
     "cmu-courses_courses_kennel_webhook_data": {
       "active": true,
       "config": {
@@ -127,6 +153,22 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/bus-sign/hooks"
+      },
+      "cbp_dalmatian_kennel_webhook": {
+        "data": "${jsonencode(local.cbp_dalmatian_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.cbp_dalmatian"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/dalmatian/hooks"
+      },
+      "cbp_discord_verify_kennel_webhook": {
+        "data": "${jsonencode(local.cbp_discord_verify_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.cbp_discord_verify"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/discord-verify/hooks"
       },
       "cmu-courses_courses_kennel_webhook": {
         "data": "${jsonencode(local.cmu-courses_courses_kennel_webhook_data)}",

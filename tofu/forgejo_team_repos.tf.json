@@ -10,6 +10,24 @@
         "repository": "bus-sign",
         "team_id": "${forgejo_team.cbp.id}"
       },
+      "cbp_dalmatian": {
+        "depends_on": [
+          "forgejo_repository.cbp_dalmatian",
+          "forgejo_team.cbp"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "dalmatian",
+        "team_id": "${forgejo_team.cbp.id}"
+      },
+      "cbp_discord_verify": {
+        "depends_on": [
+          "forgejo_repository.cbp_discord_verify",
+          "forgejo_team.cbp"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "discord-verify",
+        "team_id": "${forgejo_team.cbp.id}"
+      },
       "cmu-courses_courses": {
         "depends_on": [
           "forgejo_repository.cmu-courses_courses",

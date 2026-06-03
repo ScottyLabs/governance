@@ -23,6 +23,17 @@
           "codeberg_user": "anish"
         }
       },
+      "identity_gostmeaper": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "gostmeaper"
+        }
+      },
       "identity_kath45823": {
         "program": [
           "governance",

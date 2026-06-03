@@ -1,7 +1,8 @@
 [team]
 name = "Community-Based Projects"
 slug = "cbp"
-leads = ["tentype"]
+leads = ["tentype", "maybe-yiyi"]
+members = ["gostmeaper"]
 
 [[team.channels]]
 discord = "1450023430224216237"
@@ -18,3 +19,29 @@ sentry = true
 
 [[team.projects.channels]]
 discord = "1472669342108750087"
+
+[[team.projects]]
+name = "Dalmatian"
+slug = "dalmatian"
+
+[[team.projects.repos]]
+name = "dalmatian"
+description = "Discord bot for CMU Courses, CMU Eats, and other ScottyLabs services"
+kennel = true
+sentry = true
+
+[[team.projects.channels]]
+discord = "1482594247961219307"
+
+[[team.projects]]
+name = "Discord Verify"
+slug = "discord-verify"
+
+[[team.projects.repos]]
+name = "discord-verify"
+description = "Discord verification for CMU"
+kennel = true
+sentry = true
+
+[[team.projects.channels]]
+discord = "1450023447185854575"

@@ -6,6 +6,18 @@
       "sync_on_commit": true,
       "use_ssh": true
     },
+    "cbp_dalmatian_mirror_data": {
+      "interval": "8h0m0s",
+      "remote_address": "git@github.com:ScottyLabs/dalmatian.git",
+      "sync_on_commit": true,
+      "use_ssh": true
+    },
+    "cbp_discord_verify_mirror_data": {
+      "interval": "8h0m0s",
+      "remote_address": "git@github.com:ScottyLabs/discord-verify.git",
+      "sync_on_commit": true,
+      "use_ssh": true
+    },
     "cmu-courses_courses_mirror_data": {
       "interval": "8h0m0s",
       "remote_address": "git@github.com:ScottyLabs/courses.git",
@@ -100,6 +112,22 @@
         ],
         "id_attribute": "remote_name",
         "path": "/api/v1/repos/ScottyLabs/bus-sign/push_mirrors"
+      },
+      "cbp_dalmatian_push_mirror": {
+        "data": "${jsonencode(local.cbp_dalmatian_mirror_data)}",
+        "depends_on": [
+          "forgejo_repository.cbp_dalmatian"
+        ],
+        "id_attribute": "remote_name",
+        "path": "/api/v1/repos/ScottyLabs/dalmatian/push_mirrors"
+      },
+      "cbp_discord_verify_push_mirror": {
+        "data": "${jsonencode(local.cbp_discord_verify_mirror_data)}",
+        "depends_on": [
+          "forgejo_repository.cbp_discord_verify"
+        ],
+        "id_attribute": "remote_name",
+        "path": "/api/v1/repos/ScottyLabs/discord-verify/push_mirrors"
       },
       "cmu-courses_courses_push_mirror": {
         "data": "${jsonencode(local.cmu-courses_courses_mirror_data)}",

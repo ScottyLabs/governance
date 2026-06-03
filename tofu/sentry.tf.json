@@ -6,6 +6,16 @@
         "organization": "${var.sentry_organization}",
         "project": "${sentry_project.cbp_bus_sign.slug}"
       },
+      "cbp_dalmatian": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.cbp_dalmatian.slug}"
+      },
+      "cbp_discord_verify": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.cbp_discord_verify.slug}"
+      },
       "cmu-courses_courses": {
         "name": "default",
         "organization": "${var.sentry_organization}",
@@ -32,6 +42,22 @@
         "name": "bus-sign",
         "organization": "${var.sentry_organization}",
         "slug": "bus-sign",
+        "teams": [
+          "${sentry_team.cbp.slug}"
+        ]
+      },
+      "cbp_dalmatian": {
+        "name": "dalmatian",
+        "organization": "${var.sentry_organization}",
+        "slug": "dalmatian",
+        "teams": [
+          "${sentry_team.cbp.slug}"
+        ]
+      },
+      "cbp_discord_verify": {
+        "name": "discord-verify",
+        "organization": "${var.sentry_organization}",
+        "slug": "discord-verify",
         "teams": [
           "${sentry_team.cbp.slug}"
         ]
@@ -101,6 +127,16 @@
         "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cbp_bus_sign.dsn })}",
         "mount": "secret",
         "name": "secretspec/bus-sign/prod/SENTRY_DSN"
+      },
+      "cbp_dalmatian_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cbp_dalmatian.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/dalmatian/prod/SENTRY_DSN"
+      },
+      "cbp_discord_verify_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cbp_discord_verify.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/SENTRY_DSN"
       },
       "cmu-courses_courses_sentry_dsn": {
         "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cmu-courses_courses.dsn })}",

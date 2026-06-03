@@ -4,14 +4,51 @@
       "project_cbp_bus-sign": {
         "group_id": "${keycloak_group.project_cbp_bus-sign.id}",
         "members": [
-          "${data.external.identity_tentype.result.cmu-saml}"
+          "${data.external.identity_tentype.result.cmu-saml}",
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
+          "${data.external.identity_gostmeaper.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cbp_bus-sign_admins": {
         "group_id": "${keycloak_group.project_cbp_bus-sign_admins.id}",
         "members": [
-          "${data.external.identity_tentype.result.cmu-saml}"
+          "${data.external.identity_tentype.result.cmu-saml}",
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_dalmatian": {
+        "group_id": "${keycloak_group.project_cbp_dalmatian.id}",
+        "members": [
+          "${data.external.identity_tentype.result.cmu-saml}",
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
+          "${data.external.identity_gostmeaper.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_dalmatian_admins": {
+        "group_id": "${keycloak_group.project_cbp_dalmatian_admins.id}",
+        "members": [
+          "${data.external.identity_tentype.result.cmu-saml}",
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_discord-verify": {
+        "group_id": "${keycloak_group.project_cbp_discord-verify.id}",
+        "members": [
+          "${data.external.identity_tentype.result.cmu-saml}",
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
+          "${data.external.identity_gostmeaper.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_discord-verify_admins": {
+        "group_id": "${keycloak_group.project_cbp_discord-verify_admins.id}",
+        "members": [
+          "${data.external.identity_tentype.result.cmu-saml}",
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

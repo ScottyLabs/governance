@@ -14,6 +14,32 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "cbp_dalmatian": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Discord bot for CMU Courses, CMU Eats, and other ScottyLabs services",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "dalmatian",
+        "owner": "ScottyLabs",
+        "private": false
+      },
+      "cbp_discord_verify": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Discord verification for CMU",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "discord-verify",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "cmu-courses_courses": {
         "auto_init": true,
         "default_branch": "main",

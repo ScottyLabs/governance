@@ -100,6 +100,17 @@
           }
         ]
       },
+      "tech_gostmeaper": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_gostmeaper.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
       "tech_kath45823": {
         "group": "${data.google_cloud_identity_group_lookup.tech.name}",
         "preferred_member_key": {

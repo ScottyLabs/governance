@@ -5,6 +5,14 @@
         "enabled": false,
         "repository": "${github_repository.cbp_bus_sign.name}"
       },
+      "cbp_dalmatian_actions": {
+        "enabled": false,
+        "repository": "${github_repository.cbp_dalmatian.name}"
+      },
+      "cbp_discord_verify_actions": {
+        "enabled": false,
+        "repository": "${github_repository.cbp_discord_verify.name}"
+      },
       "cmu-courses_courses_actions": {
         "enabled": false,
         "repository": "${github_repository.cmu-courses_courses.name}"
@@ -71,6 +79,26 @@
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/bus-sign",
         "name": "bus-sign",
+        "visibility": "public"
+      },
+      "cbp_dalmatian": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/dalmatian",
+        "name": "dalmatian",
+        "visibility": "public"
+      },
+      "cbp_discord_verify": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/discord-verify",
+        "name": "discord-verify",
         "visibility": "public"
       },
       "cmu-courses_courses": {
@@ -221,6 +249,18 @@
         "repository": "${github_repository.cbp_bus_sign.name}",
         "title": "Codeberg Mirroring"
       },
+      "cbp_dalmatian_mirror_deploy_key": {
+        "key": "${restapi_object.cbp_dalmatian_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.cbp_dalmatian.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "cbp_discord_verify_mirror_deploy_key": {
+        "key": "${restapi_object.cbp_discord_verify_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.cbp_discord_verify.name}",
+        "title": "Codeberg Mirroring"
+      },
       "cmu-courses_courses_mirror_deploy_key": {
         "key": "${restapi_object.cmu-courses_courses_push_mirror.api_data.public_key}",
         "read_only": false,
@@ -326,6 +366,66 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.cbp_bus_sign.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "cbp_dalmatian_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.cbp_dalmatian_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.cbp_dalmatian.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "cbp_discord_verify_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.cbp_discord_verify_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.cbp_discord_verify.name}",
         "rules": {
           "creation": true,
           "deletion": true,

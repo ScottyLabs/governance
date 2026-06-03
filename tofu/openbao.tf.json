@@ -29,6 +29,34 @@
         ],
         "type": "external"
       },
+      "dalmatian_admins": {
+        "name": "dalmatian-admins",
+        "policies": [
+          "dalmatian-prod"
+        ],
+        "type": "external"
+      },
+      "dalmatian_members": {
+        "name": "dalmatian-members",
+        "policies": [
+          "dalmatian-dev"
+        ],
+        "type": "external"
+      },
+      "discord-verify_admins": {
+        "name": "discord-verify-admins",
+        "policies": [
+          "discord-verify-prod"
+        ],
+        "type": "external"
+      },
+      "discord-verify_members": {
+        "name": "discord-verify-members",
+        "policies": [
+          "discord-verify-dev"
+        ],
+        "type": "external"
+      },
       "quest_admins": {
         "name": "quest-admins",
         "policies": [
@@ -107,6 +135,26 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/cmu-courses"
       },
+      "dalmatian_admins": {
+        "canonical_id": "${vault_identity_group.dalmatian_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/dalmatian/admins"
+      },
+      "dalmatian_members": {
+        "canonical_id": "${vault_identity_group.dalmatian_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/dalmatian"
+      },
+      "discord-verify_admins": {
+        "canonical_id": "${vault_identity_group.discord-verify_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/discord-verify/admins"
+      },
+      "discord-verify_members": {
+        "canonical_id": "${vault_identity_group.discord-verify_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/discord-verify"
+      },
       "quest_admins": {
         "canonical_id": "${vault_identity_group.quest_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -164,6 +212,22 @@
       "cmu-courses_prod": {
         "name": "cmu-courses-prod",
         "policy": "path \"secret/data/secretspec/cmu-courses/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-courses/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "dalmatian_dev": {
+        "name": "dalmatian-dev",
+        "policy": "path \"secret/data/secretspec/dalmatian/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/dalmatian/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/dalmatian/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/dalmatian/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "dalmatian_prod": {
+        "name": "dalmatian-prod",
+        "policy": "path \"secret/data/secretspec/dalmatian/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/dalmatian/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/dalmatian/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/dalmatian/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "discord-verify_dev": {
+        "name": "discord-verify-dev",
+        "policy": "path \"secret/data/secretspec/discord-verify/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/discord-verify/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/discord-verify/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/discord-verify/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "discord-verify_prod": {
+        "name": "discord-verify-prod",
+        "policy": "path \"secret/data/secretspec/discord-verify/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/discord-verify/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/discord-verify/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/discord-verify/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "quest_dev": {
         "name": "quest-dev",
