@@ -119,10 +119,22 @@ discord = "1396546226672898058"
 slack = "C0B6V901LET"
 
 [[org.communication.channels]]
+name = "Hardware"
+slug = "hardware"
+discord = "1396543250906480670"
+slack = "C0B8R78TPBJ"
+
+[[org.communication.channels]]
 name = "Block Sharing"
 slug = "block-sharing"
 discord = "1510374179378040973"
 slack = "C0B3E3E9ZJ5"
+
+[[org.communication.channels]]
+name = "Random Sightings"
+slug = "random-sightings"
+discord = "1476352590248677519"
+slack = "C04V9AX1Q79"
 
 [[org.communication.channels]]
 name = "xkcd"
