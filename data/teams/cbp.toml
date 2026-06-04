@@ -21,6 +21,14 @@ sentry = true
 discord = "1472669342108750087"
 
 [[team.projects]]
+name = "GroupMe Mirror"
+slug = "groupme-mirror"
+
+[[team.projects.repos]]
+name = "groupme-mirror"
+description = "Mirror messages from a GroupMe to a Discord webhook"
+
+[[team.projects]]
 name = "Dalmatian"
 slug = "dalmatian"
 

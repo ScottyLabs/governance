@@ -166,6 +166,24 @@
           "channel": "C019R0WM1T4"
         }
       },
+      "slack_bridge_login_org_hardware": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0B8R78TPBJ"
+        }
+      },
       "slack_bridge_login_org_hub": {
         "provisioner": [
           {
@@ -308,6 +326,24 @@
         ],
         "triggers": {
           "channel": "C03EVH2A8"
+        }
+      },
+      "slack_bridge_login_org_random_sightings": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C04V9AX1Q79"
         }
       },
       "slack_bridge_login_org_schedules": {
@@ -497,6 +533,17 @@
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },
+      "org_hardware": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_hardware"
+        ],
+        "discord_channel_id": "1396543250906480670",
+        "project_name": "Hardware",
+        "project_slug": "hardware",
+        "slack_channel_id": "C0B8R78TPBJ",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
       "org_hub": {
         "depends_on": [
           "null_resource.slack_bridge_login_org_hub"
@@ -582,6 +629,17 @@
         "project_name": "Random",
         "project_slug": "random",
         "slack_channel_id": "C03EVH2A8",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_random_sightings": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_random_sightings"
+        ],
+        "discord_channel_id": "1476352590248677519",
+        "project_name": "Random Sightings",
+        "project_slug": "random-sightings",
+        "slack_channel_id": "C04V9AX1Q79",
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },

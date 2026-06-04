@@ -52,6 +52,23 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cbp_groupme-mirror": {
+        "group_id": "${keycloak_group.project_cbp_groupme-mirror.id}",
+        "members": [
+          "${data.external.identity_tentype.result.cmu-saml}",
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
+          "${data.external.identity_gostmeaper.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_groupme-mirror_admins": {
+        "group_id": "${keycloak_group.project_cbp_groupme-mirror_admins.id}",
+        "members": [
+          "${data.external.identity_tentype.result.cmu-saml}",
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_cmu-courses": {
         "group_id": "${keycloak_group.project_cmu-courses.id}",
         "members": [

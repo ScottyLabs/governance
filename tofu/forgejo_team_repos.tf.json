@@ -28,6 +28,15 @@
         "repository": "discord-verify",
         "team_id": "${forgejo_team.cbp.id}"
       },
+      "cbp_groupme_mirror": {
+        "depends_on": [
+          "forgejo_repository.cbp_groupme_mirror",
+          "forgejo_team.cbp"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "groupme-mirror",
+        "team_id": "${forgejo_team.cbp.id}"
+      },
       "cmu-courses_courses": {
         "depends_on": [
           "forgejo_repository.cmu-courses_courses",

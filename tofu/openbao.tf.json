@@ -57,6 +57,20 @@
         ],
         "type": "external"
       },
+      "groupme-mirror_admins": {
+        "name": "groupme-mirror-admins",
+        "policies": [
+          "groupme-mirror-prod"
+        ],
+        "type": "external"
+      },
+      "groupme-mirror_members": {
+        "name": "groupme-mirror-members",
+        "policies": [
+          "groupme-mirror-dev"
+        ],
+        "type": "external"
+      },
       "quest_admins": {
         "name": "quest-admins",
         "policies": [
@@ -155,6 +169,16 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/discord-verify"
       },
+      "groupme-mirror_admins": {
+        "canonical_id": "${vault_identity_group.groupme-mirror_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/groupme-mirror/admins"
+      },
+      "groupme-mirror_members": {
+        "canonical_id": "${vault_identity_group.groupme-mirror_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/groupme-mirror"
+      },
       "quest_admins": {
         "canonical_id": "${vault_identity_group.quest_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -228,6 +252,14 @@
       "discord-verify_prod": {
         "name": "discord-verify-prod",
         "policy": "path \"secret/data/secretspec/discord-verify/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/discord-verify/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/discord-verify/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/discord-verify/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "groupme-mirror_dev": {
+        "name": "groupme-mirror-dev",
+        "policy": "path \"secret/data/secretspec/groupme-mirror/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/groupme-mirror/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/groupme-mirror/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/groupme-mirror/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "groupme-mirror_prod": {
+        "name": "groupme-mirror-prod",
+        "policy": "path \"secret/data/secretspec/groupme-mirror/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/groupme-mirror/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/groupme-mirror/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/groupme-mirror/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "quest_dev": {
         "name": "quest-dev",

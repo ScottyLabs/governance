@@ -13,6 +13,10 @@
         "enabled": false,
         "repository": "${github_repository.cbp_discord_verify.name}"
       },
+      "cbp_groupme_mirror_actions": {
+        "enabled": false,
+        "repository": "${github_repository.cbp_groupme_mirror.name}"
+      },
       "cmu-courses_courses_actions": {
         "enabled": false,
         "repository": "${github_repository.cmu-courses_courses.name}"
@@ -99,6 +103,16 @@
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/discord-verify",
         "name": "discord-verify",
+        "visibility": "public"
+      },
+      "cbp_groupme_mirror": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/groupme-mirror",
+        "name": "groupme-mirror",
         "visibility": "public"
       },
       "cmu-courses_courses": {
@@ -259,6 +273,12 @@
         "key": "${restapi_object.cbp_discord_verify_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cbp_discord_verify.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "cbp_groupme_mirror_mirror_deploy_key": {
+        "key": "${restapi_object.cbp_groupme_mirror_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.cbp_groupme_mirror.name}",
         "title": "Codeberg Mirroring"
       },
       "cmu-courses_courses_mirror_deploy_key": {
@@ -426,6 +446,36 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.cbp_discord_verify.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "cbp_groupme_mirror_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.cbp_groupme_mirror_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.cbp_groupme_mirror.name}",
         "rules": {
           "creation": true,
           "deletion": true,

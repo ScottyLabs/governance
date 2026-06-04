@@ -31,6 +31,16 @@
         "parent_id": "${keycloak_group.project_cbp_discord-verify.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cbp_groupme-mirror": {
+        "name": "groupme-mirror",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cbp_groupme-mirror_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_cbp_groupme-mirror.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_cmu-courses": {
         "name": "cmu-courses",
         "parent_id": "${keycloak_group.projects.id}",
