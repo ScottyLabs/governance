@@ -27,6 +27,11 @@ fn validate_team_slugs(data: &GovernanceData, errors: &mut Vec<ValidationError>)
                 team.team.group.slug.clone(),
             ));
         }
+        for project in &team.team.projects {
+            if !seen.insert(&project.group.slug) {
+                errors.push(ValidationError::DuplicateSlug(project.group.slug.clone()));
+            }
+        }
     }
 }
 

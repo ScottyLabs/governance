@@ -29,6 +29,9 @@ pub enum ValidationError {
     #[error("duplicate team slug: {0}")]
     DuplicateTeamSlug(String),
 
+    #[error("duplicate slug: {0} (team and project slugs must be globally unique)")]
+    DuplicateSlug(String),
+
     #[error("duplicate repo name: {0}")]
     DuplicateRepoName(String),
 
