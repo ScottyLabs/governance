@@ -25,6 +25,10 @@
         "enabled": false,
         "repository": "${github_repository.cmu-courses_internet_archive.name}"
       },
+      "cmu-housing_housing_actions": {
+        "enabled": false,
+        "repository": "${github_repository.cmu-housing_housing.name}"
+      },
       "devops_devenv_actions": {
         "enabled": false,
         "repository": "${github_repository.devops_devenv.name}"
@@ -133,6 +137,16 @@
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/internet-archive",
         "name": "internet-archive",
+        "visibility": "public"
+      },
+      "cmu-housing_housing": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/housing",
+        "name": "housing",
         "visibility": "public"
       },
       "devops_devenv": {
@@ -291,6 +305,12 @@
         "key": "${restapi_object.cmu-courses_internet_archive_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cmu-courses_internet_archive.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "cmu-housing_housing_mirror_deploy_key": {
+        "key": "${restapi_object.cmu-housing_housing_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.cmu-housing_housing.name}",
         "title": "Codeberg Mirroring"
       },
       "devops_devenv_mirror_deploy_key": {
@@ -536,6 +556,36 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.cmu-courses_internet_archive.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "cmu-housing_housing_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.cmu-housing_housing_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.cmu-housing_housing.name}",
         "rules": {
           "creation": true,
           "deletion": true,

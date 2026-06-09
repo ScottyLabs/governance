@@ -9,6 +9,10 @@
         "name": "CMU Courses",
         "privacy": "closed"
       },
+      "cmu-housing": {
+        "name": "CMU Housing",
+        "privacy": "closed"
+      },
       "devops": {
         "name": "DevOps",
         "privacy": "closed"

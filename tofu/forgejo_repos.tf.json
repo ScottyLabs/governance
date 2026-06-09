@@ -79,6 +79,19 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "cmu-housing_housing": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "An website built to help students discover housing options at CMU",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "housing",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "devops_devenv": {
         "auto_init": true,
         "default_branch": "main",

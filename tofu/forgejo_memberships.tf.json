@@ -17,6 +17,14 @@
         "team_id": "${forgejo_team.cmu-courses.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
+      "cmu-housing_EcstaticPilot": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_EcstaticPilot.result.codeberg}"
+      },
+      "cmu-housing_gostmeaper": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_gostmeaper.result.codeberg}"
+      },
       "devops_anish": {
         "team_id": "${forgejo_team.devops.id}",
         "user": "${data.external.identity_anish.result.codeberg}"

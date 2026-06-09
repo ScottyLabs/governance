@@ -1,6 +1,17 @@
 {
   "data": {
     "external": {
+      "identity_EcstaticPilot": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "EcstaticPilot"
+        }
+      },
       "identity_Jc_965": {
         "program": [
           "governance",

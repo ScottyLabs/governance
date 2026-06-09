@@ -29,6 +29,20 @@
         ],
         "type": "external"
       },
+      "cmu-housing_admins": {
+        "name": "cmu-housing-admins",
+        "policies": [
+          "cmu-housing-prod"
+        ],
+        "type": "external"
+      },
+      "cmu-housing_members": {
+        "name": "cmu-housing-members",
+        "policies": [
+          "cmu-housing-dev"
+        ],
+        "type": "external"
+      },
       "dalmatian_admins": {
         "name": "dalmatian-admins",
         "policies": [
@@ -149,6 +163,16 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/cmu-courses"
       },
+      "cmu-housing_admins": {
+        "canonical_id": "${vault_identity_group.cmu-housing_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmu-housing/admins"
+      },
+      "cmu-housing_members": {
+        "canonical_id": "${vault_identity_group.cmu-housing_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmu-housing"
+      },
       "dalmatian_admins": {
         "canonical_id": "${vault_identity_group.dalmatian_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -236,6 +260,14 @@
       "cmu-courses_prod": {
         "name": "cmu-courses-prod",
         "policy": "path \"secret/data/secretspec/cmu-courses/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-courses/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmu-housing_dev": {
+        "name": "cmu-housing-dev",
+        "policy": "path \"secret/data/secretspec/cmu-housing/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-housing/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmu-housing_prod": {
+        "name": "cmu-housing-prod",
+        "policy": "path \"secret/data/secretspec/cmu-housing/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-housing/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "dalmatian_dev": {
         "name": "dalmatian-dev",

@@ -23,6 +23,17 @@
           "repo.pulls": "write"
         }
       },
+      "cmu-housing": {
+        "description": "CMU Housing",
+        "name": "cmu-housing",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "write",
+        "units_map": {
+          "repo.code": "write",
+          "repo.issues": "write",
+          "repo.pulls": "write"
+        }
+      },
       "devops": {
         "description": "DevOps",
         "name": "devops",

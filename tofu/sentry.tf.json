@@ -21,6 +21,11 @@
         "organization": "${var.sentry_organization}",
         "project": "${sentry_project.cmu-courses_courses.slug}"
       },
+      "cmu-housing_housing": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.cmu-housing_housing.slug}"
+      },
       "devops_kennel": {
         "name": "default",
         "organization": "${var.sentry_organization}",
@@ -70,6 +75,14 @@
           "${sentry_team.cmu-courses.slug}"
         ]
       },
+      "cmu-housing_housing": {
+        "name": "housing",
+        "organization": "${var.sentry_organization}",
+        "slug": "housing",
+        "teams": [
+          "${sentry_team.cmu-housing.slug}"
+        ]
+      },
       "devops_kennel": {
         "name": "kennel",
         "organization": "${var.sentry_organization}",
@@ -105,6 +118,11 @@
         "name": "CMU Courses",
         "organization": "${var.sentry_organization}",
         "slug": "cmu-courses"
+      },
+      "cmu-housing": {
+        "name": "CMU Housing",
+        "organization": "${var.sentry_organization}",
+        "slug": "cmu-housing"
       },
       "devops": {
         "name": "DevOps",
@@ -142,6 +160,11 @@
         "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cmu-courses_courses.dsn })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/SENTRY_DSN"
+      },
+      "cmu-housing_housing_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cmu-housing_housing.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/SENTRY_DSN"
       },
       "devops_kennel_sentry_dsn": {
         "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.devops_kennel.dsn })}",

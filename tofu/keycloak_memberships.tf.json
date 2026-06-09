@@ -83,6 +83,22 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cmu-housing": {
+        "group_id": "${keycloak_group.project_cmu-housing.id}",
+        "members": [
+          "${data.external.identity_gostmeaper.result.cmu-saml}",
+          "${data.external.identity_EcstaticPilot.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-housing_admins": {
+        "group_id": "${keycloak_group.project_cmu-housing_admins.id}",
+        "members": [
+          "${data.external.identity_gostmeaper.result.cmu-saml}",
+          "${data.external.identity_EcstaticPilot.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops": {
         "group_id": "${keycloak_group.project_devops.id}",
         "members": [
