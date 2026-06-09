@@ -37,6 +37,10 @@
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_EcstaticPilot.result.codeberg}"
       },
+      "cmu-housing_amzoeee": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_amzoeee.result.codeberg}"
+      },
       "cmu-housing_gostmeaper": {
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_gostmeaper.result.codeberg}"
