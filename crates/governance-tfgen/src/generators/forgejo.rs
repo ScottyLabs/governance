@@ -67,6 +67,68 @@ pub fn generate_teams(data: &GovernanceData) -> TfJsonFile {
                 },
             }),
         );
+
+        let admin_units = json!({
+            "repo.code": "admin",
+            "repo.issues": "admin",
+            "repo.pulls": "admin",
+        });
+
+        if team.team.projects.is_empty() {
+            if !team.team.group.leads.is_empty() {
+                let key = format!("{slug}_leads");
+                tf.add_resource(
+                    "forgejo_team",
+                    &key,
+                    json!({
+                        "name": format!("{slug}-leads"),
+                        "description": format!("{description} leads"),
+                        "organization_id": "${data.forgejo_organization.this.id}",
+                        "includes_all_repositories": false,
+                        "can_create_org_repo": false,
+                        "permission": "admin",
+                        "units_map": admin_units,
+                    }),
+                );
+            }
+        } else {
+            if !team.team.group.repos.is_empty() && !team.team.group.leads.is_empty() {
+                let key = format!("{slug}_leads");
+                tf.add_resource(
+                    "forgejo_team",
+                    &key,
+                    json!({
+                        "name": format!("{slug}-leads"),
+                        "description": format!("{description} leads"),
+                        "organization_id": "${data.forgejo_organization.this.id}",
+                        "includes_all_repositories": false,
+                        "can_create_org_repo": false,
+                        "permission": "admin",
+                        "units_map": admin_units,
+                    }),
+                );
+            }
+            for project in &team.team.projects {
+                let project_slug = &project.group.slug;
+                if team.team.group.leads.is_empty() && project.group.leads.is_empty() {
+                    continue;
+                }
+                let key = format!("{project_slug}_leads");
+                tf.add_resource(
+                    "forgejo_team",
+                    &key,
+                    json!({
+                        "name": format!("{project_slug}-leads"),
+                        "description": format!("{} leads", project.group.name),
+                        "organization_id": "${data.forgejo_organization.this.id}",
+                        "includes_all_repositories": false,
+                        "can_create_org_repo": false,
+                        "permission": "admin",
+                        "units_map": admin_units,
+                    }),
+                );
+            }
+        }
     }
 
     tf
@@ -99,6 +161,73 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
                     "user": format!("${{data.external.identity_{key}.result.codeberg}}"),
                 }),
             );
+        }
+
+        if team.team.projects.is_empty() {
+            if !team.team.group.leads.is_empty() {
+                let leads_key = format!("{slug}_leads");
+                let leads_id = format!("${{forgejo_team.{leads_key}.id}}");
+                for username in &team.team.group.leads {
+                    let key = username.replace('-', "_");
+                    tf.add_resource(
+                        "forgejo_team_member",
+                        &format!("{leads_key}_{key}"),
+                        json!({
+                            "team_id": leads_id,
+                            "user": format!("${{data.external.identity_{key}.result.codeberg}}"),
+                        }),
+                    );
+                }
+            }
+        } else {
+            if !team.team.group.repos.is_empty() && !team.team.group.leads.is_empty() {
+                let leads_key = format!("{slug}_leads");
+                let leads_id = format!("${{forgejo_team.{leads_key}.id}}");
+                for username in &team.team.group.leads {
+                    let key = username.replace('-', "_");
+                    tf.add_resource(
+                        "forgejo_team_member",
+                        &format!("{leads_key}_{key}"),
+                        json!({
+                            "team_id": leads_id,
+                            "user": format!("${{data.external.identity_{key}.result.codeberg}}"),
+                        }),
+                    );
+                }
+            }
+            for project in &team.team.projects {
+                let project_slug = &project.group.slug;
+                if team.team.group.leads.is_empty() && project.group.leads.is_empty() {
+                    continue;
+                }
+                let leads_key = format!("{project_slug}_leads");
+                let leads_id = format!("${{forgejo_team.{leads_key}.id}}");
+                for username in &team.team.group.leads {
+                    let key = username.replace('-', "_");
+                    tf.add_resource(
+                        "forgejo_team_member",
+                        &format!("{leads_key}_{key}"),
+                        json!({
+                            "team_id": leads_id,
+                            "user": format!("${{data.external.identity_{key}.result.codeberg}}"),
+                        }),
+                    );
+                }
+                for username in &project.group.leads {
+                    if team.team.group.leads.iter().any(|l| l == username) {
+                        continue;
+                    }
+                    let key = username.replace('-', "_");
+                    tf.add_resource(
+                        "forgejo_team_member",
+                        &format!("{leads_key}_{key}"),
+                        json!({
+                            "team_id": leads_id,
+                            "user": format!("${{data.external.identity_{key}.result.codeberg}}"),
+                        }),
+                    );
+                }
+            }
         }
     }
 
@@ -228,6 +357,77 @@ pub fn generate_team_repos(data: &GovernanceData) -> TfJsonFile {
                     ],
                 }),
             );
+        }
+
+        if team.team.projects.is_empty() {
+            if !team.team.group.leads.is_empty() {
+                let leads_key = format!("{slug}_leads");
+                let leads_ref = format!("${{forgejo_team.{leads_key}.id}}");
+                for repo in &team.team.group.repos {
+                    let repo_key = format!("{}_{}", slug, repo.name.replace('-', "_"));
+                    let key = format!("{leads_key}_{}", repo.name.replace('-', "_"));
+                    tf.add_resource(
+                        "forgejo_team_repository",
+                        &key,
+                        json!({
+                            "team_id": leads_ref,
+                            "owner": forgejo.org,
+                            "repository": repo.name,
+                            "depends_on": [
+                                format!("forgejo_repository.{repo_key}"),
+                                format!("forgejo_team.{leads_key}"),
+                            ],
+                        }),
+                    );
+                }
+            }
+        } else {
+            if !team.team.group.repos.is_empty() && !team.team.group.leads.is_empty() {
+                let leads_key = format!("{slug}_leads");
+                let leads_ref = format!("${{forgejo_team.{leads_key}.id}}");
+                for repo in &team.team.group.repos {
+                    let repo_key = format!("{}_{}", slug, repo.name.replace('-', "_"));
+                    let key = format!("{leads_key}_{}", repo.name.replace('-', "_"));
+                    tf.add_resource(
+                        "forgejo_team_repository",
+                        &key,
+                        json!({
+                            "team_id": leads_ref,
+                            "owner": forgejo.org,
+                            "repository": repo.name,
+                            "depends_on": [
+                                format!("forgejo_repository.{repo_key}"),
+                                format!("forgejo_team.{leads_key}"),
+                            ],
+                        }),
+                    );
+                }
+            }
+            for project in &team.team.projects {
+                let project_slug = &project.group.slug;
+                if team.team.group.leads.is_empty() && project.group.leads.is_empty() {
+                    continue;
+                }
+                let leads_key = format!("{project_slug}_leads");
+                let leads_ref = format!("${{forgejo_team.{leads_key}.id}}");
+                for repo in &project.group.repos {
+                    let repo_key = format!("{}_{}", slug, repo.name.replace('-', "_"));
+                    let key = format!("{leads_key}_{}", repo.name.replace('-', "_"));
+                    tf.add_resource(
+                        "forgejo_team_repository",
+                        &key,
+                        json!({
+                            "team_id": leads_ref,
+                            "owner": forgejo.org,
+                            "repository": repo.name,
+                            "depends_on": [
+                                format!("forgejo_repository.{repo_key}"),
+                                format!("forgejo_team.{leads_key}"),
+                            ],
+                        }),
+                    );
+                }
+            }
         }
     }
 

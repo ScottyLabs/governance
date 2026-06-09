@@ -1,6 +1,14 @@
 {
   "resource": {
     "forgejo_team_member": {
+      "bus-sign_leads_maybe_yiyi": {
+        "team_id": "${forgejo_team.bus-sign_leads.id}",
+        "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
+      },
+      "bus-sign_leads_tentype": {
+        "team_id": "${forgejo_team.bus-sign_leads.id}",
+        "user": "${data.external.identity_tentype.result.codeberg}"
+      },
       "cbp_gostmeaper": {
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_gostmeaper.result.codeberg}"
@@ -17,16 +25,56 @@
         "team_id": "${forgejo_team.cmu-courses.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
+      "cmu-courses_leads_anish": {
+        "team_id": "${forgejo_team.cmu-courses_leads.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "dalmatian_leads_maybe_yiyi": {
+        "team_id": "${forgejo_team.dalmatian_leads.id}",
+        "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
+      },
+      "dalmatian_leads_tentype": {
+        "team_id": "${forgejo_team.dalmatian_leads.id}",
+        "user": "${data.external.identity_tentype.result.codeberg}"
+      },
       "devops_anish": {
         "team_id": "${forgejo_team.devops.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "devops_leads_anish": {
+        "team_id": "${forgejo_team.devops_leads.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "devops_leads_thesuperRL": {
+        "team_id": "${forgejo_team.devops_leads.id}",
+        "user": "${data.external.identity_thesuperRL.result.codeberg}"
       },
       "devops_thesuperRL": {
         "team_id": "${forgejo_team.devops.id}",
         "user": "${data.external.identity_thesuperRL.result.codeberg}"
       },
+      "discord-verify_leads_maybe_yiyi": {
+        "team_id": "${forgejo_team.discord-verify_leads.id}",
+        "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
+      },
+      "discord-verify_leads_tentype": {
+        "team_id": "${forgejo_team.discord-verify_leads.id}",
+        "user": "${data.external.identity_tentype.result.codeberg}"
+      },
+      "groupme-mirror_leads_maybe_yiyi": {
+        "team_id": "${forgejo_team.groupme-mirror_leads.id}",
+        "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
+      },
+      "groupme-mirror_leads_tentype": {
+        "team_id": "${forgejo_team.groupme-mirror_leads.id}",
+        "user": "${data.external.identity_tentype.result.codeberg}"
+      },
       "quest_anish": {
         "team_id": "${forgejo_team.quest.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "quest_leads_anish": {
+        "team_id": "${forgejo_team.quest_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
       "slai_Jc_965": {
@@ -41,12 +89,24 @@
         "team_id": "${forgejo_team.slai.id}",
         "user": "${data.external.identity_krishsaxena.result.codeberg}"
       },
+      "slai_leads_krishsaxena": {
+        "team_id": "${forgejo_team.slai_leads.id}",
+        "user": "${data.external.identity_krishsaxena.result.codeberg}"
+      },
+      "tartan-vote_leads_maybe_yiyi": {
+        "team_id": "${forgejo_team.tartan-vote_leads.id}",
+        "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
+      },
       "tartan-vote_maybe_yiyi": {
         "team_id": "${forgejo_team.tartan-vote.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
       },
       "uia_anish": {
         "team_id": "${forgejo_team.uia.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "uia_leads_anish": {
+        "team_id": "${forgejo_team.uia_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       }
     }
