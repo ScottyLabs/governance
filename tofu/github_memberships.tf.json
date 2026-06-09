@@ -1,6 +1,11 @@
 {
   "resource": {
     "github_team_membership": {
+      "cbp_XboxBedrock": {
+        "role": "member",
+        "team_id": "${github_team.cbp.id}",
+        "username": "${data.external.identity_XboxBedrock.result.github}"
+      },
       "cbp_gostmeaper": {
         "role": "member",
         "team_id": "${github_team.cbp.id}",

@@ -1,6 +1,10 @@
 {
   "resource": {
     "forgejo_team_member": {
+      "cbp_XboxBedrock": {
+        "team_id": "${forgejo_team.cbp.id}",
+        "user": "${data.external.identity_XboxBedrock.result.codeberg}"
+      },
       "cbp_gostmeaper": {
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_gostmeaper.result.codeberg}"

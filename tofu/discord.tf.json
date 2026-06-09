@@ -93,6 +93,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_Jc_965.result.discord_id}"
       },
+      "XboxBedrock": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cbp.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_XboxBedrock.result.discord_id}"
+      },
       "anish": {
         "role": [
           {

@@ -23,6 +23,17 @@
           "codeberg_user": "Jc-965"
         }
       },
+      "identity_XboxBedrock": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "XboxBedrock"
+        }
+      },
       "identity_anish": {
         "program": [
           "governance",
