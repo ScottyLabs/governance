@@ -34,6 +34,11 @@ description = "Grafana dashboards and alert rules for ScottyLabs services"
 name = "documentation"
 description = "Centralized documentation hub for ScottyLabs projects"
 
+[[team.repos]]
+name = "devops-troubleshooting-docs"
+description = "DevOps troubleshooting documentation for governance, infrastructure, kennel, and related repos."
+docs_dir = "."
+
 [[team.channels]]
 discord = "1461933322505818156"
 slack = "C08K3Q77ZQF"

@@ -105,6 +105,19 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "devops_devops_troubleshooting_docs": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "DevOps troubleshooting documentation for governance, infrastructure, kennel, and related repos.",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "devops-troubleshooting-docs",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "devops_documentation": {
         "auto_init": true,
         "default_branch": "main",
