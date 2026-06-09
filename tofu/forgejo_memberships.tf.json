@@ -9,6 +9,10 @@
         "team_id": "${forgejo_team.bus-sign_leads.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
       },
+      "cbp_XboxBedrock": {
+        "team_id": "${forgejo_team.cbp.id}",
+        "user": "${data.external.identity_XboxBedrock.result.codeberg}"
+      },
       "cbp_gostmeaper": {
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_gostmeaper.result.codeberg}"
@@ -28,6 +32,26 @@
       "cmu-courses_leads_anish": {
         "team_id": "${forgejo_team.cmu-courses_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "cmu-housing_EcstaticPilot": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_EcstaticPilot.result.codeberg}"
+      },
+      "cmu-housing_amzoeee": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_amzoeee.result.codeberg}"
+      },
+      "cmu-housing_gostmeaper": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_gostmeaper.result.codeberg}"
+      },
+      "cmu-housing_leads_EcstaticPilot": {
+        "team_id": "${forgejo_team.cmu-housing_leads.id}",
+        "user": "${data.external.identity_EcstaticPilot.result.codeberg}"
+      },
+      "cmu-housing_leads_gostmeaper": {
+        "team_id": "${forgejo_team.cmu-housing_leads.id}",
+        "user": "${data.external.identity_gostmeaper.result.codeberg}"
       },
       "dalmatian_leads_maybe_yiyi": {
         "team_id": "${forgejo_team.dalmatian_leads.id}",

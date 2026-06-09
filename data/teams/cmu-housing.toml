@@ -1,0 +1,14 @@
+[team]
+name = "CMU Housing"
+slug = "cmu-housing"
+leads = ["gostmeaper", "EcstaticPilot"]
+members = ["amzoeee"]
+
+[[team.repos]]
+name = "housing"
+description = "An website built to help students discover housing options at CMU"
+kennel = true
+sentry = true
+
+[[team.channels]]
+discord = "1482553494647996538"

@@ -51,6 +51,16 @@
         "parent_id": "${keycloak_group.project_cmu-courses.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cmu-housing": {
+        "name": "cmu-housing",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-housing_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_cmu-housing.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops": {
         "name": "devops",
         "parent_id": "${keycloak_group.projects.id}",

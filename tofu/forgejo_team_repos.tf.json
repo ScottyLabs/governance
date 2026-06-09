@@ -82,6 +82,24 @@
         "repository": "internet-archive",
         "team_id": "${forgejo_team.cmu-courses_leads.id}"
       },
+      "cmu-housing_housing": {
+        "depends_on": [
+          "forgejo_repository.cmu-housing_housing",
+          "forgejo_team.cmu-housing"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "housing",
+        "team_id": "${forgejo_team.cmu-housing.id}"
+      },
+      "cmu-housing_leads_housing": {
+        "depends_on": [
+          "forgejo_repository.cmu-housing_housing",
+          "forgejo_team.cmu-housing_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "housing",
+        "team_id": "${forgejo_team.cmu-housing_leads.id}"
+      },
       "dalmatian_leads_dalmatian": {
         "depends_on": [
           "forgejo_repository.cbp_dalmatian",

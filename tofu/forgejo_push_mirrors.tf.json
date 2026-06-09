@@ -36,6 +36,12 @@
       "sync_on_commit": true,
       "use_ssh": true
     },
+    "cmu-housing_housing_mirror_data": {
+      "interval": "8h0m0s",
+      "remote_address": "git@github.com:ScottyLabs/housing.git",
+      "sync_on_commit": true,
+      "use_ssh": true
+    },
     "devops_devenv_mirror_data": {
       "interval": "8h0m0s",
       "remote_address": "git@github.com:ScottyLabs/devenv.git",
@@ -158,6 +164,14 @@
         ],
         "id_attribute": "remote_name",
         "path": "/api/v1/repos/ScottyLabs/internet-archive/push_mirrors"
+      },
+      "cmu-housing_housing_push_mirror": {
+        "data": "${jsonencode(local.cmu-housing_housing_mirror_data)}",
+        "depends_on": [
+          "forgejo_repository.cmu-housing_housing"
+        ],
+        "id_attribute": "remote_name",
+        "path": "/api/v1/repos/ScottyLabs/housing/push_mirrors"
       },
       "devops_devenv_push_mirror": {
         "data": "${jsonencode(local.devops_devenv_mirror_data)}",

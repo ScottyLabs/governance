@@ -6,7 +6,8 @@
         "members": [
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_gostmeaper.result.cmu-saml}"
+          "${data.external.identity_gostmeaper.result.cmu-saml}",
+          "${data.external.identity_XboxBedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -23,7 +24,8 @@
         "members": [
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_gostmeaper.result.cmu-saml}"
+          "${data.external.identity_gostmeaper.result.cmu-saml}",
+          "${data.external.identity_XboxBedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -40,7 +42,8 @@
         "members": [
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_gostmeaper.result.cmu-saml}"
+          "${data.external.identity_gostmeaper.result.cmu-saml}",
+          "${data.external.identity_XboxBedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -57,7 +60,8 @@
         "members": [
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_gostmeaper.result.cmu-saml}"
+          "${data.external.identity_gostmeaper.result.cmu-saml}",
+          "${data.external.identity_XboxBedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -80,6 +84,23 @@
         "group_id": "${keycloak_group.project_cmu-courses_admins.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-housing": {
+        "group_id": "${keycloak_group.project_cmu-housing.id}",
+        "members": [
+          "${data.external.identity_gostmeaper.result.cmu-saml}",
+          "${data.external.identity_EcstaticPilot.result.cmu-saml}",
+          "${data.external.identity_amzoeee.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-housing_admins": {
+        "group_id": "${keycloak_group.project_cmu-housing_admins.id}",
+        "members": [
+          "${data.external.identity_gostmeaper.result.cmu-saml}",
+          "${data.external.identity_EcstaticPilot.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
