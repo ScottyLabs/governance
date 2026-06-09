@@ -54,7 +54,7 @@ terraform {
         }
         sentry = {
             source  = "jianyuan/sentry"
-            version = "~> 0.13"
+            version = "~> 0.14.0"
         }
         external = {
             source  = "hashicorp/external"
