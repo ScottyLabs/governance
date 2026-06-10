@@ -9,6 +9,7 @@ name = "housing"
 description = "An website built to help students discover housing options at CMU"
 kennel = true
 sentry = true
+docs_dir = "docs"
 
 [[team.channels]]
 discord = "1482553494647996538"
