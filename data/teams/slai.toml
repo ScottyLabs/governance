@@ -19,5 +19,10 @@ name = "mcp-server"
 description = "MCP servers for CMU GPT"
 kennel = true
 
+[[team.repos]]
+name = "sms-surface"
+description = "SMS interface with CMU GPT Agent"
+kennel = true
+
 [[team.channels]]
 slack = "C08SRUGUQ05"

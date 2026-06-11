@@ -298,6 +298,15 @@
         "repository": "mcp-server",
         "team_id": "${forgejo_team.slai_leads.id}"
       },
+      "slai_leads_sms_surface": {
+        "depends_on": [
+          "forgejo_repository.slai_sms_surface",
+          "forgejo_team.slai_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "sms-surface",
+        "team_id": "${forgejo_team.slai_leads.id}"
+      },
       "slai_mcp_server": {
         "depends_on": [
           "forgejo_repository.slai_mcp_server",
@@ -305,6 +314,15 @@
         ],
         "owner": "ScottyLabs",
         "repository": "mcp-server",
+        "team_id": "${forgejo_team.slai.id}"
+      },
+      "slai_sms_surface": {
+        "depends_on": [
+          "forgejo_repository.slai_sms_surface",
+          "forgejo_team.slai"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "sms-surface",
         "team_id": "${forgejo_team.slai.id}"
       },
       "tartan-vote_leads_tartan_vote": {
