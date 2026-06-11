@@ -76,6 +76,11 @@
         "team_id": "${github_team.tartan-vote.id}",
         "username": "${data.external.identity_maybe_yiyi.result.github}"
       },
+      "tartan-vote_vloh": {
+        "role": "member",
+        "team_id": "${github_team.tartan-vote.id}",
+        "username": "${data.external.identity_vloh.result.github}"
+      },
       "uia_anish": {
         "role": "maintainer",
         "team_id": "${github_team.uia.id}",

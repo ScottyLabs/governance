@@ -125,6 +125,10 @@
         "team_id": "${forgejo_team.tartan-vote.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
       },
+      "tartan-vote_vloh": {
+        "team_id": "${forgejo_team.tartan-vote.id}",
+        "user": "${data.external.identity_vloh.result.codeberg}"
+      },
       "uia_anish": {
         "team_id": "${forgejo_team.uia.id}",
         "user": "${data.external.identity_anish.result.codeberg}"

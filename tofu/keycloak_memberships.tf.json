@@ -153,7 +153,8 @@
       "project_tartan-vote": {
         "group_id": "${keycloak_group.project_tartan-vote.id}",
         "members": [
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
+          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
+          "${data.external.identity_vloh.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

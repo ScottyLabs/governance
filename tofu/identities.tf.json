@@ -121,6 +121,17 @@
         "query": {
           "codeberg_user": "thesuperRL"
         }
+      },
+      "identity_vloh": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "vloh"
+        }
       }
     }
   }
