@@ -117,6 +117,10 @@
         "team_id": "${forgejo_team.slai_leads.id}",
         "user": "${data.external.identity_krishsaxena.result.codeberg}"
       },
+      "tartan-vote_XboxBedrock": {
+        "team_id": "${forgejo_team.tartan-vote.id}",
+        "user": "${data.external.identity_XboxBedrock.result.codeberg}"
+      },
       "tartan-vote_leads_maybe_yiyi": {
         "team_id": "${forgejo_team.tartan-vote_leads.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"

@@ -71,6 +71,11 @@
         "team_id": "${github_team.slai.id}",
         "username": "${data.external.identity_krishsaxena.result.github}"
       },
+      "tartan-vote_XboxBedrock": {
+        "role": "member",
+        "team_id": "${github_team.tartan-vote.id}",
+        "username": "${data.external.identity_XboxBedrock.result.github}"
+      },
       "tartan-vote_maybe_yiyi": {
         "role": "maintainer",
         "team_id": "${github_team.tartan-vote.id}",
