@@ -53,6 +53,14 @@
         "team_id": "${forgejo_team.cmu-housing_leads.id}",
         "user": "${data.external.identity_gostmeaper.result.codeberg}"
       },
+      "cmu-housing_leads_tentype": {
+        "team_id": "${forgejo_team.cmu-housing_leads.id}",
+        "user": "${data.external.identity_tentype.result.codeberg}"
+      },
+      "cmu-housing_tentype": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_tentype.result.codeberg}"
+      },
       "dalmatian_leads_maybe_yiyi": {
         "team_id": "${forgejo_team.dalmatian_leads.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
@@ -128,6 +136,10 @@
       "tartan-vote_maybe_yiyi": {
         "team_id": "${forgejo_team.tartan-vote.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
+      },
+      "tartan-vote_tentype": {
+        "team_id": "${forgejo_team.tartan-vote.id}",
+        "user": "${data.external.identity_tentype.result.codeberg}"
       },
       "tartan-vote_vloh": {
         "team_id": "${forgejo_team.tartan-vote.id}",

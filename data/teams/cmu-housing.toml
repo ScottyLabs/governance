@@ -1,7 +1,7 @@
 [team]
 name = "CMU Housing"
 slug = "cmu-housing"
-leads = ["gostmeaper", "EcstaticPilot"]
+leads = ["gostmeaper", "EcstaticPilot", "tentype"]
 members = ["amzoeee"]
 
 [[team.repos]]

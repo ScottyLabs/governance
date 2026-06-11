@@ -202,6 +202,12 @@
           },
           {
             "role_id": "${discord_role.cbp.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-housing.id}"
+          },
+          {
+            "role_id": "${discord_role.tartan-vote.id}"
           }
         ],
         "server_id": "1353118209024331948",

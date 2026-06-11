@@ -41,6 +41,11 @@
         "team_id": "${github_team.cmu-housing.id}",
         "username": "${data.external.identity_gostmeaper.result.github}"
       },
+      "cmu-housing_tentype": {
+        "role": "maintainer",
+        "team_id": "${github_team.cmu-housing.id}",
+        "username": "${data.external.identity_tentype.result.github}"
+      },
       "devops_anish": {
         "role": "maintainer",
         "team_id": "${github_team.devops.id}",
@@ -80,6 +85,11 @@
         "role": "maintainer",
         "team_id": "${github_team.tartan-vote.id}",
         "username": "${data.external.identity_maybe_yiyi.result.github}"
+      },
+      "tartan-vote_tentype": {
+        "role": "member",
+        "team_id": "${github_team.tartan-vote.id}",
+        "username": "${data.external.identity_tentype.result.github}"
       },
       "tartan-vote_vloh": {
         "role": "member",
