@@ -130,6 +130,19 @@
       ],
       "type": "forgejo"
     },
+    "slai_sms_surface_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request"
+      ],
+      "type": "forgejo"
+    },
     "tartan-vote_tartan_vote_kennel_webhook_data": {
       "active": true,
       "config": {
@@ -238,6 +251,14 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/mcp-server/hooks"
+      },
+      "slai_sms_surface_kennel_webhook": {
+        "data": "${jsonencode(local.slai_sms_surface_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.slai_sms_surface"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/sms-surface/hooks"
       },
       "tartan-vote_tartan_vote_kennel_webhook": {
         "data": "${jsonencode(local.tartan-vote_tartan_vote_kennel_webhook_data)}",
