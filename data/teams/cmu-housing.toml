@@ -2,7 +2,7 @@
 name = "CMU Housing"
 slug = "cmu-housing"
 leads = ["gostmeaper", "EcstaticPilot", "tentype"]
-members = ["amzoeee"]
+members = ["amzoeee", "ManrajS"]
 
 [[team.repos]]
 name = "housing"
