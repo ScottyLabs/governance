@@ -93,7 +93,8 @@
           "${data.external.identity_gostmeaper.result.cmu-saml}",
           "${data.external.identity_EcstaticPilot.result.cmu-saml}",
           "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_amzoeee.result.cmu-saml}"
+          "${data.external.identity_amzoeee.result.cmu-saml}",
+          "${data.external.identity_ManrajS.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

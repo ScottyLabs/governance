@@ -105,6 +105,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_JiYa2301.result.discord_id}"
       },
+      "ManrajS": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-housing.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_ManrajS.result.discord_id}"
+      },
       "XboxBedrock": {
         "role": [
           {

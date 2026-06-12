@@ -34,6 +34,17 @@
           "codeberg_user": "JiYa2301"
         }
       },
+      "identity_ManrajS": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "ManrajS"
+        }
+      },
       "identity_XboxBedrock": {
         "program": [
           "governance",
