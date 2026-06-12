@@ -96,6 +96,25 @@
           "user": "${data.external.identity_Jc_965.result.slack_id}"
         }
       },
+      "slack_hub_JiYa2301": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C096TM8EMS8",
+          "user": "${data.external.identity_JiYa2301.result.slack_id}"
+        }
+      },
       "slack_hub_XboxBedrock": {
         "provisioner": [
           {
@@ -322,6 +341,25 @@
         "triggers": {
           "channel": "C08SRUGUQ05",
           "user": "${data.external.identity_Jc_965.result.slack_id}"
+        }
+      },
+      "slack_slai_ch0_JiYa2301": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08SRUGUQ05",
+          "user": "${data.external.identity_JiYa2301.result.slack_id}"
         }
       },
       "slack_slai_ch0_kath45823": {

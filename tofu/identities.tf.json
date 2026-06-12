@@ -23,6 +23,17 @@
           "codeberg_user": "Jc-965"
         }
       },
+      "identity_JiYa2301": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "JiYa2301"
+        }
+      },
       "identity_XboxBedrock": {
         "program": [
           "governance",

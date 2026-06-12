@@ -113,6 +113,10 @@
         "team_id": "${forgejo_team.slai.id}",
         "user": "${data.external.identity_Jc_965.result.codeberg}"
       },
+      "slai_JiYa2301": {
+        "team_id": "${forgejo_team.slai.id}",
+        "user": "${data.external.identity_JiYa2301.result.codeberg}"
+      },
       "slai_kath45823": {
         "team_id": "${forgejo_team.slai.id}",
         "user": "${data.external.identity_kath45823.result.codeberg}"
