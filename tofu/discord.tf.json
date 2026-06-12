@@ -81,6 +81,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_EcstaticPilot.result.discord_id}"
       },
+      "Enkrypt7": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.slai.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_Enkrypt7.result.discord_id}"
+      },
       "Jc_965": {
         "role": [
           {

@@ -113,6 +113,10 @@
         "team_id": "${forgejo_team.quest_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
+      "slai_Enkrypt7": {
+        "team_id": "${forgejo_team.slai.id}",
+        "user": "${data.external.identity_Enkrypt7.result.codeberg}"
+      },
       "slai_Jc_965": {
         "team_id": "${forgejo_team.slai.id}",
         "user": "${data.external.identity_Jc_965.result.codeberg}"

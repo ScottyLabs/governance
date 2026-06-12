@@ -143,7 +143,8 @@
           "${data.external.identity_krishsaxena.result.cmu-saml}",
           "${data.external.identity_Jc_965.result.cmu-saml}",
           "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_JiYa2301.result.cmu-saml}"
+          "${data.external.identity_JiYa2301.result.cmu-saml}",
+          "${data.external.identity_Enkrypt7.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

@@ -12,6 +12,17 @@
           "codeberg_user": "EcstaticPilot"
         }
       },
+      "identity_Enkrypt7": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "Enkrypt7"
+        }
+      },
       "identity_Jc_965": {
         "program": [
           "governance",
