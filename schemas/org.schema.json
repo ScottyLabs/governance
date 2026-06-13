@@ -28,6 +28,12 @@
         "discord_hub_channel_id": {
           "type": "string"
         },
+        "matrix_domain": {
+          "type": "string"
+        },
+        "matrix_homeserver_url": {
+          "type": "string"
+        },
         "slack_hub_channel_id": {
           "type": "string"
         },
@@ -37,11 +43,6 @@
         },
         "slack_workspace": {
           "type": "string"
-        },
-        "validate_matrix_accounts": {
-          "description": "When true, governance validate checks that each team member has a Matrix account.",
-          "type": "boolean",
-          "default": true
         }
       },
       "required": [
@@ -49,7 +50,9 @@
         "discord_hub_channel_id",
         "slack_workspace",
         "slack_team_id",
-        "slack_hub_channel_id"
+        "slack_hub_channel_id",
+        "matrix_domain",
+        "matrix_homeserver_url"
       ]
     },
     "FigmaConnection": {

@@ -68,7 +68,7 @@ pub enum ValidationError {
     #[error("user {user} has not linked their {provider} account in keycloak")]
     MissingIdentityLink { user: String, provider: String },
 
-    #[error("user {0} has not registered on Matrix as @{0}:doggylabs.org (see adding-yourself-to-a-team.md)")]
+    #[error("user {0} has not registered on Matrix")]
     MissingMatrixAccount(String),
 
     #[error("matrix API error: {0}")]

@@ -27,6 +27,8 @@ discord_hub_channel_id = "1462522753709248533"
 slack_workspace = "scottylabs"
 slack_team_id = "T03EVH29W"
 slack_hub_channel_id = "C096TM8EMS8"
+matrix_domain = "doggylabs.org"
+matrix_homeserver_url = "https://matrix.doggylabs.org"
 
 [[org.communication.channels]]
 name = "Announcements"

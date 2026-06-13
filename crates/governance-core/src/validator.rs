@@ -7,9 +7,6 @@ use governance_schema::team::{Channel, GroupFields, TeamFile};
 use crate::error::ValidationError;
 use crate::loader::GovernanceData;
 
-const MATRIX_HOMESERVER_URL: &str = "https://matrix.doggylabs.org";
-const MATRIX_DOMAIN: &str = "doggylabs.org";
-
 pub fn validate(data: &GovernanceData) -> Vec<ValidationError> {
     let mut errors = Vec::new();
 
@@ -289,25 +286,28 @@ fn validate_matrix(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
     let Some(comm) = data.org.org.communication.as_ref() else {
         return;
     };
-    if !comm.validate_matrix_accounts {
-        return;
-    }
 
     let admin_token = match std::env::var("MATRIX_ADMIN_TOKEN") {
         Ok(token) if !token.is_empty() => token,
         _ => return,
     };
 
+    let homeserver_url = comm.matrix_homeserver_url.clone();
+    let matrix_domain = comm.matrix_domain.clone();
     let members = data.all_members();
     let collected_errors: Mutex<Vec<ValidationError>> = Mutex::new(Vec::new());
 
     thread::scope(|s| {
         for username in &members {
             let token = admin_token.clone();
+            let homeserver_url = homeserver_url.clone();
+            let matrix_domain = matrix_domain.clone();
             let errs = &collected_errors;
 
             s.spawn(move || {
-                if let Err(e) = check_matrix_account(username, &token) {
+                if let Err(e) =
+                    check_matrix_account(username, &homeserver_url, &matrix_domain, &token)
+                {
                     errs.lock().unwrap().push(e);
                 }
             });
@@ -317,10 +317,18 @@ fn validate_matrix(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
     errors.extend(collected_errors.into_inner().unwrap());
 }
 
-fn check_matrix_account(username: &str, admin_token: &str) -> Result<(), ValidationError> {
-    let mxid = format!("@{username}:{MATRIX_DOMAIN}");
+fn check_matrix_account(
+    username: &str,
+    homeserver_url: &str,
+    matrix_domain: &str,
+    admin_token: &str,
+) -> Result<(), ValidationError> {
+    let mxid = format!("@{username}:{matrix_domain}");
     let encoded = mxid.replace('@', "%40").replace(':', "%3A");
-    let url = format!("{MATRIX_HOMESERVER_URL}/_synapse/admin/v2/users/{encoded}");
+    let url = format!(
+        "{}/_synapse/admin/v2/users/{encoded}",
+        homeserver_url.trim_end_matches('/')
+    );
 
     match ureq::get(&url)
         .header("Authorization", &format!("Bearer {admin_token}"))
