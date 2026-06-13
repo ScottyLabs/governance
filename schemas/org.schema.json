@@ -28,6 +28,11 @@
         "discord_hub_channel_id": {
           "type": "string"
         },
+        "matrix_account_required": {
+          "description": "When true, governance validate checks that each team member has a Matrix account.",
+          "type": "boolean",
+          "default": false
+        },
         "matrix_domain": {
           "type": "string"
         },

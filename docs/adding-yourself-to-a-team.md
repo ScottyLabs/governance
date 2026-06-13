@@ -15,9 +15,11 @@
 
 **Permissions:** if you are not a lead on a team, a PR editing it should only involve you adding or removing yourself from `members` / project `members`. Changing any other field is restricted to the Tech Director and Tech Leads already declared in governance.
 
-### Set up Your Matrix Login on [https://matrix.doggylabs.org](https://matrix.doggylabs.org)
+### Set up Your Matrix Login on doggylabs.org
 
-1. Register or log in at https://matrix.doggylabs.org using your **Codeberg username** as your Matrix username.
+1. Go to [Element](https://app.element.io)
+1. Edit your homeserver to be doggylabs.org
+1. Register using your **Codeberg username in all lowercase** as your Matrix username (Matrix does not allow uppercase letters)
 1. Open a DM with `@discord:doggylabs.org` and send `login`. Use `login token` in DMs with `@slack:doggylabs.org`.
 
 Tech Lead setup to enable the shared relay is documented in [creating-teams.md](creating-teams.md#infrastructure-prerequisites).

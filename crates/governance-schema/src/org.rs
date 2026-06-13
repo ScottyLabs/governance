@@ -57,6 +57,9 @@ pub struct CommunicationConfig {
     pub slack_hub_channel_id: String,
     pub matrix_domain: String,
     pub matrix_homeserver_url: String,
+    /// When true, governance validate checks that each team member has a Matrix account.
+    #[serde(default)]
+    pub matrix_account_required: bool,
     /// Org-wide channels that are not owned by a team (e.g. open-source, merch, finance).
     /// Set both `slack` and `discord` to bridge via Matrix.
     #[serde(default)]

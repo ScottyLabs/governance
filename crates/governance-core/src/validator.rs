@@ -286,6 +286,9 @@ fn validate_matrix(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
     let Some(comm) = data.org.org.communication.as_ref() else {
         return;
     };
+    if !comm.matrix_account_required {
+        return;
+    }
 
     let admin_token = match std::env::var("MATRIX_ADMIN_TOKEN") {
         Ok(token) if !token.is_empty() => token,
@@ -323,7 +326,44 @@ fn check_matrix_account(
     matrix_domain: &str,
     admin_token: &str,
 ) -> Result<(), ValidationError> {
-    let mxid = format!("@{username}:{matrix_domain}");
+    let lower = username.to_lowercase();
+    let localparts: Vec<&str> = if lower == username {
+        vec![username]
+    } else {
+        vec![username, &lower]
+    };
+
+    let mut last_api_error = None;
+
+    for localpart in localparts {
+        match lookup_matrix_user(localpart, homeserver_url, matrix_domain, admin_token) {
+            Ok(()) => return Ok(()),
+            Err(LookupMatrixUserError::NotFound) => continue,
+            Err(LookupMatrixUserError::Api(e)) => last_api_error = Some(e),
+        }
+    }
+
+    if let Some(e) = last_api_error {
+        return Err(ValidationError::MatrixApiError(format!(
+            "user {username}: {e}"
+        )));
+    }
+
+    Err(ValidationError::MissingMatrixAccount(username.to_string()))
+}
+
+enum LookupMatrixUserError {
+    NotFound,
+    Api(String),
+}
+
+fn lookup_matrix_user(
+    localpart: &str,
+    homeserver_url: &str,
+    matrix_domain: &str,
+    admin_token: &str,
+) -> Result<(), LookupMatrixUserError> {
+    let mxid = format!("@{localpart}:{matrix_domain}");
     let encoded = mxid.replace('@', "%40").replace(':', "%3A");
     let url = format!(
         "{}/_synapse/admin/v2/users/{encoded}",
@@ -335,11 +375,7 @@ fn check_matrix_account(
         .call()
     {
         Ok(_) => Ok(()),
-        Err(ureq::Error::StatusCode(404)) => {
-            Err(ValidationError::MissingMatrixAccount(username.to_string()))
-        }
-        Err(e) => Err(ValidationError::MatrixApiError(format!(
-            "user {username}: {e}"
-        ))),
+        Err(ureq::Error::StatusCode(404)) => Err(LookupMatrixUserError::NotFound),
+        Err(e) => Err(LookupMatrixUserError::Api(format!("{e}"))),
     }
 }
