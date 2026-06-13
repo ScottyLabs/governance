@@ -61,6 +61,7 @@ jobs:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
           KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
           KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
+          MATRIX_ADMIN_TOKEN: ${{ secrets.MATRIX_ADMIN_TOKEN }}
 
       - name: Check PR permissions
         env:

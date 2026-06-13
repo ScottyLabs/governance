@@ -7,6 +7,9 @@ use governance_schema::team::{Channel, GroupFields, TeamFile};
 use crate::error::ValidationError;
 use crate::loader::GovernanceData;
 
+const MATRIX_HOMESERVER_URL: &str = "https://matrix.doggylabs.org";
+const MATRIX_DOMAIN: &str = "doggylabs.org";
+
 pub fn validate(data: &GovernanceData) -> Vec<ValidationError> {
     let mut errors = Vec::new();
 
@@ -15,6 +18,7 @@ pub fn validate(data: &GovernanceData) -> Vec<ValidationError> {
     validate_groups(data, &mut errors);
     validate_channels(data, &mut errors);
     validate_identities(data, &mut errors);
+    validate_matrix(data, &mut errors);
 
     errors
 }
@@ -279,4 +283,55 @@ fn validate_identities(data: &GovernanceData, errors: &mut Vec<ValidationError>)
     });
 
     errors.extend(collected_errors.into_inner().unwrap());
+}
+
+fn validate_matrix(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
+    let Some(comm) = data.org.org.communication.as_ref() else {
+        return;
+    };
+    if !comm.validate_matrix_accounts {
+        return;
+    }
+
+    let admin_token = match std::env::var("MATRIX_ADMIN_TOKEN") {
+        Ok(token) if !token.is_empty() => token,
+        _ => return,
+    };
+
+    let members = data.all_members();
+    let collected_errors: Mutex<Vec<ValidationError>> = Mutex::new(Vec::new());
+
+    thread::scope(|s| {
+        for username in &members {
+            let token = admin_token.clone();
+            let errs = &collected_errors;
+
+            s.spawn(move || {
+                if let Err(e) = check_matrix_account(username, &token) {
+                    errs.lock().unwrap().push(e);
+                }
+            });
+        }
+    });
+
+    errors.extend(collected_errors.into_inner().unwrap());
+}
+
+fn check_matrix_account(username: &str, admin_token: &str) -> Result<(), ValidationError> {
+    let mxid = format!("@{username}:{MATRIX_DOMAIN}");
+    let encoded = mxid.replace('@', "%40").replace(':', "%3A");
+    let url = format!("{MATRIX_HOMESERVER_URL}/_synapse/admin/v2/users/{encoded}");
+
+    match ureq::get(&url)
+        .header("Authorization", &format!("Bearer {admin_token}"))
+        .call()
+    {
+        Ok(_) => Ok(()),
+        Err(ureq::Error::StatusCode(404)) => {
+            Err(ValidationError::MissingMatrixAccount(username.to_string()))
+        }
+        Err(e) => Err(ValidationError::MatrixApiError(format!(
+            "user {username}: {e}"
+        ))),
+    }
 }

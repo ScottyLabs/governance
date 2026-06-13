@@ -37,6 +37,11 @@
         },
         "slack_workspace": {
           "type": "string"
+        },
+        "validate_matrix_accounts": {
+          "description": "When true, governance validate checks that each team member has a Matrix account.",
+          "type": "boolean",
+          "default": true
         }
       },
       "required": [

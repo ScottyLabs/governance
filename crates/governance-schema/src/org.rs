@@ -55,10 +55,17 @@ pub struct CommunicationConfig {
     /// Slack workspace ID (e.g. T03EVH29W) for mautrix-slack bridge chat IDs.
     pub slack_team_id: String,
     pub slack_hub_channel_id: String,
+    /// When true, governance validate checks that each team member has a Matrix account.
+    #[serde(default = "default_validate_matrix_accounts")]
+    pub validate_matrix_accounts: bool,
     /// Org-wide channels that are not owned by a team (e.g. open-source, merch, finance).
     /// Set both `slack` and `discord` to bridge via Matrix.
     #[serde(default)]
     pub channels: Vec<OrgChannel>,
+}
+
+fn default_validate_matrix_accounts() -> bool {
+    true
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
