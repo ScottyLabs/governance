@@ -286,9 +286,6 @@ fn validate_matrix(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
     let Some(comm) = data.org.org.communication.as_ref() else {
         return;
     };
-    if !comm.matrix_account_required {
-        return;
-    }
 
     let admin_token = match std::env::var("MATRIX_ADMIN_TOKEN") {
         Ok(token) if !token.is_empty() => token,
@@ -297,7 +294,11 @@ fn validate_matrix(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
 
     let homeserver_url = comm.matrix_homeserver_url.clone();
     let matrix_domain = comm.matrix_domain.clone();
-    let members = data.all_members();
+    let members = data.members_requiring_matrix_account();
+    if members.is_empty() {
+        return;
+    }
+
     let collected_errors: Mutex<Vec<ValidationError>> = Mutex::new(Vec::new());
 
     thread::scope(|s| {

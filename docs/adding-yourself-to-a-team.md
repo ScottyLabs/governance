@@ -6,30 +6,31 @@
 1. If any member listed in the team file lacks the required linked accounts, CI will fail.
 
 - **Codeberg**, **GitHub**, **Discord**, and **Slack** must all be linked. Codeberg and GitHub are needed so governance can add you to team repositories. Discord and Slack are needed even if your team has no channels of its own: governance gives every member the org-wide "Tech" Discord role and invites everyone to the Slack hub channel.
+- **Matrix** is required when your team or project has `matrix_account_required = true` (the default for new teams and projects). Existing teams are opted out with `matrix_account_required = false` until they enable it.
 
 ## Steps
 
 1. Edit `data/teams/<team-slug>.toml` and add your **Codeberg username** to `members` (to join the whole team) or to a project's `members` under `[[team.projects]]` if membership is per-project. If your team is not yet created, follow the [team creation docs](creating-teams.md) instead.
-1. Finish [setting up your Matrix account](#set-up-your-matrix-account-and-bridge-logins), optionally bridge logins.
+1. If your team or project requires Matrix (`matrix_account_required = true`), finish [setting up your Matrix account and bridge logins](#set-up-your-matrix-account-and-bridge-logins).
 1. Open a pull request on Codeberg.
 
 **Permissions:** if you are not a lead on a team, a PR editing it should only involve you adding or removing yourself from `members` / project `members`. Changing any other field is restricted to the Tech Director and Tech Leads already declared in governance.
 
-## Set up your Matrix account (mandatory) and bridge logins (optional)
+## Set up your Matrix account and bridge logins
 
-### Matrix account (Mandatory)
+### Matrix account
 
 1. Go to [Element](https://app.element.io)
 1. Edit your homeserver to be `doggylabs.org`
 1. Register using your **Codeberg username in all lowercase** as your Matrix username (Matrix does not allow uppercase letters).
 
-### Discord bridge (Optional)
+### Discord bridge
 
 1. Open a DM with `@discord:doggylabs.org`
 1. Send `login`
 1. Follow the OAuth link the bot sends you and authorize Discord
 
-### Slack bridge (Optional)
+### Slack bridge
 
 1. Open a DM with `@slack:doggylabs.org`
 1. Send `login token`

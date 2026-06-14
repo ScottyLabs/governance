@@ -1,6 +1,7 @@
 [team]
 name = "UI Architecture"
 slug = "uia"
+matrix_account_required = false
 leads = ["anish"]
 
 [[team.repos]]

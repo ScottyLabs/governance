@@ -23,6 +23,13 @@ pub struct GroupFields {
     pub channels: Vec<Channel>,
     #[serde(default)]
     pub figma_projects: Vec<String>,
+    /// When true, governance validate checks that each member of this team or project has a Matrix account.
+    #[serde(default = "default_matrix_account_required")]
+    pub matrix_account_required: bool,
+}
+
+fn default_matrix_account_required() -> bool {
+    true
 }
 
 impl GroupFields {

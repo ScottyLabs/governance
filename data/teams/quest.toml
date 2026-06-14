@@ -2,6 +2,7 @@
 name = "Quest"
 slug = "quest"
 description = "CMU Orientation Quest"
+matrix_account_required = false
 leads = ["anish"]
 
 [[team.repos]]

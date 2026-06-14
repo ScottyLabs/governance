@@ -1,6 +1,7 @@
 [team]
 name = "CMU Housing"
 slug = "cmu-housing"
+matrix_account_required = false
 leads = ["gostmeaper", "EcstaticPilot", "tentype"]
 members = ["amzoeee", "ManrajS"]
 

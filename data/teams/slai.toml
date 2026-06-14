@@ -1,6 +1,7 @@
 [team]
 name = "ScottyLabs AI"
 slug = "slai"
+matrix_account_required = false
 leads = ["krishsaxena"]
 members = ["Jc-965", "kath45823", "JiYa2301", "Enkrypt7"]
 

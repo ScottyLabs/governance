@@ -1,6 +1,7 @@
 [team]
 name = "CMU Courses"
 slug = "cmu-courses"
+matrix_account_required = false
 leads = ["anish"]
 
 [[team.repos]]

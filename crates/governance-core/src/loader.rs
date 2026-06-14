@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 
 use governance_schema::org::OrgFile;
@@ -63,6 +64,27 @@ impl GovernanceData {
         leads.sort();
         leads.dedup();
         leads
+    }
+
+    pub fn members_requiring_matrix_account(&self) -> Vec<String> {
+        let mut members = HashSet::new();
+        for team in &self.teams {
+            if team.team.group.matrix_account_required {
+                for username in team.team.group.all_members() {
+                    members.insert(username.to_string());
+                }
+            }
+            for project in &team.team.projects {
+                if project.group.matrix_account_required {
+                    for username in project.group.all_members() {
+                        members.insert(username.to_string());
+                    }
+                }
+            }
+        }
+        let mut members: Vec<String> = members.into_iter().collect();
+        members.sort();
+        members
     }
 }
 

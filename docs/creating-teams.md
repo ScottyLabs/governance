@@ -27,6 +27,10 @@ leads = ["lead1-cb", "lead2-cb"]
 # Codeberg usernames for team members; mutually exclusive with the `leads` array
 members = ["member1-cb"]
 
+# When false, governance does not require Matrix registration for this team or project.
+# Defaults to true for new teams and projects.
+matrix_account_required = false
+
 # Repositories belonging to the team. Each `name` must be unique across the whole org.
 # Repos are created on Codeberg (Forgejo) and mirrored to GitHub.
 [[team.repos]]

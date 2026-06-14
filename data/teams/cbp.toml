@@ -1,6 +1,7 @@
 [team]
 name = "Community-Based Projects"
 slug = "cbp"
+matrix_account_required = false
 leads = ["tentype", "maybe-yiyi"]
 members = ["gostmeaper", "XboxBedrock"]
 
@@ -10,6 +11,7 @@ discord = "1450023430224216237"
 [[team.projects]]
 name = "Bus Sign"
 slug = "bus-sign"
+matrix_account_required = false
 
 [[team.projects.repos]]
 name = "bus-sign"
@@ -23,6 +25,7 @@ discord = "1472669342108750087"
 [[team.projects]]
 name = "GroupMe Mirror"
 slug = "groupme-mirror"
+matrix_account_required = false
 
 [[team.projects.repos]]
 name = "groupme-mirror"
@@ -31,6 +34,7 @@ description = "Mirror messages from a GroupMe to a Discord webhook"
 [[team.projects]]
 name = "Dalmatian"
 slug = "dalmatian"
+matrix_account_required = false
 
 [[team.projects.repos]]
 name = "dalmatian"
@@ -44,6 +48,7 @@ discord = "1482594247961219307"
 [[team.projects]]
 name = "Discord Verify"
 slug = "discord-verify"
+matrix_account_required = false
 
 [[team.projects.repos]]
 name = "discord-verify"

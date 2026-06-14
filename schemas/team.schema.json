@@ -66,6 +66,11 @@
             "type": "string"
           }
         },
+        "matrix_account_required": {
+          "description": "When true, governance validate checks that each member of this team or project has a Matrix account.",
+          "type": "boolean",
+          "default": true
+        },
         "members": {
           "type": "array",
           "default": [],
@@ -202,6 +207,11 @@
           "items": {
             "type": "string"
           }
+        },
+        "matrix_account_required": {
+          "description": "When true, governance validate checks that each member of this team or project has a Matrix account.",
+          "type": "boolean",
+          "default": true
         },
         "members": {
           "type": "array",

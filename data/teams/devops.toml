@@ -2,6 +2,7 @@
 name = "DevOps"
 slug = "devops"
 description = "Infrastructure and deployment"
+matrix_account_required = false
 leads = ["anish", "thesuperRL"]
 
 [[team.repos]]

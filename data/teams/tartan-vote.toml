@@ -1,6 +1,7 @@
 [team]
 name = "Tartan Vote"
 slug = "tartan-vote"
+matrix_account_required = false
 leads = ["maybe-yiyi"]
 members = ["vloh", "XboxBedrock", "tentype"]
 

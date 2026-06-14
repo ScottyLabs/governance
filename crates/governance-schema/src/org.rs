@@ -67,7 +67,7 @@ pub struct CommunicationConfig {
 }
 
 fn default_matrix_account_required() -> bool {
-    false
+    true
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
