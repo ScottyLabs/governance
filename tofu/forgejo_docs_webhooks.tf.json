@@ -154,6 +154,17 @@
       ],
       "type": "forgejo"
     },
+    "slai_cmugpt_sms_surface_docs_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "url": "${var.docs_webhook_url}"
+      },
+      "events": [
+        "push"
+      ],
+      "type": "forgejo"
+    },
     "slai_cmugpt_surface_docs_webhook_data": {
       "active": true,
       "config": {
@@ -166,17 +177,6 @@
       "type": "forgejo"
     },
     "slai_mcp_server_docs_webhook_data": {
-      "active": true,
-      "config": {
-        "content_type": "json",
-        "url": "${var.docs_webhook_url}"
-      },
-      "events": [
-        "push"
-      ],
-      "type": "forgejo"
-    },
-    "slai_sms_surface_docs_webhook_data": {
       "active": true,
       "config": {
         "content_type": "json",
@@ -324,6 +324,14 @@
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/cmugpt-agent/hooks"
       },
+      "slai_cmugpt_sms_surface_docs_webhook": {
+        "data": "${jsonencode(local.slai_cmugpt_sms_surface_docs_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.slai_cmugpt_sms_surface"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/cmugpt-sms-surface/hooks"
+      },
       "slai_cmugpt_surface_docs_webhook": {
         "data": "${jsonencode(local.slai_cmugpt_surface_docs_webhook_data)}",
         "depends_on": [
@@ -339,14 +347,6 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/mcp-server/hooks"
-      },
-      "slai_sms_surface_docs_webhook": {
-        "data": "${jsonencode(local.slai_sms_surface_docs_webhook_data)}",
-        "depends_on": [
-          "forgejo_repository.slai_sms_surface"
-        ],
-        "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/sms-surface/hooks"
       },
       "tartan-vote_tartan_vote_docs_webhook": {
         "data": "${jsonencode(local.tartan-vote_tartan_vote_docs_webhook_data)}",

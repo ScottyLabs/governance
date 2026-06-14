@@ -49,6 +49,12 @@
         "overwrite_id": "${discord_role.quest.id}",
         "type": "role"
       },
+      "slai_ch0": {
+        "allow": 1024,
+        "channel_id": "1515571704204623903",
+        "overwrite_id": "${discord_role.slai.id}",
+        "type": "role"
+      },
       "tartan-vote_ch0": {
         "allow": 1024,
         "channel_id": "1472669361624842483",

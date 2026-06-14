@@ -94,6 +94,86 @@
           "repo.wiki": "admin"
         }
       },
+      "cmugpt-agent_leads": {
+        "can_create_org_repo": false,
+        "description": "CMU GPT Agent leads",
+        "includes_all_repositories": false,
+        "name": "cmugpt-agent-leads",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "admin",
+        "units_map": {
+          "repo.actions": "admin",
+          "repo.code": "admin",
+          "repo.ext_issues": "admin",
+          "repo.ext_wiki": "admin",
+          "repo.issues": "admin",
+          "repo.packages": "admin",
+          "repo.projects": "admin",
+          "repo.pulls": "admin",
+          "repo.releases": "admin",
+          "repo.wiki": "admin"
+        }
+      },
+      "cmugpt-mcp-server_leads": {
+        "can_create_org_repo": false,
+        "description": "CMU GPT MCP Server leads",
+        "includes_all_repositories": false,
+        "name": "cmugpt-mcp-server-leads",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "admin",
+        "units_map": {
+          "repo.actions": "admin",
+          "repo.code": "admin",
+          "repo.ext_issues": "admin",
+          "repo.ext_wiki": "admin",
+          "repo.issues": "admin",
+          "repo.packages": "admin",
+          "repo.projects": "admin",
+          "repo.pulls": "admin",
+          "repo.releases": "admin",
+          "repo.wiki": "admin"
+        }
+      },
+      "cmugpt-sms-surface_leads": {
+        "can_create_org_repo": false,
+        "description": "CMU GPT SMS leads",
+        "includes_all_repositories": false,
+        "name": "cmugpt-sms-surface-leads",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "admin",
+        "units_map": {
+          "repo.actions": "admin",
+          "repo.code": "admin",
+          "repo.ext_issues": "admin",
+          "repo.ext_wiki": "admin",
+          "repo.issues": "admin",
+          "repo.packages": "admin",
+          "repo.projects": "admin",
+          "repo.pulls": "admin",
+          "repo.releases": "admin",
+          "repo.wiki": "admin"
+        }
+      },
+      "cmugpt-surface_leads": {
+        "can_create_org_repo": false,
+        "description": "CMU GPT Surface leads",
+        "includes_all_repositories": false,
+        "name": "cmugpt-surface-leads",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "admin",
+        "units_map": {
+          "repo.actions": "admin",
+          "repo.code": "admin",
+          "repo.ext_issues": "admin",
+          "repo.ext_wiki": "admin",
+          "repo.issues": "admin",
+          "repo.packages": "admin",
+          "repo.projects": "admin",
+          "repo.pulls": "admin",
+          "repo.releases": "admin",
+          "repo.wiki": "admin"
+        }
+      },
       "dalmatian_leads": {
         "can_create_org_repo": false,
         "description": "Dalmatian leads",
@@ -225,26 +305,6 @@
           "repo.code": "write",
           "repo.issues": "write",
           "repo.pulls": "write"
-        }
-      },
-      "slai_leads": {
-        "can_create_org_repo": false,
-        "description": "ScottyLabs AI leads",
-        "includes_all_repositories": false,
-        "name": "slai-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
         }
       },
       "tartan-vote": {

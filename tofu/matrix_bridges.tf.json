@@ -418,6 +418,24 @@
           "channel": "C08MHDYA12B"
         }
       },
+      "slack_bridge_login_slai": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08SRUGUQ05"
+        }
+      },
       "slack_bridge_login_uia": {
         "provisioner": [
           {
@@ -684,6 +702,15 @@
         "slack_channel_id": "C08MHDYA12B",
         "team_name": "Quest",
         "team_slug": "quest"
+      },
+      "slai": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_slai"
+        ],
+        "discord_channel_id": "1515571704204623903",
+        "slack_channel_id": "C08SRUGUQ05",
+        "team_name": "ScottyLabs AI",
+        "team_slug": "slai"
       },
       "uia": {
         "depends_on": [

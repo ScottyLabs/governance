@@ -65,6 +65,22 @@
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
       },
+      "cmugpt-agent_leads_krishsaxena": {
+        "team_id": "${forgejo_team.cmugpt-agent_leads.id}",
+        "user": "${data.external.identity_krishsaxena.result.codeberg}"
+      },
+      "cmugpt-mcp-server_leads_krishsaxena": {
+        "team_id": "${forgejo_team.cmugpt-mcp-server_leads.id}",
+        "user": "${data.external.identity_krishsaxena.result.codeberg}"
+      },
+      "cmugpt-sms-surface_leads_krishsaxena": {
+        "team_id": "${forgejo_team.cmugpt-sms-surface_leads.id}",
+        "user": "${data.external.identity_krishsaxena.result.codeberg}"
+      },
+      "cmugpt-surface_leads_krishsaxena": {
+        "team_id": "${forgejo_team.cmugpt-surface_leads.id}",
+        "user": "${data.external.identity_krishsaxena.result.codeberg}"
+      },
       "dalmatian_leads_maybe_yiyi": {
         "team_id": "${forgejo_team.dalmatian_leads.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
@@ -131,10 +147,6 @@
       },
       "slai_krishsaxena": {
         "team_id": "${forgejo_team.slai.id}",
-        "user": "${data.external.identity_krishsaxena.result.codeberg}"
-      },
-      "slai_leads_krishsaxena": {
-        "team_id": "${forgejo_team.slai_leads.id}",
         "user": "${data.external.identity_krishsaxena.result.codeberg}"
       },
       "tartan-vote_XboxBedrock": {

@@ -137,8 +137,8 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_slai": {
-        "group_id": "${keycloak_group.project_slai.id}",
+      "project_slai_cmugpt-agent": {
+        "group_id": "${keycloak_group.project_slai_cmugpt-agent.id}",
         "members": [
           "${data.external.identity_krishsaxena.result.cmu-saml}",
           "${data.external.identity_Jc_965.result.cmu-saml}",
@@ -148,8 +148,62 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_slai_admins": {
-        "group_id": "${keycloak_group.project_slai_admins.id}",
+      "project_slai_cmugpt-agent_admins": {
+        "group_id": "${keycloak_group.project_slai_cmugpt-agent_admins.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-mcp-server": {
+        "group_id": "${keycloak_group.project_slai_cmugpt-mcp-server.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}",
+          "${data.external.identity_Jc_965.result.cmu-saml}",
+          "${data.external.identity_kath45823.result.cmu-saml}",
+          "${data.external.identity_JiYa2301.result.cmu-saml}",
+          "${data.external.identity_Enkrypt7.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-mcp-server_admins": {
+        "group_id": "${keycloak_group.project_slai_cmugpt-mcp-server_admins.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-sms-surface": {
+        "group_id": "${keycloak_group.project_slai_cmugpt-sms-surface.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}",
+          "${data.external.identity_Jc_965.result.cmu-saml}",
+          "${data.external.identity_kath45823.result.cmu-saml}",
+          "${data.external.identity_JiYa2301.result.cmu-saml}",
+          "${data.external.identity_Enkrypt7.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-sms-surface_admins": {
+        "group_id": "${keycloak_group.project_slai_cmugpt-sms-surface_admins.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-surface": {
+        "group_id": "${keycloak_group.project_slai_cmugpt-surface.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}",
+          "${data.external.identity_Jc_965.result.cmu-saml}",
+          "${data.external.identity_kath45823.result.cmu-saml}",
+          "${data.external.identity_JiYa2301.result.cmu-saml}",
+          "${data.external.identity_Enkrypt7.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-surface_admins": {
+        "group_id": "${keycloak_group.project_slai_cmugpt-surface_admins.id}",
         "members": [
           "${data.external.identity_krishsaxena.result.cmu-saml}"
         ],

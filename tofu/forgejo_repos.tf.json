@@ -196,6 +196,19 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "slai_cmugpt_sms_surface": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "SMS interface with CMU GPT Agent",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "cmugpt-sms-surface",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "slai_cmugpt_surface": {
         "auto_init": true,
         "default_branch": "main",
@@ -219,19 +232,6 @@
           ]
         },
         "name": "mcp-server",
-        "owner": "ScottyLabs",
-        "private": false
-      },
-      "slai_sms_surface": {
-        "auto_init": true,
-        "default_branch": "main",
-        "description": "SMS interface with CMU GPT Agent",
-        "lifecycle": {
-          "ignore_changes": [
-            "clone_addr"
-          ]
-        },
-        "name": "sms-surface",
         "owner": "ScottyLabs",
         "private": false
       },

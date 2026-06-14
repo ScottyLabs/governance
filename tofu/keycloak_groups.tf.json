@@ -81,14 +81,44 @@
         "parent_id": "${keycloak_group.project_quest.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_slai": {
-        "name": "slai",
+      "project_slai_cmugpt-agent": {
+        "name": "cmugpt-agent",
         "parent_id": "${keycloak_group.projects.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_slai_admins": {
+      "project_slai_cmugpt-agent_admins": {
         "name": "admins",
-        "parent_id": "${keycloak_group.project_slai.id}",
+        "parent_id": "${keycloak_group.project_slai_cmugpt-agent.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-mcp-server": {
+        "name": "cmugpt-mcp-server",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-mcp-server_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_slai_cmugpt-mcp-server.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-sms-surface": {
+        "name": "cmugpt-sms-surface",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-sms-surface_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_slai_cmugpt-sms-surface.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-surface": {
+        "name": "cmugpt-surface",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_slai_cmugpt-surface_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_slai_cmugpt-surface.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_tartan-vote": {

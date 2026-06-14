@@ -4,25 +4,44 @@ slug = "slai"
 leads = ["krishsaxena"]
 members = ["Jc-965", "kath45823", "JiYa2301", "Enkrypt7"]
 
-[[team.repos]]
+[[team.projects]]
+name = "CMU GPT Surface"
+slug = "cmugpt-surface"
+
+[[team.projects.repos]]
 name = "cmugpt-surface"
 description = "Fullstack for users to interface with CMU GPT"
 kennel = true
+sentry = true
 
-[[team.repos]]
+[[team.projects]]
+name = "CMU GPT Agent"
+slug = "cmugpt-agent"
+
+[[team.projects.repos]]
 name = "cmugpt-agent"
 description = "Running the model, doing RAG, etc. for CMU GPT"
 kennel = true
 
-[[team.repos]]
+[[team.projects]]
+name = "CMU GPT MCP Server"
+slug = "cmugpt-mcp-server"
+
+[[team.projects.repos]]
 name = "mcp-server"
 description = "MCP servers for CMU GPT"
 kennel = true
 
-[[team.repos]]
-name = "sms-surface"
+[[team.projects]]
+name = "CMU GPT SMS"
+slug = "cmugpt-sms-surface"
+
+[[team.projects.repos]]
+name = "cmugpt-sms-surface"
 description = "SMS interface with CMU GPT Agent"
 kennel = true
+sentry = true
 
 [[team.channels]]
 slack = "C08SRUGUQ05"
+discord = "1515571704204623903"

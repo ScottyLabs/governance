@@ -36,6 +36,16 @@
         "organization": "${var.sentry_organization}",
         "project": "${sentry_project.quest_quest.slug}"
       },
+      "slai_cmugpt_sms_surface": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.slai_cmugpt_sms_surface.slug}"
+      },
+      "slai_cmugpt_surface": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.slai_cmugpt_surface.slug}"
+      },
       "tartan-vote_tartan_vote": {
         "name": "default",
         "organization": "${var.sentry_organization}",
@@ -99,6 +109,22 @@
           "${sentry_team.quest.slug}"
         ]
       },
+      "slai_cmugpt_sms_surface": {
+        "name": "cmugpt-sms-surface",
+        "organization": "${var.sentry_organization}",
+        "slug": "cmugpt-sms-surface",
+        "teams": [
+          "${sentry_team.slai.slug}"
+        ]
+      },
+      "slai_cmugpt_surface": {
+        "name": "cmugpt-surface",
+        "organization": "${var.sentry_organization}",
+        "slug": "cmugpt-surface",
+        "teams": [
+          "${sentry_team.slai.slug}"
+        ]
+      },
       "tartan-vote_tartan_vote": {
         "name": "tartan-vote",
         "organization": "${var.sentry_organization}",
@@ -133,6 +159,11 @@
         "name": "Quest",
         "organization": "${var.sentry_organization}",
         "slug": "quest"
+      },
+      "slai": {
+        "name": "ScottyLabs AI",
+        "organization": "${var.sentry_organization}",
+        "slug": "slai"
       },
       "tartan-vote": {
         "name": "Tartan Vote",
@@ -175,6 +206,16 @@
         "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.quest_quest.dsn })}",
         "mount": "secret",
         "name": "secretspec/quest/prod/SENTRY_DSN"
+      },
+      "slai_cmugpt_sms_surface_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.slai_cmugpt_sms_surface.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/cmugpt-sms-surface/prod/SENTRY_DSN"
+      },
+      "slai_cmugpt_surface_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.slai_cmugpt_surface.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/cmugpt-surface/prod/SENTRY_DSN"
       },
       "tartan-vote_tartan_vote_sentry_dsn": {
         "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.tartan-vote_tartan_vote.dsn })}",

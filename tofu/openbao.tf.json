@@ -43,6 +43,62 @@
         ],
         "type": "external"
       },
+      "cmugpt-agent_admins": {
+        "name": "cmugpt-agent-admins",
+        "policies": [
+          "cmugpt-agent-prod"
+        ],
+        "type": "external"
+      },
+      "cmugpt-agent_members": {
+        "name": "cmugpt-agent-members",
+        "policies": [
+          "cmugpt-agent-dev"
+        ],
+        "type": "external"
+      },
+      "cmugpt-mcp-server_admins": {
+        "name": "cmugpt-mcp-server-admins",
+        "policies": [
+          "cmugpt-mcp-server-prod"
+        ],
+        "type": "external"
+      },
+      "cmugpt-mcp-server_members": {
+        "name": "cmugpt-mcp-server-members",
+        "policies": [
+          "cmugpt-mcp-server-dev"
+        ],
+        "type": "external"
+      },
+      "cmugpt-sms-surface_admins": {
+        "name": "cmugpt-sms-surface-admins",
+        "policies": [
+          "cmugpt-sms-surface-prod"
+        ],
+        "type": "external"
+      },
+      "cmugpt-sms-surface_members": {
+        "name": "cmugpt-sms-surface-members",
+        "policies": [
+          "cmugpt-sms-surface-dev"
+        ],
+        "type": "external"
+      },
+      "cmugpt-surface_admins": {
+        "name": "cmugpt-surface-admins",
+        "policies": [
+          "cmugpt-surface-prod"
+        ],
+        "type": "external"
+      },
+      "cmugpt-surface_members": {
+        "name": "cmugpt-surface-members",
+        "policies": [
+          "cmugpt-surface-dev"
+        ],
+        "type": "external"
+      },
       "dalmatian_admins": {
         "name": "dalmatian-admins",
         "policies": [
@@ -96,20 +152,6 @@
         "name": "quest-members",
         "policies": [
           "quest-dev"
-        ],
-        "type": "external"
-      },
-      "slai_admins": {
-        "name": "slai-admins",
-        "policies": [
-          "slai-prod"
-        ],
-        "type": "external"
-      },
-      "slai_members": {
-        "name": "slai-members",
-        "policies": [
-          "slai-dev"
         ],
         "type": "external"
       },
@@ -173,6 +215,46 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/cmu-housing"
       },
+      "cmugpt-agent_admins": {
+        "canonical_id": "${vault_identity_group.cmugpt-agent_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmugpt-agent/admins"
+      },
+      "cmugpt-agent_members": {
+        "canonical_id": "${vault_identity_group.cmugpt-agent_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmugpt-agent"
+      },
+      "cmugpt-mcp-server_admins": {
+        "canonical_id": "${vault_identity_group.cmugpt-mcp-server_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmugpt-mcp-server/admins"
+      },
+      "cmugpt-mcp-server_members": {
+        "canonical_id": "${vault_identity_group.cmugpt-mcp-server_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmugpt-mcp-server"
+      },
+      "cmugpt-sms-surface_admins": {
+        "canonical_id": "${vault_identity_group.cmugpt-sms-surface_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmugpt-sms-surface/admins"
+      },
+      "cmugpt-sms-surface_members": {
+        "canonical_id": "${vault_identity_group.cmugpt-sms-surface_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmugpt-sms-surface"
+      },
+      "cmugpt-surface_admins": {
+        "canonical_id": "${vault_identity_group.cmugpt-surface_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmugpt-surface/admins"
+      },
+      "cmugpt-surface_members": {
+        "canonical_id": "${vault_identity_group.cmugpt-surface_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cmugpt-surface"
+      },
       "dalmatian_admins": {
         "canonical_id": "${vault_identity_group.dalmatian_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -212,16 +294,6 @@
         "canonical_id": "${vault_identity_group.quest_members.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/quest"
-      },
-      "slai_admins": {
-        "canonical_id": "${vault_identity_group.slai_admins.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/slai/admins"
-      },
-      "slai_members": {
-        "canonical_id": "${vault_identity_group.slai_members.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/slai"
       },
       "tartan-vote_admins": {
         "canonical_id": "${vault_identity_group.tartan-vote_admins.id}",
@@ -269,6 +341,38 @@
         "name": "cmu-housing-prod",
         "policy": "path \"secret/data/secretspec/cmu-housing/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-housing/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
+      "cmugpt-agent_dev": {
+        "name": "cmugpt-agent-dev",
+        "policy": "path \"secret/data/secretspec/cmugpt-agent/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-agent/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmugpt-agent/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-agent/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmugpt-agent_prod": {
+        "name": "cmugpt-agent-prod",
+        "policy": "path \"secret/data/secretspec/cmugpt-agent/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-agent/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmugpt-agent/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-agent/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmugpt-mcp-server_dev": {
+        "name": "cmugpt-mcp-server-dev",
+        "policy": "path \"secret/data/secretspec/cmugpt-mcp-server/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-mcp-server/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmugpt-mcp-server/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-mcp-server/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmugpt-mcp-server_prod": {
+        "name": "cmugpt-mcp-server-prod",
+        "policy": "path \"secret/data/secretspec/cmugpt-mcp-server/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-mcp-server/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmugpt-mcp-server/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-mcp-server/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmugpt-sms-surface_dev": {
+        "name": "cmugpt-sms-surface-dev",
+        "policy": "path \"secret/data/secretspec/cmugpt-sms-surface/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-sms-surface/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmugpt-sms-surface/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-sms-surface/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmugpt-sms-surface_prod": {
+        "name": "cmugpt-sms-surface-prod",
+        "policy": "path \"secret/data/secretspec/cmugpt-sms-surface/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-sms-surface/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmugpt-sms-surface/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-sms-surface/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmugpt-surface_dev": {
+        "name": "cmugpt-surface-dev",
+        "policy": "path \"secret/data/secretspec/cmugpt-surface/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-surface/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmugpt-surface/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-surface/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cmugpt-surface_prod": {
+        "name": "cmugpt-surface-prod",
+        "policy": "path \"secret/data/secretspec/cmugpt-surface/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-surface/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmugpt-surface/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-surface/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
       "dalmatian_dev": {
         "name": "dalmatian-dev",
         "policy": "path \"secret/data/secretspec/dalmatian/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/dalmatian/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/dalmatian/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/dalmatian/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
@@ -300,14 +404,6 @@
       "quest_prod": {
         "name": "quest-prod",
         "policy": "path \"secret/data/secretspec/quest/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/quest/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "slai_dev": {
-        "name": "slai-dev",
-        "policy": "path \"secret/data/secretspec/slai/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/slai/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/slai/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/slai/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "slai_prod": {
-        "name": "slai-prod",
-        "policy": "path \"secret/data/secretspec/slai/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/slai/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/slai/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/slai/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "tartan-vote_dev": {
         "name": "tartan-vote-dev",
