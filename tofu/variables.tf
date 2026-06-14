@@ -88,6 +88,11 @@ variable "kennel_webhook_url" {
     default = "https://kennel.scottylabs.org/webhook"
 }
 
+variable "docs_webhook_url" {
+    type    = string
+    default = "https://webhooks.scottylabs.org/hooks/docs-diagrams"
+}
+
 variable "sentry_organization" {
     type    = string
     default = "scottylabs"

@@ -107,6 +107,8 @@ fn main() -> anyhow::Result<()> {
                 .write_to(&output_dir.join("forgejo_push_mirrors.tf.json"))?;
             forgejo::generate_kennel_webhooks(&data)
                 .write_to(&output_dir.join("forgejo_kennel_webhooks.tf.json"))?;
+            forgejo::generate_docs_webhooks(&data)
+                .write_to(&output_dir.join("forgejo_docs_webhooks.tf.json"))?;
             forgejo::generate_team_repos(&data)
                 .write_to(&output_dir.join("forgejo_team_repos.tf.json"))?;
 

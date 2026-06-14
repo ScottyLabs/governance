@@ -39,12 +39,54 @@
 
 #### Paste a cURL command
 
-Instead of building JSON by hand, you can copy a Slack API request as cURL and paste the whole command into the bot DM.
+Instead of building JSON by hand like it tells you to, you can copy a Slack API request as cURL and paste the command into the bot DM which is a bit easier.
 
-1. In DevTools → **Network**, click any request to `https://scottylabs.slack.com/api/...` (or similar)
+1. In DevTools (F12 or right-click → Inspect) → **Network**, click any request to `https://scottylabs.slack.com/api/...` (or similar)
 1. Right-click the request → **Copy** → **Copy as cURL** (Chrome) or **Copy as cURL** (Firefox)
 1. Paste the entire cURL command into the DM
 
 The bridge extracts `auth_token` and `cookie_token`.
+
+#### Alternative: Get tokens from Chrome or Firefox DevTools
+
+This is a bit more effortful.
+
+Do this in a normal browser where you are **already logged into ScottyLabs Slack** ([https://scottylabs.slack.com](https://scottylabs.slack.com) or the workspace you use).
+
+**Cookie token (`cookie_token`)**
+
+1. Open DevTools (F12 or right-click → Inspect)
+1. Go to **Application** (Chrome) or **Storage** (Firefox) → **Cookies**
+1. Select `https://app.slack.com` or `https://scottylabs.slack.com`
+1. Find the cookie named `d`
+1. Copy its **Value** (starts with `xoxd-`). This is your `cookie_token`
+
+**Auth token (`auth_token`) — pick one method**
+
+*From localStorage (often easiest):*
+
+1. In DevTools, open the **Console** tab while Slack is open
+1. Run:
+
+```javascript
+JSON.parse(localStorage.localConfig_v2).teams   
+```
+
+1. Expand the workspace entry and copy the `token` field (starts with `xoxc-`). This is your `auth_token`
+
+*From the Network tab:*
+
+1. Open DevTools (F12 or right-click → Inspect) → **Network**
+1. Reload Slack or click a channel so requests appear
+1. Filter by `api` or look for requests to `*.slack.com/api/...`
+1. Click a request and find `token` in the **Request payload** or **Form data** (starts with `xoxc-`)
+
+**Paste into Matrix**
+
+Build the JSON and send it in the DM with `@slack:doggylabs.org`. It is suggested to copy it before sending because the bot would delete your message even if it errors (likely for security purposes) meaning you would lose it otherwise.
+
+```json
+{"auth_token":"xoxc-PASTE_HERE","cookie_token":"xoxd-PASTE_HERE"}
+```
 
 Tech Lead setup to enable the shared relay is documented in [creating-teams.md](creating-teams.md#infrastructure-prerequisites).

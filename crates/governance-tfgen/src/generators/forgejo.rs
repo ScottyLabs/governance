@@ -242,6 +242,54 @@ pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
     tf
 }
 
+pub fn generate_docs_webhooks(data: &GovernanceData) -> TfJsonFile {
+    let mut tf = TfJsonFile::default();
+    let org = &data.org.org;
+    let forgejo = match &org.forgejo {
+        Some(f) => f,
+        None => return tf,
+    };
+
+    for team in &data.teams {
+        for repo in repos_for_forgejo(team) {
+            if !repo.docs || repo.name == "documentation" {
+                continue;
+            }
+
+            let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
+            let local_name = format!("{key}_docs_webhook_data");
+
+            tf.add_local(
+                &local_name,
+                json!({
+                    "type": "forgejo",
+                    "active": true,
+                    "config": {
+                        "url": "${var.docs_webhook_url}",
+                        "content_type": "json",
+                    },
+                    "events": ["push"],
+                }),
+            );
+
+            tf.add_resource(
+                "restapi_object",
+                &format!("{key}_docs_webhook"),
+                json!({
+                    "path": format!("/api/v1/repos/{}/{}/hooks", forgejo.org, repo.name),
+                    "data": format!("${{jsonencode(local.{local_name})}}"),
+                    "id_attribute": "id",
+                    "depends_on": [
+                        format!("forgejo_repository.{key}"),
+                    ],
+                }),
+            );
+        }
+    }
+
+    tf
+}
+
 pub fn generate_team_repos(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
     let org = &data.org.org;
