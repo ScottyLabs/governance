@@ -10,26 +10,26 @@
 ## Steps
 
 1. Edit `data/teams/<team-slug>.toml` and add your **Codeberg username** to `members` (to join the whole team) or to a project's `members` under `[[team.projects]]` if membership is per-project. If your team is not yet created, follow the [team creation docs](creating-teams.md) instead.
-1. [Set up your Matrix account and bridge logins](#set-up-your-matrix-account-and-bridge-logins)
+1. Finish [setting up your Matrix account](#set-up-your-matrix-account-and-bridge-logins), optionally bridge logins.
 1. Open a pull request on Codeberg.
 
 **Permissions:** if you are not a lead on a team, a PR editing it should only involve you adding or removing yourself from `members` / project `members`. Changing any other field is restricted to the Tech Director and Tech Leads already declared in governance.
 
-## Set up your Matrix account and bridge logins
+## Set up your Matrix account (mandatory) and bridge logins (optional)
 
-### Matrix account
+### Matrix account (Mandatory)
 
 1. Go to [Element](https://app.element.io)
 1. Edit your homeserver to be `doggylabs.org`
 1. Register using your **Codeberg username in all lowercase** as your Matrix username (Matrix does not allow uppercase letters).
 
-### Discord bridge
+### Discord bridge (Optional)
 
 1. Open a DM with `@discord:doggylabs.org`
 1. Send `login`
 1. Follow the OAuth link the bot sends you and authorize Discord
 
-### Slack bridge
+### Slack bridge (Optional)
 
 1. Open a DM with `@slack:doggylabs.org`
 1. Send `login token`
