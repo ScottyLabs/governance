@@ -294,7 +294,7 @@ fn validate_matrix(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
 
     let homeserver_url = comm.matrix_homeserver_url.clone();
     let matrix_domain = comm.matrix_domain.clone();
-    let members = data.members_requiring_matrix_account();
+    let members = members_requiring_matrix_account(data);
     if members.is_empty() {
         return;
     }
@@ -319,6 +319,27 @@ fn validate_matrix(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
     });
 
     errors.extend(collected_errors.into_inner().unwrap());
+}
+
+fn members_requiring_matrix_account(data: &GovernanceData) -> Vec<String> {
+    let mut members = HashSet::new();
+    for team in &data.teams {
+        if team.team.group.matrix_account_required {
+            for username in team.team.group.all_members() {
+                members.insert(username.to_string());
+            }
+        }
+        for project in &team.team.projects {
+            if project.group.matrix_account_required {
+                for username in project.group.all_members() {
+                    members.insert(username.to_string());
+                }
+            }
+        }
+    }
+    let mut members: Vec<String> = members.into_iter().collect();
+    members.sort();
+    members
 }
 
 fn check_matrix_account(
