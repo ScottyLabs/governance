@@ -7,7 +7,8 @@
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}"
+          "${data.external.identity_XboxBedrock.result.cmu-saml}",
+          "${data.external.identity_pandaaured.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -25,7 +26,8 @@
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}"
+          "${data.external.identity_XboxBedrock.result.cmu-saml}",
+          "${data.external.identity_pandaaured.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -43,7 +45,8 @@
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}"
+          "${data.external.identity_XboxBedrock.result.cmu-saml}",
+          "${data.external.identity_pandaaured.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -61,7 +64,8 @@
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}"
+          "${data.external.identity_XboxBedrock.result.cmu-saml}",
+          "${data.external.identity_pandaaured.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

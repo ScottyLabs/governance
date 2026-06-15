@@ -21,6 +21,10 @@
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
       },
+      "cbp_pandaaured": {
+        "team_id": "${forgejo_team.cbp.id}",
+        "user": "${data.external.identity_pandaaured.result.codeberg}"
+      },
       "cbp_tentype": {
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"

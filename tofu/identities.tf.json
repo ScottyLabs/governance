@@ -133,6 +133,17 @@
           "codeberg_user": "maybe-yiyi"
         }
       },
+      "identity_pandaaured": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "pandaaured"
+        }
+      },
       "identity_tentype": {
         "program": [
           "governance",
