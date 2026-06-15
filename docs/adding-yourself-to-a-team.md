@@ -33,9 +33,7 @@
 
 1. Open a DM with `@slack:doggylabs.org`
 1. Send `login token`
-1. The bot asks for your Slack session. Paste one of the following into the DM:
-   - A **Copy as cURL** command from browser DevTools (easier), or
-   - A JSON object with `auth_token` and `cookie_token`
+1. The bot asks for your Slack session. Paste one of the following into the DM: [a cURL command](#paste-a-curl-command) or [formatted tokens](#alternative-get-tokens-from-chrome-or-firefox-devtools)
 
 #### Paste a cURL command
 
@@ -69,7 +67,7 @@ Do this in a normal browser where you are **already logged into ScottyLabs Slack
 1. Run:
 
 ```javascript
-JSON.parse(localStorage.localConfig_v2).teams   
+JSON.parse(localStorage.localConfig_v2).teams
 ```
 
 1. Expand the workspace entry and copy the `token` field (starts with `xoxc-`). This is your `auth_token`
