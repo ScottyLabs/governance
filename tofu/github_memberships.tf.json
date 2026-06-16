@@ -51,6 +51,11 @@
         "team_id": "${github_team.cmu-housing.id}",
         "username": "${data.external.identity_gostmeaper.result.github}"
       },
+      "cmu-housing_jessica_lr_song": {
+        "role": "member",
+        "team_id": "${github_team.cmu-housing.id}",
+        "username": "${data.external.identity_jessica_lr_song.result.github}"
+      },
       "cmu-housing_tentype": {
         "role": "maintainer",
         "team_id": "${github_team.cmu-housing.id}",

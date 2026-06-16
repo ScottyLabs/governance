@@ -198,6 +198,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_gostmeaper.result.discord_id}"
       },
+      "jessica_lr_song": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-housing.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_jessica_lr_song.result.discord_id}"
+      },
       "kath45823": {
         "role": [
           {

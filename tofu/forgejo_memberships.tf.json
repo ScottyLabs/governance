@@ -53,6 +53,10 @@
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_gostmeaper.result.codeberg}"
       },
+      "cmu-housing_jessica_lr_song": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_jessica_lr_song.result.codeberg}"
+      },
       "cmu-housing_leads_EcstaticPilot": {
         "team_id": "${forgejo_team.cmu-housing_leads.id}",
         "user": "${data.external.identity_EcstaticPilot.result.codeberg}"

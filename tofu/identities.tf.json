@@ -100,6 +100,17 @@
           "codeberg_user": "gostmeaper"
         }
       },
+      "identity_jessica_lr_song": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "jessica-lr-song"
+        }
+      },
       "identity_kath45823": {
         "program": [
           "governance",
