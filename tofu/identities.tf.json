@@ -1,6 +1,17 @@
 {
   "data": {
     "external": {
+      "identity_Calpha": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "Calpha"
+        }
+      },
       "identity_EcstaticPilot": {
         "program": [
           "governance",

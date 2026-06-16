@@ -37,6 +37,10 @@
         "team_id": "${forgejo_team.cmu-courses_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
+      "cmu-housing_Calpha": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_Calpha.result.codeberg}"
+      },
       "cmu-housing_EcstaticPilot": {
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_EcstaticPilot.result.codeberg}"

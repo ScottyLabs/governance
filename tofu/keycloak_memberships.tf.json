@@ -99,7 +99,8 @@
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_amzoeee.result.cmu-saml}",
           "${data.external.identity_ManrajS.result.cmu-saml}",
-          "${data.external.identity_jessica_lr_song.result.cmu-saml}"
+          "${data.external.identity_jessica_lr_song.result.cmu-saml}",
+          "${data.external.identity_Calpha.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

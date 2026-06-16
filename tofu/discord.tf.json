@@ -75,6 +75,18 @@
       }
     },
     "discord_member_roles": {
+      "Calpha": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-housing.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_Calpha.result.discord_id}"
+      },
       "EcstaticPilot": {
         "role": [
           {
