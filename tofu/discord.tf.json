@@ -249,6 +249,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_pandaaured.result.discord_id}"
       },
+      "riztofu": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.tartan-vote.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_riztofu.result.discord_id}"
+      },
       "tentype": {
         "role": [
           {

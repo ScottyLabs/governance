@@ -165,6 +165,10 @@
         "team_id": "${forgejo_team.tartan-vote.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
       },
+      "tartan-vote_riztofu": {
+        "team_id": "${forgejo_team.tartan-vote.id}",
+        "user": "${data.external.identity_riztofu.result.codeberg}"
+      },
       "tartan-vote_tentype": {
         "team_id": "${forgejo_team.tartan-vote.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"

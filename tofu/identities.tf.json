@@ -144,6 +144,17 @@
           "codeberg_user": "pandaaured"
         }
       },
+      "identity_riztofu": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "riztofu"
+        }
+      },
       "identity_tentype": {
         "program": [
           "governance",
