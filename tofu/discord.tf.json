@@ -285,6 +285,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_riztofu.result.discord_id}"
       },
+      "sayevikk": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.slai.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_sayevikk.result.discord_id}"
+      },
       "tentype": {
         "role": [
           {

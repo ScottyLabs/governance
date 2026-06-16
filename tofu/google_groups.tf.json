@@ -276,6 +276,17 @@
           }
         ]
       },
+      "tech_sayevikk": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_sayevikk.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
       "tech_tentype": {
         "group": "${data.google_cloud_identity_group_lookup.tech.name}",
         "preferred_member_key": {

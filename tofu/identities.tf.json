@@ -177,6 +177,17 @@
           "codeberg_user": "riztofu"
         }
       },
+      "identity_sayevikk": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "sayevikk"
+        }
+      },
       "identity_tentype": {
         "program": [
           "governance",
