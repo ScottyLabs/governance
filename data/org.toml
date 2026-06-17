@@ -143,3 +143,15 @@ name = "xkcd"
 slug = "xkcd"
 discord = "1437677701816389725"
 slack = "C0B7297T29H"
+
+[[org.communication.channels]]
+name = "Gym"
+slug = "gym"
+discord = "1516580572376600668"
+slack = "C08LKQFPWNL"
+
+[[org.communication.channels]]
+name = "Games"
+slug = "games"
+discord = "1516580141634031736"
+slack = "C0BBX2V5AE4"

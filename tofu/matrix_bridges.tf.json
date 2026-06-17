@@ -148,6 +148,24 @@
           "channel": "C04261ENHSR"
         }
       },
+      "slack_bridge_login_org_games": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0BBX2V5AE4"
+        }
+      },
       "slack_bridge_login_org_general": {
         "provisioner": [
           {
@@ -164,6 +182,24 @@
         ],
         "triggers": {
           "channel": "C019R0WM1T4"
+        }
+      },
+      "slack_bridge_login_org_gym": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08LKQFPWNL"
         }
       },
       "slack_bridge_login_org_hardware": {
@@ -540,6 +576,17 @@
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },
+      "org_games": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_games"
+        ],
+        "discord_channel_id": "1516580141634031736",
+        "project_name": "Games",
+        "project_slug": "games",
+        "slack_channel_id": "C0BBX2V5AE4",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
       "org_general": {
         "depends_on": [
           "null_resource.slack_bridge_login_org_general"
@@ -548,6 +595,17 @@
         "project_name": "General",
         "project_slug": "general",
         "slack_channel_id": "C019R0WM1T4",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_gym": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_gym"
+        ],
+        "discord_channel_id": "1516580572376600668",
+        "project_name": "Gym",
+        "project_slug": "gym",
+        "slack_channel_id": "C08LKQFPWNL",
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },
