@@ -220,6 +220,17 @@
         "query": {
           "codeberg_user": "vloh"
         }
+      },
+      "identity_zeyuyaoy": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "zeyuyaoy"
+        }
       }
     }
   }
