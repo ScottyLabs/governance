@@ -590,6 +590,25 @@
           "user": "${data.external.identity_sayevikk.result.slack_id}"
         }
       },
+      "slack_slai_ch0_zeyuyaoy": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08SRUGUQ05",
+          "user": "${data.external.identity_zeyuyaoy.result.slack_id}"
+        }
+      },
       "slack_uia_ch0_anish": {
         "provisioner": [
           {
