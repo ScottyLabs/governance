@@ -244,7 +244,7 @@ fn add_admin_client(tf: &mut TfJsonFile, realm_id: &str, key: &str, client_id: &
         }),
     );
 
-    for role in ["view-users", "manage-users"] {
+    for role in ["view-users", "manage-users", "view-identity-providers"] {
         tf.add_resource(
             "keycloak_openid_client_service_account_role",
             &format!("{key}_{}", role.replace('-', "_")),

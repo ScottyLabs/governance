@@ -160,6 +160,12 @@
         "role": "manage-users",
         "service_account_user_id": "${keycloak_openid_client.discord_verify_admin.service_account_user_id}"
       },
+      "discord_verify_admin_view_identity_providers": {
+        "client_id": "${data.keycloak_openid_client.realm_management.id}",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "role": "view-identity-providers",
+        "service_account_user_id": "${keycloak_openid_client.discord_verify_admin.service_account_user_id}"
+      },
       "discord_verify_admin_view_users": {
         "client_id": "${data.keycloak_openid_client.realm_management.id}",
         "realm_id": "${data.keycloak_realm.this.id}",
