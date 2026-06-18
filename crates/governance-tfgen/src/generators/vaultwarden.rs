@@ -5,9 +5,8 @@ use crate::tf_json::TfJsonFile;
 
 pub fn generate(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
-    let vw = match &data.org.org.vaultwarden {
-        Some(v) => v,
-        None => return tf,
+    let Some(vw) = &data.org.org.vaultwarden else {
+        return tf;
     };
 
     let td = &data.org.org.tech_director;
@@ -17,7 +16,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         .teams
         .iter()
         .filter(|t| t.team.group.slug == "devops")
-        .flat_map(|t| t.team.group.leads.iter().map(|s| s.as_str()))
+        .flat_map(|t| t.team.group.leads.iter().map(String::as_str))
         .collect();
 
     // Look up Vaultwarden org member IDs by andrew email

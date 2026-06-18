@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 use std::process::Command;
 
-use governance_schema::team::TeamFile;
+use governance_schema::team::{GroupFields, TeamFile};
 
 use crate::loader::GovernanceData;
 
@@ -62,20 +62,16 @@ fn check_team_file_change(
     let new_team = data.teams.iter().find(|t| t.team.group.slug == slug);
     let old_content = git_show(base_ref, &format!("data/teams/{slug}.toml"));
 
-    let old_team: Option<TeamFile> = old_content.as_deref().and_then(|c| toml::from_str(c).ok());
-
     // Team creation
-    if old_team.is_none() {
+    let Some(old_team) = old_content
+        .as_deref()
+        .and_then(|c| toml::from_str::<TeamFile>(c).ok())
+    else {
         return;
-    }
-
-    let old_team = old_team.unwrap();
-    let new_team = match new_team {
-        Some(t) => t,
-        None => {
-            issues.push(format!("{author} cannot delete team {slug}"));
-            return;
-        }
+    };
+    let Some(new_team) = new_team else {
+        issues.push(format!("{author} cannot delete team {slug}"));
+        return;
     };
 
     let is_lead_of_team = old_team.team.group.leads.iter().any(|l| l == author);
@@ -164,27 +160,13 @@ fn diff_team(old: &TeamFile, new: &TeamFile) -> Vec<TeamDiff> {
     if old.team.group.description != new.team.group.description {
         diffs.push(TeamDiff::DescriptionChanged);
     }
-    if old.team.group.leads != new.team.group.leads {
-        diffs.push(TeamDiff::LeadsChanged);
-    }
-
-    diff_members(
-        &old.team.group.members,
-        &new.team.group.members,
+    diff_group(
+        &old.team.group,
+        &new.team.group,
         TeamDiff::MemberAdded,
         TeamDiff::MemberRemoved,
         &mut diffs,
     );
-
-    if old.team.group.repos != new.team.group.repos {
-        diffs.push(TeamDiff::ReposChanged);
-    }
-    if old.team.group.channels != new.team.group.channels {
-        diffs.push(TeamDiff::ChannelsChanged);
-    }
-    if old.team.group.figma_projects != new.team.group.figma_projects {
-        diffs.push(TeamDiff::FigmaChanged);
-    }
 
     let old_project_slugs: HashSet<&str> = old
         .team
@@ -210,23 +192,9 @@ fn diff_team(old: &TeamFile, new: &TeamFile) -> Vec<TeamDiff> {
                 .find(|p| p.group.slug == old_project.group.slug);
             if let Some(new_project) = new_project {
                 let proj_slug = &old_project.group.slug;
-
-                if old_project.group.leads != new_project.group.leads {
-                    diffs.push(TeamDiff::LeadsChanged);
-                }
-                if old_project.group.repos != new_project.group.repos {
-                    diffs.push(TeamDiff::ReposChanged);
-                }
-                if old_project.group.channels != new_project.group.channels {
-                    diffs.push(TeamDiff::ChannelsChanged);
-                }
-                if old_project.group.figma_projects != new_project.group.figma_projects {
-                    diffs.push(TeamDiff::FigmaChanged);
-                }
-
-                diff_members(
-                    &old_project.group.members,
-                    &new_project.group.members,
+                diff_group(
+                    &old_project.group,
+                    &new_project.group,
                     |m| TeamDiff::ProjectMemberAdded(proj_slug.clone(), m),
                     |m| TeamDiff::ProjectMemberRemoved(proj_slug.clone(), m),
                     &mut diffs,
@@ -238,6 +206,28 @@ fn diff_team(old: &TeamFile, new: &TeamFile) -> Vec<TeamDiff> {
     diffs
 }
 
+fn diff_group(
+    old: &GroupFields,
+    new: &GroupFields,
+    on_add: impl Fn(String) -> TeamDiff,
+    on_remove: impl Fn(String) -> TeamDiff,
+    diffs: &mut Vec<TeamDiff>,
+) {
+    if old.leads != new.leads {
+        diffs.push(TeamDiff::LeadsChanged);
+    }
+    diff_members(&old.members, &new.members, on_add, on_remove, diffs);
+    if old.repos != new.repos {
+        diffs.push(TeamDiff::ReposChanged);
+    }
+    if old.channels != new.channels {
+        diffs.push(TeamDiff::ChannelsChanged);
+    }
+    if old.figma_projects != new.figma_projects {
+        diffs.push(TeamDiff::FigmaChanged);
+    }
+}
+
 fn diff_members(
     old: &[String],
     new: &[String],
@@ -245,8 +235,8 @@ fn diff_members(
     on_remove: impl Fn(String) -> TeamDiff,
     diffs: &mut Vec<TeamDiff>,
 ) {
-    let old_set: HashSet<&str> = old.iter().map(|s| s.as_str()).collect();
-    let new_set: HashSet<&str> = new.iter().map(|s| s.as_str()).collect();
+    let old_set: HashSet<&str> = old.iter().map(String::as_str).collect();
+    let new_set: HashSet<&str> = new.iter().map(String::as_str).collect();
 
     for added in new_set.difference(&old_set) {
         diffs.push(on_add(added.to_string()));

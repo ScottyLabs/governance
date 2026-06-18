@@ -6,7 +6,7 @@ leads = ["anish"]
 [[team.repos]]
 name = "components"
 description = "ScottyLabs design system"
-kennel = true
+features = ["kennel"]
 
 [[team.channels]]
 discord = "1510885385461567589"

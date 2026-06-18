@@ -30,7 +30,7 @@ impl GroupFields {
         self.leads
             .iter()
             .chain(self.members.iter())
-            .map(|s| s.as_str())
+            .map(String::as_str)
     }
 }
 
@@ -40,6 +40,20 @@ pub struct Team {
     pub group: GroupFields,
     #[serde(default)]
     pub projects: Vec<Project>,
+}
+
+impl Team {
+    pub fn groups(&self) -> impl Iterator<Item = &GroupFields> {
+        std::iter::once(&self.group).chain(self.projects.iter().map(|p| &p.group))
+    }
+
+    pub fn repos(&self) -> impl Iterator<Item = &Repo> {
+        self.groups().flat_map(|g| g.repos.iter())
+    }
+
+    pub fn channels(&self) -> impl Iterator<Item = &Channel> {
+        self.groups().flat_map(|g| g.channels.iter())
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
@@ -56,6 +70,15 @@ pub enum DocsType {
     Openapi,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, Serialize, JsonSchema)]
+#[serde(rename_all = "snake_case")]
+pub enum Feature {
+    Kennel,
+    Sentry,
+    OidcClient,
+    AdminClient,
+}
+
 fn default_docs_enabled() -> bool {
     true
 }
@@ -68,15 +91,18 @@ pub struct Repo {
     #[serde(default)]
     pub topics: Vec<String>,
     #[serde(default)]
-    pub kennel: bool,
-    #[serde(default)]
-    pub sentry: bool,
+    pub features: Vec<Feature>,
     #[serde(default = "default_docs_enabled")]
     pub docs: bool,
     pub docs_type: Option<DocsType>,
-    pub docs_dir: Option<String>,
     pub openapi_spec: Option<String>,
     pub export_command: Option<String>,
+}
+
+impl Repo {
+    pub fn has(&self, feature: Feature) -> bool {
+        self.features.contains(&feature)
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]

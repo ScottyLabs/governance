@@ -2,7 +2,7 @@ use std::collections::HashSet;
 use std::sync::Mutex;
 use std::thread;
 
-use governance_schema::team::{Channel, GroupFields, TeamFile};
+use governance_schema::team::{Channel, GroupFields};
 
 use crate::error::ValidationError;
 use crate::loader::GovernanceData;
@@ -39,7 +39,7 @@ fn validate_team_slugs(data: &GovernanceData, errors: &mut Vec<ValidationError>)
 fn validate_repo_names(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
     let mut seen = HashSet::new();
     for team in &data.teams {
-        for repo in all_repos(team) {
+        for repo in team.team.repos() {
             if !seen.insert(&repo.name) {
                 errors.push(ValidationError::DuplicateRepoName(repo.name.clone()));
             }
@@ -57,7 +57,7 @@ fn validate_groups(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
 }
 
 fn validate_leads_not_members(group: &GroupFields, errors: &mut Vec<ValidationError>) {
-    let leads: HashSet<&str> = group.leads.iter().map(|s| s.as_str()).collect();
+    let leads: HashSet<&str> = group.leads.iter().map(String::as_str).collect();
     for member in &group.members {
         if leads.contains(member.as_str()) {
             errors.push(ValidationError::LeadAlsoMember {
@@ -69,7 +69,7 @@ fn validate_leads_not_members(group: &GroupFields, errors: &mut Vec<ValidationEr
 }
 
 fn validate_channels(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
-    let channels = all_channels(data);
+    let channels: Vec<&Channel> = data.teams.iter().flat_map(|t| t.team.channels()).collect();
     if channels.is_empty() {
         return;
     }
@@ -158,39 +158,16 @@ fn check_slack_channel(channel_id: &str, token: &str) -> Result<(), ValidationEr
     }
 }
 
-fn all_repos(team: &TeamFile) -> Vec<&governance_schema::team::Repo> {
-    let mut repos: Vec<_> = team.team.group.repos.iter().collect();
-    for project in &team.team.projects {
-        repos.extend(project.group.repos.iter());
-    }
-    repos
-}
-
-fn all_channels(data: &GovernanceData) -> Vec<&Channel> {
-    let mut channels = Vec::new();
-    for team in &data.teams {
-        channels.extend(team.team.group.channels.iter());
-        for project in &team.team.projects {
-            channels.extend(project.group.channels.iter());
-        }
-    }
-    channels
-}
-
 fn validate_identities(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
-    let keycloak_conf = match &data.org.org.keycloak {
-        Some(k) => k,
-        None => return,
+    let Some(keycloak_conf) = &data.org.org.keycloak else {
+        return;
     };
 
     let client_id = std::env::var("KEYCLOAK_CLIENT_ID");
     let client_secret = std::env::var("KEYCLOAK_CLIENT_SECRET");
-    let (client_id, client_secret) = match (client_id, client_secret) {
-        (Ok(id), Ok(secret)) => (id, secret),
-        _ => {
-            errors.push(ValidationError::MissingKeycloakCredentials);
-            return;
-        }
+    let (Ok(client_id), Ok(client_secret)) = (client_id, client_secret) else {
+        errors.push(ValidationError::MissingKeycloakCredentials);
+        return;
     };
 
     let kc = match crate::keycloak::KeycloakClient::connect(
@@ -338,7 +315,7 @@ fn check_matrix_account(
     for localpart in localparts {
         match lookup_matrix_user(localpart, homeserver_url, matrix_domain, admin_token) {
             Ok(()) => return Ok(()),
-            Err(LookupMatrixUserError::NotFound) => continue,
+            Err(LookupMatrixUserError::NotFound) => {}
             Err(LookupMatrixUserError::Api(e)) => last_api_error = Some(e),
         }
     }

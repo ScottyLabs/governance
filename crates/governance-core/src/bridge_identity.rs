@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use std::path::Path;
 
 use serde::Serialize;
@@ -58,13 +57,15 @@ pub fn generate_bridge_identity_map(data: &GovernanceData) -> Result<BridgeIdent
         let result = kc.lookup_identity_links(username, &forgejo_url)?;
         let discord_id = result.get("discord_id").or_else(|| result.get("discord"));
         let slack_id = result.get("slack_id").or_else(|| result.get("slack"));
-        if let (Some(discord_id), Some(slack_id)) = (discord_id, slack_id) {
-            if !discord_id.is_empty() && !slack_id.is_empty() {
-                links.push(BridgeIdentityLink {
-                    discord_id: discord_id.clone(),
-                    slack_user_id: slack_id.clone(),
-                });
-            }
+
+        if let (Some(discord_id), Some(slack_id)) = (discord_id, slack_id)
+            && !discord_id.is_empty()
+            && !slack_id.is_empty()
+        {
+            links.push(BridgeIdentityLink {
+                discord_id: discord_id.clone(),
+                slack_user_id: slack_id.clone(),
+            });
         }
     }
 
@@ -84,18 +85,4 @@ pub fn write_bridge_identity_map(data: &GovernanceData, path: &Path) -> Result<(
     }
     std::fs::write(path, json).map_err(|e| e.to_string())?;
     Ok(())
-}
-
-/// Lookup helpers for tests / validation.
-pub fn link_maps(links: &[BridgeIdentityLink]) -> (HashMap<String, String>, HashMap<String, String>) {
-    let mut discord_to_slack = HashMap::new();
-    let mut slack_to_discord = HashMap::new();
-    for link in links {
-        discord_to_slack.insert(link.discord_id.clone(), link.slack_user_id.clone());
-        slack_to_discord.insert(
-            link.slack_user_id.to_uppercase(),
-            link.discord_id.clone(),
-        );
-    }
-    (discord_to_slack, slack_to_discord)
 }

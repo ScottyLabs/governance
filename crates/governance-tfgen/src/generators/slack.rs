@@ -6,23 +6,14 @@ use crate::tf_json::TfJsonFile;
 
 pub fn generate(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
-    if data
-        .org
-        .org
-        .communication
-        .as_ref()
-        .is_none_or(|c| c.slack_workspace.is_empty())
-    {
+    let Some(comm) = &data.org.org.communication else {
+        return tf;
+    };
+    if comm.slack_workspace.is_empty() {
         return tf;
     }
 
-    let hub_channel = &data
-        .org
-        .org
-        .communication
-        .as_ref()
-        .unwrap()
-        .slack_hub_channel_id;
+    let hub_channel = &comm.slack_hub_channel_id;
 
     for username in data.all_members() {
         let key = username.replace('-', "_");
@@ -92,18 +83,8 @@ fn emit_channel_invite(tf: &mut TfJsonFile, resource_name: &str, channel: &str, 
 }
 
 fn slack_channel_ids(team: &TeamFile) -> Vec<&str> {
-    let mut ids = Vec::new();
-    for channel in &team.team.group.channels {
-        if let Some(id) = &channel.slack {
-            ids.push(id.as_str());
-        }
-    }
-    for project in &team.team.projects {
-        for channel in &project.group.channels {
-            if let Some(id) = &channel.slack {
-                ids.push(id.as_str());
-            }
-        }
-    }
-    ids
+    team.team
+        .channels()
+        .filter_map(|c| c.slack.as_deref())
+        .collect()
 }

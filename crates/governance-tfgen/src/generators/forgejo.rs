@@ -1,5 +1,5 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::team::{GroupFields, Repo, TeamFile};
+use governance_schema::team::{Feature, GroupFields, TeamFile};
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -7,13 +7,12 @@ use crate::tf_json::TfJsonFile;
 pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
     let org = &data.org.org;
-    let forgejo = match &org.forgejo {
-        Some(f) => f,
-        None => return tf,
+    let Some(forgejo) = &org.forgejo else {
+        return tf;
     };
 
     for team in &data.teams {
-        for repo in repos_for_forgejo(team) {
+        for repo in team.team.repos() {
             let resource_name = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
             let is_private = repo
                 .visibility
@@ -150,17 +149,16 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
 pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
     let org = &data.org.org;
-    let forgejo = match &org.forgejo {
-        Some(f) => f,
-        None => return tf,
-    };
-    if org.github.is_none() {
+    let Some(forgejo) = &org.forgejo else {
         return tf;
-    }
-    let github_org = org.github.as_ref().unwrap().org.as_str();
+    };
+    let Some(github) = &org.github else {
+        return tf;
+    };
+    let github_org = github.org.as_str();
 
     for team in &data.teams {
-        for repo in repos_for_forgejo(team) {
+        for repo in team.team.repos() {
             let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
             let github_ssh_url = format!("git@github.com:{github_org}/{}.git", repo.name);
 
@@ -196,14 +194,13 @@ pub fn generate_push_mirrors(data: &GovernanceData) -> TfJsonFile {
 pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
     let org = &data.org.org;
-    let forgejo = match &org.forgejo {
-        Some(f) => f,
-        None => return tf,
+    let Some(forgejo) = &org.forgejo else {
+        return tf;
     };
 
     for team in &data.teams {
-        for repo in repos_for_forgejo(team) {
-            if !repo.kennel {
+        for repo in team.team.repos() {
+            if !repo.has(Feature::Kennel) {
                 continue;
             }
 
@@ -245,13 +242,12 @@ pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
 pub fn generate_docs_webhooks(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
     let org = &data.org.org;
-    let forgejo = match &org.forgejo {
-        Some(f) => f,
-        None => return tf,
+    let Some(forgejo) = &org.forgejo else {
+        return tf;
     };
 
     for team in &data.teams {
-        for repo in repos_for_forgejo(team) {
+        for repo in team.team.repos() {
             if !repo.docs || repo.name == "documentation" {
                 continue;
             }
@@ -293,16 +289,15 @@ pub fn generate_docs_webhooks(data: &GovernanceData) -> TfJsonFile {
 pub fn generate_team_repos(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
     let org = &data.org.org;
-    let forgejo = match &org.forgejo {
-        Some(f) => f,
-        None => return tf,
+    let Some(forgejo) = &org.forgejo else {
+        return tf;
     };
 
     for team in &data.teams {
         let slug = &team.team.group.slug;
         let team_ref = format!("${{forgejo_team.{slug}.id}}");
 
-        for repo in repos_for_forgejo(team) {
+        for repo in team.team.repos() {
             let key = format!("{}_{}", slug, repo.name.replace('-', "_"));
 
             tf.add_resource(
@@ -342,19 +337,6 @@ pub fn generate_team_repos(data: &GovernanceData) -> TfJsonFile {
     }
 
     tf
-}
-
-fn repos_for_forgejo(team: &TeamFile) -> Vec<&Repo> {
-    let mut repos = Vec::new();
-    collect_repos(&team.team.group, &mut repos);
-    for project in &team.team.projects {
-        collect_repos(&project.group, &mut repos);
-    }
-    repos
-}
-
-fn collect_repos<'a>(group: &'a GroupFields, repos: &mut Vec<&'a Repo>) {
-    repos.extend(group.repos.iter());
 }
 
 struct LeadScope<'a> {

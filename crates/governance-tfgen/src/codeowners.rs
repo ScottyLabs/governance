@@ -1,74 +1,82 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::team::{GroupFields, Repo, TeamFile};
+use governance_schema::team::{Feature, GroupFields};
 
 pub fn generate_codeowners(data: &GovernanceData) -> String {
     let td = &data.org.org.tech_director;
     let td_handle = format!("@{td}");
     let global_owners = team_owners(data, "devops", &td_handle);
 
-    let mut lines = vec![
+    let header = [
         "# AUTO-GENERATED".to_string(),
         format!("* {}", global_owners.join(" ")),
         format!("/data/org.toml @{td}"),
     ];
 
-    for team in &data.teams {
-        let mut owners: Vec<String> = team
-            .team
-            .group
-            .leads
-            .iter()
-            .map(|l| format!("@{l}"))
-            .collect();
-        if !owners.iter().any(|o| o == &format!("@{td}")) {
-            owners.push(format!("@{td}"));
-        }
-        lines.push(format!(
+    let teams = data.teams.iter().map(|team| {
+        let owners = team_lead_handles(&team.team.group, &td_handle);
+        format!(
             "/data/teams/{}.toml {}",
             team.team.group.slug,
             owners.join(" ")
-        ));
-    }
+        )
+    });
 
-    lines.push(format!("/tofu/ @{td}"));
-    lines.push(format!("/crates/ @{td}"));
-    lines.push(format!("/.forgejo/ @{td}"));
+    let trailer = [
+        format!("/tofu/ @{td}"),
+        format!("/crates/ @{td}"),
+        format!("/.forgejo/ @{td}"),
+        String::new(),
+    ];
 
-    lines.push(String::new());
-    lines.join("\n")
+    header
+        .into_iter()
+        .chain(teams)
+        .chain(trailer)
+        .collect::<Vec<_>>()
+        .join("\n")
 }
 
 pub fn generate_observability_codeowners(data: &GovernanceData) -> String {
     let td = &data.org.org.tech_director;
     let td_handle = format!("@{td}");
+    let devops = team_owners(data, "devops", &td_handle).join(" ");
 
-    let devops_owners = team_owners(data, "devops", &td_handle);
-
-    let mut lines = vec![
+    let header = [
         "# AUTO-GENERATED".to_string(),
-        format!("* {}", devops_owners.join(" ")),
+        format!("* {devops}"),
+        format!("/dashboards/infra/ {devops}"),
+        format!("/alerts/infra/ {devops}"),
     ];
-    lines.push(format!("/dashboards/infra/ {}", devops_owners.join(" ")));
-    lines.push(format!("/alerts/infra/ {}", devops_owners.join(" ")));
 
-    for team in &data.teams {
-        let owners = team_lead_handles(&team.team.group, &td_handle);
-        for repo in sentry_repos(team) {
-            lines.push(format!("/dashboards/{}/ {}", repo.name, owners.join(" ")));
-            lines.push(format!("/alerts/{}/ {}", repo.name, owners.join(" ")));
-        }
-    }
+    let teams = data.teams.iter().flat_map(|team| {
+        let owners = team_lead_handles(&team.team.group, &td_handle).join(" ");
+        team.team
+            .repos()
+            .filter(|r| r.has(Feature::Sentry))
+            .flat_map(move |repo| {
+                [
+                    format!("/dashboards/{}/ {owners}", repo.name),
+                    format!("/alerts/{}/ {owners}", repo.name),
+                ]
+            })
+    });
 
-    lines.push(String::new());
-    lines.join("\n")
+    header
+        .into_iter()
+        .chain(teams)
+        .chain([String::new()])
+        .collect::<Vec<_>>()
+        .join("\n")
 }
 
 fn team_owners(data: &GovernanceData, slug: &str, td_handle: &str) -> Vec<String> {
     data.teams
         .iter()
         .find(|t| t.team.group.slug == slug)
-        .map(|t| team_lead_handles(&t.team.group, td_handle))
-        .unwrap_or_else(|| vec![td_handle.to_string()])
+        .map_or_else(
+            || vec![td_handle.to_string()],
+            |t| team_lead_handles(&t.team.group, td_handle),
+        )
 }
 
 fn team_lead_handles(group: &GroupFields, td_handle: &str) -> Vec<String> {
@@ -77,21 +85,4 @@ fn team_lead_handles(group: &GroupFields, td_handle: &str) -> Vec<String> {
         owners.push(td_handle.to_string());
     }
     owners
-}
-
-fn sentry_repos(team: &TeamFile) -> Vec<&Repo> {
-    let mut repos = Vec::new();
-    collect_sentry(&team.team.group, &mut repos);
-    for project in &team.team.projects {
-        collect_sentry(&project.group, &mut repos);
-    }
-    repos
-}
-
-fn collect_sentry<'a>(group: &'a GroupFields, repos: &mut Vec<&'a Repo>) {
-    for repo in &group.repos {
-        if repo.sentry {
-            repos.push(repo);
-        }
-    }
 }

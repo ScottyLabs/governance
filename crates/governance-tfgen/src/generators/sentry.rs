@@ -1,5 +1,5 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::team::{GroupFields, Repo, TeamFile};
+use governance_schema::team::{Feature, Repo};
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -8,7 +8,11 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
 
     for team in &data.teams {
-        let repos = sentry_repos(team);
+        let repos: Vec<&Repo> = team
+            .team
+            .repos()
+            .filter(|r| r.has(Feature::Sentry))
+            .collect();
         if repos.is_empty() {
             continue;
         }
@@ -65,21 +69,4 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
     }
 
     tf
-}
-
-fn sentry_repos(team: &TeamFile) -> Vec<&Repo> {
-    let mut repos = Vec::new();
-    collect_sentry(&team.team.group, &mut repos);
-    for project in &team.team.projects {
-        collect_sentry(&project.group, &mut repos);
-    }
-    repos
-}
-
-fn collect_sentry<'a>(group: &'a GroupFields, repos: &mut Vec<&'a Repo>) {
-    for repo in &group.repos {
-        if repo.sentry {
-            repos.push(repo);
-        }
-    }
 }

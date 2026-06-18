@@ -1,7 +1,7 @@
 use std::path::{Path, PathBuf};
 
 use governance_schema::org::OrgFile;
-use governance_schema::team::TeamFile;
+use governance_schema::team::{GroupFields, TeamFile};
 
 use crate::error::GovernanceError;
 
@@ -21,23 +21,10 @@ impl GovernanceData {
         let mut members: Vec<&str> = self
             .teams
             .iter()
-            .flat_map(|t| {
-                let team = &t.team.group;
-                let project_people = t.team.projects.iter().flat_map(|p| {
-                    p.group
-                        .leads
-                        .iter()
-                        .chain(p.group.members.iter())
-                        .map(|s| s.as_str())
-                });
-                team.leads
-                    .iter()
-                    .chain(team.members.iter())
-                    .map(|s| s.as_str())
-                    .chain(project_people)
-            })
+            .flat_map(|t| t.team.groups())
+            .flat_map(GroupFields::all_members)
             .collect();
-        members.sort();
+        members.sort_unstable();
         members.dedup();
         members
     }
@@ -46,21 +33,10 @@ impl GovernanceData {
         let mut leads: Vec<&str> = self
             .teams
             .iter()
-            .flat_map(|t| {
-                let project_leads = t
-                    .team
-                    .projects
-                    .iter()
-                    .flat_map(|p| p.group.leads.iter().map(|s| s.as_str()));
-                t.team
-                    .group
-                    .leads
-                    .iter()
-                    .map(|s| s.as_str())
-                    .chain(project_leads)
-            })
+            .flat_map(|t| t.team.groups())
+            .flat_map(|g| g.leads.iter().map(String::as_str))
             .collect();
-        leads.sort();
+        leads.sort_unstable();
         leads.dedup();
         leads
     }
@@ -84,29 +60,30 @@ fn load_teams(data_dir: &Path) -> Result<Vec<TeamFile>, GovernanceError> {
         return Err(GovernanceError::NoTeamFiles(teams_dir));
     }
 
-    let mut teams = Vec::new();
     let mut entries: Vec<PathBuf> = std::fs::read_dir(&teams_dir)
         .map_err(|e| GovernanceError::ReadFile {
             path: teams_dir.clone(),
             source: e,
         })?
-        .filter_map(|e| e.ok())
+        .filter_map(Result::ok)
         .map(|e| e.path())
         .filter(|p| p.extension().is_some_and(|ext| ext == "toml"))
         .collect();
     entries.sort();
 
-    for path in entries {
-        let content = std::fs::read_to_string(&path).map_err(|e| GovernanceError::ReadFile {
-            path: path.clone(),
-            source: e,
-        })?;
-        let team: TeamFile = toml::from_str(&content).map_err(|e| GovernanceError::ParseToml {
-            path: path.clone(),
-            source: e,
-        })?;
-        teams.push(team);
-    }
+    let teams = entries
+        .iter()
+        .map(|path| -> Result<TeamFile, GovernanceError> {
+            let content = std::fs::read_to_string(path).map_err(|e| GovernanceError::ReadFile {
+                path: path.clone(),
+                source: e,
+            })?;
+            toml::from_str(&content).map_err(|e| GovernanceError::ParseToml {
+                path: path.clone(),
+                source: e,
+            })
+        })
+        .collect::<Result<Vec<_>, _>>()?;
 
     if teams.is_empty() {
         return Err(GovernanceError::NoTeamFiles(teams_dir));

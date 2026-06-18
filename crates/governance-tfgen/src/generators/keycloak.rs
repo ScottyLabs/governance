@@ -1,4 +1,5 @@
 use governance_core::loader::GovernanceData;
+use governance_schema::team::Feature;
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -134,4 +135,169 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
     }
 
     tf
+}
+
+pub fn generate_clients(data: &GovernanceData) -> TfJsonFile {
+    let mut tf = TfJsonFile::default();
+    let Some(keycloak) = &data.org.org.keycloak else {
+        return tf;
+    };
+    let realm_id = "${data.keycloak_realm.this.id}";
+    let mut needs_realm_management = false;
+
+    for team in &data.teams {
+        for repo in team
+            .team
+            .repos()
+            .filter(|r| r.has(Feature::OidcClient) || r.has(Feature::AdminClient))
+        {
+            let name = repo.name.as_str();
+            let key = name.replace('-', "_");
+
+            if repo.has(Feature::OidcClient) {
+                let staging_key = format!("{key}_staging");
+                add_client(&mut tf, realm_id, &key, name, &keycloak.redirect_uri);
+                add_client(
+                    &mut tf,
+                    realm_id,
+                    &staging_key,
+                    &format!("{name}-staging"),
+                    &keycloak.redirect_uri,
+                );
+
+                add_oidc_secrets(&mut tf, name, &key, "prod", &key);
+                add_oidc_secrets(&mut tf, name, &key, "staging", &staging_key);
+                add_oidc_secrets(&mut tf, name, &key, "preview", &staging_key);
+            }
+
+            if repo.has(Feature::AdminClient) {
+                needs_realm_management = true;
+                let admin_key = format!("{key}_admin");
+                add_admin_client(&mut tf, realm_id, &admin_key, &format!("{name}-admin"));
+                for profile in ["prod", "staging", "preview"] {
+                    add_admin_secrets(&mut tf, name, &key, profile, &admin_key);
+                }
+            }
+        }
+    }
+
+    if needs_realm_management {
+        tf.add_data(
+            "keycloak_openid_client",
+            "realm_management",
+            json!({
+                "realm_id": realm_id,
+                "client_id": "realm-management",
+            }),
+        );
+    }
+
+    tf
+}
+
+fn add_client(tf: &mut TfJsonFile, realm_id: &str, key: &str, client_id: &str, redirect_uri: &str) {
+    tf.add_resource(
+        "keycloak_openid_client",
+        key,
+        json!({
+            "realm_id": realm_id,
+            "client_id": client_id,
+            "name": client_id,
+            "access_type": "CONFIDENTIAL",
+            "standard_flow_enabled": true,
+            "direct_access_grants_enabled": false,
+            "valid_redirect_uris": [redirect_uri],
+            "web_origins": ["+"],
+        }),
+    );
+
+    tf.add_resource(
+        "keycloak_openid_group_membership_protocol_mapper",
+        key,
+        json!({
+            "realm_id": realm_id,
+            "client_id": format!("${{keycloak_openid_client.{key}.id}}"),
+            "name": "groups",
+            "claim_name": "groups",
+            "full_path": true,
+            "add_to_id_token": true,
+            "add_to_access_token": true,
+            "add_to_userinfo": true,
+        }),
+    );
+}
+
+fn add_admin_client(tf: &mut TfJsonFile, realm_id: &str, key: &str, client_id: &str) {
+    tf.add_resource(
+        "keycloak_openid_client",
+        key,
+        json!({
+            "realm_id": realm_id,
+            "client_id": client_id,
+            "name": client_id,
+            "access_type": "CONFIDENTIAL",
+            "standard_flow_enabled": false,
+            "direct_access_grants_enabled": false,
+            "service_accounts_enabled": true,
+            "valid_redirect_uris": [],
+            "web_origins": [],
+        }),
+    );
+
+    for role in ["view-users", "manage-users"] {
+        tf.add_resource(
+            "keycloak_openid_client_service_account_role",
+            &format!("{key}_{}", role.replace('-', "_")),
+            json!({
+                "realm_id": realm_id,
+                "service_account_user_id": format!(
+                    "${{keycloak_openid_client.{key}.service_account_user_id}}"
+                ),
+                "client_id": "${data.keycloak_openid_client.realm_management.id}",
+                "role": role,
+            }),
+        );
+    }
+}
+
+fn add_oidc_secrets(tf: &mut TfJsonFile, repo: &str, key: &str, profile: &str, client_key: &str) {
+    add_secret(
+        tf,
+        &format!("{key}_{profile}_oidc_client_id"),
+        &format!("secretspec/{repo}/{profile}/OIDC_CLIENT_ID"),
+        &format!("OIDC_CLIENT_ID = keycloak_openid_client.{client_key}.client_id"),
+    );
+    add_secret(
+        tf,
+        &format!("{key}_{profile}_oidc_client_secret"),
+        &format!("secretspec/{repo}/{profile}/OIDC_CLIENT_SECRET"),
+        &format!("OIDC_CLIENT_SECRET = keycloak_openid_client.{client_key}.client_secret"),
+    );
+}
+
+fn add_admin_secrets(tf: &mut TfJsonFile, repo: &str, key: &str, profile: &str, admin_key: &str) {
+    add_secret(
+        tf,
+        &format!("{key}_{profile}_admin_client_id"),
+        &format!("secretspec/{repo}/{profile}/KEYCLOAK_ADMIN_CLIENT_ID"),
+        &format!("KEYCLOAK_ADMIN_CLIENT_ID = keycloak_openid_client.{admin_key}.client_id"),
+    );
+    add_secret(
+        tf,
+        &format!("{key}_{profile}_admin_client_secret"),
+        &format!("secretspec/{repo}/{profile}/KEYCLOAK_ADMIN_CLIENT_SECRET"),
+        &format!("KEYCLOAK_ADMIN_CLIENT_SECRET = keycloak_openid_client.{admin_key}.client_secret"),
+    );
+}
+
+fn add_secret(tf: &mut TfJsonFile, key: &str, name: &str, assignment: &str) {
+    tf.add_resource(
+        "vault_kv_secret_v2",
+        key,
+        json!({
+            "mount": "secret",
+            "name": name,
+            "data_json": format!("${{jsonencode({{ {assignment} }})}}"),
+        }),
+    );
 }

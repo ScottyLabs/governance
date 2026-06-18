@@ -14,8 +14,7 @@ slug = "bus-sign"
 [[team.projects.repos]]
 name = "bus-sign"
 description = "A real-time bus sign for the Cohon University Center at Carnegie Mellon University"
-kennel = true
-sentry = true
+features = ["kennel", "sentry"]
 
 [[team.projects.channels]]
 discord = "1472669342108750087"
@@ -35,8 +34,7 @@ slug = "dalmatian"
 [[team.projects.repos]]
 name = "dalmatian"
 description = "Discord bot for CMU Courses, CMU Eats, and other ScottyLabs services"
-kennel = true
-sentry = true
+features = ["kennel", "sentry"]
 
 [[team.projects.channels]]
 discord = "1482594247961219307"
@@ -48,8 +46,7 @@ slug = "discord-verify"
 [[team.projects.repos]]
 name = "discord-verify"
 description = "Discord verification for CMU"
-kennel = true
-sentry = true
+features = ["kennel", "sentry", "oidc_client", "admin_client"]
 
 [[team.projects.channels]]
 discord = "1450023447185854575"

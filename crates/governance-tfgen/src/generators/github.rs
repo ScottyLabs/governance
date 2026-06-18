@@ -1,5 +1,5 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::team::{GroupFields, Repo, TeamFile};
+use governance_schema::org::ForgejoConfig;
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -10,15 +10,15 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
     if org.github.is_none() {
         return tf;
     }
-    let forgejo_url = org.forgejo.as_ref().map(|f| f.url());
+    let forgejo_url = org.forgejo.as_ref().map(ForgejoConfig::url);
 
     for team in &data.teams {
-        for repo in repos_for_github(team) {
+        for repo in team.team.repos() {
             let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
             let codeberg_url = format!(
                 "{}/{}/{}",
                 forgejo_url.unwrap_or("https://codeberg.org"),
-                org.forgejo.as_ref().map(|f| f.org.as_str()).unwrap_or(""),
+                org.forgejo.as_ref().map_or("", |f| f.org.as_str()),
                 repo.name
             );
 
@@ -152,17 +152,4 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
     }
 
     tf
-}
-
-fn repos_for_github(team: &TeamFile) -> Vec<&Repo> {
-    let mut repos = Vec::new();
-    collect_repos(&team.team.group, &mut repos);
-    for project in &team.team.projects {
-        collect_repos(&project.group, &mut repos);
-    }
-    repos
-}
-
-fn collect_repos<'a>(group: &'a GroupFields, repos: &mut Vec<&'a Repo>) {
-    repos.extend(group.repos.iter());
 }

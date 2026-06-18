@@ -11,8 +11,7 @@ slug = "cmugpt-surface"
 [[team.projects.repos]]
 name = "cmugpt-surface"
 description = "Fullstack for users to interface with CMU GPT"
-kennel = true
-sentry = true
+features = ["kennel", "sentry"]
 
 [[team.projects]]
 name = "CMU GPT Agent"
@@ -21,7 +20,7 @@ slug = "cmugpt-agent"
 [[team.projects.repos]]
 name = "cmugpt-agent"
 description = "Running the model, doing RAG, etc. for CMU GPT"
-kennel = true
+features = ["kennel"]
 
 [[team.projects]]
 name = "CMU GPT MCP Server"
@@ -30,7 +29,7 @@ slug = "cmugpt-mcp-server"
 [[team.projects.repos]]
 name = "mcp-server"
 description = "MCP servers for CMU GPT"
-kennel = true
+features = ["kennel"]
 
 [[team.projects]]
 name = "CMU GPT SMS"
@@ -39,8 +38,7 @@ slug = "cmugpt-sms-surface"
 [[team.projects.repos]]
 name = "cmugpt-sms-surface"
 description = "SMS interface with CMU GPT Agent"
-kennel = true
-sentry = true
+features = ["kennel", "sentry"]
 
 [[team.channels]]
 slack = "C08SRUGUQ05"

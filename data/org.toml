@@ -11,6 +11,7 @@ org = "ScottyLabs"
 [org.keycloak]
 url = "https://idp.scottylabs.org"
 realm = "scottylabs"
+redirect_uri = "https://oauth.scottylabs.org/oauth2/callback"
 
 [org.google_groups]
 admin = "sl-admin@andrew.cmu.edu"

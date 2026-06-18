@@ -5,9 +5,8 @@ use crate::tf_json::TfJsonFile;
 
 pub fn generate(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
-    let gg = match &data.org.org.google_groups {
-        Some(g) => g,
-        None => return tf,
+    let Some(gg) = &data.org.org.google_groups else {
+        return tf;
     };
 
     let td = &data.org.org.tech_director;
@@ -16,7 +15,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         .teams
         .iter()
         .filter(|t| t.team.group.slug == "devops")
-        .flat_map(|t| t.team.group.leads.iter().map(|s| s.as_str()))
+        .flat_map(|t| t.team.group.leads.iter().map(String::as_str))
         .collect();
 
     let all_leads = data.all_leads();

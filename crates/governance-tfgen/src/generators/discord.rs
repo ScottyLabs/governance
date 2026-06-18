@@ -111,18 +111,8 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
 }
 
 fn discord_channel_ids(team: &TeamFile) -> Vec<&str> {
-    let mut ids = Vec::new();
-    for channel in &team.team.group.channels {
-        if let Some(id) = &channel.discord {
-            ids.push(id.as_str());
-        }
-    }
-    for project in &team.team.projects {
-        for channel in &project.group.channels {
-            if let Some(id) = &channel.discord {
-                ids.push(id.as_str());
-            }
-        }
-    }
-    ids
+    team.team
+        .channels()
+        .filter_map(|c| c.discord.as_deref())
+        .collect()
 }
