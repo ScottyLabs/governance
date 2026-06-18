@@ -198,6 +198,17 @@
       ],
       "type": "forgejo"
     },
+    "terrier_terrier_docs_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "url": "${var.docs_webhook_url}"
+      },
+      "events": [
+        "push"
+      ],
+      "type": "forgejo"
+    },
     "uia_components_docs_webhook_data": {
       "active": true,
       "config": {
@@ -355,6 +366,14 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/tartan-vote/hooks"
+      },
+      "terrier_terrier_docs_webhook": {
+        "data": "${jsonencode(local.terrier_terrier_docs_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.terrier_terrier"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/terrier/hooks"
       },
       "uia_components_docs_webhook": {
         "data": "${jsonencode(local.uia_components_docs_webhook_data)}",

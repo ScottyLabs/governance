@@ -248,6 +248,19 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "terrier_terrier": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Open-source hackathon management platform for universities and organizations",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "terrier",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "uia_components": {
         "auto_init": true,
         "default_branch": "main",

@@ -338,6 +338,37 @@
           "repo.wiki": "admin"
         }
       },
+      "terrier": {
+        "description": "Terrier",
+        "name": "terrier",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "write",
+        "units_map": {
+          "repo.code": "write",
+          "repo.issues": "write",
+          "repo.pulls": "write"
+        }
+      },
+      "terrier_leads": {
+        "can_create_org_repo": false,
+        "description": "Terrier leads",
+        "includes_all_repositories": false,
+        "name": "terrier-leads",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "admin",
+        "units_map": {
+          "repo.actions": "admin",
+          "repo.code": "admin",
+          "repo.ext_issues": "admin",
+          "repo.ext_wiki": "admin",
+          "repo.issues": "admin",
+          "repo.packages": "admin",
+          "repo.projects": "admin",
+          "repo.pulls": "admin",
+          "repo.releases": "admin",
+          "repo.wiki": "admin"
+        }
+      },
       "uia": {
         "description": "UI Architecture",
         "name": "uia",

@@ -343,6 +343,24 @@
         "repository": "tartan-vote",
         "team_id": "${forgejo_team.tartan-vote.id}"
       },
+      "terrier_leads_terrier": {
+        "depends_on": [
+          "forgejo_repository.terrier_terrier",
+          "forgejo_team.terrier_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "terrier",
+        "team_id": "${forgejo_team.terrier_leads.id}"
+      },
+      "terrier_terrier": {
+        "depends_on": [
+          "forgejo_repository.terrier_terrier",
+          "forgejo_team.terrier"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "terrier",
+        "team_id": "${forgejo_team.terrier.id}"
+      },
       "uia_components": {
         "depends_on": [
           "forgejo_repository.uia_components",

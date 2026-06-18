@@ -151,6 +151,11 @@
         "team_id": "${github_team.tartan-vote.id}",
         "username": "${data.external.identity_zeyuyaoy.result.github}"
       },
+      "terrier_anish": {
+        "role": "maintainer",
+        "team_id": "${github_team.terrier.id}",
+        "username": "${data.external.identity_anish.result.github}"
+      },
       "uia_anish": {
         "role": "maintainer",
         "team_id": "${github_team.uia.id}",

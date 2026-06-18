@@ -29,6 +29,10 @@
         "name": "Tartan Vote",
         "privacy": "closed"
       },
+      "terrier": {
+        "name": "Terrier",
+        "privacy": "closed"
+      },
       "uia": {
         "name": "UI Architecture",
         "privacy": "closed"

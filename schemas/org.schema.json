@@ -134,13 +134,17 @@
         "realm": {
           "type": "string"
         },
+        "redirect_uri": {
+          "type": "string"
+        },
         "url": {
           "type": "string"
         }
       },
       "required": [
         "url",
-        "realm"
+        "realm",
+        "redirect_uri"
       ]
     },
     "OrgChannel": {

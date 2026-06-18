@@ -36,6 +36,15 @@
         "openapi"
       ]
     },
+    "Feature": {
+      "type": "string",
+      "enum": [
+        "kennel",
+        "sentry",
+        "oidc_client",
+        "admin_client"
+      ]
+    },
     "Project": {
       "type": "object",
       "properties": {
@@ -105,12 +114,6 @@
           "type": "boolean",
           "default": true
         },
-        "docs_dir": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
         "docs_type": {
           "anyOf": [
             {
@@ -127,9 +130,12 @@
             "null"
           ]
         },
-        "kennel": {
-          "type": "boolean",
-          "default": false
+        "features": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Feature"
+          }
         },
         "name": {
           "type": "string"
@@ -139,10 +145,6 @@
             "string",
             "null"
           ]
-        },
-        "sentry": {
-          "type": "boolean",
-          "default": false
         },
         "topics": {
           "type": "array",

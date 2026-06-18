@@ -472,6 +472,24 @@
           "channel": "C08SRUGUQ05"
         }
       },
+      "slack_bridge_login_terrier": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08AAADPCSE"
+        }
+      },
       "slack_bridge_login_uia": {
         "provisioner": [
           {
@@ -769,6 +787,15 @@
         "slack_channel_id": "C08SRUGUQ05",
         "team_name": "ScottyLabs AI",
         "team_slug": "slai"
+      },
+      "terrier": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_terrier"
+        ],
+        "discord_channel_id": "1454745778642878527",
+        "slack_channel_id": "C08AAADPCSE",
+        "team_name": "Terrier",
+        "team_slug": "terrier"
       },
       "uia": {
         "depends_on": [

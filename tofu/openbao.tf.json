@@ -169,6 +169,20 @@
         ],
         "type": "external"
       },
+      "terrier_admins": {
+        "name": "terrier-admins",
+        "policies": [
+          "terrier-prod"
+        ],
+        "type": "external"
+      },
+      "terrier_members": {
+        "name": "terrier-members",
+        "policies": [
+          "terrier-dev"
+        ],
+        "type": "external"
+      },
       "uia_admins": {
         "name": "uia-admins",
         "policies": [
@@ -305,6 +319,16 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/tartan-vote"
       },
+      "terrier_admins": {
+        "canonical_id": "${vault_identity_group.terrier_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/terrier/admins"
+      },
+      "terrier_members": {
+        "canonical_id": "${vault_identity_group.terrier_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/terrier"
+      },
       "uia_admins": {
         "canonical_id": "${vault_identity_group.uia_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -412,6 +436,14 @@
       "tartan-vote_prod": {
         "name": "tartan-vote-prod",
         "policy": "path \"secret/data/secretspec/tartan-vote/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/tartan-vote/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/tartan-vote/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/tartan-vote/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "terrier_dev": {
+        "name": "terrier-dev",
+        "policy": "path \"secret/data/secretspec/terrier/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/terrier/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/terrier/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/terrier/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "terrier_prod": {
+        "name": "terrier-prod",
+        "policy": "path \"secret/data/secretspec/terrier/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/terrier/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/terrier/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/terrier/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "uia_dev": {
         "name": "uia-dev",

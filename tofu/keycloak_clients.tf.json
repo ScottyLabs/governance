@@ -1,0 +1,463 @@
+{
+  "resource": {
+    "keycloak_openid_client": {
+      "courses": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "courses",
+        "direct_access_grants_enabled": false,
+        "name": "courses",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "courses_staging": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "courses-staging",
+        "direct_access_grants_enabled": false,
+        "name": "courses-staging",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "discord_verify": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "discord-verify",
+        "direct_access_grants_enabled": false,
+        "name": "discord-verify",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "discord_verify_admin": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "discord-verify-admin",
+        "direct_access_grants_enabled": false,
+        "name": "discord-verify-admin",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "service_accounts_enabled": true,
+        "standard_flow_enabled": false,
+        "valid_redirect_uris": [],
+        "web_origins": []
+      },
+      "discord_verify_staging": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "discord-verify-staging",
+        "direct_access_grants_enabled": false,
+        "name": "discord-verify-staging",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "quest": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "quest",
+        "direct_access_grants_enabled": false,
+        "name": "quest",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "quest_staging": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "quest-staging",
+        "direct_access_grants_enabled": false,
+        "name": "quest-staging",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "tartan_vote": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "tartan-vote",
+        "direct_access_grants_enabled": false,
+        "name": "tartan-vote",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "tartan_vote_staging": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "tartan-vote-staging",
+        "direct_access_grants_enabled": false,
+        "name": "tartan-vote-staging",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "terrier": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "terrier",
+        "direct_access_grants_enabled": false,
+        "name": "terrier",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "terrier_staging": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "terrier-staging",
+        "direct_access_grants_enabled": false,
+        "name": "terrier-staging",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      }
+    },
+    "keycloak_openid_client_service_account_role": {
+      "discord_verify_admin_manage_users": {
+        "client_id": "${data.keycloak_openid_client.realm_management.id}",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "role": "manage-users",
+        "service_account_user_id": "${keycloak_openid_client.discord_verify_admin.service_account_user_id}"
+      },
+      "discord_verify_admin_view_users": {
+        "client_id": "${data.keycloak_openid_client.realm_management.id}",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "role": "view-users",
+        "service_account_user_id": "${keycloak_openid_client.discord_verify_admin.service_account_user_id}"
+      }
+    },
+    "keycloak_openid_group_membership_protocol_mapper": {
+      "courses": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.courses.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "courses_staging": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.courses_staging.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "discord_verify": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.discord_verify.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "discord_verify_staging": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.discord_verify_staging.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "quest": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.quest.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "quest_staging": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.quest_staging.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "tartan_vote": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.tartan_vote.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "tartan_vote_staging": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.tartan_vote_staging.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "terrier": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.terrier.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "terrier_staging": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.terrier_staging.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      }
+    },
+    "vault_kv_secret_v2": {
+      "courses_preview_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.courses_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/OIDC_CLIENT_ID"
+      },
+      "courses_preview_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.courses_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/OIDC_CLIENT_SECRET"
+      },
+      "courses_prod_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.courses.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/OIDC_CLIENT_ID"
+      },
+      "courses_prod_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.courses.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/OIDC_CLIENT_SECRET"
+      },
+      "courses_staging_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.courses_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/OIDC_CLIENT_ID"
+      },
+      "courses_staging_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.courses_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/OIDC_CLIENT_SECRET"
+      },
+      "discord_verify_preview_admin_client_id": {
+        "data_json": "${jsonencode({ KEYCLOAK_ADMIN_CLIENT_ID = keycloak_openid_client.discord_verify_admin.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/preview/KEYCLOAK_ADMIN_CLIENT_ID"
+      },
+      "discord_verify_preview_admin_client_secret": {
+        "data_json": "${jsonencode({ KEYCLOAK_ADMIN_CLIENT_SECRET = keycloak_openid_client.discord_verify_admin.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/preview/KEYCLOAK_ADMIN_CLIENT_SECRET"
+      },
+      "discord_verify_preview_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.discord_verify_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/preview/OIDC_CLIENT_ID"
+      },
+      "discord_verify_preview_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.discord_verify_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/preview/OIDC_CLIENT_SECRET"
+      },
+      "discord_verify_prod_admin_client_id": {
+        "data_json": "${jsonencode({ KEYCLOAK_ADMIN_CLIENT_ID = keycloak_openid_client.discord_verify_admin.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/KEYCLOAK_ADMIN_CLIENT_ID"
+      },
+      "discord_verify_prod_admin_client_secret": {
+        "data_json": "${jsonencode({ KEYCLOAK_ADMIN_CLIENT_SECRET = keycloak_openid_client.discord_verify_admin.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/KEYCLOAK_ADMIN_CLIENT_SECRET"
+      },
+      "discord_verify_prod_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.discord_verify.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/OIDC_CLIENT_ID"
+      },
+      "discord_verify_prod_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.discord_verify.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/OIDC_CLIENT_SECRET"
+      },
+      "discord_verify_staging_admin_client_id": {
+        "data_json": "${jsonencode({ KEYCLOAK_ADMIN_CLIENT_ID = keycloak_openid_client.discord_verify_admin.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/staging/KEYCLOAK_ADMIN_CLIENT_ID"
+      },
+      "discord_verify_staging_admin_client_secret": {
+        "data_json": "${jsonencode({ KEYCLOAK_ADMIN_CLIENT_SECRET = keycloak_openid_client.discord_verify_admin.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/staging/KEYCLOAK_ADMIN_CLIENT_SECRET"
+      },
+      "discord_verify_staging_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.discord_verify_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/staging/OIDC_CLIENT_ID"
+      },
+      "discord_verify_staging_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.discord_verify_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/staging/OIDC_CLIENT_SECRET"
+      },
+      "quest_preview_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.quest_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/quest/preview/OIDC_CLIENT_ID"
+      },
+      "quest_preview_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.quest_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/quest/preview/OIDC_CLIENT_SECRET"
+      },
+      "quest_prod_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.quest.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/OIDC_CLIENT_ID"
+      },
+      "quest_prod_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.quest.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/OIDC_CLIENT_SECRET"
+      },
+      "quest_staging_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.quest_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/quest/staging/OIDC_CLIENT_ID"
+      },
+      "quest_staging_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.quest_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/quest/staging/OIDC_CLIENT_SECRET"
+      },
+      "tartan_vote_preview_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.tartan_vote_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/preview/OIDC_CLIENT_ID"
+      },
+      "tartan_vote_preview_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.tartan_vote_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/preview/OIDC_CLIENT_SECRET"
+      },
+      "tartan_vote_prod_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.tartan_vote.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/prod/OIDC_CLIENT_ID"
+      },
+      "tartan_vote_prod_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.tartan_vote.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/prod/OIDC_CLIENT_SECRET"
+      },
+      "tartan_vote_staging_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.tartan_vote_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/staging/OIDC_CLIENT_ID"
+      },
+      "tartan_vote_staging_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.tartan_vote_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/staging/OIDC_CLIENT_SECRET"
+      },
+      "terrier_preview_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.terrier_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/preview/OIDC_CLIENT_ID"
+      },
+      "terrier_preview_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.terrier_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/preview/OIDC_CLIENT_SECRET"
+      },
+      "terrier_prod_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.terrier.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/OIDC_CLIENT_ID"
+      },
+      "terrier_prod_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.terrier.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/OIDC_CLIENT_SECRET"
+      },
+      "terrier_staging_oidc_client_id": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.terrier_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/staging/OIDC_CLIENT_ID"
+      },
+      "terrier_staging_oidc_client_secret": {
+        "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.terrier_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/staging/OIDC_CLIENT_SECRET"
+      }
+    }
+  },
+  "data": {
+    "keycloak_openid_client": {
+      "realm_management": {
+        "client_id": "realm-management",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      }
+    }
+  }
+}

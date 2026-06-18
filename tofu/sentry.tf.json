@@ -50,6 +50,11 @@
         "name": "default",
         "organization": "${var.sentry_organization}",
         "project": "${sentry_project.tartan-vote_tartan_vote.slug}"
+      },
+      "terrier_terrier": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.terrier_terrier.slug}"
       }
     },
     "sentry_project": {
@@ -132,6 +137,14 @@
         "teams": [
           "${sentry_team.tartan-vote.slug}"
         ]
+      },
+      "terrier_terrier": {
+        "name": "terrier",
+        "organization": "${var.sentry_organization}",
+        "slug": "terrier",
+        "teams": [
+          "${sentry_team.terrier.slug}"
+        ]
       }
     },
     "sentry_team": {
@@ -169,6 +182,11 @@
         "name": "Tartan Vote",
         "organization": "${var.sentry_organization}",
         "slug": "tartan-vote"
+      },
+      "terrier": {
+        "name": "Terrier",
+        "organization": "${var.sentry_organization}",
+        "slug": "terrier"
       }
     },
     "vault_kv_secret_v2": {
@@ -221,6 +239,11 @@
         "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.tartan-vote_tartan_vote.dsn })}",
         "mount": "secret",
         "name": "secretspec/tartan-vote/prod/SENTRY_DSN"
+      },
+      "terrier_terrier_sentry_dsn": {
+        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.terrier_terrier.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/SENTRY_DSN"
       }
     }
   }
