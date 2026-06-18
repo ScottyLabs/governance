@@ -230,7 +230,8 @@
           "${data.external.identity_vloh.result.cmu-saml}",
           "${data.external.identity_XboxBedrock.result.cmu-saml}",
           "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_riztofu.result.cmu-saml}"
+          "${data.external.identity_riztofu.result.cmu-saml}",
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
