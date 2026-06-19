@@ -157,6 +157,19 @@
         "owner": "ScottyLabs",
         "private": false
       },
+      "devops_link_shortener": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "ScottyLabs link shortener service",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "link-shortener",
+        "owner": "ScottyLabs",
+        "private": false
+      },
       "devops_observability": {
         "auto_init": true,
         "default_branch": "main",

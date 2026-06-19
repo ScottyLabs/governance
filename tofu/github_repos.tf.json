@@ -49,6 +49,10 @@
         "enabled": false,
         "repository": "${github_repository.devops_kennel.name}"
       },
+      "devops_link_shortener_actions": {
+        "enabled": false,
+        "repository": "${github_repository.devops_link_shortener.name}"
+      },
       "devops_observability_actions": {
         "enabled": false,
         "repository": "${github_repository.devops_observability.name}"
@@ -205,6 +209,16 @@
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/kennel",
         "name": "kennel",
+        "visibility": "public"
+      },
+      "devops_link_shortener": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/link-shortener",
+        "name": "link-shortener",
         "visibility": "public"
       },
       "devops_observability": {
@@ -369,6 +383,12 @@
         "key": "${restapi_object.devops_kennel_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_kennel.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "devops_link_shortener_mirror_deploy_key": {
+        "key": "${restapi_object.devops_link_shortener_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.devops_link_shortener.name}",
         "title": "Codeberg Mirroring"
       },
       "devops_observability_mirror_deploy_key": {
@@ -776,6 +796,36 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.devops_kennel.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "devops_link_shortener_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.devops_link_shortener_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.devops_link_shortener.name}",
         "rules": {
           "creation": true,
           "deletion": true,

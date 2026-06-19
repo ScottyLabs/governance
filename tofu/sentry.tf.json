@@ -31,6 +31,11 @@
         "organization": "${var.sentry_organization}",
         "project": "${sentry_project.devops_kennel.slug}"
       },
+      "devops_link_shortener": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.devops_link_shortener.slug}"
+      },
       "quest_quest": {
         "name": "default",
         "organization": "${var.sentry_organization}",
@@ -102,6 +107,14 @@
         "name": "kennel",
         "organization": "${var.sentry_organization}",
         "slug": "kennel",
+        "teams": [
+          "${sentry_team.devops.slug}"
+        ]
+      },
+      "devops_link_shortener": {
+        "name": "link-shortener",
+        "organization": "${var.sentry_organization}",
+        "slug": "link-shortener",
         "teams": [
           "${sentry_team.devops.slug}"
         ]
@@ -219,6 +232,11 @@
         "data_json": "${jsonencode({ value = sentry_key.devops_kennel.dsn })}",
         "mount": "secret",
         "name": "secretspec/kennel/prod/SENTRY_DSN"
+      },
+      "devops_link_shortener_sentry_dsn": {
+        "data_json": "${jsonencode({ value = sentry_key.devops_link_shortener.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/prod/SENTRY_DSN"
       },
       "quest_quest_sentry_dsn": {
         "data_json": "${jsonencode({ value = sentry_key.quest_quest.dsn })}",

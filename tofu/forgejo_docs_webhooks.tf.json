@@ -121,6 +121,17 @@
       ],
       "type": "forgejo"
     },
+    "devops_link_shortener_docs_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "url": "${var.docs_webhook_url}"
+      },
+      "events": [
+        "push"
+      ],
+      "type": "forgejo"
+    },
     "devops_observability_docs_webhook_data": {
       "active": true,
       "config": {
@@ -310,6 +321,14 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/kennel/hooks"
+      },
+      "devops_link_shortener_docs_webhook": {
+        "data": "${jsonencode(local.devops_link_shortener_docs_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.devops_link_shortener"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/link-shortener/hooks"
       },
       "devops_observability_docs_webhook": {
         "data": "${jsonencode(local.devops_observability_docs_webhook_data)}",

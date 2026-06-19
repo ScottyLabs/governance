@@ -235,6 +235,15 @@
         "repository": "kennel",
         "team_id": "${forgejo_team.devops_leads.id}"
       },
+      "devops_leads_link_shortener": {
+        "depends_on": [
+          "forgejo_repository.devops_link_shortener",
+          "forgejo_team.devops_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "link-shortener",
+        "team_id": "${forgejo_team.devops_leads.id}"
+      },
       "devops_leads_observability": {
         "depends_on": [
           "forgejo_repository.devops_observability",
@@ -243,6 +252,15 @@
         "owner": "ScottyLabs",
         "repository": "observability",
         "team_id": "${forgejo_team.devops_leads.id}"
+      },
+      "devops_link_shortener": {
+        "depends_on": [
+          "forgejo_repository.devops_link_shortener",
+          "forgejo_team.devops"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "link-shortener",
+        "team_id": "${forgejo_team.devops.id}"
       },
       "devops_observability": {
         "depends_on": [

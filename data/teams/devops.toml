@@ -18,6 +18,11 @@ description = "Branch-based deployment platform"
 features = ["kennel", "sentry"]
 
 [[team.repos]]
+name = "link-shortener"
+description = "ScottyLabs link shortener service"
+features = ["kennel", "sentry", "oidc_client"]
+
+[[team.repos]]
 name = "devenv"
 description = "Shared Nix development environment for ScottyLabs projects"
 
