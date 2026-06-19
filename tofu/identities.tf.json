@@ -144,6 +144,17 @@
           "codeberg_user": "krishsaxena"
         }
       },
+      "identity_kritdass": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "kritdass"
+        }
+      },
       "identity_maybe_yiyi": {
         "program": [
           "governance",

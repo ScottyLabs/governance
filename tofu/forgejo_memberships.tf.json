@@ -205,9 +205,17 @@
         "team_id": "${forgejo_team.terrier.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
+      "terrier_kritdass": {
+        "team_id": "${forgejo_team.terrier.id}",
+        "user": "${data.external.identity_kritdass.result.codeberg}"
+      },
       "terrier_leads_anish": {
         "team_id": "${forgejo_team.terrier_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "terrier_leads_kritdass": {
+        "team_id": "${forgejo_team.terrier_leads.id}",
+        "user": "${data.external.identity_kritdass.result.codeberg}"
       },
       "uia_anish": {
         "team_id": "${forgejo_team.uia.id}",

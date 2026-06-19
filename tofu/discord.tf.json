@@ -255,6 +255,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_krishsaxena.result.discord_id}"
       },
+      "kritdass": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.terrier.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_kritdass.result.discord_id}"
+      },
       "maybe_yiyi": {
         "role": [
           {

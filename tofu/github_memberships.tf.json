@@ -156,6 +156,11 @@
         "team_id": "${github_team.terrier.id}",
         "username": "${data.external.identity_anish.result.github}"
       },
+      "terrier_kritdass": {
+        "role": "maintainer",
+        "team_id": "${github_team.terrier.id}",
+        "username": "${data.external.identity_kritdass.result.github}"
+      },
       "uia_anish": {
         "role": "maintainer",
         "team_id": "${github_team.uia.id}",

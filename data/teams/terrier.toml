@@ -2,7 +2,7 @@
 name = "Terrier"
 slug = "terrier"
 description = "Terrier"
-leads = ["anish"]
+leads = ["kritdass", "anish"]
 
 [[team.repos]]
 name = "terrier"
