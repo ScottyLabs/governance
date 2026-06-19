@@ -12,6 +12,7 @@ org = "ScottyLabs"
 url = "https://idp.scottylabs.org"
 realm = "scottylabs"
 redirect_uri = "https://oauth.scottylabs.org/oauth2/callback"
+dev_redirect_uri = "http://localhost:8090/oauth2/callback"
 
 [org.google_groups]
 admin = "sl-admin@andrew.cmu.edu"

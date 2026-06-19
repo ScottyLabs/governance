@@ -131,6 +131,9 @@
     "KeycloakConnection": {
       "type": "object",
       "properties": {
+        "dev_redirect_uri": {
+          "type": "string"
+        },
         "realm": {
           "type": "string"
         },
@@ -144,7 +147,8 @@
       "required": [
         "url",
         "realm",
-        "redirect_uri"
+        "redirect_uri",
+        "dev_redirect_uri"
       ]
     },
     "OrgChannel": {

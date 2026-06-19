@@ -83,6 +83,7 @@ pub struct KeycloakConnection {
     pub url: String,
     pub realm: String,
     pub redirect_uri: String,
+    pub dev_redirect_uri: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]

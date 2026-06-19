@@ -156,25 +156,36 @@ pub fn generate_clients(data: &GovernanceData) -> TfJsonFile {
 
             if repo.has(Feature::OidcClient) {
                 let staging_key = format!("{key}_staging");
-                add_client(&mut tf, realm_id, &key, name, &keycloak.redirect_uri);
-                add_client(
-                    &mut tf,
-                    realm_id,
-                    &staging_key,
-                    &format!("{name}-staging"),
-                    &keycloak.redirect_uri,
-                );
+                let dev_key = format!("{key}_dev");
+                let staging_id = format!("{name}-staging");
+                let dev_id = format!("{name}-dev");
 
-                add_oidc_secrets(&mut tf, name, &key, "prod", &key, keycloak);
-                add_oidc_secrets(&mut tf, name, &key, "staging", &staging_key, keycloak);
-                add_oidc_secrets(&mut tf, name, &key, "preview", &staging_key, keycloak);
+                let clients = [
+                    (&key, name, &keycloak.redirect_uri),
+                    (&staging_key, staging_id.as_str(), &keycloak.redirect_uri),
+                    (&dev_key, dev_id.as_str(), &keycloak.dev_redirect_uri),
+                ];
+                for (client_key, client_id, redirect) in clients {
+                    add_client(&mut tf, realm_id, client_key, client_id, redirect);
+                }
+
+                // Preview reuses the staging client
+                let profiles = [
+                    ("prod", &key, &keycloak.redirect_uri),
+                    ("staging", &staging_key, &keycloak.redirect_uri),
+                    ("preview", &staging_key, &keycloak.redirect_uri),
+                    ("dev", &dev_key, &keycloak.dev_redirect_uri),
+                ];
+                for (profile, client_key, relay) in profiles {
+                    add_oidc_secrets(&mut tf, name, &key, profile, client_key, keycloak, relay);
+                }
             }
 
             if repo.has(Feature::AdminClient) {
                 needs_realm_management = true;
                 let admin_key = format!("{key}_admin");
                 add_admin_client(&mut tf, realm_id, &admin_key, &format!("{name}-admin"));
-                for profile in ["prod", "staging", "preview"] {
+                for profile in ["prod", "staging", "preview", "dev"] {
                     add_admin_secrets(&mut tf, name, &key, profile, &admin_key);
                 }
             }
@@ -267,37 +278,30 @@ fn add_oidc_secrets(
     profile: &str,
     client_key: &str,
     keycloak: &KeycloakConnection,
+    relay_url: &str,
 ) {
-    add_secret(
-        tf,
-        &format!("{key}_{profile}_oidc_client_id"),
-        &format!("secretspec/{repo}/{profile}/OIDC_CLIENT_ID"),
-        &format!("OIDC_CLIENT_ID = keycloak_openid_client.{client_key}.client_id"),
-    );
-    add_secret(
-        tf,
-        &format!("{key}_{profile}_oidc_client_secret"),
-        &format!("secretspec/{repo}/{profile}/OIDC_CLIENT_SECRET"),
-        &format!("OIDC_CLIENT_SECRET = keycloak_openid_client.{client_key}.client_secret"),
-    );
-    add_secret(
-        tf,
-        &format!("{key}_{profile}_keycloak_url"),
-        &format!("secretspec/{repo}/{profile}/KEYCLOAK_URL"),
-        &format!("KEYCLOAK_URL = {:?}", keycloak.url),
-    );
-    add_secret(
-        tf,
-        &format!("{key}_{profile}_keycloak_realm"),
-        &format!("secretspec/{repo}/{profile}/KEYCLOAK_REALM"),
-        &format!("KEYCLOAK_REALM = {:?}", keycloak.realm),
-    );
-    add_secret(
-        tf,
-        &format!("{key}_{profile}_oauth_relay_url"),
-        &format!("secretspec/{repo}/{profile}/OAUTH_RELAY_URL"),
-        &format!("OAUTH_RELAY_URL = {:?}", keycloak.redirect_uri),
-    );
+    let secrets = [
+        (
+            "OIDC_CLIENT_ID",
+            format!("keycloak_openid_client.{client_key}.client_id"),
+        ),
+        (
+            "OIDC_CLIENT_SECRET",
+            format!("keycloak_openid_client.{client_key}.client_secret"),
+        ),
+        ("KEYCLOAK_URL", format!("{:?}", keycloak.url)),
+        ("KEYCLOAK_REALM", format!("{:?}", keycloak.realm)),
+        ("OAUTH_RELAY_URL", format!("{:?}", relay_url)),
+    ];
+
+    for (var, value) in secrets {
+        add_secret(
+            tf,
+            &format!("{key}_{profile}_{}", var.to_lowercase()),
+            &format!("secretspec/{repo}/{profile}/{var}"),
+            &format!("{var} = {value}"),
+        );
+    }
 }
 
 fn add_admin_secrets(tf: &mut TfJsonFile, repo: &str, key: &str, profile: &str, admin_key: &str) {
