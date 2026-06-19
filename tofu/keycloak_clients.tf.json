@@ -276,6 +276,21 @@
       }
     },
     "vault_kv_secret_v2": {
+      "courses_preview_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/KEYCLOAK_REALM"
+      },
+      "courses_preview_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/KEYCLOAK_URL"
+      },
+      "courses_preview_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/OAUTH_RELAY_URL"
+      },
       "courses_preview_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.courses_staging.client_id })}",
         "mount": "secret",
@@ -286,6 +301,21 @@
         "mount": "secret",
         "name": "secretspec/courses/preview/OIDC_CLIENT_SECRET"
       },
+      "courses_prod_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/KEYCLOAK_REALM"
+      },
+      "courses_prod_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/KEYCLOAK_URL"
+      },
+      "courses_prod_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/OAUTH_RELAY_URL"
+      },
       "courses_prod_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.courses.client_id })}",
         "mount": "secret",
@@ -295,6 +325,21 @@
         "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.courses.client_secret })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/OIDC_CLIENT_SECRET"
+      },
+      "courses_staging_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/KEYCLOAK_REALM"
+      },
+      "courses_staging_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/KEYCLOAK_URL"
+      },
+      "courses_staging_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/OAUTH_RELAY_URL"
       },
       "courses_staging_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.courses_staging.client_id })}",
@@ -316,6 +361,21 @@
         "mount": "secret",
         "name": "secretspec/discord-verify/preview/KEYCLOAK_ADMIN_CLIENT_SECRET"
       },
+      "discord_verify_preview_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/preview/KEYCLOAK_REALM"
+      },
+      "discord_verify_preview_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/preview/KEYCLOAK_URL"
+      },
+      "discord_verify_preview_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/preview/OAUTH_RELAY_URL"
+      },
       "discord_verify_preview_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.discord_verify_staging.client_id })}",
         "mount": "secret",
@@ -335,6 +395,21 @@
         "data_json": "${jsonencode({ KEYCLOAK_ADMIN_CLIENT_SECRET = keycloak_openid_client.discord_verify_admin.client_secret })}",
         "mount": "secret",
         "name": "secretspec/discord-verify/prod/KEYCLOAK_ADMIN_CLIENT_SECRET"
+      },
+      "discord_verify_prod_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/KEYCLOAK_REALM"
+      },
+      "discord_verify_prod_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/KEYCLOAK_URL"
+      },
+      "discord_verify_prod_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/OAUTH_RELAY_URL"
       },
       "discord_verify_prod_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.discord_verify.client_id })}",
@@ -356,6 +431,21 @@
         "mount": "secret",
         "name": "secretspec/discord-verify/staging/KEYCLOAK_ADMIN_CLIENT_SECRET"
       },
+      "discord_verify_staging_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/staging/KEYCLOAK_REALM"
+      },
+      "discord_verify_staging_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/staging/KEYCLOAK_URL"
+      },
+      "discord_verify_staging_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/staging/OAUTH_RELAY_URL"
+      },
       "discord_verify_staging_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.discord_verify_staging.client_id })}",
         "mount": "secret",
@@ -365,6 +455,21 @@
         "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.discord_verify_staging.client_secret })}",
         "mount": "secret",
         "name": "secretspec/discord-verify/staging/OIDC_CLIENT_SECRET"
+      },
+      "quest_preview_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/preview/KEYCLOAK_REALM"
+      },
+      "quest_preview_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/preview/KEYCLOAK_URL"
+      },
+      "quest_preview_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/preview/OAUTH_RELAY_URL"
       },
       "quest_preview_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.quest_staging.client_id })}",
@@ -376,6 +481,21 @@
         "mount": "secret",
         "name": "secretspec/quest/preview/OIDC_CLIENT_SECRET"
       },
+      "quest_prod_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/KEYCLOAK_REALM"
+      },
+      "quest_prod_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/KEYCLOAK_URL"
+      },
+      "quest_prod_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/OAUTH_RELAY_URL"
+      },
       "quest_prod_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.quest.client_id })}",
         "mount": "secret",
@@ -385,6 +505,21 @@
         "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.quest.client_secret })}",
         "mount": "secret",
         "name": "secretspec/quest/prod/OIDC_CLIENT_SECRET"
+      },
+      "quest_staging_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/staging/KEYCLOAK_REALM"
+      },
+      "quest_staging_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/staging/KEYCLOAK_URL"
+      },
+      "quest_staging_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/staging/OAUTH_RELAY_URL"
       },
       "quest_staging_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.quest_staging.client_id })}",
@@ -396,6 +531,21 @@
         "mount": "secret",
         "name": "secretspec/quest/staging/OIDC_CLIENT_SECRET"
       },
+      "tartan_vote_preview_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/preview/KEYCLOAK_REALM"
+      },
+      "tartan_vote_preview_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/preview/KEYCLOAK_URL"
+      },
+      "tartan_vote_preview_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/preview/OAUTH_RELAY_URL"
+      },
       "tartan_vote_preview_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.tartan_vote_staging.client_id })}",
         "mount": "secret",
@@ -405,6 +555,21 @@
         "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.tartan_vote_staging.client_secret })}",
         "mount": "secret",
         "name": "secretspec/tartan-vote/preview/OIDC_CLIENT_SECRET"
+      },
+      "tartan_vote_prod_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/prod/KEYCLOAK_REALM"
+      },
+      "tartan_vote_prod_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/prod/KEYCLOAK_URL"
+      },
+      "tartan_vote_prod_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/prod/OAUTH_RELAY_URL"
       },
       "tartan_vote_prod_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.tartan_vote.client_id })}",
@@ -416,6 +581,21 @@
         "mount": "secret",
         "name": "secretspec/tartan-vote/prod/OIDC_CLIENT_SECRET"
       },
+      "tartan_vote_staging_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/staging/KEYCLOAK_REALM"
+      },
+      "tartan_vote_staging_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/staging/KEYCLOAK_URL"
+      },
+      "tartan_vote_staging_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/staging/OAUTH_RELAY_URL"
+      },
       "tartan_vote_staging_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.tartan_vote_staging.client_id })}",
         "mount": "secret",
@@ -425,6 +605,21 @@
         "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.tartan_vote_staging.client_secret })}",
         "mount": "secret",
         "name": "secretspec/tartan-vote/staging/OIDC_CLIENT_SECRET"
+      },
+      "terrier_preview_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/preview/KEYCLOAK_REALM"
+      },
+      "terrier_preview_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/preview/KEYCLOAK_URL"
+      },
+      "terrier_preview_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/preview/OAUTH_RELAY_URL"
       },
       "terrier_preview_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.terrier_staging.client_id })}",
@@ -436,6 +631,21 @@
         "mount": "secret",
         "name": "secretspec/terrier/preview/OIDC_CLIENT_SECRET"
       },
+      "terrier_prod_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/KEYCLOAK_REALM"
+      },
+      "terrier_prod_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/KEYCLOAK_URL"
+      },
+      "terrier_prod_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/OAUTH_RELAY_URL"
+      },
       "terrier_prod_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.terrier.client_id })}",
         "mount": "secret",
@@ -445,6 +655,21 @@
         "data_json": "${jsonencode({ OIDC_CLIENT_SECRET = keycloak_openid_client.terrier.client_secret })}",
         "mount": "secret",
         "name": "secretspec/terrier/prod/OIDC_CLIENT_SECRET"
+      },
+      "terrier_staging_keycloak_realm": {
+        "data_json": "${jsonencode({ KEYCLOAK_REALM = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/staging/KEYCLOAK_REALM"
+      },
+      "terrier_staging_keycloak_url": {
+        "data_json": "${jsonencode({ KEYCLOAK_URL = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/staging/KEYCLOAK_URL"
+      },
+      "terrier_staging_oauth_relay_url": {
+        "data_json": "${jsonencode({ OAUTH_RELAY_URL = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/staging/OAUTH_RELAY_URL"
       },
       "terrier_staging_oidc_client_id": {
         "data_json": "${jsonencode({ OIDC_CLIENT_ID = keycloak_openid_client.terrier_staging.client_id })}",

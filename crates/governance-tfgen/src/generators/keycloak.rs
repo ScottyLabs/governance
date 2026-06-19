@@ -1,5 +1,5 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::team::Feature;
+use governance_schema::{org::KeycloakConnection, team::Feature};
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -165,9 +165,9 @@ pub fn generate_clients(data: &GovernanceData) -> TfJsonFile {
                     &keycloak.redirect_uri,
                 );
 
-                add_oidc_secrets(&mut tf, name, &key, "prod", &key);
-                add_oidc_secrets(&mut tf, name, &key, "staging", &staging_key);
-                add_oidc_secrets(&mut tf, name, &key, "preview", &staging_key);
+                add_oidc_secrets(&mut tf, name, &key, "prod", &key, keycloak);
+                add_oidc_secrets(&mut tf, name, &key, "staging", &staging_key, keycloak);
+                add_oidc_secrets(&mut tf, name, &key, "preview", &staging_key, keycloak);
             }
 
             if repo.has(Feature::AdminClient) {
@@ -260,7 +260,14 @@ fn add_admin_client(tf: &mut TfJsonFile, realm_id: &str, key: &str, client_id: &
     }
 }
 
-fn add_oidc_secrets(tf: &mut TfJsonFile, repo: &str, key: &str, profile: &str, client_key: &str) {
+fn add_oidc_secrets(
+    tf: &mut TfJsonFile,
+    repo: &str,
+    key: &str,
+    profile: &str,
+    client_key: &str,
+    keycloak: &KeycloakConnection,
+) {
     add_secret(
         tf,
         &format!("{key}_{profile}_oidc_client_id"),
@@ -272,6 +279,24 @@ fn add_oidc_secrets(tf: &mut TfJsonFile, repo: &str, key: &str, profile: &str, c
         &format!("{key}_{profile}_oidc_client_secret"),
         &format!("secretspec/{repo}/{profile}/OIDC_CLIENT_SECRET"),
         &format!("OIDC_CLIENT_SECRET = keycloak_openid_client.{client_key}.client_secret"),
+    );
+    add_secret(
+        tf,
+        &format!("{key}_{profile}_keycloak_url"),
+        &format!("secretspec/{repo}/{profile}/KEYCLOAK_URL"),
+        &format!("KEYCLOAK_URL = {:?}", keycloak.url),
+    );
+    add_secret(
+        tf,
+        &format!("{key}_{profile}_keycloak_realm"),
+        &format!("secretspec/{repo}/{profile}/KEYCLOAK_REALM"),
+        &format!("KEYCLOAK_REALM = {:?}", keycloak.realm),
+    );
+    add_secret(
+        tf,
+        &format!("{key}_{profile}_oauth_relay_url"),
+        &format!("secretspec/{repo}/{profile}/OAUTH_RELAY_URL"),
+        &format!("OAUTH_RELAY_URL = {:?}", keycloak.redirect_uri),
     );
 }
 
