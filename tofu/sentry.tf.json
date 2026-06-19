@@ -191,57 +191,57 @@
     },
     "vault_kv_secret_v2": {
       "cbp_bus_sign_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cbp_bus_sign.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.cbp_bus_sign.dsn })}",
         "mount": "secret",
         "name": "secretspec/bus-sign/prod/SENTRY_DSN"
       },
       "cbp_dalmatian_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cbp_dalmatian.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.cbp_dalmatian.dsn })}",
         "mount": "secret",
         "name": "secretspec/dalmatian/prod/SENTRY_DSN"
       },
       "cbp_discord_verify_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cbp_discord_verify.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.cbp_discord_verify.dsn })}",
         "mount": "secret",
         "name": "secretspec/discord-verify/prod/SENTRY_DSN"
       },
       "cmu-courses_courses_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cmu-courses_courses.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.cmu-courses_courses.dsn })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/SENTRY_DSN"
       },
       "cmu-housing_housing_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.cmu-housing_housing.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.cmu-housing_housing.dsn })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/SENTRY_DSN"
       },
       "devops_kennel_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.devops_kennel.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.devops_kennel.dsn })}",
         "mount": "secret",
         "name": "secretspec/kennel/prod/SENTRY_DSN"
       },
       "quest_quest_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.quest_quest.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.quest_quest.dsn })}",
         "mount": "secret",
         "name": "secretspec/quest/prod/SENTRY_DSN"
       },
       "slai_cmugpt_sms_surface_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.slai_cmugpt_sms_surface.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.slai_cmugpt_sms_surface.dsn })}",
         "mount": "secret",
         "name": "secretspec/cmugpt-sms-surface/prod/SENTRY_DSN"
       },
       "slai_cmugpt_surface_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.slai_cmugpt_surface.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.slai_cmugpt_surface.dsn })}",
         "mount": "secret",
         "name": "secretspec/cmugpt-surface/prod/SENTRY_DSN"
       },
       "tartan-vote_tartan_vote_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.tartan-vote_tartan_vote.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.tartan-vote_tartan_vote.dsn })}",
         "mount": "secret",
         "name": "secretspec/tartan-vote/prod/SENTRY_DSN"
       },
       "terrier_terrier_sentry_dsn": {
-        "data_json": "${jsonencode({ SENTRY_DSN = sentry_key.terrier_terrier.dsn })}",
+        "data_json": "${jsonencode({ value = sentry_key.terrier_terrier.dsn })}",
         "mount": "secret",
         "name": "secretspec/terrier/prod/SENTRY_DSN"
       }

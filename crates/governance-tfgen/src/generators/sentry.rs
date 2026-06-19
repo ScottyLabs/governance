@@ -61,7 +61,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
                     "mount": "secret",
                     "name": format!("secretspec/{}/prod/SENTRY_DSN", repo.name),
                     "data_json": format!(
-                        "${{jsonencode({{ SENTRY_DSN = sentry_key.{key}.dsn }})}}"
+                        "${{jsonencode({{ value = sentry_key.{key}.dsn }})}}"
                     ),
                 }),
             );

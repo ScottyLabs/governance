@@ -299,7 +299,7 @@ fn add_oidc_secrets(
             tf,
             &format!("{key}_{profile}_{}", var.to_lowercase()),
             &format!("secretspec/{repo}/{profile}/{var}"),
-            &format!("{var} = {value}"),
+            &value,
         );
     }
 }
@@ -309,24 +309,24 @@ fn add_admin_secrets(tf: &mut TfJsonFile, repo: &str, key: &str, profile: &str, 
         tf,
         &format!("{key}_{profile}_admin_client_id"),
         &format!("secretspec/{repo}/{profile}/KEYCLOAK_ADMIN_CLIENT_ID"),
-        &format!("KEYCLOAK_ADMIN_CLIENT_ID = keycloak_openid_client.{admin_key}.client_id"),
+        &format!("keycloak_openid_client.{admin_key}.client_id"),
     );
     add_secret(
         tf,
         &format!("{key}_{profile}_admin_client_secret"),
         &format!("secretspec/{repo}/{profile}/KEYCLOAK_ADMIN_CLIENT_SECRET"),
-        &format!("KEYCLOAK_ADMIN_CLIENT_SECRET = keycloak_openid_client.{admin_key}.client_secret"),
+        &format!("keycloak_openid_client.{admin_key}.client_secret"),
     );
 }
 
-fn add_secret(tf: &mut TfJsonFile, key: &str, name: &str, assignment: &str) {
+fn add_secret(tf: &mut TfJsonFile, key: &str, name: &str, value: &str) {
     tf.add_resource(
         "vault_kv_secret_v2",
         key,
         json!({
             "mount": "secret",
             "name": name,
-            "data_json": format!("${{jsonencode({{ {assignment} }})}}"),
+            "data_json": format!("${{jsonencode({{ value = {value} }})}}"),
         }),
     );
 }
