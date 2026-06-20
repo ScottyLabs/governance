@@ -184,6 +184,24 @@
           "channel": "C019R0WM1T4"
         }
       },
+      "slack_bridge_login_org_grafana": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0BBK1NUVC7"
+        }
+      },
       "slack_bridge_login_org_gym": {
         "provisioner": [
           {
@@ -613,6 +631,17 @@
         "project_name": "General",
         "project_slug": "general",
         "slack_channel_id": "C019R0WM1T4",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_grafana": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_grafana"
+        ],
+        "discord_channel_id": "1467982406362599514",
+        "project_name": "Grafana",
+        "project_slug": "grafana",
+        "slack_channel_id": "C0BBK1NUVC7",
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },
