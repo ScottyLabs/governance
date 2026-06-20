@@ -88,6 +88,17 @@
       ],
       "type": "forgejo"
     },
+    "devops_devops_troubleshooting_docs_docs_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "url": "${var.docs_webhook_url}"
+      },
+      "events": [
+        "push"
+      ],
+      "type": "forgejo"
+    },
     "devops_governance_docs_webhook_data": {
       "active": true,
       "config": {
@@ -297,6 +308,14 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/devenv/hooks"
+      },
+      "devops_devops_troubleshooting_docs_docs_webhook": {
+        "data": "${jsonencode(local.devops_devops_troubleshooting_docs_docs_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.devops_devops_troubleshooting_docs"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/devops-troubleshooting-docs/hooks"
       },
       "devops_governance_docs_webhook": {
         "data": "${jsonencode(local.devops_governance_docs_webhook_data)}",
