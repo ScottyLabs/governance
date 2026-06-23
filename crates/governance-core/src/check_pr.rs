@@ -17,7 +17,7 @@ pub fn check_pr(
     changed_files: &[String],
 ) -> PrCheckResult {
     let td = &data.org.org.tech_director;
-    let is_admin = author == td || is_devops_lead(data, author);
+    let is_admin = author == td || is_devops_member(data, author);
 
     if is_admin {
         return PrCheckResult {
@@ -96,11 +96,11 @@ fn check_team_file_change(
     }
 }
 
-fn is_devops_lead(data: &GovernanceData, username: &str) -> bool {
+fn is_devops_member(data: &GovernanceData, username: &str) -> bool {
     data.teams
         .iter()
         .filter(|t| t.team.group.slug == "devops")
-        .any(|t| t.team.group.leads.iter().any(|l| l == username))
+        .any(|t| t.team.group.all_members().any(|l| l == username))
 }
 
 fn git_show(base_ref: &str, path: &str) -> Option<String> {

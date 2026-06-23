@@ -105,6 +105,10 @@
         "team_id": "${forgejo_team.dalmatian_leads.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
       },
+      "devops_XboxBedrock": {
+        "team_id": "${forgejo_team.devops.id}",
+        "user": "${data.external.identity_XboxBedrock.result.codeberg}"
+      },
       "devops_anish": {
         "team_id": "${forgejo_team.devops.id}",
         "user": "${data.external.identity_anish.result.codeberg}"

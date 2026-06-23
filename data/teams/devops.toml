@@ -3,6 +3,7 @@ name = "DevOps"
 slug = "devops"
 description = "Infrastructure and deployment"
 leads = ["anish", "thesuperRL"]
+members = ["XboxBedrock"]
 
 [[team.repos]]
 name = "infrastructure"

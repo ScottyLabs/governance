@@ -121,7 +121,8 @@
         "group_id": "${keycloak_group.project_devops.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperRL.result.cmu-saml}"
+          "${data.external.identity_thesuperRL.result.cmu-saml}",
+          "${data.external.identity_XboxBedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
