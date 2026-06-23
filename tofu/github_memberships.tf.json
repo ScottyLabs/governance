@@ -51,6 +51,11 @@
         "team_id": "${github_team.cmu-housing.id}",
         "username": "${data.external.identity_ManrajS.result.github}"
       },
+      "cmu-housing_XboxBedrock": {
+        "role": "member",
+        "team_id": "${github_team.cmu-housing.id}",
+        "username": "${data.external.identity_XboxBedrock.result.github}"
+      },
       "cmu-housing_amzoeee": {
         "role": "member",
         "team_id": "${github_team.cmu-housing.id}",
