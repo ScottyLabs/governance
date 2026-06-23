@@ -2,7 +2,14 @@
 name = "Tartan Vote"
 slug = "tartan-vote"
 leads = ["maybe-yiyi"]
-members = ["vloh", "XboxBedrock", "tentype", "riztofu", "zeyuyaoy"]
+members = [
+    "vloh",
+    "XboxBedrock",
+    "tentype",
+    "riztofu",
+    "zeyuyaoy",
+    "stationedK-06",
+]
 
 [[team.repos]]
 name = "tartan-vote"

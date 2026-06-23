@@ -9,7 +9,8 @@
           "${data.external.identity_gostmeaper.result.cmu-saml}",
           "${data.external.identity_XboxBedrock.result.cmu-saml}",
           "${data.external.identity_pandaaured.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
+          "${data.external.identity_stationedK_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -29,7 +30,8 @@
           "${data.external.identity_gostmeaper.result.cmu-saml}",
           "${data.external.identity_XboxBedrock.result.cmu-saml}",
           "${data.external.identity_pandaaured.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
+          "${data.external.identity_stationedK_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -49,7 +51,8 @@
           "${data.external.identity_gostmeaper.result.cmu-saml}",
           "${data.external.identity_XboxBedrock.result.cmu-saml}",
           "${data.external.identity_pandaaured.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
+          "${data.external.identity_stationedK_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -69,7 +72,8 @@
           "${data.external.identity_gostmeaper.result.cmu-saml}",
           "${data.external.identity_XboxBedrock.result.cmu-saml}",
           "${data.external.identity_pandaaured.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
+          "${data.external.identity_stationedK_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -237,7 +241,8 @@
           "${data.external.identity_XboxBedrock.result.cmu-saml}",
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_riztofu.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
+          "${data.external.identity_stationedK_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

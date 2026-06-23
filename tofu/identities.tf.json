@@ -199,6 +199,17 @@
           "codeberg_user": "sayevikk"
         }
       },
+      "identity_stationedK_06": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "stationedK-06"
+        }
+      },
       "identity_tentype": {
         "program": [
           "governance",

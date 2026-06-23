@@ -25,6 +25,10 @@
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_pandaaured.result.codeberg}"
       },
+      "cbp_stationedK_06": {
+        "team_id": "${forgejo_team.cbp.id}",
+        "user": "${data.external.identity_stationedK_06.result.codeberg}"
+      },
       "cbp_tentype": {
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
@@ -196,6 +200,10 @@
       "tartan-vote_riztofu": {
         "team_id": "${forgejo_team.tartan-vote.id}",
         "user": "${data.external.identity_riztofu.result.codeberg}"
+      },
+      "tartan-vote_stationedK_06": {
+        "team_id": "${forgejo_team.tartan-vote.id}",
+        "user": "${data.external.identity_stationedK_06.result.codeberg}"
       },
       "tartan-vote_tentype": {
         "team_id": "${forgejo_team.tartan-vote.id}",

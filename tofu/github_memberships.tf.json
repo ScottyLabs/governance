@@ -21,6 +21,11 @@
         "team_id": "${github_team.cbp.id}",
         "username": "${data.external.identity_pandaaured.result.github}"
       },
+      "cbp_stationedK_06": {
+        "role": "member",
+        "team_id": "${github_team.cbp.id}",
+        "username": "${data.external.identity_stationedK_06.result.github}"
+      },
       "cbp_tentype": {
         "role": "maintainer",
         "team_id": "${github_team.cbp.id}",
@@ -145,6 +150,11 @@
         "role": "member",
         "team_id": "${github_team.tartan-vote.id}",
         "username": "${data.external.identity_riztofu.result.github}"
+      },
+      "tartan-vote_stationedK_06": {
+        "role": "member",
+        "team_id": "${github_team.tartan-vote.id}",
+        "username": "${data.external.identity_stationedK_06.result.github}"
       },
       "tartan-vote_tentype": {
         "role": "member",

@@ -2,7 +2,13 @@
 name = "Community-Based Projects"
 slug = "cbp"
 leads = ["tentype", "maybe-yiyi"]
-members = ["gostmeaper", "XboxBedrock", "pandaaured", "zeyuyaoy"]
+members = [
+    "gostmeaper",
+    "XboxBedrock",
+    "pandaaured",
+    "zeyuyaoy",
+    "stationedK-06",
+]
 
 [[team.channels]]
 discord = "1450023430224216237"

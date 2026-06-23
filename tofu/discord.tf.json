@@ -324,6 +324,21 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_sayevikk.result.discord_id}"
       },
+      "stationedK_06": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cbp.id}"
+          },
+          {
+            "role_id": "${discord_role.tartan-vote.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_stationedK_06.result.discord_id}"
+      },
       "tentype": {
         "role": [
           {
