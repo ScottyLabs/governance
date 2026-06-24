@@ -146,47 +146,70 @@ pub fn generate_clients(data: &GovernanceData) -> TfJsonFile {
     let mut needs_realm_management = false;
 
     for team in &data.teams {
-        for repo in team
+        // A team with projects has no group of its own, so its direct repos have no path
+        let team_path = team
             .team
-            .repos()
-            .filter(|r| r.has(Feature::OidcClient) || r.has(Feature::AdminClient))
-        {
-            let name = repo.name.as_str();
-            let key = name.replace('-', "_");
+            .projects
+            .is_empty()
+            .then(|| format!("/projects/{}", team.team.group.slug));
+        let groups = std::iter::once((&team.team.group, team_path)).chain(
+            team.team
+                .projects
+                .iter()
+                .map(|p| (&p.group, Some(format!("/projects/{}", p.group.slug)))),
+        );
 
-            if repo.has(Feature::OidcClient) {
-                let staging_key = format!("{key}_staging");
-                let dev_key = format!("{key}_dev");
-                let staging_id = format!("{name}-staging");
-                let dev_id = format!("{name}-dev");
+        for (group, group_path) in groups {
+            for repo in group
+                .repos
+                .iter()
+                .filter(|r| r.has(Feature::OidcClient) || r.has(Feature::AdminClient))
+            {
+                let name = repo.name.as_str();
+                let key = name.replace('-', "_");
 
-                let clients = [
-                    (&key, name, &keycloak.redirect_uri),
-                    (&staging_key, staging_id.as_str(), &keycloak.redirect_uri),
-                    (&dev_key, dev_id.as_str(), &keycloak.dev_redirect_uri),
-                ];
-                for (client_key, client_id, redirect) in clients {
-                    add_client(&mut tf, realm_id, client_key, client_id, redirect);
+                if repo.has(Feature::OidcClient) {
+                    let staging_key = format!("{key}_staging");
+                    let dev_key = format!("{key}_dev");
+                    let staging_id = format!("{name}-staging");
+                    let dev_id = format!("{name}-dev");
+
+                    let clients = [
+                        (&key, name, &keycloak.redirect_uri),
+                        (&staging_key, staging_id.as_str(), &keycloak.redirect_uri),
+                        (&dev_key, dev_id.as_str(), &keycloak.dev_redirect_uri),
+                    ];
+                    for (client_key, client_id, redirect) in clients {
+                        add_client(&mut tf, realm_id, client_key, client_id, redirect);
+                    }
+
+                    // Preview reuses the staging client
+                    let profiles = [
+                        ("prod", &key, &keycloak.redirect_uri),
+                        ("staging", &staging_key, &keycloak.redirect_uri),
+                        ("preview", &staging_key, &keycloak.redirect_uri),
+                        ("dev", &dev_key, &keycloak.dev_redirect_uri),
+                    ];
+                    for (profile, client_key, relay) in profiles {
+                        add_oidc_secrets(&mut tf, name, &key, profile, client_key, keycloak, relay);
+                    }
+
+                    // Hand the app its own group path to match against the OIDC groups claim
+                    if let Some(group_path) = group_path.as_deref() {
+                        for profile in ["prod", "staging", "preview", "dev"] {
+                            add_group_secrets(&mut tf, name, &key, profile, group_path);
+                        }
+                    }
                 }
 
-                // Preview reuses the staging client
-                let profiles = [
-                    ("prod", &key, &keycloak.redirect_uri),
-                    ("staging", &staging_key, &keycloak.redirect_uri),
-                    ("preview", &staging_key, &keycloak.redirect_uri),
-                    ("dev", &dev_key, &keycloak.dev_redirect_uri),
-                ];
-                for (profile, client_key, relay) in profiles {
-                    add_oidc_secrets(&mut tf, name, &key, profile, client_key, keycloak, relay);
-                }
-            }
+                if repo.has(Feature::AdminClient) {
+                    needs_realm_management = true;
+                    let admin_key = format!("{key}_admin");
+                    add_admin_client(&mut tf, realm_id, &admin_key, &format!("{name}-admin"));
 
-            if repo.has(Feature::AdminClient) {
-                needs_realm_management = true;
-                let admin_key = format!("{key}_admin");
-                add_admin_client(&mut tf, realm_id, &admin_key, &format!("{name}-admin"));
-                for profile in ["prod", "staging", "preview", "dev"] {
-                    add_admin_secrets(&mut tf, name, &key, profile, &admin_key);
+                    for profile in ["prod", "staging", "preview", "dev"] {
+                        add_admin_secrets(&mut tf, name, &key, profile, &admin_key);
+                    }
                 }
             }
         }
@@ -317,6 +340,25 @@ fn add_admin_secrets(tf: &mut TfJsonFile, repo: &str, key: &str, profile: &str, 
         &format!("secretspec/{repo}/{profile}/KEYCLOAK_ADMIN_CLIENT_SECRET"),
         &format!("keycloak_openid_client.{admin_key}.client_secret"),
     );
+}
+
+fn add_group_secrets(tf: &mut TfJsonFile, repo: &str, key: &str, profile: &str, group_path: &str) {
+    let secrets = [
+        ("PROJECT_GROUP", format!("{group_path:?}")),
+        (
+            "PROJECT_ADMIN_GROUP",
+            format!("{:?}", format!("{group_path}/admins")),
+        ),
+    ];
+
+    for (var, value) in secrets {
+        add_secret(
+            tf,
+            &format!("{key}_{profile}_{}", var.to_lowercase()),
+            &format!("secretspec/{repo}/{profile}/{var}"),
+            &value,
+        );
+    }
 }
 
 fn add_secret(tf: &mut TfJsonFile, key: &str, name: &str, value: &str) {

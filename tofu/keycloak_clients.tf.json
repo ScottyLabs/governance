@@ -493,6 +493,16 @@
         "mount": "secret",
         "name": "secretspec/courses/dev/OIDC_CLIENT_SECRET"
       },
+      "courses_dev_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-courses/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/dev/PROJECT_ADMIN_GROUP"
+      },
+      "courses_dev_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-courses\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/dev/PROJECT_GROUP"
+      },
       "courses_preview_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -517,6 +527,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.courses_staging.client_secret })}",
         "mount": "secret",
         "name": "secretspec/courses/preview/OIDC_CLIENT_SECRET"
+      },
+      "courses_preview_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-courses/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/PROJECT_ADMIN_GROUP"
+      },
+      "courses_preview_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-courses\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/PROJECT_GROUP"
       },
       "courses_prod_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
@@ -543,6 +563,16 @@
         "mount": "secret",
         "name": "secretspec/courses/prod/OIDC_CLIENT_SECRET"
       },
+      "courses_prod_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-courses/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/PROJECT_ADMIN_GROUP"
+      },
+      "courses_prod_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-courses\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/PROJECT_GROUP"
+      },
       "courses_staging_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -567,6 +597,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.courses_staging.client_secret })}",
         "mount": "secret",
         "name": "secretspec/courses/staging/OIDC_CLIENT_SECRET"
+      },
+      "courses_staging_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-courses/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/PROJECT_ADMIN_GROUP"
+      },
+      "courses_staging_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-courses\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/PROJECT_GROUP"
       },
       "discord_verify_dev_admin_client_id": {
         "data_json": "${jsonencode({ value = keycloak_openid_client.discord_verify_admin.client_id })}",
@@ -603,6 +643,16 @@
         "mount": "secret",
         "name": "secretspec/discord-verify/dev/OIDC_CLIENT_SECRET"
       },
+      "discord_verify_dev_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/discord-verify/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/dev/PROJECT_ADMIN_GROUP"
+      },
+      "discord_verify_dev_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/discord-verify\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/dev/PROJECT_GROUP"
+      },
       "discord_verify_preview_admin_client_id": {
         "data_json": "${jsonencode({ value = keycloak_openid_client.discord_verify_admin.client_id })}",
         "mount": "secret",
@@ -637,6 +687,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.discord_verify_staging.client_secret })}",
         "mount": "secret",
         "name": "secretspec/discord-verify/preview/OIDC_CLIENT_SECRET"
+      },
+      "discord_verify_preview_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/discord-verify/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/preview/PROJECT_ADMIN_GROUP"
+      },
+      "discord_verify_preview_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/discord-verify\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/preview/PROJECT_GROUP"
       },
       "discord_verify_prod_admin_client_id": {
         "data_json": "${jsonencode({ value = keycloak_openid_client.discord_verify_admin.client_id })}",
@@ -673,6 +733,16 @@
         "mount": "secret",
         "name": "secretspec/discord-verify/prod/OIDC_CLIENT_SECRET"
       },
+      "discord_verify_prod_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/discord-verify/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/PROJECT_ADMIN_GROUP"
+      },
+      "discord_verify_prod_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/discord-verify\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/prod/PROJECT_GROUP"
+      },
       "discord_verify_staging_admin_client_id": {
         "data_json": "${jsonencode({ value = keycloak_openid_client.discord_verify_admin.client_id })}",
         "mount": "secret",
@@ -708,6 +778,16 @@
         "mount": "secret",
         "name": "secretspec/discord-verify/staging/OIDC_CLIENT_SECRET"
       },
+      "discord_verify_staging_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/discord-verify/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/staging/PROJECT_ADMIN_GROUP"
+      },
+      "discord_verify_staging_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/discord-verify\" })}",
+        "mount": "secret",
+        "name": "secretspec/discord-verify/staging/PROJECT_GROUP"
+      },
       "link_shortener_dev_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -732,6 +812,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.link_shortener_dev.client_secret })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/dev/OIDC_CLIENT_SECRET"
+      },
+      "link_shortener_dev_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/devops/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/dev/PROJECT_ADMIN_GROUP"
+      },
+      "link_shortener_dev_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/devops\" })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/dev/PROJECT_GROUP"
       },
       "link_shortener_preview_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
@@ -758,6 +848,16 @@
         "mount": "secret",
         "name": "secretspec/link-shortener/preview/OIDC_CLIENT_SECRET"
       },
+      "link_shortener_preview_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/devops/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/preview/PROJECT_ADMIN_GROUP"
+      },
+      "link_shortener_preview_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/devops\" })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/preview/PROJECT_GROUP"
+      },
       "link_shortener_prod_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -782,6 +882,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.link_shortener.client_secret })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/prod/OIDC_CLIENT_SECRET"
+      },
+      "link_shortener_prod_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/devops/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/prod/PROJECT_ADMIN_GROUP"
+      },
+      "link_shortener_prod_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/devops\" })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/prod/PROJECT_GROUP"
       },
       "link_shortener_staging_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
@@ -808,6 +918,16 @@
         "mount": "secret",
         "name": "secretspec/link-shortener/staging/OIDC_CLIENT_SECRET"
       },
+      "link_shortener_staging_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/devops/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/staging/PROJECT_ADMIN_GROUP"
+      },
+      "link_shortener_staging_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/devops\" })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/staging/PROJECT_GROUP"
+      },
       "quest_dev_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -832,6 +952,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.quest_dev.client_secret })}",
         "mount": "secret",
         "name": "secretspec/quest/dev/OIDC_CLIENT_SECRET"
+      },
+      "quest_dev_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/quest/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/dev/PROJECT_ADMIN_GROUP"
+      },
+      "quest_dev_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/quest\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/dev/PROJECT_GROUP"
       },
       "quest_preview_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
@@ -858,6 +988,16 @@
         "mount": "secret",
         "name": "secretspec/quest/preview/OIDC_CLIENT_SECRET"
       },
+      "quest_preview_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/quest/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/preview/PROJECT_ADMIN_GROUP"
+      },
+      "quest_preview_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/quest\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/preview/PROJECT_GROUP"
+      },
       "quest_prod_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -882,6 +1022,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.quest.client_secret })}",
         "mount": "secret",
         "name": "secretspec/quest/prod/OIDC_CLIENT_SECRET"
+      },
+      "quest_prod_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/quest/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/PROJECT_ADMIN_GROUP"
+      },
+      "quest_prod_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/quest\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/PROJECT_GROUP"
       },
       "quest_staging_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
@@ -908,6 +1058,16 @@
         "mount": "secret",
         "name": "secretspec/quest/staging/OIDC_CLIENT_SECRET"
       },
+      "quest_staging_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/quest/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/staging/PROJECT_ADMIN_GROUP"
+      },
+      "quest_staging_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/quest\" })}",
+        "mount": "secret",
+        "name": "secretspec/quest/staging/PROJECT_GROUP"
+      },
       "tartan_vote_dev_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -932,6 +1092,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.tartan_vote_dev.client_secret })}",
         "mount": "secret",
         "name": "secretspec/tartan-vote/dev/OIDC_CLIENT_SECRET"
+      },
+      "tartan_vote_dev_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/tartan-vote/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/dev/PROJECT_ADMIN_GROUP"
+      },
+      "tartan_vote_dev_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/tartan-vote\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/dev/PROJECT_GROUP"
       },
       "tartan_vote_preview_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
@@ -958,6 +1128,16 @@
         "mount": "secret",
         "name": "secretspec/tartan-vote/preview/OIDC_CLIENT_SECRET"
       },
+      "tartan_vote_preview_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/tartan-vote/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/preview/PROJECT_ADMIN_GROUP"
+      },
+      "tartan_vote_preview_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/tartan-vote\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/preview/PROJECT_GROUP"
+      },
       "tartan_vote_prod_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -982,6 +1162,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.tartan_vote.client_secret })}",
         "mount": "secret",
         "name": "secretspec/tartan-vote/prod/OIDC_CLIENT_SECRET"
+      },
+      "tartan_vote_prod_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/tartan-vote/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/prod/PROJECT_ADMIN_GROUP"
+      },
+      "tartan_vote_prod_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/tartan-vote\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/prod/PROJECT_GROUP"
       },
       "tartan_vote_staging_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
@@ -1008,6 +1198,16 @@
         "mount": "secret",
         "name": "secretspec/tartan-vote/staging/OIDC_CLIENT_SECRET"
       },
+      "tartan_vote_staging_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/tartan-vote/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/staging/PROJECT_ADMIN_GROUP"
+      },
+      "tartan_vote_staging_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/tartan-vote\" })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/staging/PROJECT_GROUP"
+      },
       "terrier_dev_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -1032,6 +1232,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.terrier_dev.client_secret })}",
         "mount": "secret",
         "name": "secretspec/terrier/dev/OIDC_CLIENT_SECRET"
+      },
+      "terrier_dev_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/terrier/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/dev/PROJECT_ADMIN_GROUP"
+      },
+      "terrier_dev_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/terrier\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/dev/PROJECT_GROUP"
       },
       "terrier_preview_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
@@ -1058,6 +1268,16 @@
         "mount": "secret",
         "name": "secretspec/terrier/preview/OIDC_CLIENT_SECRET"
       },
+      "terrier_preview_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/terrier/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/preview/PROJECT_ADMIN_GROUP"
+      },
+      "terrier_preview_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/terrier\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/preview/PROJECT_GROUP"
+      },
       "terrier_prod_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -1083,6 +1303,16 @@
         "mount": "secret",
         "name": "secretspec/terrier/prod/OIDC_CLIENT_SECRET"
       },
+      "terrier_prod_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/terrier/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/PROJECT_ADMIN_GROUP"
+      },
+      "terrier_prod_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/terrier\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/PROJECT_GROUP"
+      },
       "terrier_staging_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -1107,6 +1337,16 @@
         "data_json": "${jsonencode({ value = keycloak_openid_client.terrier_staging.client_secret })}",
         "mount": "secret",
         "name": "secretspec/terrier/staging/OIDC_CLIENT_SECRET"
+      },
+      "terrier_staging_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/terrier/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/staging/PROJECT_ADMIN_GROUP"
+      },
+      "terrier_staging_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/terrier\" })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/staging/PROJECT_GROUP"
       }
     }
   },
