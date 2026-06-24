@@ -361,6 +361,8 @@ fn add_group_secrets(tf: &mut TfJsonFile, repo: &str, key: &str, profile: &str, 
     }
 }
 
+// A new secret name must also be added to `governance_project_secrets` in the infrastructure
+// repo (tofu/identity/governance.tf), or the governance Vault policy denies this write with 403
 fn add_secret(tf: &mut TfJsonFile, key: &str, name: &str, value: &str) {
     tf.add_resource(
         "vault_kv_secret_v2",
