@@ -26,9 +26,11 @@ org_id = "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
 [org.communication]
 discord_guild_id = "1353118209024331948"
 discord_hub_channel_id = "1462522753709248533"
+discord_leads_channel_id = "1519792585479032887"
 slack_workspace = "scottylabs"
 slack_team_id = "T03EVH29W"
 slack_hub_channel_id = "C096TM8EMS8"
+slack_leads_channel_id = "C0AN1M0HDV0"
 matrix_domain = "doggylabs.org"
 matrix_homeserver_url = "https://matrix.doggylabs.org"
 
@@ -163,9 +165,3 @@ name = "Grafana"
 slug = "grafana"
 discord = "1467982406362599514"
 slack = "C0BBK1NUVC7"
-
-[[org.communication.channels]]
-name = "Tech Leads"
-slug = "leads"
-discord = "1519792585479032887"
-slack = "C0AN1M0HDV0"

@@ -22,6 +22,18 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         emit_channel_invite(&mut tf, &format!("slack_hub_{key}"), hub_channel, &slack_id);
     }
 
+    let leads_channel = &comm.slack_leads_channel_id;
+    for lead in data.all_leads() {
+        let key = lead.replace('-', "_");
+        let slack_id = format!("${{data.external.identity_{key}.result.slack_id}}");
+        emit_channel_invite(
+            &mut tf,
+            &format!("slack_leads_{key}"),
+            leads_channel,
+            &slack_id,
+        );
+    }
+
     for team in &data.teams {
         let slug = &team.team.group.slug;
         let channel_ids = slack_channel_ids(team);

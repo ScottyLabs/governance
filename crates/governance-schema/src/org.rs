@@ -51,10 +51,12 @@ impl GithubConfig {
 pub struct CommunicationConfig {
     pub discord_guild_id: String,
     pub discord_hub_channel_id: String,
+    pub discord_leads_channel_id: String,
     pub slack_workspace: String,
     /// Slack workspace ID (e.g. T03EVH29W) for mautrix-slack bridge chat IDs.
     pub slack_team_id: String,
     pub slack_hub_channel_id: String,
+    pub slack_leads_channel_id: String,
     pub matrix_domain: String,
     pub matrix_homeserver_url: String,
     /// When true, governance validate checks that each team member has a Matrix account.

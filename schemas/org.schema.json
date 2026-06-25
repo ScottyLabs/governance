@@ -28,6 +28,9 @@
         "discord_hub_channel_id": {
           "type": "string"
         },
+        "discord_leads_channel_id": {
+          "type": "string"
+        },
         "matrix_account_required": {
           "description": "When true, governance validate checks that each team member has a Matrix account.",
           "type": "boolean",
@@ -42,6 +45,9 @@
         "slack_hub_channel_id": {
           "type": "string"
         },
+        "slack_leads_channel_id": {
+          "type": "string"
+        },
         "slack_team_id": {
           "description": "Slack workspace ID (e.g. T03EVH29W) for mautrix-slack bridge chat IDs.",
           "type": "string"
@@ -53,9 +59,11 @@
       "required": [
         "discord_guild_id",
         "discord_hub_channel_id",
+        "discord_leads_channel_id",
         "slack_workspace",
         "slack_team_id",
         "slack_hub_channel_id",
+        "slack_leads_channel_id",
         "matrix_domain",
         "matrix_homeserver_url"
       ]

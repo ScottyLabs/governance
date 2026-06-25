@@ -62,6 +62,16 @@ fn emit_org_bridges(tf: &mut TfJsonFile, data: &GovernanceData) {
         &comm.discord_hub_channel_id,
     );
 
+    // Tech leads channel
+    emit_org_pair(
+        tf,
+        org_name,
+        "Tech Leads",
+        "leads",
+        &comm.slack_leads_channel_id,
+        &comm.discord_leads_channel_id,
+    );
+
     for channel in &comm.channels {
         emit_org_channel(tf, org_name, channel);
     }
