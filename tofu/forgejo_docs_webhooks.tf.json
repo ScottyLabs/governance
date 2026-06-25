@@ -230,6 +230,17 @@
         "push"
       ],
       "type": "forgejo"
+    },
+    "uia_scottylabs_org_docs_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "url": "${var.docs_webhook_url}"
+      },
+      "events": [
+        "push"
+      ],
+      "type": "forgejo"
     }
   },
   "resource": {
@@ -401,6 +412,14 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/components/hooks"
+      },
+      "uia_scottylabs_org_docs_webhook": {
+        "data": "${jsonencode(local.uia_scottylabs_org_docs_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.uia_scottylabs_org"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/scottylabs-org/hooks"
       }
     }
   }

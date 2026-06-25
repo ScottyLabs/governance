@@ -88,6 +88,10 @@
       "uia_components_actions": {
         "enabled": false,
         "repository": "${github_repository.uia_components.name}"
+      },
+      "uia_scottylabs_org_actions": {
+        "enabled": false,
+        "repository": "${github_repository.uia_scottylabs_org.name}"
       }
     },
     "github_repository": {
@@ -310,6 +314,16 @@
         "homepage_url": "https://codeberg.org/ScottyLabs/components",
         "name": "components",
         "visibility": "public"
+      },
+      "uia_scottylabs_org": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/scottylabs-org",
+        "name": "scottylabs-org",
+        "visibility": "public"
       }
     },
     "github_repository_deploy_key": {
@@ -443,6 +457,12 @@
         "key": "${restapi_object.uia_components_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.uia_components.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "uia_scottylabs_org_mirror_deploy_key": {
+        "key": "${restapi_object.uia_scottylabs_org_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.uia_scottylabs_org.name}",
         "title": "Codeberg Mirroring"
       }
     },
@@ -1096,6 +1116,36 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.uia_components.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "uia_scottylabs_org_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.uia_scottylabs_org_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.uia_scottylabs_org.name}",
         "rules": {
           "creation": true,
           "deletion": true,

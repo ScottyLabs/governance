@@ -396,6 +396,24 @@
         "owner": "ScottyLabs",
         "repository": "components",
         "team_id": "${forgejo_team.uia_leads.id}"
+      },
+      "uia_leads_scottylabs_org": {
+        "depends_on": [
+          "forgejo_repository.uia_scottylabs_org",
+          "forgejo_team.uia_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "scottylabs-org",
+        "team_id": "${forgejo_team.uia_leads.id}"
+      },
+      "uia_scottylabs_org": {
+        "depends_on": [
+          "forgejo_repository.uia_scottylabs_org",
+          "forgejo_team.uia"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "scottylabs-org",
+        "team_id": "${forgejo_team.uia.id}"
       }
     }
   }

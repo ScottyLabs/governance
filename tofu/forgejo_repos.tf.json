@@ -286,6 +286,19 @@
         "name": "components",
         "owner": "ScottyLabs",
         "private": false
+      },
+      "uia_scottylabs_org": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "ScottyLabs website",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "scottylabs-org",
+        "owner": "ScottyLabs",
+        "private": false
       }
     }
   }
