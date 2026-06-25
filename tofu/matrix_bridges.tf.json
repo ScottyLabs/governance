@@ -274,6 +274,24 @@
           "channel": "C0B6WB37QHM"
         }
       },
+      "slack_bridge_login_org_leads": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0AN1M0HDV0"
+        }
+      },
       "slack_bridge_login_org_merch": {
         "provisioner": [
           {
@@ -686,6 +704,17 @@
         "project_name": "Intros",
         "project_slug": "intros",
         "slack_channel_id": "C0B6WB37QHM",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_leads": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_leads"
+        ],
+        "discord_channel_id": "1519792585479032887",
+        "project_name": "Tech Leads",
+        "project_slug": "leads",
+        "slack_channel_id": "C0AN1M0HDV0",
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },

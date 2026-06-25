@@ -48,7 +48,7 @@ The following is a non-exhaustive list of platforms Governance manages:
    - Repositories automatically receive a deploy webhook that authorizes them to be deployed by [kennel](https://codeberg.org/scottylabs/kennel)
 1. Discord and Slack
    - Members are added to the appropriate channels on both platforms
-   - On Discord, members are assigned the Tech role and their team's roles
+   - On Discord, members are assigned the Tech role and their team's roles, and team leads additionally receive the Tech Lead role
    - Bidirectional sync is established between registered Discord and Slack channels via Matrix
 1. Vaultwarden
    - Members are given the appropriate access to account credentials on Vaultwarden

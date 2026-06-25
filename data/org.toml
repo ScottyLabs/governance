@@ -163,3 +163,9 @@ name = "Grafana"
 slug = "grafana"
 discord = "1467982406362599514"
 slack = "C0BBK1NUVC7"
+
+[[org.communication.channels]]
+name = "Tech Leads"
+slug = "leads"
+discord = "1519792585479032887"
+slack = "C0AN1M0HDV0"

@@ -100,6 +100,9 @@
           },
           {
             "role_id": "${discord_role.cmu-housing.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -205,6 +208,9 @@
           },
           {
             "role_id": "${discord_role.uia.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -220,6 +226,9 @@
           },
           {
             "role_id": "${discord_role.cmu-housing.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -256,6 +265,9 @@
           },
           {
             "role_id": "${discord_role.slai.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -268,6 +280,9 @@
           },
           {
             "role_id": "${discord_role.terrier.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -283,6 +298,9 @@
           },
           {
             "role_id": "${discord_role.tartan-vote.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -352,6 +370,9 @@
           },
           {
             "role_id": "${discord_role.tartan-vote.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -364,6 +385,9 @@
           },
           {
             "role_id": "${discord_role.devops.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -431,6 +455,10 @@
       },
       "tech": {
         "name": "Tech",
+        "server_id": "1353118209024331948"
+      },
+      "tech_lead": {
+        "name": "Tech Lead",
         "server_id": "1353118209024331948"
       },
       "terrier": {

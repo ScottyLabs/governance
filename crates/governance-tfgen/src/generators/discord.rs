@@ -91,6 +91,23 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         }
     }
 
+    // "Tech Lead" role for all team and project leads
+    tf.add_resource(
+        "discord_role",
+        "tech_lead",
+        json!({
+            "server_id": guild,
+            "name": "Tech Lead",
+        }),
+    );
+    for lead in data.all_leads() {
+        let key = lead.replace('-', "_");
+        roles_by_user
+            .entry(key)
+            .or_default()
+            .push("${discord_role.tech_lead.id}".to_string());
+    }
+
     for (user_key, role_ids) in roles_by_user {
         let role_blocks: Vec<_> = role_ids
             .into_iter()
