@@ -217,7 +217,7 @@ pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
                         "content_type": "json",
                         "secret": "${random_password.kennel_webhook_secret.result}",
                     },
-                    "events": ["push", "pull_request"],
+                    "events": ["push", "pull_request", "delete"],
                 }),
             );
 
@@ -228,6 +228,7 @@ pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
                     "path": format!("/api/v1/repos/{}/{}/hooks", forgejo.org, repo.name),
                     "data": format!("${{jsonencode(local.{local_name})}}"),
                     "id_attribute": "id",
+                    "update_method": "PATCH",
                     "depends_on": [
                         format!("forgejo_repository.{key}"),
                     ],
@@ -275,6 +276,7 @@ pub fn generate_docs_webhooks(data: &GovernanceData) -> TfJsonFile {
                     "path": format!("/api/v1/repos/{}/{}/hooks", forgejo.org, repo.name),
                     "data": format!("${{jsonencode(local.{local_name})}}"),
                     "id_attribute": "id",
+                    "update_method": "PATCH",
                     "depends_on": [
                         format!("forgejo_repository.{key}"),
                     ],

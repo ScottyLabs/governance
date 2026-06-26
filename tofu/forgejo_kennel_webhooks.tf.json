@@ -9,7 +9,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -22,7 +23,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -35,7 +37,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -48,7 +51,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -61,7 +65,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -74,7 +79,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -87,7 +93,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -100,7 +107,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -113,7 +121,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -126,7 +135,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -139,7 +149,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -152,7 +163,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -165,7 +177,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -178,7 +191,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -191,7 +205,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     },
@@ -204,7 +219,8 @@
       },
       "events": [
         "push",
-        "pull_request"
+        "pull_request",
+        "delete"
       ],
       "type": "forgejo"
     }
@@ -217,7 +233,8 @@
           "forgejo_repository.cbp_bus_sign"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/bus-sign/hooks"
+        "path": "/api/v1/repos/ScottyLabs/bus-sign/hooks",
+        "update_method": "PATCH"
       },
       "cbp_dalmatian_kennel_webhook": {
         "data": "${jsonencode(local.cbp_dalmatian_kennel_webhook_data)}",
@@ -225,7 +242,8 @@
           "forgejo_repository.cbp_dalmatian"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/dalmatian/hooks"
+        "path": "/api/v1/repos/ScottyLabs/dalmatian/hooks",
+        "update_method": "PATCH"
       },
       "cbp_discord_verify_kennel_webhook": {
         "data": "${jsonencode(local.cbp_discord_verify_kennel_webhook_data)}",
@@ -233,7 +251,8 @@
           "forgejo_repository.cbp_discord_verify"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/discord-verify/hooks"
+        "path": "/api/v1/repos/ScottyLabs/discord-verify/hooks",
+        "update_method": "PATCH"
       },
       "cmu-courses_courses_kennel_webhook": {
         "data": "${jsonencode(local.cmu-courses_courses_kennel_webhook_data)}",
@@ -241,7 +260,8 @@
           "forgejo_repository.cmu-courses_courses"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/courses/hooks"
+        "path": "/api/v1/repos/ScottyLabs/courses/hooks",
+        "update_method": "PATCH"
       },
       "cmu-housing_housing_kennel_webhook": {
         "data": "${jsonencode(local.cmu-housing_housing_kennel_webhook_data)}",
@@ -249,7 +269,8 @@
           "forgejo_repository.cmu-housing_housing"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/housing/hooks"
+        "path": "/api/v1/repos/ScottyLabs/housing/hooks",
+        "update_method": "PATCH"
       },
       "devops_kennel_kennel_webhook": {
         "data": "${jsonencode(local.devops_kennel_kennel_webhook_data)}",
@@ -257,7 +278,8 @@
           "forgejo_repository.devops_kennel"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/kennel/hooks"
+        "path": "/api/v1/repos/ScottyLabs/kennel/hooks",
+        "update_method": "PATCH"
       },
       "devops_link_shortener_kennel_webhook": {
         "data": "${jsonencode(local.devops_link_shortener_kennel_webhook_data)}",
@@ -265,7 +287,8 @@
           "forgejo_repository.devops_link_shortener"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/link-shortener/hooks"
+        "path": "/api/v1/repos/ScottyLabs/link-shortener/hooks",
+        "update_method": "PATCH"
       },
       "quest_quest_kennel_webhook": {
         "data": "${jsonencode(local.quest_quest_kennel_webhook_data)}",
@@ -273,7 +296,8 @@
           "forgejo_repository.quest_quest"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/quest/hooks"
+        "path": "/api/v1/repos/ScottyLabs/quest/hooks",
+        "update_method": "PATCH"
       },
       "slai_cmugpt_agent_kennel_webhook": {
         "data": "${jsonencode(local.slai_cmugpt_agent_kennel_webhook_data)}",
@@ -281,7 +305,8 @@
           "forgejo_repository.slai_cmugpt_agent"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/cmugpt-agent/hooks"
+        "path": "/api/v1/repos/ScottyLabs/cmugpt-agent/hooks",
+        "update_method": "PATCH"
       },
       "slai_cmugpt_sms_surface_kennel_webhook": {
         "data": "${jsonencode(local.slai_cmugpt_sms_surface_kennel_webhook_data)}",
@@ -289,7 +314,8 @@
           "forgejo_repository.slai_cmugpt_sms_surface"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/cmugpt-sms-surface/hooks"
+        "path": "/api/v1/repos/ScottyLabs/cmugpt-sms-surface/hooks",
+        "update_method": "PATCH"
       },
       "slai_cmugpt_surface_kennel_webhook": {
         "data": "${jsonencode(local.slai_cmugpt_surface_kennel_webhook_data)}",
@@ -297,7 +323,8 @@
           "forgejo_repository.slai_cmugpt_surface"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/cmugpt-surface/hooks"
+        "path": "/api/v1/repos/ScottyLabs/cmugpt-surface/hooks",
+        "update_method": "PATCH"
       },
       "slai_mcp_server_kennel_webhook": {
         "data": "${jsonencode(local.slai_mcp_server_kennel_webhook_data)}",
@@ -305,7 +332,8 @@
           "forgejo_repository.slai_mcp_server"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/mcp-server/hooks"
+        "path": "/api/v1/repos/ScottyLabs/mcp-server/hooks",
+        "update_method": "PATCH"
       },
       "tartan-vote_tartan_vote_kennel_webhook": {
         "data": "${jsonencode(local.tartan-vote_tartan_vote_kennel_webhook_data)}",
@@ -313,7 +341,8 @@
           "forgejo_repository.tartan-vote_tartan_vote"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/tartan-vote/hooks"
+        "path": "/api/v1/repos/ScottyLabs/tartan-vote/hooks",
+        "update_method": "PATCH"
       },
       "terrier_terrier_kennel_webhook": {
         "data": "${jsonencode(local.terrier_terrier_kennel_webhook_data)}",
@@ -321,7 +350,8 @@
           "forgejo_repository.terrier_terrier"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/terrier/hooks"
+        "path": "/api/v1/repos/ScottyLabs/terrier/hooks",
+        "update_method": "PATCH"
       },
       "uia_components_kennel_webhook": {
         "data": "${jsonencode(local.uia_components_kennel_webhook_data)}",
@@ -329,7 +359,8 @@
           "forgejo_repository.uia_components"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/components/hooks"
+        "path": "/api/v1/repos/ScottyLabs/components/hooks",
+        "update_method": "PATCH"
       },
       "uia_scottylabs_org_kennel_webhook": {
         "data": "${jsonencode(local.uia_scottylabs_org_kennel_webhook_data)}",
@@ -337,7 +368,8 @@
           "forgejo_repository.uia_scottylabs_org"
         ],
         "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/scottylabs-org/hooks"
+        "path": "/api/v1/repos/ScottyLabs/scottylabs-org/hooks",
+        "update_method": "PATCH"
       }
     }
   }
