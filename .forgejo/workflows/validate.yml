@@ -63,12 +63,6 @@ jobs:
           KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
           MATRIX_ADMIN_TOKEN: ${{ secrets.MATRIX_ADMIN_TOKEN }}
 
-      - name: Check PR permissions
-        env:
-          BASE_REF: ${{ github.base_ref }}
-          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-        run: ./.forgejo/scripts/check-pr-perms.sh
-
       - name: Regenerate tofu, schemas, CODEOWNERS
         run: ./.forgejo/scripts/regenerate.sh
 

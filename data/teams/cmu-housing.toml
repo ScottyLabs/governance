@@ -7,7 +7,7 @@ members = ["amzoeee", "ManrajS", "jessica-lr-song", "Calpha", "XboxBedrock"]
 [[team.repos]]
 name = "housing"
 description = "An website built to help students discover housing options at CMU"
-features = ["kennel", "sentry"]
+features = ["kennel", "sentry", "posthog"]
 
 [[team.channels]]
 discord = "1482553494647996538"

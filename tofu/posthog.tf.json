@@ -1,0 +1,112 @@
+{
+  "resource": {
+    "posthog_project": {
+      "cmu-courses_courses": {
+        "name": "courses"
+      },
+      "cmu-housing_housing": {
+        "name": "housing"
+      },
+      "devops_link_shortener": {
+        "name": "link-shortener"
+      },
+      "quest_quest": {
+        "name": "quest"
+      },
+      "slai_cmugpt_surface": {
+        "name": "cmugpt-surface"
+      },
+      "tartan-vote_tartan_vote": {
+        "name": "tartan-vote"
+      },
+      "terrier_terrier": {
+        "name": "terrier"
+      },
+      "uia_scottylabs_org": {
+        "name": "scottylabs-org"
+      }
+    },
+    "vault_kv_secret_v2": {
+      "cmu-courses_courses_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/POSTHOG_HOST"
+      },
+      "cmu-courses_courses_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.cmu-courses_courses.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/POSTHOG_KEY"
+      },
+      "cmu-housing_housing_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/POSTHOG_HOST"
+      },
+      "cmu-housing_housing_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.cmu-housing_housing.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/POSTHOG_KEY"
+      },
+      "devops_link_shortener_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/prod/POSTHOG_HOST"
+      },
+      "devops_link_shortener_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.devops_link_shortener.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/link-shortener/prod/POSTHOG_KEY"
+      },
+      "quest_quest_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/POSTHOG_HOST"
+      },
+      "quest_quest_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.quest_quest.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/quest/prod/POSTHOG_KEY"
+      },
+      "slai_cmugpt_surface_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/cmugpt-surface/prod/POSTHOG_HOST"
+      },
+      "slai_cmugpt_surface_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.slai_cmugpt_surface.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/cmugpt-surface/prod/POSTHOG_KEY"
+      },
+      "tartan-vote_tartan_vote_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/prod/POSTHOG_HOST"
+      },
+      "tartan-vote_tartan_vote_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.tartan-vote_tartan_vote.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/tartan-vote/prod/POSTHOG_KEY"
+      },
+      "terrier_terrier_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/POSTHOG_HOST"
+      },
+      "terrier_terrier_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.terrier_terrier.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/terrier/prod/POSTHOG_KEY"
+      },
+      "uia_scottylabs_org_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/prod/POSTHOG_HOST"
+      },
+      "uia_scottylabs_org_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.uia_scottylabs_org.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/prod/POSTHOG_KEY"
+      }
+    }
+  }
+}

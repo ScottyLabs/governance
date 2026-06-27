@@ -26,6 +26,7 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                 json!({
                     "name": repo.name,
                     "description": repo.description.as_deref().unwrap_or(""),
+                    "website": repo.url.as_deref().unwrap_or(""),
                     "owner": forgejo.org,
                     "auto_init": true,
                     "default_branch": org.defaults.default_branch,

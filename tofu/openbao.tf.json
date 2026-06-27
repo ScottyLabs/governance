@@ -141,6 +141,20 @@
         ],
         "type": "external"
       },
+      "link-shortener_admins": {
+        "name": "link-shortener-admins",
+        "policies": [
+          "link-shortener-prod"
+        ],
+        "type": "external"
+      },
+      "link-shortener_members": {
+        "name": "link-shortener-members",
+        "policies": [
+          "link-shortener-dev"
+        ],
+        "type": "external"
+      },
       "quest_admins": {
         "name": "quest-admins",
         "policies": [
@@ -299,6 +313,16 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/groupme-mirror"
       },
+      "link-shortener_admins": {
+        "canonical_id": "${vault_identity_group.link-shortener_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/link-shortener/admins"
+      },
+      "link-shortener_members": {
+        "canonical_id": "${vault_identity_group.link-shortener_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/link-shortener"
+      },
       "quest_admins": {
         "canonical_id": "${vault_identity_group.quest_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -420,6 +444,14 @@
       "groupme-mirror_prod": {
         "name": "groupme-mirror-prod",
         "policy": "path \"secret/data/secretspec/groupme-mirror/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/groupme-mirror/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/groupme-mirror/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/groupme-mirror/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "link-shortener_dev": {
+        "name": "link-shortener-dev",
+        "policy": "path \"secret/data/secretspec/link-shortener/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/link-shortener/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "link-shortener_prod": {
+        "name": "link-shortener-prod",
+        "policy": "path \"secret/data/secretspec/link-shortener/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/link-shortener/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "quest_dev": {
         "name": "quest-dev",

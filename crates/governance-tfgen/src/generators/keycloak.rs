@@ -15,7 +15,7 @@ pub fn generate_groups(data: &GovernanceData) -> TfJsonFile {
     for team in &data.teams {
         let slug = &team.team.group.slug;
 
-        if team.team.projects.is_empty() {
+        if team.team.has_own_group() {
             let group_key = format!("project_{slug}");
             tf.add_resource(
                 "keycloak_group",
@@ -36,31 +36,31 @@ pub fn generate_groups(data: &GovernanceData) -> TfJsonFile {
                     "name": "admins",
                 }),
             );
-        } else {
-            for project in &team.team.projects {
-                let project_slug = &project.group.slug;
-                let group_key = format!("project_{slug}_{project_slug}");
+        }
 
-                tf.add_resource(
-                    "keycloak_group",
-                    &group_key,
-                    json!({
-                        "realm_id": realm_id,
-                        "parent_id": projects_id,
-                        "name": project_slug,
-                    }),
-                );
+        for project in &team.team.projects {
+            let project_slug = &project.group.slug;
+            let group_key = format!("project_{slug}_{project_slug}");
 
-                tf.add_resource(
-                    "keycloak_group",
-                    &format!("{group_key}_admins"),
-                    json!({
-                        "realm_id": realm_id,
-                        "parent_id": format!("${{keycloak_group.{group_key}.id}}"),
-                        "name": "admins",
-                    }),
-                );
-            }
+            tf.add_resource(
+                "keycloak_group",
+                &group_key,
+                json!({
+                    "realm_id": realm_id,
+                    "parent_id": projects_id,
+                    "name": project_slug,
+                }),
+            );
+
+            tf.add_resource(
+                "keycloak_group",
+                &format!("{group_key}_admins"),
+                json!({
+                    "realm_id": realm_id,
+                    "parent_id": format!("${{keycloak_group.{group_key}.id}}"),
+                    "name": "admins",
+                }),
+            );
         }
     }
 
@@ -107,30 +107,30 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
     for team in &data.teams {
         let slug = &team.team.group.slug;
 
-        if team.team.projects.is_empty() {
+        if team.team.has_own_group() {
             let members = team.team.group.all_members().map(user_id).collect();
             let leads = team.team.group.leads.iter().map(|s| user_id(s)).collect();
             emit(&format!("project_{slug}"), members, leads);
-        } else {
-            for project in &team.team.projects {
-                let project_slug = &project.group.slug;
-                let members = team
-                    .team
-                    .group
-                    .all_members()
-                    .chain(project.group.all_members())
-                    .map(user_id)
-                    .collect();
-                let leads = team
-                    .team
-                    .group
-                    .leads
-                    .iter()
-                    .chain(project.group.leads.iter())
-                    .map(|s| user_id(s))
-                    .collect();
-                emit(&format!("project_{slug}_{project_slug}"), members, leads);
-            }
+        }
+
+        for project in &team.team.projects {
+            let project_slug = &project.group.slug;
+            let members = team
+                .team
+                .group
+                .all_members()
+                .chain(project.group.all_members())
+                .map(user_id)
+                .collect();
+            let leads = team
+                .team
+                .group
+                .leads
+                .iter()
+                .chain(project.group.leads.iter())
+                .map(|s| user_id(s))
+                .collect();
+            emit(&format!("project_{slug}_{project_slug}"), members, leads);
         }
     }
 
@@ -146,11 +146,10 @@ pub fn generate_clients(data: &GovernanceData) -> TfJsonFile {
     let mut needs_realm_management = false;
 
     for team in &data.teams {
-        // A team with projects has no group of its own, so its direct repos have no path
+        // Direct repos belong to the team's own group, project repos to theirs
         let team_path = team
             .team
-            .projects
-            .is_empty()
+            .has_own_group()
             .then(|| format!("/projects/{}", team.team.group.slug));
         let groups = std::iter::once((&team.team.group, team_path)).chain(
             team.team

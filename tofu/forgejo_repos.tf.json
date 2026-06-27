@@ -12,7 +12,8 @@
         },
         "name": "bus-sign",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "cbp_dalmatian": {
         "auto_init": true,
@@ -25,7 +26,8 @@
         },
         "name": "dalmatian",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "cbp_discord_verify": {
         "auto_init": true,
@@ -38,7 +40,8 @@
         },
         "name": "discord-verify",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "cbp_groupme_mirror": {
         "auto_init": true,
@@ -51,7 +54,8 @@
         },
         "name": "groupme-mirror",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "cmu-courses_courses": {
         "auto_init": true,
@@ -64,7 +68,8 @@
         },
         "name": "courses",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "cmu-courses_internet_archive": {
         "auto_init": true,
@@ -77,7 +82,8 @@
         },
         "name": "internet-archive",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "cmu-housing_housing": {
         "auto_init": true,
@@ -90,7 +96,8 @@
         },
         "name": "housing",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "devops_devenv": {
         "auto_init": true,
@@ -103,7 +110,8 @@
         },
         "name": "devenv",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "devops_documentation": {
         "auto_init": true,
@@ -116,7 +124,8 @@
         },
         "name": "documentation",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "devops_governance": {
         "auto_init": true,
@@ -129,7 +138,8 @@
         },
         "name": "governance",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "devops_infrastructure": {
         "auto_init": true,
@@ -142,7 +152,8 @@
         },
         "name": "infrastructure",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "devops_kennel": {
         "auto_init": true,
@@ -155,7 +166,8 @@
         },
         "name": "kennel",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "devops_link_shortener": {
         "auto_init": true,
@@ -168,7 +180,8 @@
         },
         "name": "link-shortener",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "devops_observability": {
         "auto_init": true,
@@ -181,7 +194,8 @@
         },
         "name": "observability",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "quest_quest": {
         "auto_init": true,
@@ -194,7 +208,8 @@
         },
         "name": "quest",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "slai_cmugpt_agent": {
         "auto_init": true,
@@ -207,7 +222,8 @@
         },
         "name": "cmugpt-agent",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "slai_cmugpt_sms_surface": {
         "auto_init": true,
@@ -220,7 +236,8 @@
         },
         "name": "cmugpt-sms-surface",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "slai_cmugpt_surface": {
         "auto_init": true,
@@ -233,7 +250,8 @@
         },
         "name": "cmugpt-surface",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "slai_mcp_server": {
         "auto_init": true,
@@ -246,7 +264,8 @@
         },
         "name": "mcp-server",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "tartan-vote_tartan_vote": {
         "auto_init": true,
@@ -259,7 +278,8 @@
         },
         "name": "tartan-vote",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "terrier_terrier": {
         "auto_init": true,
@@ -272,7 +292,8 @@
         },
         "name": "terrier",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "uia_components": {
         "auto_init": true,
@@ -285,7 +306,8 @@
         },
         "name": "components",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       },
       "uia_scottylabs_org": {
         "auto_init": true,
@@ -298,7 +320,8 @@
         },
         "name": "scottylabs-org",
         "owner": "ScottyLabs",
-        "private": false
+        "private": false,
+        "website": ""
       }
     }
   }

@@ -814,12 +814,12 @@
         "name": "secretspec/link-shortener/dev/OIDC_CLIENT_SECRET"
       },
       "link_shortener_dev_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/devops/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/link-shortener/admins\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/dev/PROJECT_ADMIN_GROUP"
       },
       "link_shortener_dev_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/devops\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/link-shortener\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/dev/PROJECT_GROUP"
       },
@@ -849,12 +849,12 @@
         "name": "secretspec/link-shortener/preview/OIDC_CLIENT_SECRET"
       },
       "link_shortener_preview_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/devops/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/link-shortener/admins\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/preview/PROJECT_ADMIN_GROUP"
       },
       "link_shortener_preview_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/devops\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/link-shortener\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/preview/PROJECT_GROUP"
       },
@@ -884,12 +884,12 @@
         "name": "secretspec/link-shortener/prod/OIDC_CLIENT_SECRET"
       },
       "link_shortener_prod_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/devops/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/link-shortener/admins\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/prod/PROJECT_ADMIN_GROUP"
       },
       "link_shortener_prod_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/devops\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/link-shortener\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/prod/PROJECT_GROUP"
       },
@@ -919,12 +919,12 @@
         "name": "secretspec/link-shortener/staging/OIDC_CLIENT_SECRET"
       },
       "link_shortener_staging_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/devops/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/link-shortener/admins\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/staging/PROJECT_ADMIN_GROUP"
       },
       "link_shortener_staging_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/devops\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/link-shortener\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/staging/PROJECT_GROUP"
       },

@@ -265,6 +265,26 @@
           "repo.wiki": "admin"
         }
       },
+      "link-shortener_leads": {
+        "can_create_org_repo": false,
+        "description": "Link Shortener leads",
+        "includes_all_repositories": false,
+        "name": "link-shortener-leads",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "admin",
+        "units_map": {
+          "repo.actions": "admin",
+          "repo.code": "admin",
+          "repo.ext_issues": "admin",
+          "repo.ext_wiki": "admin",
+          "repo.issues": "admin",
+          "repo.packages": "admin",
+          "repo.projects": "admin",
+          "repo.pulls": "admin",
+          "repo.releases": "admin",
+          "repo.wiki": "admin"
+        }
+      },
       "quest": {
         "description": "Quest",
         "name": "quest",

@@ -139,6 +139,23 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_devops_link-shortener": {
+        "group_id": "${keycloak_group.project_devops_link-shortener.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_thesuperRL.result.cmu-saml}",
+          "${data.external.identity_XboxBedrock.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_link-shortener_admins": {
+        "group_id": "${keycloak_group.project_devops_link-shortener_admins.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_thesuperRL.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_quest": {
         "group_id": "${keycloak_group.project_quest.id}",
         "members": [

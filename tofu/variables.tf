@@ -108,6 +108,20 @@ variable "sentry_base_url" {
     default = "https://sentry.io/api/"
 }
 
+variable "posthog_token" {
+    type      = string
+    sensitive = true
+}
+
+variable "posthog_host" {
+    type    = string
+    default = "https://us.posthog.com"
+}
+
+variable "posthog_organization_id" {
+    type = string
+}
+
 variable "matrix_homeserver_url" {
     type    = string
     default = "https://matrix.doggylabs.org"

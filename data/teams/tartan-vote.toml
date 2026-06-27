@@ -14,7 +14,7 @@ members = [
 [[team.repos]]
 name = "tartan-vote"
 description = "Voting app for the Undergraduate Senate and other student orgs."
-features = ["kennel", "sentry", "oidc_client"]
+features = ["kennel", "sentry", "posthog", "oidc_client"]
 
 [[team.channels]]
 discord = "1472669361624842483"

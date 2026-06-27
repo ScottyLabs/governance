@@ -19,11 +19,6 @@ description = "Branch-based deployment platform"
 features = ["kennel", "sentry"]
 
 [[team.repos]]
-name = "link-shortener"
-description = "ScottyLabs link shortener service"
-features = ["kennel", "sentry", "oidc_client"]
-
-[[team.repos]]
 name = "devenv"
 description = "Shared Nix development environment for ScottyLabs projects"
 
@@ -38,3 +33,15 @@ description = "Centralized documentation hub for ScottyLabs projects"
 [[team.channels]]
 discord = "1461933322505818156"
 slack = "C08K3Q77ZQF"
+
+
+[[team.projects]]
+name = "Link Shortener"
+slug = "link-shortener"
+description = "ScottyLabs link shortener service"
+public_url = "https://cmu.lol"
+
+[[team.projects.repos]]
+name = "link-shortener"
+description = "ScottyLabs link shortener service"
+features = ["kennel", "sentry", "posthog", "oidc_client"]

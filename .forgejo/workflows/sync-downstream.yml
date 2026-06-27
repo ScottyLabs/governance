@@ -7,7 +7,7 @@ on:
       - "data/**"
       - "crates/**"
       - ".forgejo/workflows/sync-downstream.yml"
-      - ".forgejo/scripts/sync-observability-codeowners.sh"
+      - ".forgejo/scripts/sync-downstream-file.sh"
       - ".forgejo/scripts/sync-docs.sh"
 
 jobs:
@@ -40,4 +40,42 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.CB_GOVERNANCE_TOKEN }}
           SIGNING_KEY: ${{ secrets.BOT_SSH_SIGNING_KEY }}
-        run: ./.forgejo/scripts/sync-observability-codeowners.sh
+        run: ./.forgejo/scripts/sync-downstream-file.sh observability-codeowners observability .forgejo/CODEOWNERS CODEOWNERS
+
+  projects:
+    name: Sync projects.json
+    runs-on: docker
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: https://github.com/dtolnay/rust-toolchain@stable
+      - uses: https://github.com/Swatinem/rust-cache@v2
+      - run: cargo build -p governance
+
+      - name: Sync projects.json
+        env:
+          BOT_TOKEN: ${{ secrets.CB_GOVERNANCE_TOKEN }}
+          SIGNING_KEY: ${{ secrets.BOT_SSH_SIGNING_KEY }}
+        run: ./.forgejo/scripts/sync-downstream-file.sh projects scottylabs-org app/data/projects.json projects.json
+
+  posthog-invite:
+    name: Reconcile PostHog invites
+    runs-on: docker
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: https://github.com/dtolnay/rust-toolchain@stable
+      - uses: https://github.com/Swatinem/rust-cache@v2
+      - run: cargo build -p governance
+
+      - name: Reconcile PostHog invites
+        env:
+          KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+          KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
+          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+          POSTHOG_ORGANIZATION_ID: ${{ secrets.POSTHOG_ORGANIZATION_ID }}
+        run: ./target/debug/governance posthog-invite

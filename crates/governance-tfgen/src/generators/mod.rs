@@ -6,6 +6,7 @@ pub mod identities;
 pub mod keycloak;
 pub mod matrix_bridges;
 pub mod openbao;
+pub mod posthog;
 pub mod sentry;
 pub mod slack;
 pub mod vaultwarden;

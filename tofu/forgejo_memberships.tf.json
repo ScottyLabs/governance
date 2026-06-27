@@ -149,6 +149,14 @@
         "team_id": "${forgejo_team.groupme-mirror_leads.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
       },
+      "link-shortener_leads_anish": {
+        "team_id": "${forgejo_team.link-shortener_leads.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "link-shortener_leads_thesuperRL": {
+        "team_id": "${forgejo_team.link-shortener_leads.id}",
+        "user": "${data.external.identity_thesuperRL.result.codeberg}"
+      },
       "quest_anish": {
         "team_id": "${forgejo_team.quest.id}",
         "user": "${data.external.identity_anish.result.codeberg}"

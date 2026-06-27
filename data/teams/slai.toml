@@ -18,7 +18,7 @@ slug = "cmugpt-surface"
 [[team.projects.repos]]
 name = "cmugpt-surface"
 description = "Fullstack for users to interface with CMU GPT"
-features = ["kennel", "sentry"]
+features = ["kennel", "sentry", "posthog"]
 
 [[team.projects]]
 name = "CMU GPT Agent"

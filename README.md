@@ -22,6 +22,7 @@ Each repository opts into capabilities through its `features` array:
 
 - `kennel` adds a Forgejo webhook that connects the repository to kennel for builds and deployments
 - `sentry` creates a Sentry project and writes its DSN to Vault
+- `posthog` creates a PostHog project and writes its key and host to Vault
 - `oidc_client` provisions prod and staging Keycloak OIDC clients with a fixed redirect URI and writes their credentials to Vault per profile
 - `admin_client` provisions a Keycloak service-account client with user-management roles and writes its credentials to Vault
 
@@ -44,8 +45,13 @@ The following is a non-exhaustive list of platforms Governance manages:
    - Members are automatically added to ScottyLabs' and Tech's mailing lists (Google Groups)
 1. Sentry
    - Projects are provisioned under [Sentry](https://scottylabs.sentry.io) and registered under ScottyLabs' [observability stack](https://codeberg.org/scottylabs/observability)
+1. PostHog
+   - Projects are provisioned under PostHog for product analytics
+   - Leads of teams with a PostHog project are invited as organization members, and devops as owners
 1. Kennel
    - Repositories automatically receive a deploy webhook that authorizes them to be deployed by [kennel](https://codeberg.org/scottylabs/kennel)
+1. Website
+   - Groups with a `public_url` are published to the scottylabs.org project catalog
 1. Discord and Slack
    - Members are added to the appropriate channels on both platforms
    - On Discord, members are assigned the Tech role and their team's roles, and team leads additionally receive the Tech Lead role

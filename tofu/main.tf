@@ -56,6 +56,10 @@ terraform {
             source  = "jianyuan/sentry"
             version = "~> 0.14.0"
         }
+        posthog = {
+            source  = "PostHog/posthog"
+            version = "~> 1.0"
+        }
         external = {
             source  = "hashicorp/external"
             version = "~> 2.0"
@@ -128,6 +132,12 @@ provider "restapi" {
 provider "sentry" {
     token    = var.sentry_token
     base_url = var.sentry_base_url
+}
+
+provider "posthog" {
+    api_key         = var.posthog_token
+    host            = var.posthog_host
+    organization_id = var.posthog_organization_id
 }
 
 provider "synapse" {

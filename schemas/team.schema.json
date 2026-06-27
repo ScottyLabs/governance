@@ -41,6 +41,7 @@
       "enum": [
         "kennel",
         "sentry",
+        "posthog",
         "oidc_client",
         "admin_client"
       ]
@@ -84,6 +85,12 @@
         },
         "name": {
           "type": "string"
+        },
+        "public_url": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "repos": {
           "type": "array",
@@ -153,6 +160,12 @@
             "type": "string"
           }
         },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "visibility": {
           "anyOf": [
             {
@@ -221,6 +234,12 @@
           "items": {
             "$ref": "#/$defs/Project"
           }
+        },
+        "public_url": {
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "repos": {
           "type": "array",

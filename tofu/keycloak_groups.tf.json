@@ -71,6 +71,16 @@
         "parent_id": "${keycloak_group.project_devops.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_devops_link-shortener": {
+        "name": "link-shortener",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_link-shortener_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_devops_link-shortener.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_quest": {
         "name": "quest",
         "parent_id": "${keycloak_group.projects.id}",

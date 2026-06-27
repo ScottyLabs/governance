@@ -11,7 +11,7 @@ features = ["kennel"]
 [[team.repos]]
 name = "scottylabs-org"
 description = "ScottyLabs website"
-features = ["kennel"]
+features = ["kennel", "posthog"]
 
 [[team.channels]]
 discord = "1510885385461567589"

@@ -2,15 +2,15 @@ use std::path::{Path, PathBuf};
 use std::process;
 
 use clap::{Parser, Subcommand};
-use serde_json::json;
 
 use governance_core::loader::GovernanceData;
 use governance_core::validator;
 use governance_tfgen::codeowners;
 use governance_tfgen::generators::{
-    discord, forgejo, github, google_groups, identities, keycloak, matrix_bridges, openbao, sentry,
-    slack, vaultwarden,
+    discord, forgejo, github, google_groups, identities, keycloak, matrix_bridges, openbao,
+    posthog, sentry, slack, vaultwarden,
 };
+use governance_tfgen::projects;
 
 #[derive(Parser)]
 #[command(name = "governance", about = "ScottyLabs governance CLI")]
@@ -42,14 +42,6 @@ enum Command {
         )]
         output: PathBuf,
     },
-    CheckPr {
-        #[arg(long)]
-        author: String,
-        #[arg(long, default_value = "main")]
-        base_ref: String,
-        #[arg(long, value_delimiter = ',')]
-        changed_files: Vec<String>,
-    },
     SlackInvite {
         #[arg(long)]
         channel: String,
@@ -71,6 +63,11 @@ enum Command {
         channel: String,
     },
     ObservabilityCodeowners,
+    Projects,
+    PosthogInvite {
+        #[arg(long)]
+        dry_run: bool,
+    },
 }
 
 fn main() -> anyhow::Result<()> {
@@ -85,12 +82,9 @@ fn main() -> anyhow::Result<()> {
             cmd_bridge_identity_map(&cli.data_dir, &output)
         }
         Command::ResolveIdentity => cmd_resolve_identity(&cli.data_dir),
-        Command::CheckPr {
-            author,
-            base_ref,
-            changed_files,
-        } => cmd_check_pr(&cli.data_dir, &author, &base_ref, &changed_files),
         Command::ObservabilityCodeowners => cmd_observability_codeowners(&cli.data_dir),
+        Command::Projects => cmd_projects(&cli.data_dir),
+        Command::PosthogInvite { dry_run } => cmd_posthog_invite(&cli.data_dir, dry_run),
         Command::SlackInvite { channel, user } => cmd_slack_invite(&channel, &user),
         Command::SlackKick { channel, user } => cmd_slack_kick(&channel, &user),
         Command::SlackJoin { channel } => cmd_slack_join(&channel),
@@ -144,6 +138,7 @@ fn cmd_generate(data_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     openbao::generate_project_policies(&data).write_to(&output_dir.join("openbao.tf.json"))?;
 
     sentry::generate(&data).write_to(&output_dir.join("sentry.tf.json"))?;
+    posthog::generate(&data).write_to(&output_dir.join("posthog.tf.json"))?;
 
     vaultwarden::generate(&data).write_to(&output_dir.join("vaultwarden.tf.json"))?;
     google_groups::generate(&data).write_to(&output_dir.join("google_groups.tf.json"))?;
@@ -229,123 +224,35 @@ fn cmd_resolve_identity(data_dir: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn cmd_check_pr(
-    data_dir: &Path,
-    author: &str,
-    base_ref: &str,
-    changed_files: &[String],
-) -> anyhow::Result<()> {
-    let data = GovernanceData::load(data_dir)?;
-    let result = governance_core::check_pr::check_pr(&data, author, base_ref, changed_files);
-    if result.passed {
-        eprintln!("PR check passed");
-    } else {
-        for issue in &result.issues {
-            eprintln!("denied: {issue}");
-        }
-        process::exit(1);
-    }
-    Ok(())
-}
-
 fn cmd_observability_codeowners(data_dir: &Path) -> anyhow::Result<()> {
     let data = GovernanceData::load(data_dir)?;
     print!("{}", codeowners::generate_observability_codeowners(&data));
     Ok(())
 }
 
+fn cmd_projects(data_dir: &Path) -> anyhow::Result<()> {
+    let data = GovernanceData::load(data_dir)?;
+    print!("{}", projects::generate_projects(&data));
+    Ok(())
+}
+
+fn cmd_posthog_invite(data_dir: &Path, dry_run: bool) -> anyhow::Result<()> {
+    let data = GovernanceData::load(data_dir)?;
+    governance_core::posthog::reconcile_invites(&data, dry_run).map_err(|e| anyhow::anyhow!(e))
+}
+
 fn cmd_slack_invite(channel: &str, user: &str) -> anyhow::Result<()> {
-    let token = slack_token()?;
-    // Best-effort self-join so a freshly authed relay user can invite others
-    let _ = slack_post(&token, "conversations.join", &json!({ "channel": channel }));
-    let body = slack_post(
-        &token,
-        "conversations.invite",
-        &json!({ "channel": channel, "users": user }),
-    )?;
-    slack_check(&body, "invite", channel, &["already_in_channel"])
+    governance_core::slack::invite(channel, user).map_err(|e| anyhow::anyhow!(e))
 }
 
 fn cmd_slack_kick(channel: &str, user: &str) -> anyhow::Result<()> {
-    let token = slack_token()?;
-    let body = slack_post(
-        &token,
-        "conversations.kick",
-        &json!({ "channel": channel, "user": user }),
-    )?;
-    slack_check(&body, "kick", channel, &["not_in_channel"])
+    governance_core::slack::kick(channel, user).map_err(|e| anyhow::anyhow!(e))
 }
 
 fn cmd_slack_join(channel: &str) -> anyhow::Result<()> {
-    let token = slack_token()?;
-    let info = slack_get(&token, "conversations.info", &[("channel", channel)])?;
-    slack_check(&info, "info", channel, &[])?;
-    if info["channel"]["is_private"].as_bool() == Some(true) {
-        anyhow::bail!(
-            "channel {channel} is private; the slack relay login must be invited manually by an existing member"
-        );
-    }
-    let body = slack_post(&token, "conversations.join", &json!({ "channel": channel }))?;
-    slack_check(&body, "join", channel, &["already_in_channel"])
+    governance_core::slack::join(channel).map_err(|e| anyhow::anyhow!(e))
 }
 
 fn cmd_slack_leave(channel: &str) -> anyhow::Result<()> {
-    let token = slack_token()?;
-    let body = slack_post(
-        &token,
-        "conversations.leave",
-        &json!({ "channel": channel }),
-    )?;
-    slack_check(&body, "leave", channel, &["not_in_channel"])
-}
-
-fn slack_token() -> anyhow::Result<String> {
-    std::env::var("SLACK_TOKEN").map_err(|_| anyhow::anyhow!("SLACK_TOKEN not set"))
-}
-
-fn slack_post(
-    token: &str,
-    method: &str,
-    body: &serde_json::Value,
-) -> anyhow::Result<serde_json::Value> {
-    ureq::post(&format!("https://slack.com/api/{method}"))
-        .header("Authorization", &format!("Bearer {token}"))
-        .send_json(body)
-        .map_err(|e| anyhow::anyhow!("slack {method} request failed: {e}"))?
-        .body_mut()
-        .read_json()
-        .map_err(|e| anyhow::anyhow!("slack {method} response read failed: {e}"))
-}
-
-fn slack_get(
-    token: &str,
-    method: &str,
-    query: &[(&str, &str)],
-) -> anyhow::Result<serde_json::Value> {
-    let mut req = ureq::get(&format!("https://slack.com/api/{method}"))
-        .header("Authorization", &format!("Bearer {token}"));
-    for (k, v) in query {
-        req = req.query(*k, *v);
-    }
-    req.call()
-        .map_err(|e| anyhow::anyhow!("slack {method} request failed: {e}"))?
-        .body_mut()
-        .read_json()
-        .map_err(|e| anyhow::anyhow!("slack {method} response read failed: {e}"))
-}
-
-fn slack_check(
-    body: &serde_json::Value,
-    label: &str,
-    channel: &str,
-    tolerate: &[&str],
-) -> anyhow::Result<()> {
-    if body["ok"].as_bool() == Some(true) {
-        return Ok(());
-    }
-    let err = body["error"].as_str().unwrap_or("unknown");
-    if tolerate.contains(&err) {
-        return Ok(());
-    }
-    anyhow::bail!("slack {label} {channel}: {err}")
+    governance_core::slack::leave(channel).map_err(|e| anyhow::anyhow!(e))
 }

@@ -13,6 +13,7 @@ pub struct GroupFields {
     pub slug: String,
     pub name: String,
     pub description: Option<String>,
+    pub public_url: Option<String>,
     #[serde(default)]
     pub leads: Vec<String>,
     #[serde(default)]
@@ -47,6 +48,11 @@ impl Team {
         std::iter::once(&self.group).chain(self.projects.iter().map(|p| &p.group))
     }
 
+    // True when the team owns repos directly, not only through projects
+    pub fn has_own_group(&self) -> bool {
+        self.projects.is_empty() || !self.group.repos.is_empty()
+    }
+
     pub fn repos(&self) -> impl Iterator<Item = &Repo> {
         self.groups().flat_map(|g| g.repos.iter())
     }
@@ -75,6 +81,7 @@ pub enum DocsType {
 pub enum Feature {
     Kennel,
     Sentry,
+    Posthog,
     OidcClient,
     AdminClient,
 }
@@ -87,6 +94,7 @@ fn default_docs_enabled() -> bool {
 pub struct Repo {
     pub name: String,
     pub description: Option<String>,
+    pub url: Option<String>,
     pub visibility: Option<RepoVisibility>,
     #[serde(default)]
     pub topics: Vec<String>,
