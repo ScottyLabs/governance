@@ -76,6 +76,6 @@ jobs:
         env:
           KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
           KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
-          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+          POSTHOG_TOKEN: ${{ secrets.POSTHOG_TOKEN }}
           POSTHOG_ORGANIZATION_ID: ${{ secrets.POSTHOG_ORGANIZATION_ID }}
         run: ./target/debug/governance posthog-invite

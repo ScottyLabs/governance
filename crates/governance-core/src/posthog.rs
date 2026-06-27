@@ -124,7 +124,7 @@ pub struct PosthogClient {
 impl PosthogClient {
     // Build from env, error when creds are absent
     pub fn from_env() -> Result<Self, String> {
-        let token = env_nonempty("POSTHOG_API_KEY").ok_or("POSTHOG_API_KEY not set")?;
+        let token = env_nonempty("POSTHOG_TOKEN").ok_or("POSTHOG_TOKEN not set")?;
         let org_id =
             env_nonempty("POSTHOG_ORGANIZATION_ID").ok_or("POSTHOG_ORGANIZATION_ID not set")?;
         Ok(Self { org_id, token })
