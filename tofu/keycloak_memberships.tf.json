@@ -7,10 +7,10 @@
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
           "${data.external.identity_pandaaured.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedK_06.result.cmu-saml}"
+          "${data.external.identity_stationedk_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -28,10 +28,10 @@
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
           "${data.external.identity_pandaaured.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedK_06.result.cmu-saml}"
+          "${data.external.identity_stationedk_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -49,10 +49,10 @@
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
           "${data.external.identity_pandaaured.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedK_06.result.cmu-saml}"
+          "${data.external.identity_stationedk_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -70,10 +70,10 @@
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
           "${data.external.identity_pandaaured.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedK_06.result.cmu-saml}"
+          "${data.external.identity_stationedk_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -103,13 +103,13 @@
         "group_id": "${keycloak_group.project_cmu-housing.id}",
         "members": [
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_EcstaticPilot.result.cmu-saml}",
+          "${data.external.identity_ecstaticpilot.result.cmu-saml}",
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_amzoeee.result.cmu-saml}",
-          "${data.external.identity_ManrajS.result.cmu-saml}",
+          "${data.external.identity_manrajs.result.cmu-saml}",
           "${data.external.identity_jessica_lr_song.result.cmu-saml}",
-          "${data.external.identity_Calpha.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}"
+          "${data.external.identity_calpha.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -117,7 +117,7 @@
         "group_id": "${keycloak_group.project_cmu-housing_admins.id}",
         "members": [
           "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_EcstaticPilot.result.cmu-saml}",
+          "${data.external.identity_ecstaticpilot.result.cmu-saml}",
           "${data.external.identity_tentype.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
@@ -126,8 +126,8 @@
         "group_id": "${keycloak_group.project_devops.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperRL.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}"
+          "${data.external.identity_thesuperrl.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -135,7 +135,7 @@
         "group_id": "${keycloak_group.project_devops_admins.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperRL.result.cmu-saml}"
+          "${data.external.identity_thesuperrl.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -143,8 +143,8 @@
         "group_id": "${keycloak_group.project_devops_link-shortener.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperRL.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}"
+          "${data.external.identity_thesuperrl.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -152,7 +152,7 @@
         "group_id": "${keycloak_group.project_devops_link-shortener_admins.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperRL.result.cmu-saml}"
+          "${data.external.identity_thesuperrl.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -174,10 +174,10 @@
         "group_id": "${keycloak_group.project_slai_cmugpt-agent.id}",
         "members": [
           "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_Jc_965.result.cmu-saml}",
+          "${data.external.identity_jc_965.result.cmu-saml}",
           "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_JiYa2301.result.cmu-saml}",
-          "${data.external.identity_Enkrypt7.result.cmu-saml}",
+          "${data.external.identity_jiya2301.result.cmu-saml}",
+          "${data.external.identity_enkrypt7.result.cmu-saml}",
           "${data.external.identity_sayevikk.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}"
         ],
@@ -194,10 +194,10 @@
         "group_id": "${keycloak_group.project_slai_cmugpt-mcp-server.id}",
         "members": [
           "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_Jc_965.result.cmu-saml}",
+          "${data.external.identity_jc_965.result.cmu-saml}",
           "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_JiYa2301.result.cmu-saml}",
-          "${data.external.identity_Enkrypt7.result.cmu-saml}",
+          "${data.external.identity_jiya2301.result.cmu-saml}",
+          "${data.external.identity_enkrypt7.result.cmu-saml}",
           "${data.external.identity_sayevikk.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}"
         ],
@@ -214,10 +214,10 @@
         "group_id": "${keycloak_group.project_slai_cmugpt-sms-surface.id}",
         "members": [
           "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_Jc_965.result.cmu-saml}",
+          "${data.external.identity_jc_965.result.cmu-saml}",
           "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_JiYa2301.result.cmu-saml}",
-          "${data.external.identity_Enkrypt7.result.cmu-saml}",
+          "${data.external.identity_jiya2301.result.cmu-saml}",
+          "${data.external.identity_enkrypt7.result.cmu-saml}",
           "${data.external.identity_sayevikk.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}"
         ],
@@ -234,10 +234,10 @@
         "group_id": "${keycloak_group.project_slai_cmugpt-surface.id}",
         "members": [
           "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_Jc_965.result.cmu-saml}",
+          "${data.external.identity_jc_965.result.cmu-saml}",
           "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_JiYa2301.result.cmu-saml}",
-          "${data.external.identity_Enkrypt7.result.cmu-saml}",
+          "${data.external.identity_jiya2301.result.cmu-saml}",
+          "${data.external.identity_enkrypt7.result.cmu-saml}",
           "${data.external.identity_sayevikk.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}"
         ],
@@ -255,11 +255,11 @@
         "members": [
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_vloh.result.cmu-saml}",
-          "${data.external.identity_XboxBedrock.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
           "${data.external.identity_tentype.result.cmu-saml}",
           "${data.external.identity_riztofu.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedK_06.result.cmu-saml}"
+          "${data.external.identity_stationedk_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

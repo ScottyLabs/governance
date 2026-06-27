@@ -9,10 +9,6 @@
         "team_id": "${forgejo_team.bus-sign_leads.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
       },
-      "cbp_XboxBedrock": {
-        "team_id": "${forgejo_team.cbp.id}",
-        "user": "${data.external.identity_XboxBedrock.result.codeberg}"
-      },
       "cbp_gostmeaper": {
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_gostmeaper.result.codeberg}"
@@ -25,13 +21,17 @@
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_pandaaured.result.codeberg}"
       },
-      "cbp_stationedK_06": {
+      "cbp_stationedk_06": {
         "team_id": "${forgejo_team.cbp.id}",
-        "user": "${data.external.identity_stationedK_06.result.codeberg}"
+        "user": "${data.external.identity_stationedk_06.result.codeberg}"
       },
       "cbp_tentype": {
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
+      },
+      "cbp_xboxbedrock": {
+        "team_id": "${forgejo_team.cbp.id}",
+        "user": "${data.external.identity_xboxbedrock.result.codeberg}"
       },
       "cbp_zeyuyaoy": {
         "team_id": "${forgejo_team.cbp.id}",
@@ -45,25 +45,17 @@
         "team_id": "${forgejo_team.cmu-courses_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
-      "cmu-housing_Calpha": {
-        "team_id": "${forgejo_team.cmu-housing.id}",
-        "user": "${data.external.identity_Calpha.result.codeberg}"
-      },
-      "cmu-housing_EcstaticPilot": {
-        "team_id": "${forgejo_team.cmu-housing.id}",
-        "user": "${data.external.identity_EcstaticPilot.result.codeberg}"
-      },
-      "cmu-housing_ManrajS": {
-        "team_id": "${forgejo_team.cmu-housing.id}",
-        "user": "${data.external.identity_ManrajS.result.codeberg}"
-      },
-      "cmu-housing_XboxBedrock": {
-        "team_id": "${forgejo_team.cmu-housing.id}",
-        "user": "${data.external.identity_XboxBedrock.result.codeberg}"
-      },
       "cmu-housing_amzoeee": {
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_amzoeee.result.codeberg}"
+      },
+      "cmu-housing_calpha": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_calpha.result.codeberg}"
+      },
+      "cmu-housing_ecstaticpilot": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_ecstaticpilot.result.codeberg}"
       },
       "cmu-housing_gostmeaper": {
         "team_id": "${forgejo_team.cmu-housing.id}",
@@ -73,9 +65,9 @@
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_jessica_lr_song.result.codeberg}"
       },
-      "cmu-housing_leads_EcstaticPilot": {
+      "cmu-housing_leads_ecstaticpilot": {
         "team_id": "${forgejo_team.cmu-housing_leads.id}",
-        "user": "${data.external.identity_EcstaticPilot.result.codeberg}"
+        "user": "${data.external.identity_ecstaticpilot.result.codeberg}"
       },
       "cmu-housing_leads_gostmeaper": {
         "team_id": "${forgejo_team.cmu-housing_leads.id}",
@@ -85,9 +77,17 @@
         "team_id": "${forgejo_team.cmu-housing_leads.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
       },
+      "cmu-housing_manrajs": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_manrajs.result.codeberg}"
+      },
       "cmu-housing_tentype": {
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
+      },
+      "cmu-housing_xboxbedrock": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_xboxbedrock.result.codeberg}"
       },
       "cmugpt-agent_leads_krishsaxena": {
         "team_id": "${forgejo_team.cmugpt-agent_leads.id}",
@@ -113,10 +113,6 @@
         "team_id": "${forgejo_team.dalmatian_leads.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
       },
-      "devops_XboxBedrock": {
-        "team_id": "${forgejo_team.devops.id}",
-        "user": "${data.external.identity_XboxBedrock.result.codeberg}"
-      },
       "devops_anish": {
         "team_id": "${forgejo_team.devops.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
@@ -125,13 +121,17 @@
         "team_id": "${forgejo_team.devops_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
-      "devops_leads_thesuperRL": {
+      "devops_leads_thesuperrl": {
         "team_id": "${forgejo_team.devops_leads.id}",
-        "user": "${data.external.identity_thesuperRL.result.codeberg}"
+        "user": "${data.external.identity_thesuperrl.result.codeberg}"
       },
-      "devops_thesuperRL": {
+      "devops_thesuperrl": {
         "team_id": "${forgejo_team.devops.id}",
-        "user": "${data.external.identity_thesuperRL.result.codeberg}"
+        "user": "${data.external.identity_thesuperrl.result.codeberg}"
+      },
+      "devops_xboxbedrock": {
+        "team_id": "${forgejo_team.devops.id}",
+        "user": "${data.external.identity_xboxbedrock.result.codeberg}"
       },
       "discord-verify_leads_maybe_yiyi": {
         "team_id": "${forgejo_team.discord-verify_leads.id}",
@@ -153,9 +153,9 @@
         "team_id": "${forgejo_team.link-shortener_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
-      "link-shortener_leads_thesuperRL": {
+      "link-shortener_leads_thesuperrl": {
         "team_id": "${forgejo_team.link-shortener_leads.id}",
-        "user": "${data.external.identity_thesuperRL.result.codeberg}"
+        "user": "${data.external.identity_thesuperrl.result.codeberg}"
       },
       "quest_anish": {
         "team_id": "${forgejo_team.quest.id}",
@@ -165,17 +165,17 @@
         "team_id": "${forgejo_team.quest_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
-      "slai_Enkrypt7": {
+      "slai_enkrypt7": {
         "team_id": "${forgejo_team.slai.id}",
-        "user": "${data.external.identity_Enkrypt7.result.codeberg}"
+        "user": "${data.external.identity_enkrypt7.result.codeberg}"
       },
-      "slai_Jc_965": {
+      "slai_jc_965": {
         "team_id": "${forgejo_team.slai.id}",
-        "user": "${data.external.identity_Jc_965.result.codeberg}"
+        "user": "${data.external.identity_jc_965.result.codeberg}"
       },
-      "slai_JiYa2301": {
+      "slai_jiya2301": {
         "team_id": "${forgejo_team.slai.id}",
-        "user": "${data.external.identity_JiYa2301.result.codeberg}"
+        "user": "${data.external.identity_jiya2301.result.codeberg}"
       },
       "slai_kath45823": {
         "team_id": "${forgejo_team.slai.id}",
@@ -193,10 +193,6 @@
         "team_id": "${forgejo_team.slai.id}",
         "user": "${data.external.identity_zeyuyaoy.result.codeberg}"
       },
-      "tartan-vote_XboxBedrock": {
-        "team_id": "${forgejo_team.tartan-vote.id}",
-        "user": "${data.external.identity_XboxBedrock.result.codeberg}"
-      },
       "tartan-vote_leads_maybe_yiyi": {
         "team_id": "${forgejo_team.tartan-vote_leads.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"
@@ -209,9 +205,9 @@
         "team_id": "${forgejo_team.tartan-vote.id}",
         "user": "${data.external.identity_riztofu.result.codeberg}"
       },
-      "tartan-vote_stationedK_06": {
+      "tartan-vote_stationedk_06": {
         "team_id": "${forgejo_team.tartan-vote.id}",
-        "user": "${data.external.identity_stationedK_06.result.codeberg}"
+        "user": "${data.external.identity_stationedk_06.result.codeberg}"
       },
       "tartan-vote_tentype": {
         "team_id": "${forgejo_team.tartan-vote.id}",
@@ -220,6 +216,10 @@
       "tartan-vote_vloh": {
         "team_id": "${forgejo_team.tartan-vote.id}",
         "user": "${data.external.identity_vloh.result.codeberg}"
+      },
+      "tartan-vote_xboxbedrock": {
+        "team_id": "${forgejo_team.tartan-vote.id}",
+        "user": "${data.external.identity_xboxbedrock.result.codeberg}"
       },
       "tartan-vote_zeyuyaoy": {
         "team_id": "${forgejo_team.tartan-vote.id}",

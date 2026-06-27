@@ -4,11 +4,11 @@ slug = "tartan-vote"
 leads = ["maybe-yiyi"]
 members = [
     "vloh",
-    "XboxBedrock",
+    "xboxbedrock",
     "tentype",
     "riztofu",
     "zeyuyaoy",
-    "stationedK-06",
+    "stationedk-06",
 ]
 
 [[team.repos]]

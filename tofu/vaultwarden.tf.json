@@ -8,7 +8,7 @@
             "manage": true
           },
           {
-            "id": "${data.bitwarden_org_member.vw_thesuperRL.id}",
+            "id": "${data.bitwarden_org_member.vw_thesuperrl.id}",
             "manage": true
           }
         ],
@@ -18,11 +18,11 @@
       "tech_leads": {
         "member": [
           {
-            "id": "${data.bitwarden_org_member.vw_EcstaticPilot.id}",
+            "id": "${data.bitwarden_org_member.vw_anish.id}",
             "manage": true
           },
           {
-            "id": "${data.bitwarden_org_member.vw_anish.id}",
+            "id": "${data.bitwarden_org_member.vw_ecstaticpilot.id}",
             "manage": true
           },
           {
@@ -46,7 +46,7 @@
             "manage": true
           },
           {
-            "id": "${data.bitwarden_org_member.vw_thesuperRL.id}",
+            "id": "${data.bitwarden_org_member.vw_thesuperrl.id}",
             "manage": true
           }
         ],
@@ -57,12 +57,12 @@
   },
   "data": {
     "bitwarden_org_member": {
-      "vw_EcstaticPilot": {
-        "email": "${data.external.identity_EcstaticPilot.result.cmu-saml}@andrew.cmu.edu",
-        "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
-      },
       "vw_anish": {
         "email": "${data.external.identity_anish.result.cmu-saml}@andrew.cmu.edu",
+        "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
+      },
+      "vw_ecstaticpilot": {
+        "email": "${data.external.identity_ecstaticpilot.result.cmu-saml}@andrew.cmu.edu",
         "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
       },
       "vw_gostmeaper": {
@@ -85,8 +85,8 @@
         "email": "${data.external.identity_tentype.result.cmu-saml}@andrew.cmu.edu",
         "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
       },
-      "vw_thesuperRL": {
-        "email": "${data.external.identity_thesuperRL.result.cmu-saml}@andrew.cmu.edu",
+      "vw_thesuperrl": {
+        "email": "${data.external.identity_thesuperrl.result.cmu-saml}@andrew.cmu.edu",
         "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
       }
     }

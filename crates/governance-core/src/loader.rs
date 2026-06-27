@@ -12,8 +12,9 @@ pub struct GovernanceData {
 
 impl GovernanceData {
     pub fn load(data_dir: &Path) -> Result<Self, GovernanceError> {
-        let org = load_org(data_dir)?;
-        let teams = load_teams(data_dir)?;
+        let mut org = load_org(data_dir)?;
+        let mut teams = load_teams(data_dir)?;
+        normalize_usernames(&mut org, &mut teams);
         Ok(Self { org, teams })
     }
 
@@ -90,4 +91,21 @@ fn load_teams(data_dir: &Path) -> Result<Vec<TeamFile>, GovernanceError> {
     }
 
     Ok(teams)
+}
+
+// Codeberg usernames are case-insensitive so lowercase them to keep terraform resource keys stable
+fn normalize_usernames(org: &mut OrgFile, teams: &mut [TeamFile]) {
+    org.org.tech_director = org.org.tech_director.to_lowercase();
+    for team in teams {
+        normalize_group(&mut team.team.group);
+        for project in &mut team.team.projects {
+            normalize_group(&mut project.group);
+        }
+    }
+}
+
+fn normalize_group(group: &mut GroupFields) {
+    for user in group.leads.iter_mut().chain(group.members.iter_mut()) {
+        *user = user.to_lowercase();
+    }
 }

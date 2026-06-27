@@ -1,11 +1,6 @@
 {
   "resource": {
     "github_team_membership": {
-      "cbp_XboxBedrock": {
-        "role": "member",
-        "team_id": "${github_team.cbp.id}",
-        "username": "${data.external.identity_XboxBedrock.result.github}"
-      },
       "cbp_gostmeaper": {
         "role": "member",
         "team_id": "${github_team.cbp.id}",
@@ -21,15 +16,20 @@
         "team_id": "${github_team.cbp.id}",
         "username": "${data.external.identity_pandaaured.result.github}"
       },
-      "cbp_stationedK_06": {
+      "cbp_stationedk_06": {
         "role": "member",
         "team_id": "${github_team.cbp.id}",
-        "username": "${data.external.identity_stationedK_06.result.github}"
+        "username": "${data.external.identity_stationedk_06.result.github}"
       },
       "cbp_tentype": {
         "role": "maintainer",
         "team_id": "${github_team.cbp.id}",
         "username": "${data.external.identity_tentype.result.github}"
+      },
+      "cbp_xboxbedrock": {
+        "role": "member",
+        "team_id": "${github_team.cbp.id}",
+        "username": "${data.external.identity_xboxbedrock.result.github}"
       },
       "cbp_zeyuyaoy": {
         "role": "member",
@@ -41,30 +41,20 @@
         "team_id": "${github_team.cmu-courses.id}",
         "username": "${data.external.identity_anish.result.github}"
       },
-      "cmu-housing_Calpha": {
-        "role": "member",
-        "team_id": "${github_team.cmu-housing.id}",
-        "username": "${data.external.identity_Calpha.result.github}"
-      },
-      "cmu-housing_EcstaticPilot": {
-        "role": "maintainer",
-        "team_id": "${github_team.cmu-housing.id}",
-        "username": "${data.external.identity_EcstaticPilot.result.github}"
-      },
-      "cmu-housing_ManrajS": {
-        "role": "member",
-        "team_id": "${github_team.cmu-housing.id}",
-        "username": "${data.external.identity_ManrajS.result.github}"
-      },
-      "cmu-housing_XboxBedrock": {
-        "role": "member",
-        "team_id": "${github_team.cmu-housing.id}",
-        "username": "${data.external.identity_XboxBedrock.result.github}"
-      },
       "cmu-housing_amzoeee": {
         "role": "member",
         "team_id": "${github_team.cmu-housing.id}",
         "username": "${data.external.identity_amzoeee.result.github}"
+      },
+      "cmu-housing_calpha": {
+        "role": "member",
+        "team_id": "${github_team.cmu-housing.id}",
+        "username": "${data.external.identity_calpha.result.github}"
+      },
+      "cmu-housing_ecstaticpilot": {
+        "role": "maintainer",
+        "team_id": "${github_team.cmu-housing.id}",
+        "username": "${data.external.identity_ecstaticpilot.result.github}"
       },
       "cmu-housing_gostmeaper": {
         "role": "maintainer",
@@ -76,45 +66,55 @@
         "team_id": "${github_team.cmu-housing.id}",
         "username": "${data.external.identity_jessica_lr_song.result.github}"
       },
+      "cmu-housing_manrajs": {
+        "role": "member",
+        "team_id": "${github_team.cmu-housing.id}",
+        "username": "${data.external.identity_manrajs.result.github}"
+      },
       "cmu-housing_tentype": {
         "role": "maintainer",
         "team_id": "${github_team.cmu-housing.id}",
         "username": "${data.external.identity_tentype.result.github}"
       },
-      "devops_XboxBedrock": {
+      "cmu-housing_xboxbedrock": {
         "role": "member",
-        "team_id": "${github_team.devops.id}",
-        "username": "${data.external.identity_XboxBedrock.result.github}"
+        "team_id": "${github_team.cmu-housing.id}",
+        "username": "${data.external.identity_xboxbedrock.result.github}"
       },
       "devops_anish": {
         "role": "maintainer",
         "team_id": "${github_team.devops.id}",
         "username": "${data.external.identity_anish.result.github}"
       },
-      "devops_thesuperRL": {
+      "devops_thesuperrl": {
         "role": "maintainer",
         "team_id": "${github_team.devops.id}",
-        "username": "${data.external.identity_thesuperRL.result.github}"
+        "username": "${data.external.identity_thesuperrl.result.github}"
+      },
+      "devops_xboxbedrock": {
+        "role": "member",
+        "team_id": "${github_team.devops.id}",
+        "username": "${data.external.identity_xboxbedrock.result.github}"
       },
       "quest_anish": {
         "role": "maintainer",
         "team_id": "${github_team.quest.id}",
         "username": "${data.external.identity_anish.result.github}"
       },
-      "slai_Enkrypt7": {
+      "slai_enkrypt7": {
         "role": "member",
         "team_id": "${github_team.slai.id}",
-        "username": "${data.external.identity_Enkrypt7.result.github}"
+        "username": "${data.external.identity_enkrypt7.result.github}"
       },
-      "slai_Jc_965": {
+      "slai_jc_965": {
         "role": "member",
         "team_id": "${github_team.slai.id}",
-        "username": "${data.external.identity_Jc_965.result.github}"
+        "username": "${data.external.identity_jc_965.result.github}"
       },
-      "slai_JiYa2301": {
+      "slai_jiya2301": {
         "role": "member",
         "team_id": "${github_team.slai.id}",
-        "username": "${data.external.identity_JiYa2301.result.github}"
+        "username": "${data.external.identity_jiya2301.result.github}"
       },
       "slai_kath45823": {
         "role": "member",
@@ -136,11 +136,6 @@
         "team_id": "${github_team.slai.id}",
         "username": "${data.external.identity_zeyuyaoy.result.github}"
       },
-      "tartan-vote_XboxBedrock": {
-        "role": "member",
-        "team_id": "${github_team.tartan-vote.id}",
-        "username": "${data.external.identity_XboxBedrock.result.github}"
-      },
       "tartan-vote_maybe_yiyi": {
         "role": "maintainer",
         "team_id": "${github_team.tartan-vote.id}",
@@ -151,10 +146,10 @@
         "team_id": "${github_team.tartan-vote.id}",
         "username": "${data.external.identity_riztofu.result.github}"
       },
-      "tartan-vote_stationedK_06": {
+      "tartan-vote_stationedk_06": {
         "role": "member",
         "team_id": "${github_team.tartan-vote.id}",
-        "username": "${data.external.identity_stationedK_06.result.github}"
+        "username": "${data.external.identity_stationedk_06.result.github}"
       },
       "tartan-vote_tentype": {
         "role": "member",
@@ -165,6 +160,11 @@
         "role": "member",
         "team_id": "${github_team.tartan-vote.id}",
         "username": "${data.external.identity_vloh.result.github}"
+      },
+      "tartan-vote_xboxbedrock": {
+        "role": "member",
+        "team_id": "${github_team.tartan-vote.id}",
+        "username": "${data.external.identity_xboxbedrock.result.github}"
       },
       "tartan-vote_zeyuyaoy": {
         "role": "member",

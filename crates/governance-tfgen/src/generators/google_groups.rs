@@ -28,7 +28,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
             admin_members.push(lead);
         }
     }
-    emit_group(&mut tf, "admin", &gg.admin, &admin_members);
+    emit_group(&mut tf, "admin", &gg.admin, &admin_members, td);
 
     // sl-ops (tech director + all leads)
     let mut ops_members: Vec<&str> = vec![td.as_str()];
@@ -37,15 +37,15 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
             ops_members.push(lead);
         }
     }
-    emit_group(&mut tf, "ops", &gg.ops, &ops_members);
+    emit_group(&mut tf, "ops", &gg.ops, &ops_members, td);
 
     // sl-tech (everyone)
-    emit_group(&mut tf, "tech", &gg.tech, &all_members);
+    emit_group(&mut tf, "tech", &gg.tech, &all_members, td);
 
     tf
 }
 
-fn emit_group(tf: &mut TfJsonFile, key: &str, email: &str, members: &[&str]) {
+fn emit_group(tf: &mut TfJsonFile, key: &str, email: &str, members: &[&str], td: &str) {
     tf.add_data(
         "google_cloud_identity_group_lookup",
         key,
@@ -58,6 +58,12 @@ fn emit_group(tf: &mut TfJsonFile, key: &str, email: &str, members: &[&str]) {
 
     for username in members {
         let user_key = username.replace('-', "_");
+        // Only the tech director manages the lists
+        let roles = if *username == td {
+            json!([{ "name": "MEMBER" }, { "name": "MANAGER" }])
+        } else {
+            json!([{ "name": "MEMBER" }])
+        };
         tf.add_resource(
             "google_cloud_identity_group_membership",
             &format!("{key}_{user_key}"),
@@ -66,7 +72,7 @@ fn emit_group(tf: &mut TfJsonFile, key: &str, email: &str, members: &[&str]) {
                 "preferred_member_key": {
                     "id": format!("${{data.external.identity_{user_key}.result.cmu-saml}}@andrew.cmu.edu"),
                 },
-                "roles": [{ "name": "MEMBER" }],
+                "roles": roles,
             }),
         );
     }

@@ -2,8 +2,8 @@
 name = "DevOps"
 slug = "devops"
 description = "Infrastructure and deployment"
-leads = ["anish", "thesuperRL"]
-members = ["XboxBedrock"]
+leads = ["anish", "thesuperrl"]
+members = ["xboxbedrock"]
 
 [[team.repos]]
 name = "infrastructure"

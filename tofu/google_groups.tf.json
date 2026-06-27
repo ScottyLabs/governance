@@ -9,24 +9,16 @@
         "roles": [
           {
             "name": "MEMBER"
+          },
+          {
+            "name": "MANAGER"
           }
         ]
       },
-      "admin_thesuperRL": {
+      "admin_thesuperrl": {
         "group": "${data.google_cloud_identity_group_lookup.admin.name}",
         "preferred_member_key": {
-          "id": "${data.external.identity_thesuperRL.result.cmu-saml}@andrew.cmu.edu"
-        },
-        "roles": [
-          {
-            "name": "MEMBER"
-          }
-        ]
-      },
-      "ops_EcstaticPilot": {
-        "group": "${data.google_cloud_identity_group_lookup.ops.name}",
-        "preferred_member_key": {
-          "id": "${data.external.identity_EcstaticPilot.result.cmu-saml}@andrew.cmu.edu"
+          "id": "${data.external.identity_thesuperrl.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {
@@ -38,6 +30,20 @@
         "group": "${data.google_cloud_identity_group_lookup.ops.name}",
         "preferred_member_key": {
           "id": "${data.external.identity_anish.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          },
+          {
+            "name": "MANAGER"
+          }
+        ]
+      },
+      "ops_ecstaticpilot": {
+        "group": "${data.google_cloud_identity_group_lookup.ops.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_ecstaticpilot.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {
@@ -100,87 +106,10 @@
           }
         ]
       },
-      "ops_thesuperRL": {
+      "ops_thesuperrl": {
         "group": "${data.google_cloud_identity_group_lookup.ops.name}",
         "preferred_member_key": {
-          "id": "${data.external.identity_thesuperRL.result.cmu-saml}@andrew.cmu.edu"
-        },
-        "roles": [
-          {
-            "name": "MEMBER"
-          }
-        ]
-      },
-      "tech_Calpha": {
-        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
-        "preferred_member_key": {
-          "id": "${data.external.identity_Calpha.result.cmu-saml}@andrew.cmu.edu"
-        },
-        "roles": [
-          {
-            "name": "MEMBER"
-          }
-        ]
-      },
-      "tech_EcstaticPilot": {
-        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
-        "preferred_member_key": {
-          "id": "${data.external.identity_EcstaticPilot.result.cmu-saml}@andrew.cmu.edu"
-        },
-        "roles": [
-          {
-            "name": "MEMBER"
-          }
-        ]
-      },
-      "tech_Enkrypt7": {
-        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
-        "preferred_member_key": {
-          "id": "${data.external.identity_Enkrypt7.result.cmu-saml}@andrew.cmu.edu"
-        },
-        "roles": [
-          {
-            "name": "MEMBER"
-          }
-        ]
-      },
-      "tech_Jc_965": {
-        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
-        "preferred_member_key": {
-          "id": "${data.external.identity_Jc_965.result.cmu-saml}@andrew.cmu.edu"
-        },
-        "roles": [
-          {
-            "name": "MEMBER"
-          }
-        ]
-      },
-      "tech_JiYa2301": {
-        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
-        "preferred_member_key": {
-          "id": "${data.external.identity_JiYa2301.result.cmu-saml}@andrew.cmu.edu"
-        },
-        "roles": [
-          {
-            "name": "MEMBER"
-          }
-        ]
-      },
-      "tech_ManrajS": {
-        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
-        "preferred_member_key": {
-          "id": "${data.external.identity_ManrajS.result.cmu-saml}@andrew.cmu.edu"
-        },
-        "roles": [
-          {
-            "name": "MEMBER"
-          }
-        ]
-      },
-      "tech_XboxBedrock": {
-        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
-        "preferred_member_key": {
-          "id": "${data.external.identity_XboxBedrock.result.cmu-saml}@andrew.cmu.edu"
+          "id": "${data.external.identity_thesuperrl.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {
@@ -207,6 +136,42 @@
         "roles": [
           {
             "name": "MEMBER"
+          },
+          {
+            "name": "MANAGER"
+          }
+        ]
+      },
+      "tech_calpha": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_calpha.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
+      "tech_ecstaticpilot": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_ecstaticpilot.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
+      "tech_enkrypt7": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_enkrypt7.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
           }
         ]
       },
@@ -221,10 +186,32 @@
           }
         ]
       },
+      "tech_jc_965": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_jc_965.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
       "tech_jessica_lr_song": {
         "group": "${data.google_cloud_identity_group_lookup.tech.name}",
         "preferred_member_key": {
           "id": "${data.external.identity_jessica_lr_song.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
+      "tech_jiya2301": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_jiya2301.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {
@@ -258,6 +245,17 @@
         "group": "${data.google_cloud_identity_group_lookup.tech.name}",
         "preferred_member_key": {
           "id": "${data.external.identity_kritdass.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
+      "tech_manrajs": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_manrajs.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {
@@ -309,10 +307,10 @@
           }
         ]
       },
-      "tech_stationedK_06": {
+      "tech_stationedk_06": {
         "group": "${data.google_cloud_identity_group_lookup.tech.name}",
         "preferred_member_key": {
-          "id": "${data.external.identity_stationedK_06.result.cmu-saml}@andrew.cmu.edu"
+          "id": "${data.external.identity_stationedk_06.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {
@@ -331,10 +329,10 @@
           }
         ]
       },
-      "tech_thesuperRL": {
+      "tech_thesuperrl": {
         "group": "${data.google_cloud_identity_group_lookup.tech.name}",
         "preferred_member_key": {
-          "id": "${data.external.identity_thesuperRL.result.cmu-saml}@andrew.cmu.edu"
+          "id": "${data.external.identity_thesuperrl.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {
@@ -346,6 +344,17 @@
         "group": "${data.google_cloud_identity_group_lookup.tech.name}",
         "preferred_member_key": {
           "id": "${data.external.identity_vloh.result.cmu-saml}@andrew.cmu.edu"
+        },
+        "roles": [
+          {
+            "name": "MEMBER"
+          }
+        ]
+      },
+      "tech_xboxbedrock": {
+        "group": "${data.google_cloud_identity_group_lookup.tech.name}",
+        "preferred_member_key": {
+          "id": "${data.external.identity_xboxbedrock.result.cmu-saml}@andrew.cmu.edu"
         },
         "roles": [
           {

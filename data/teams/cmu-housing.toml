@@ -1,8 +1,8 @@
 [team]
 name = "CMU Housing"
 slug = "cmu-housing"
-leads = ["gostmeaper", "EcstaticPilot", "tentype"]
-members = ["amzoeee", "ManrajS", "jessica-lr-song", "Calpha", "XboxBedrock"]
+leads = ["gostmeaper", "ecstaticpilot", "tentype"]
+members = ["amzoeee", "manrajs", "jessica-lr-song", "calpha", "xboxbedrock"]
 
 [[team.repos]]
 name = "housing"

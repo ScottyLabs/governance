@@ -1,83 +1,6 @@
 {
   "data": {
     "external": {
-      "identity_Calpha": {
-        "program": [
-          "governance",
-          "--data-dir",
-          "../data",
-          "resolve-identity"
-        ],
-        "query": {
-          "codeberg_user": "Calpha"
-        }
-      },
-      "identity_EcstaticPilot": {
-        "program": [
-          "governance",
-          "--data-dir",
-          "../data",
-          "resolve-identity"
-        ],
-        "query": {
-          "codeberg_user": "EcstaticPilot"
-        }
-      },
-      "identity_Enkrypt7": {
-        "program": [
-          "governance",
-          "--data-dir",
-          "../data",
-          "resolve-identity"
-        ],
-        "query": {
-          "codeberg_user": "Enkrypt7"
-        }
-      },
-      "identity_Jc_965": {
-        "program": [
-          "governance",
-          "--data-dir",
-          "../data",
-          "resolve-identity"
-        ],
-        "query": {
-          "codeberg_user": "Jc-965"
-        }
-      },
-      "identity_JiYa2301": {
-        "program": [
-          "governance",
-          "--data-dir",
-          "../data",
-          "resolve-identity"
-        ],
-        "query": {
-          "codeberg_user": "JiYa2301"
-        }
-      },
-      "identity_ManrajS": {
-        "program": [
-          "governance",
-          "--data-dir",
-          "../data",
-          "resolve-identity"
-        ],
-        "query": {
-          "codeberg_user": "ManrajS"
-        }
-      },
-      "identity_XboxBedrock": {
-        "program": [
-          "governance",
-          "--data-dir",
-          "../data",
-          "resolve-identity"
-        ],
-        "query": {
-          "codeberg_user": "XboxBedrock"
-        }
-      },
       "identity_amzoeee": {
         "program": [
           "governance",
@@ -100,6 +23,39 @@
           "codeberg_user": "anish"
         }
       },
+      "identity_calpha": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "calpha"
+        }
+      },
+      "identity_ecstaticpilot": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "ecstaticpilot"
+        }
+      },
+      "identity_enkrypt7": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "enkrypt7"
+        }
+      },
       "identity_gostmeaper": {
         "program": [
           "governance",
@@ -111,6 +67,17 @@
           "codeberg_user": "gostmeaper"
         }
       },
+      "identity_jc_965": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "jc-965"
+        }
+      },
       "identity_jessica_lr_song": {
         "program": [
           "governance",
@@ -120,6 +87,17 @@
         ],
         "query": {
           "codeberg_user": "jessica-lr-song"
+        }
+      },
+      "identity_jiya2301": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "jiya2301"
         }
       },
       "identity_kath45823": {
@@ -153,6 +131,17 @@
         ],
         "query": {
           "codeberg_user": "kritdass"
+        }
+      },
+      "identity_manrajs": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "manrajs"
         }
       },
       "identity_maybe_yiyi": {
@@ -199,7 +188,7 @@
           "codeberg_user": "sayevikk"
         }
       },
-      "identity_stationedK_06": {
+      "identity_stationedk_06": {
         "program": [
           "governance",
           "--data-dir",
@@ -207,7 +196,7 @@
           "resolve-identity"
         ],
         "query": {
-          "codeberg_user": "stationedK-06"
+          "codeberg_user": "stationedk-06"
         }
       },
       "identity_tentype": {
@@ -221,7 +210,7 @@
           "codeberg_user": "tentype"
         }
       },
-      "identity_thesuperRL": {
+      "identity_thesuperrl": {
         "program": [
           "governance",
           "--data-dir",
@@ -229,7 +218,7 @@
           "resolve-identity"
         ],
         "query": {
-          "codeberg_user": "thesuperRL"
+          "codeberg_user": "thesuperrl"
         }
       },
       "identity_vloh": {
@@ -241,6 +230,17 @@
         ],
         "query": {
           "codeberg_user": "vloh"
+        }
+      },
+      "identity_xboxbedrock": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "xboxbedrock"
         }
       },
       "identity_zeyuyaoy": {

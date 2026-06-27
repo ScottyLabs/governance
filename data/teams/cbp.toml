@@ -4,10 +4,10 @@ slug = "cbp"
 leads = ["tentype", "maybe-yiyi"]
 members = [
     "gostmeaper",
-    "XboxBedrock",
+    "xboxbedrock",
     "pandaaured",
     "zeyuyaoy",
-    "stationedK-06",
+    "stationedk-06",
 ]
 
 [[team.channels]]
