@@ -1,0 +1,52 @@
+{
+  "resource": {
+    "garage_bucket": {
+      "cdn_uia_scottylabs_org": {
+        "global_alias": "cdn-scottylabs-org",
+        "website_enabled": true,
+        "website_index_document": "index.html"
+      }
+    },
+    "garage_bucket_permission": {
+      "cdn_uia_scottylabs_org": {
+        "access_key_id": "${garage_key.cdn_uia_scottylabs_org.id}",
+        "bucket_id": "${garage_bucket.cdn_uia_scottylabs_org.id}",
+        "owner": true,
+        "read": true,
+        "write": true
+      }
+    },
+    "garage_key": {
+      "cdn_uia_scottylabs_org": {
+        "name": "cdn-scottylabs-org"
+      }
+    },
+    "vault_kv_secret_v2": {
+      "uia_scottylabs_org_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.id })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/prod/CDN_ACCESS_KEY_ID"
+      },
+      "uia_scottylabs_org_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/scottylabs-org/\" })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/prod/CDN_PUBLIC_URL"
+      },
+      "uia_scottylabs_org_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-scottylabs-org\" })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/prod/CDN_S3_BUCKET"
+      },
+      "uia_scottylabs_org_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/prod/CDN_S3_ENDPOINT"
+      },
+      "uia_scottylabs_org_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/prod/CDN_SECRET_ACCESS_KEY"
+      }
+    }
+  }
+}

@@ -82,6 +82,7 @@ pub enum Feature {
     Kennel,
     Sentry,
     Posthog,
+    Cdn,
     OidcClient,
     AdminClient,
 }

@@ -148,3 +148,23 @@ variable "matrix_slack_relay_login_id" {
     default     = ""
     description = "mautrix-slack relay login ID from `list-logins` after `login app` in @slack"
 }
+
+variable "garage_admin_endpoint" {
+    type    = string
+    default = "http://127.0.0.1:3903"
+}
+
+variable "garage_admin_token" {
+    type      = string
+    sensitive = true
+}
+
+variable "garage_s3_endpoint" {
+    type    = string
+    default = "https://s3.scottylabs.org"
+}
+
+variable "cdn_base_url" {
+    type    = string
+    default = "https://cdn.scottylabs.org"
+}

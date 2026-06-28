@@ -68,6 +68,10 @@ terraform {
             source  = "thesuperrl/synapse"
             version = "0.2.0"
         }
+        garage = {
+            source  = "registry.terraform.io/jkossis/garage"
+            version = "~> 1.0"
+        }
     }
 }
 
@@ -147,4 +151,9 @@ provider "synapse" {
     bridge_command_room_id = var.matrix_bridge_command_room_id
     slack_team_id          = try(local.matrix_slack_team_id, "")
     slack_relay_login_id   = var.matrix_slack_relay_login_id
+}
+
+provider "garage" {
+    endpoint = var.garage_admin_endpoint
+    token    = var.garage_admin_token
 }

@@ -42,6 +42,7 @@
         "kennel",
         "sentry",
         "posthog",
+        "cdn",
         "oidc_client",
         "admin_client"
       ]

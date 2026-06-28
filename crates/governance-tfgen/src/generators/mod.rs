@@ -1,3 +1,4 @@
+pub mod cdn;
 pub mod discord;
 pub mod forgejo;
 pub mod github;
