@@ -131,6 +131,11 @@
         "team_id": "${github_team.slai.id}",
         "username": "${data.external.identity_sayevikk.result.github}"
       },
+      "slai_xboxbedrock": {
+        "role": "member",
+        "team_id": "${github_team.slai.id}",
+        "username": "${data.external.identity_xboxbedrock.result.github}"
+      },
       "slai_zeyuyaoy": {
         "role": "member",
         "team_id": "${github_team.slai.id}",

@@ -189,6 +189,10 @@
         "team_id": "${forgejo_team.slai.id}",
         "user": "${data.external.identity_sayevikk.result.codeberg}"
       },
+      "slai_xboxbedrock": {
+        "team_id": "${forgejo_team.slai.id}",
+        "user": "${data.external.identity_xboxbedrock.result.codeberg}"
+      },
       "slai_zeyuyaoy": {
         "team_id": "${forgejo_team.slai.id}",
         "user": "${data.external.identity_zeyuyaoy.result.codeberg}"

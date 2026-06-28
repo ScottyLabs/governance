@@ -179,7 +179,8 @@
           "${data.external.identity_jiya2301.result.cmu-saml}",
           "${data.external.identity_enkrypt7.result.cmu-saml}",
           "${data.external.identity_sayevikk.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -199,7 +200,8 @@
           "${data.external.identity_jiya2301.result.cmu-saml}",
           "${data.external.identity_enkrypt7.result.cmu-saml}",
           "${data.external.identity_sayevikk.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -219,7 +221,8 @@
           "${data.external.identity_jiya2301.result.cmu-saml}",
           "${data.external.identity_enkrypt7.result.cmu-saml}",
           "${data.external.identity_sayevikk.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -239,7 +242,8 @@
           "${data.external.identity_jiya2301.result.cmu-saml}",
           "${data.external.identity_enkrypt7.result.cmu-saml}",
           "${data.external.identity_sayevikk.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
+          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
