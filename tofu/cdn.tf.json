@@ -1,6 +1,16 @@
 {
   "resource": {
     "garage_bucket": {
+      "cdn_cmu-courses_courses": {
+        "global_alias": "cdn-courses",
+        "website_enabled": true,
+        "website_index_document": "index.html"
+      },
+      "cdn_cmu-housing_housing": {
+        "global_alias": "cdn-housing",
+        "website_enabled": true,
+        "website_index_document": "index.html"
+      },
       "cdn_uia_scottylabs_org": {
         "global_alias": "cdn-scottylabs-org",
         "website_enabled": true,
@@ -8,6 +18,20 @@
       }
     },
     "garage_bucket_permission": {
+      "cdn_cmu-courses_courses": {
+        "access_key_id": "${garage_key.cdn_cmu-courses_courses.id}",
+        "bucket_id": "${garage_bucket.cdn_cmu-courses_courses.id}",
+        "owner": true,
+        "read": true,
+        "write": true
+      },
+      "cdn_cmu-housing_housing": {
+        "access_key_id": "${garage_key.cdn_cmu-housing_housing.id}",
+        "bucket_id": "${garage_bucket.cdn_cmu-housing_housing.id}",
+        "owner": true,
+        "read": true,
+        "write": true
+      },
       "cdn_uia_scottylabs_org": {
         "access_key_id": "${garage_key.cdn_uia_scottylabs_org.id}",
         "bucket_id": "${garage_bucket.cdn_uia_scottylabs_org.id}",
@@ -17,11 +41,67 @@
       }
     },
     "garage_key": {
+      "cdn_cmu-courses_courses": {
+        "name": "cdn-courses"
+      },
+      "cdn_cmu-housing_housing": {
+        "name": "cdn-housing"
+      },
       "cdn_uia_scottylabs_org": {
         "name": "cdn-scottylabs-org"
       }
     },
     "vault_kv_secret_v2": {
+      "cmu-courses_courses_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.id })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/CDN_ACCESS_KEY_ID"
+      },
+      "cmu-courses_courses_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/courses/\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/CDN_PUBLIC_URL"
+      },
+      "cmu-courses_courses_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-courses\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/CDN_S3_BUCKET"
+      },
+      "cmu-courses_courses_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/CDN_S3_ENDPOINT"
+      },
+      "cmu-courses_courses_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/courses/prod/CDN_SECRET_ACCESS_KEY"
+      },
+      "cmu-housing_housing_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.id })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/CDN_ACCESS_KEY_ID"
+      },
+      "cmu-housing_housing_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/housing/\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/CDN_PUBLIC_URL"
+      },
+      "cmu-housing_housing_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-housing\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/CDN_S3_BUCKET"
+      },
+      "cmu-housing_housing_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/CDN_S3_ENDPOINT"
+      },
+      "cmu-housing_housing_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/CDN_SECRET_ACCESS_KEY"
+      },
       "uia_scottylabs_org_cdn_access_key_id": {
         "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.id })}",
         "mount": "secret",

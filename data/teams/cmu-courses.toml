@@ -10,7 +10,7 @@ description = "Script that automatically saves a page of your choice to the inte
 [[team.repos]]
 name = "courses"
 description = "CMU Courses"
-features = ["kennel", "sentry", "posthog", "oidc_client"]
+features = ["kennel", "sentry", "posthog", "oidc_client", "cdn"]
 
 [[team.channels]]
 discord = "1459389616007282709"
