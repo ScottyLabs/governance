@@ -25,6 +25,18 @@
             "string",
             "null"
           ]
+        },
+        "mirror_role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mirror_everyone": {
+          "type": [
+            "boolean",
+            "null"
+          ]
         }
       }
     },
