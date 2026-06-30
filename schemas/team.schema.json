@@ -20,21 +20,23 @@
             "null"
           ]
         },
-        "slack": {
+        "mirror_everyone": {
+          "description": "When true, @channel mirrors to @everyone on Discord instead of a role.",
           "type": [
-            "string",
+            "boolean",
             "null"
           ]
         },
         "mirror_role": {
+          "description": "Discord role name to mirror @channel pings to; defaults to the team name.",
           "type": [
             "string",
             "null"
           ]
         },
-        "mirror_everyone": {
+        "slack": {
           "type": [
-            "boolean",
+            "string",
             "null"
           ]
         }
