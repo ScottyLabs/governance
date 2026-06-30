@@ -118,4 +118,8 @@ impl Repo {
 pub struct Channel {
     pub discord: Option<String>,
     pub slack: Option<String>,
+    /// Discord role name to mirror @channel pings to; defaults to the team name.
+    pub mirror_role: Option<String>,
+    /// When true, @channel mirrors to @everyone on Discord instead of a role.
+    pub mirror_everyone: Option<bool>,
 }
