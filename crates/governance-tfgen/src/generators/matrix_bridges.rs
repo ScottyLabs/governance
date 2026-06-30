@@ -94,6 +94,8 @@ fn emit_org_pair(
         &[Channel {
             slack: Some(slack.to_string()),
             discord: Some(discord.to_string()),
+            mirror_role: None,
+            mirror_everyone: None,
         }],
     );
 }
@@ -108,6 +110,8 @@ fn emit_org_channel(tf: &mut TfJsonFile, org_name: &str, channel: &OrgChannel) {
         &[Channel {
             slack: channel.slack.clone(),
             discord: channel.discord.clone(),
+            mirror_role: None,
+            mirror_everyone: None,
         }],
     );
 }
