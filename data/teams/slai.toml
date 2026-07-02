@@ -9,7 +9,7 @@ members = [
     "enkrypt7",
     "sayevikk",
     "zeyuyaoy",
-    "xboxbedrock"
+    "xboxbedrock",
 ]
 
 [[team.projects]]
@@ -19,7 +19,7 @@ slug = "cmugpt-surface"
 [[team.projects.repos]]
 name = "cmugpt-surface"
 description = "Fullstack for users to interface with CMU GPT"
-features = ["kennel", "sentry", "posthog"]
+features = ["kennel", "sentry", "posthog", "oidc_client"]
 
 [[team.projects]]
 name = "CMU GPT Agent"
