@@ -45,10 +45,10 @@ resource "vault_identity_group_alias" "devops" {
     canonical_id   = vault_identity_group.devops.id
 }
 
-resource "vault_policy" "cachix_pull" {
-    name   = "cachix-pull"
+resource "vault_policy" "shared_read" {
+    name   = "shared-read"
     policy = <<-EOT
-        path "secret/data/shared/cachix" {
+        path "secret/data/shared/*" {
             capabilities = ["read"]
         }
     EOT
@@ -57,7 +57,7 @@ resource "vault_policy" "cachix_pull" {
 resource "vault_identity_group" "all_members" {
     name     = "all-members"
     type     = "external"
-    policies = [vault_policy.cachix_pull.name]
+    policies = [vault_policy.shared_read.name]
 }
 
 resource "vault_identity_group_alias" "all_members" {
