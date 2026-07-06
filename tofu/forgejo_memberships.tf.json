@@ -249,9 +249,17 @@
         "team_id": "${forgejo_team.uia.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
+      "uia_jessiter": {
+        "team_id": "${forgejo_team.uia.id}",
+        "user": "${data.external.identity_jessiter.result.codeberg}"
+      },
       "uia_leads_anish": {
         "team_id": "${forgejo_team.uia_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "uia_leads_jessiter": {
+        "team_id": "${forgejo_team.uia_leads.id}",
+        "user": "${data.external.identity_jessiter.result.codeberg}"
       }
     }
   }

@@ -201,6 +201,21 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_jessica_lr_song.result.discord_id}"
       },
+      "jessiter": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.uia.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_jessiter.result.discord_id}"
+      },
       "jiya2301": {
         "role": [
           {

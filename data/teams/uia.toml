@@ -1,7 +1,7 @@
 [team]
 name = "UI Architecture"
 slug = "uia"
-leads = ["anish"]
+leads = ["anish", "Jessiter"]
 
 [[team.repos]]
 name = "components"

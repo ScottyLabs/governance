@@ -89,6 +89,17 @@
           "codeberg_user": "jessica-lr-song"
         }
       },
+      "identity_jessiter": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "jessiter"
+        }
+      },
       "identity_jiya2301": {
         "program": [
           "governance",
