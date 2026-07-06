@@ -12,30 +12,43 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
     };
 
     for team in &data.teams {
-        for repo in team.team.repos() {
-            let resource_name = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
-            let is_private = repo
-                .visibility
-                .as_ref()
-                .unwrap_or(&org.defaults.repo_visibility)
-                == &governance_schema::org::RepoVisibility::Private;
+        for group in team.team.groups() {
+            for repo in &group.repos {
+                let resource_name =
+                    format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
+                let is_private = repo
+                    .visibility
+                    .as_ref()
+                    .unwrap_or(&org.defaults.repo_visibility)
+                    == &governance_schema::org::RepoVisibility::Private;
+                let description = repo
+                    .description
+                    .as_deref()
+                    .or(group.description.as_deref())
+                    .unwrap_or("");
+                let website = repo
+                    .url
+                    .as_deref()
+                    .or(group.public_url.as_deref())
+                    .unwrap_or("");
 
-            tf.add_resource(
-                "forgejo_repository",
-                &resource_name,
-                json!({
-                    "name": repo.name,
-                    "description": repo.description.as_deref().unwrap_or(""),
-                    "website": repo.url.as_deref().unwrap_or(""),
-                    "owner": forgejo.org,
-                    "auto_init": true,
-                    "default_branch": org.defaults.default_branch,
-                    "private": is_private,
-                    "lifecycle": {
-                        "ignore_changes": ["clone_addr"],
-                    },
-                }),
-            );
+                tf.add_resource(
+                    "forgejo_repository",
+                    &resource_name,
+                    json!({
+                        "name": repo.name,
+                        "description": description,
+                        "website": website,
+                        "owner": forgejo.org,
+                        "auto_init": true,
+                        "default_branch": org.defaults.default_branch,
+                        "private": is_private,
+                        "lifecycle": {
+                            "ignore_changes": ["clone_addr"],
+                        },
+                    }),
+                );
+            }
         }
     }
 

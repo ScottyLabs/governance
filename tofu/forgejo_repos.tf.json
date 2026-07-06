@@ -13,7 +13,7 @@
         "name": "bus-sign",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://bus-sign.scottylabs.org"
       },
       "cbp_dalmatian": {
         "auto_init": true,
@@ -41,7 +41,7 @@
         "name": "discord-verify",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://verify.scottylabs.org"
       },
       "cbp_groupme_mirror": {
         "auto_init": true,
@@ -60,7 +60,7 @@
       "cmu-courses_courses": {
         "auto_init": true,
         "default_branch": "main",
-        "description": "CMU Courses",
+        "description": "Course search and scheduling for Carnegie Mellon students",
         "lifecycle": {
           "ignore_changes": [
             "clone_addr"
@@ -69,7 +69,7 @@
         "name": "courses",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://cmu.courses"
       },
       "cmu-courses_internet_archive": {
         "auto_init": true,
@@ -88,7 +88,7 @@
       "cmu-housing_housing": {
         "auto_init": true,
         "default_branch": "main",
-        "description": "An website built to help students discover housing options at CMU",
+        "description": "Helping students discover housing options at CMU",
         "lifecycle": {
           "ignore_changes": [
             "clone_addr"
@@ -97,7 +97,7 @@
         "name": "housing",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://cmu.homes"
       },
       "devops_devenv": {
         "auto_init": true,
@@ -125,7 +125,7 @@
         "name": "documentation",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://docs.scottylabs.org"
       },
       "devops_governance": {
         "auto_init": true,
@@ -181,7 +181,7 @@
         "name": "link-shortener",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://cmu.lol"
       },
       "devops_observability": {
         "auto_init": true,
@@ -195,12 +195,12 @@
         "name": "observability",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://grafana.scottylabs.org"
       },
       "quest_quest": {
         "auto_init": true,
         "default_branch": "main",
-        "description": "CMU Orientation Quest",
+        "description": "First-year orientation scavenger hunt",
         "lifecycle": {
           "ignore_changes": [
             "clone_addr"
@@ -209,12 +209,12 @@
         "name": "quest",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://cmu.quest"
       },
       "slai_cmugpt_agent": {
         "auto_init": true,
         "default_branch": "main",
-        "description": "Running the model, doing RAG, etc. for CMU GPT",
+        "description": "RAG backend and model orchestration for CMU GPT",
         "lifecycle": {
           "ignore_changes": [
             "clone_addr"
@@ -228,7 +228,7 @@
       "slai_cmugpt_sms_surface": {
         "auto_init": true,
         "default_branch": "main",
-        "description": "SMS interface with CMU GPT Agent",
+        "description": "SMS interface for CMU GPT",
         "lifecycle": {
           "ignore_changes": [
             "clone_addr"
@@ -242,7 +242,7 @@
       "slai_cmugpt_surface": {
         "auto_init": true,
         "default_branch": "main",
-        "description": "Fullstack for users to interface with CMU GPT",
+        "description": "Web interface for CMU GPT",
         "lifecycle": {
           "ignore_changes": [
             "clone_addr"
@@ -251,7 +251,7 @@
         "name": "cmugpt-surface",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://cmugpt.com"
       },
       "slai_mcp_server": {
         "auto_init": true,
@@ -270,7 +270,7 @@
       "tartan-vote_tartan_vote": {
         "auto_init": true,
         "default_branch": "main",
-        "description": "Voting app for the Undergraduate Senate and other student orgs.",
+        "description": "Voting app for the Undergraduate Senate and other student orgs",
         "lifecycle": {
           "ignore_changes": [
             "clone_addr"
@@ -279,7 +279,7 @@
         "name": "tartan-vote",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://tartan.vote"
       },
       "terrier_terrier": {
         "auto_init": true,
@@ -293,7 +293,7 @@
         "name": "terrier",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://terrier.build"
       },
       "uia_components": {
         "auto_init": true,
@@ -307,7 +307,7 @@
         "name": "components",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://components.scottylabs.org"
       },
       "uia_scottylabs_org": {
         "auto_init": true,
@@ -321,7 +321,7 @@
         "name": "scottylabs-org",
         "owner": "ScottyLabs",
         "private": false,
-        "website": ""
+        "website": "https://scottylabs.org"
       }
     }
   }

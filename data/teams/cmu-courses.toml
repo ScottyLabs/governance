@@ -7,9 +7,14 @@ leads = ["anish"]
 name = "internet-archive"
 description = "Script that automatically saves a page of your choice to the internet archive under the ScottyLabs account"
 
-[[team.repos]]
+[[team.projects]]
+name = "CMU Courses"
+slug = "courses"
+description = "Course search and scheduling for Carnegie Mellon students"
+public_url = "https://cmu.courses"
+
+[[team.projects.repos]]
 name = "courses"
-description = "CMU Courses"
 features = ["kennel", "sentry", "posthog", "oidc_client", "cdn"]
 
 [[team.channels]]

@@ -22,18 +22,27 @@ features = ["kennel", "sentry"]
 name = "devenv"
 description = "Shared Nix development environment for ScottyLabs projects"
 
-[[team.repos]]
-name = "observability"
+[[team.projects]]
+name = "Observability"
+slug = "observability"
 description = "Grafana dashboards and alert rules for ScottyLabs services"
+public_url = "https://grafana.scottylabs.org"
 
-[[team.repos]]
-name = "documentation"
+[[team.projects.repos]]
+name = "observability"
+
+[[team.projects]]
+name = "Documentation"
+slug = "documentation"
 description = "Centralized documentation hub for ScottyLabs projects"
+public_url = "https://docs.scottylabs.org"
+
+[[team.projects.repos]]
+name = "documentation"
 
 [[team.channels]]
 discord = "1461933322505818156"
 slack = "C08K3Q77ZQF"
-
 
 [[team.projects]]
 name = "Link Shortener"
@@ -43,5 +52,4 @@ public_url = "https://cmu.lol"
 
 [[team.projects.repos]]
 name = "link-shortener"
-description = "ScottyLabs link shortener service"
 features = ["kennel", "sentry", "posthog", "oidc_client"]

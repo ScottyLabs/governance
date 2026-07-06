@@ -51,6 +51,16 @@
         "parent_id": "${keycloak_group.project_cmu-courses.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cmu-courses_courses": {
+        "name": "courses",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-courses_courses_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_cmu-courses_courses.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_cmu-housing": {
         "name": "cmu-housing",
         "parent_id": "${keycloak_group.projects.id}",
@@ -71,6 +81,16 @@
         "parent_id": "${keycloak_group.project_devops.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_devops_documentation": {
+        "name": "documentation",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_documentation_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_devops_documentation.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops_link-shortener": {
         "name": "link-shortener",
         "parent_id": "${keycloak_group.projects.id}",
@@ -79,6 +99,16 @@
       "project_devops_link-shortener_admins": {
         "name": "admins",
         "parent_id": "${keycloak_group.project_devops_link-shortener.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_observability": {
+        "name": "observability",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_observability_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_devops_observability.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_quest": {
@@ -151,14 +181,24 @@
         "parent_id": "${keycloak_group.project_terrier.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_uia": {
-        "name": "uia",
+      "project_uia_components": {
+        "name": "components",
         "parent_id": "${keycloak_group.projects.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_uia_admins": {
+      "project_uia_components_admins": {
         "name": "admins",
-        "parent_id": "${keycloak_group.project_uia.id}",
+        "parent_id": "${keycloak_group.project_uia_components.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_uia_scottylabs-org": {
+        "name": "scottylabs-org",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_uia_scottylabs-org_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_uia_scottylabs-org.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       }
     }

@@ -1,6 +1,8 @@
 [team]
 name = "Tartan Vote"
 slug = "tartan-vote"
+description = "Voting app for the Undergraduate Senate and other student orgs"
+public_url = "https://tartan.vote"
 leads = ["maybe-yiyi"]
 members = [
     "vloh",
@@ -13,7 +15,6 @@ members = [
 
 [[team.repos]]
 name = "tartan-vote"
-description = "Voting app for the Undergraduate Senate and other student orgs."
 features = ["kennel", "sentry", "posthog", "oidc_client"]
 
 [[team.channels]]

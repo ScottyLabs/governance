@@ -706,12 +706,12 @@
         "name": "secretspec/courses/dev/OIDC_CLIENT_SECRET"
       },
       "courses_dev_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-courses/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/courses/admins\" })}",
         "mount": "secret",
         "name": "secretspec/courses/dev/PROJECT_ADMIN_GROUP"
       },
       "courses_dev_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-courses\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/courses\" })}",
         "mount": "secret",
         "name": "secretspec/courses/dev/PROJECT_GROUP"
       },
@@ -741,12 +741,12 @@
         "name": "secretspec/courses/preview/OIDC_CLIENT_SECRET"
       },
       "courses_preview_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-courses/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/courses/admins\" })}",
         "mount": "secret",
         "name": "secretspec/courses/preview/PROJECT_ADMIN_GROUP"
       },
       "courses_preview_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-courses\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/courses\" })}",
         "mount": "secret",
         "name": "secretspec/courses/preview/PROJECT_GROUP"
       },
@@ -776,12 +776,12 @@
         "name": "secretspec/courses/prod/OIDC_CLIENT_SECRET"
       },
       "courses_prod_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-courses/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/courses/admins\" })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/PROJECT_ADMIN_GROUP"
       },
       "courses_prod_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-courses\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/courses\" })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/PROJECT_GROUP"
       },
@@ -811,12 +811,12 @@
         "name": "secretspec/courses/staging/OIDC_CLIENT_SECRET"
       },
       "courses_staging_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-courses/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/courses/admins\" })}",
         "mount": "secret",
         "name": "secretspec/courses/staging/PROJECT_ADMIN_GROUP"
       },
       "courses_staging_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-courses\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/courses\" })}",
         "mount": "secret",
         "name": "secretspec/courses/staging/PROJECT_GROUP"
       },

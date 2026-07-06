@@ -3,14 +3,24 @@ name = "UI Architecture"
 slug = "uia"
 leads = ["anish", "Jessiter"]
 
-[[team.repos]]
-name = "components"
+[[team.projects]]
+name = "Components"
+slug = "components"
 description = "ScottyLabs design system"
+public_url = "https://components.scottylabs.org"
+
+[[team.projects.repos]]
+name = "components"
 features = ["kennel"]
 
-[[team.repos]]
-name = "scottylabs-org"
+[[team.projects]]
+name = "ScottyLabs Website"
+slug = "scottylabs-org"
 description = "ScottyLabs website"
+public_url = "https://scottylabs.org"
+
+[[team.projects.repos]]
+name = "scottylabs-org"
 features = ["kennel", "posthog", "cdn"]
 
 [[team.channels]]

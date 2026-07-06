@@ -1,12 +1,13 @@
 [team]
 name = "CMU Housing"
 slug = "cmu-housing"
+description = "Helping students discover housing options at CMU"
+public_url = "https://cmu.homes"
 leads = ["gostmeaper", "ecstaticpilot", "tentype"]
 members = ["amzoeee", "manrajs", "jessica-lr-song", "calpha", "xboxbedrock"]
 
 [[team.repos]]
 name = "housing"
-description = "An website built to help students discover housing options at CMU"
 features = ["kennel", "sentry", "posthog", "cdn"]
 
 [[team.channels]]

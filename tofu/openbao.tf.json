@@ -15,20 +15,6 @@
         ],
         "type": "external"
       },
-      "cmu-courses_admins": {
-        "name": "cmu-courses-admins",
-        "policies": [
-          "cmu-courses-prod"
-        ],
-        "type": "external"
-      },
-      "cmu-courses_members": {
-        "name": "cmu-courses-members",
-        "policies": [
-          "cmu-courses-dev"
-        ],
-        "type": "external"
-      },
       "cmu-housing_admins": {
         "name": "cmu-housing-admins",
         "policies": [
@@ -99,6 +85,34 @@
         ],
         "type": "external"
       },
+      "components_admins": {
+        "name": "components-admins",
+        "policies": [
+          "components-prod"
+        ],
+        "type": "external"
+      },
+      "components_members": {
+        "name": "components-members",
+        "policies": [
+          "components-dev"
+        ],
+        "type": "external"
+      },
+      "courses_admins": {
+        "name": "courses-admins",
+        "policies": [
+          "courses-prod"
+        ],
+        "type": "external"
+      },
+      "courses_members": {
+        "name": "courses-members",
+        "policies": [
+          "courses-dev"
+        ],
+        "type": "external"
+      },
       "dalmatian_admins": {
         "name": "dalmatian-admins",
         "policies": [
@@ -124,6 +138,20 @@
         "name": "discord-verify-members",
         "policies": [
           "discord-verify-dev"
+        ],
+        "type": "external"
+      },
+      "documentation_admins": {
+        "name": "documentation-admins",
+        "policies": [
+          "documentation-prod"
+        ],
+        "type": "external"
+      },
+      "documentation_members": {
+        "name": "documentation-members",
+        "policies": [
+          "documentation-dev"
         ],
         "type": "external"
       },
@@ -155,6 +183,20 @@
         ],
         "type": "external"
       },
+      "observability_admins": {
+        "name": "observability-admins",
+        "policies": [
+          "observability-prod"
+        ],
+        "type": "external"
+      },
+      "observability_members": {
+        "name": "observability-members",
+        "policies": [
+          "observability-dev"
+        ],
+        "type": "external"
+      },
       "quest_admins": {
         "name": "quest-admins",
         "policies": [
@@ -166,6 +208,20 @@
         "name": "quest-members",
         "policies": [
           "quest-dev"
+        ],
+        "type": "external"
+      },
+      "scottylabs-org_admins": {
+        "name": "scottylabs-org-admins",
+        "policies": [
+          "scottylabs-org-prod"
+        ],
+        "type": "external"
+      },
+      "scottylabs-org_members": {
+        "name": "scottylabs-org-members",
+        "policies": [
+          "scottylabs-org-dev"
         ],
         "type": "external"
       },
@@ -196,20 +252,6 @@
           "terrier-dev"
         ],
         "type": "external"
-      },
-      "uia_admins": {
-        "name": "uia-admins",
-        "policies": [
-          "uia-prod"
-        ],
-        "type": "external"
-      },
-      "uia_members": {
-        "name": "uia-members",
-        "policies": [
-          "uia-dev"
-        ],
-        "type": "external"
       }
     },
     "vault_identity_group_alias": {
@@ -222,16 +264,6 @@
         "canonical_id": "${vault_identity_group.bus-sign_members.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/bus-sign"
-      },
-      "cmu-courses_admins": {
-        "canonical_id": "${vault_identity_group.cmu-courses_admins.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/cmu-courses/admins"
-      },
-      "cmu-courses_members": {
-        "canonical_id": "${vault_identity_group.cmu-courses_members.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/cmu-courses"
       },
       "cmu-housing_admins": {
         "canonical_id": "${vault_identity_group.cmu-housing_admins.id}",
@@ -283,6 +315,26 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/cmugpt-surface"
       },
+      "components_admins": {
+        "canonical_id": "${vault_identity_group.components_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/components/admins"
+      },
+      "components_members": {
+        "canonical_id": "${vault_identity_group.components_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/components"
+      },
+      "courses_admins": {
+        "canonical_id": "${vault_identity_group.courses_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/courses/admins"
+      },
+      "courses_members": {
+        "canonical_id": "${vault_identity_group.courses_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/courses"
+      },
       "dalmatian_admins": {
         "canonical_id": "${vault_identity_group.dalmatian_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -302,6 +354,16 @@
         "canonical_id": "${vault_identity_group.discord-verify_members.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/discord-verify"
+      },
+      "documentation_admins": {
+        "canonical_id": "${vault_identity_group.documentation_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/documentation/admins"
+      },
+      "documentation_members": {
+        "canonical_id": "${vault_identity_group.documentation_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/documentation"
       },
       "groupme-mirror_admins": {
         "canonical_id": "${vault_identity_group.groupme-mirror_admins.id}",
@@ -323,6 +385,16 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/link-shortener"
       },
+      "observability_admins": {
+        "canonical_id": "${vault_identity_group.observability_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/observability/admins"
+      },
+      "observability_members": {
+        "canonical_id": "${vault_identity_group.observability_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/observability"
+      },
       "quest_admins": {
         "canonical_id": "${vault_identity_group.quest_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -332,6 +404,16 @@
         "canonical_id": "${vault_identity_group.quest_members.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/quest"
+      },
+      "scottylabs-org_admins": {
+        "canonical_id": "${vault_identity_group.scottylabs-org_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/scottylabs-org/admins"
+      },
+      "scottylabs-org_members": {
+        "canonical_id": "${vault_identity_group.scottylabs-org_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/scottylabs-org"
       },
       "tartan-vote_admins": {
         "canonical_id": "${vault_identity_group.tartan-vote_admins.id}",
@@ -352,16 +434,6 @@
         "canonical_id": "${vault_identity_group.terrier_members.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/terrier"
-      },
-      "uia_admins": {
-        "canonical_id": "${vault_identity_group.uia_admins.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/uia/admins"
-      },
-      "uia_members": {
-        "canonical_id": "${vault_identity_group.uia_members.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/uia"
       }
     },
     "vault_policy": {
@@ -372,14 +444,6 @@
       "bus-sign_prod": {
         "name": "bus-sign-prod",
         "policy": "path \"secret/data/secretspec/bus-sign/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/bus-sign/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "cmu-courses_dev": {
-        "name": "cmu-courses-dev",
-        "policy": "path \"secret/data/secretspec/cmu-courses/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-courses/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "cmu-courses_prod": {
-        "name": "cmu-courses-prod",
-        "policy": "path \"secret/data/secretspec/cmu-courses/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-courses/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-courses/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "cmu-housing_dev": {
         "name": "cmu-housing-dev",
@@ -421,6 +485,22 @@
         "name": "cmugpt-surface-prod",
         "policy": "path \"secret/data/secretspec/cmugpt-surface/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-surface/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmugpt-surface/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmugpt-surface/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
+      "components_dev": {
+        "name": "components-dev",
+        "policy": "path \"secret/data/secretspec/components/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/components/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/components/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/components/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "components_prod": {
+        "name": "components-prod",
+        "policy": "path \"secret/data/secretspec/components/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/components/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/components/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/components/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "courses_dev": {
+        "name": "courses-dev",
+        "policy": "path \"secret/data/secretspec/courses/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/courses/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/courses/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/courses/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "courses_prod": {
+        "name": "courses-prod",
+        "policy": "path \"secret/data/secretspec/courses/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/courses/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/courses/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/courses/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
       "dalmatian_dev": {
         "name": "dalmatian-dev",
         "policy": "path \"secret/data/secretspec/dalmatian/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/dalmatian/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/dalmatian/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/dalmatian/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
@@ -436,6 +516,14 @@
       "discord-verify_prod": {
         "name": "discord-verify-prod",
         "policy": "path \"secret/data/secretspec/discord-verify/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/discord-verify/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/discord-verify/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/discord-verify/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "documentation_dev": {
+        "name": "documentation-dev",
+        "policy": "path \"secret/data/secretspec/documentation/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/documentation/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/documentation/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/documentation/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "documentation_prod": {
+        "name": "documentation-prod",
+        "policy": "path \"secret/data/secretspec/documentation/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/documentation/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/documentation/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/documentation/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "groupme-mirror_dev": {
         "name": "groupme-mirror-dev",
@@ -453,6 +541,14 @@
         "name": "link-shortener-prod",
         "policy": "path \"secret/data/secretspec/link-shortener/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/link-shortener/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
+      "observability_dev": {
+        "name": "observability-dev",
+        "policy": "path \"secret/data/secretspec/observability/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/observability/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/observability/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/observability/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "observability_prod": {
+        "name": "observability-prod",
+        "policy": "path \"secret/data/secretspec/observability/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/observability/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/observability/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/observability/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
       "quest_dev": {
         "name": "quest-dev",
         "policy": "path \"secret/data/secretspec/quest/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/quest/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
@@ -460,6 +556,14 @@
       "quest_prod": {
         "name": "quest-prod",
         "policy": "path \"secret/data/secretspec/quest/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/quest/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/quest/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "scottylabs-org_dev": {
+        "name": "scottylabs-org-dev",
+        "policy": "path \"secret/data/secretspec/scottylabs-org/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/scottylabs-org/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/scottylabs-org/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/scottylabs-org/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "scottylabs-org_prod": {
+        "name": "scottylabs-org-prod",
+        "policy": "path \"secret/data/secretspec/scottylabs-org/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/scottylabs-org/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/scottylabs-org/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/scottylabs-org/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "tartan-vote_dev": {
         "name": "tartan-vote-dev",
@@ -476,14 +580,6 @@
       "terrier_prod": {
         "name": "terrier-prod",
         "policy": "path \"secret/data/secretspec/terrier/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/terrier/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/terrier/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/terrier/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "uia_dev": {
-        "name": "uia-dev",
-        "policy": "path \"secret/data/secretspec/uia/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/uia/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/uia/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/uia/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "uia_prod": {
-        "name": "uia-prod",
-        "policy": "path \"secret/data/secretspec/uia/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/uia/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/uia/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/uia/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       }
     }
   }

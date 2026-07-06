@@ -64,15 +64,6 @@
         "repository": "internet-archive",
         "team_id": "${forgejo_team.cmu-courses.id}"
       },
-      "cmu-courses_leads_courses": {
-        "depends_on": [
-          "forgejo_repository.cmu-courses_courses",
-          "forgejo_team.cmu-courses_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "courses",
-        "team_id": "${forgejo_team.cmu-courses_leads.id}"
-      },
       "cmu-courses_leads_internet_archive": {
         "depends_on": [
           "forgejo_repository.cmu-courses_internet_archive",
@@ -135,6 +126,24 @@
         "owner": "ScottyLabs",
         "repository": "cmugpt-surface",
         "team_id": "${forgejo_team.cmugpt-surface_leads.id}"
+      },
+      "components_leads_components": {
+        "depends_on": [
+          "forgejo_repository.uia_components",
+          "forgejo_team.components_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "components",
+        "team_id": "${forgejo_team.components_leads.id}"
+      },
+      "courses_leads_courses": {
+        "depends_on": [
+          "forgejo_repository.cmu-courses_courses",
+          "forgejo_team.courses_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "courses",
+        "team_id": "${forgejo_team.courses_leads.id}"
       },
       "dalmatian_leads_dalmatian": {
         "depends_on": [
@@ -199,15 +208,6 @@
         "repository": "devenv",
         "team_id": "${forgejo_team.devops_leads.id}"
       },
-      "devops_leads_documentation": {
-        "depends_on": [
-          "forgejo_repository.devops_documentation",
-          "forgejo_team.devops_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "documentation",
-        "team_id": "${forgejo_team.devops_leads.id}"
-      },
       "devops_leads_governance": {
         "depends_on": [
           "forgejo_repository.devops_governance",
@@ -233,15 +233,6 @@
         ],
         "owner": "ScottyLabs",
         "repository": "kennel",
-        "team_id": "${forgejo_team.devops_leads.id}"
-      },
-      "devops_leads_observability": {
-        "depends_on": [
-          "forgejo_repository.devops_observability",
-          "forgejo_team.devops_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "observability",
         "team_id": "${forgejo_team.devops_leads.id}"
       },
       "devops_link_shortener": {
@@ -271,6 +262,15 @@
         "repository": "discord-verify",
         "team_id": "${forgejo_team.discord-verify_leads.id}"
       },
+      "documentation_leads_documentation": {
+        "depends_on": [
+          "forgejo_repository.devops_documentation",
+          "forgejo_team.documentation_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "documentation",
+        "team_id": "${forgejo_team.documentation_leads.id}"
+      },
       "groupme-mirror_leads_groupme_mirror": {
         "depends_on": [
           "forgejo_repository.cbp_groupme_mirror",
@@ -289,6 +289,15 @@
         "repository": "link-shortener",
         "team_id": "${forgejo_team.link-shortener_leads.id}"
       },
+      "observability_leads_observability": {
+        "depends_on": [
+          "forgejo_repository.devops_observability",
+          "forgejo_team.observability_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "observability",
+        "team_id": "${forgejo_team.observability_leads.id}"
+      },
       "quest_leads_quest": {
         "depends_on": [
           "forgejo_repository.quest_quest",
@@ -306,6 +315,15 @@
         "owner": "ScottyLabs",
         "repository": "quest",
         "team_id": "${forgejo_team.quest.id}"
+      },
+      "scottylabs-org_leads_scottylabs_org": {
+        "depends_on": [
+          "forgejo_repository.uia_scottylabs_org",
+          "forgejo_team.scottylabs-org_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "scottylabs-org",
+        "team_id": "${forgejo_team.scottylabs-org_leads.id}"
       },
       "slai_cmugpt_agent": {
         "depends_on": [
@@ -387,24 +405,6 @@
         "owner": "ScottyLabs",
         "repository": "components",
         "team_id": "${forgejo_team.uia.id}"
-      },
-      "uia_leads_components": {
-        "depends_on": [
-          "forgejo_repository.uia_components",
-          "forgejo_team.uia_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "components",
-        "team_id": "${forgejo_team.uia_leads.id}"
-      },
-      "uia_leads_scottylabs_org": {
-        "depends_on": [
-          "forgejo_repository.uia_scottylabs_org",
-          "forgejo_team.uia_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "scottylabs-org",
-        "team_id": "${forgejo_team.uia_leads.id}"
       },
       "uia_scottylabs_org": {
         "depends_on": [

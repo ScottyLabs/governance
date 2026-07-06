@@ -99,6 +99,20 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cmu-courses_courses": {
+        "group_id": "${keycloak_group.project_cmu-courses_courses.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-courses_courses_admins": {
+        "group_id": "${keycloak_group.project_cmu-courses_courses_admins.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_cmu-housing": {
         "group_id": "${keycloak_group.project_cmu-housing.id}",
         "members": [
@@ -139,6 +153,23 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_devops_documentation": {
+        "group_id": "${keycloak_group.project_devops_documentation.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_thesuperrl.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_documentation_admins": {
+        "group_id": "${keycloak_group.project_devops_documentation_admins.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_thesuperrl.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops_link-shortener": {
         "group_id": "${keycloak_group.project_devops_link-shortener.id}",
         "members": [
@@ -150,6 +181,23 @@
       },
       "project_devops_link-shortener_admins": {
         "group_id": "${keycloak_group.project_devops_link-shortener_admins.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_thesuperrl.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_observability": {
+        "group_id": "${keycloak_group.project_devops_observability.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_thesuperrl.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_observability_admins": {
+        "group_id": "${keycloak_group.project_devops_observability_admins.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
           "${data.external.identity_thesuperrl.result.cmu-saml}"
@@ -290,16 +338,32 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_uia": {
-        "group_id": "${keycloak_group.project_uia.id}",
+      "project_uia_components": {
+        "group_id": "${keycloak_group.project_uia_components.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
           "${data.external.identity_jessiter.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_uia_admins": {
-        "group_id": "${keycloak_group.project_uia_admins.id}",
+      "project_uia_components_admins": {
+        "group_id": "${keycloak_group.project_uia_components_admins.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_jessiter.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_uia_scottylabs-org": {
+        "group_id": "${keycloak_group.project_uia_scottylabs-org.id}",
+        "members": [
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_jessiter.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_uia_scottylabs-org_admins": {
+        "group_id": "${keycloak_group.project_uia_scottylabs-org_admins.id}",
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
           "${data.external.identity_jessiter.result.cmu-saml}"
