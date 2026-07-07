@@ -52,80 +52,305 @@
       }
     },
     "vault_kv_secret_v2": {
-      "cmu-courses_courses_cdn_access_key_id": {
+      "cmu-courses_courses_dev_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.id })}",
+        "mount": "secret",
+        "name": "secretspec/courses/dev/CDN_ACCESS_KEY_ID"
+      },
+      "cmu-courses_courses_dev_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/courses/\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/dev/CDN_PUBLIC_URL"
+      },
+      "cmu-courses_courses_dev_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-courses\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/dev/CDN_S3_BUCKET"
+      },
+      "cmu-courses_courses_dev_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/courses/dev/CDN_S3_ENDPOINT"
+      },
+      "cmu-courses_courses_dev_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/courses/dev/CDN_SECRET_ACCESS_KEY"
+      },
+      "cmu-courses_courses_preview_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.id })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/CDN_ACCESS_KEY_ID"
+      },
+      "cmu-courses_courses_preview_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/courses/\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/CDN_PUBLIC_URL"
+      },
+      "cmu-courses_courses_preview_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-courses\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/CDN_S3_BUCKET"
+      },
+      "cmu-courses_courses_preview_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/CDN_S3_ENDPOINT"
+      },
+      "cmu-courses_courses_preview_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/courses/preview/CDN_SECRET_ACCESS_KEY"
+      },
+      "cmu-courses_courses_prod_cdn_access_key_id": {
         "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.id })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/CDN_ACCESS_KEY_ID"
       },
-      "cmu-courses_courses_cdn_public_url": {
+      "cmu-courses_courses_prod_cdn_public_url": {
         "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/courses/\" })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/CDN_PUBLIC_URL"
       },
-      "cmu-courses_courses_cdn_s3_bucket": {
+      "cmu-courses_courses_prod_cdn_s3_bucket": {
         "data_json": "${jsonencode({ value = \"cdn-courses\" })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/CDN_S3_BUCKET"
       },
-      "cmu-courses_courses_cdn_s3_endpoint": {
+      "cmu-courses_courses_prod_cdn_s3_endpoint": {
         "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/CDN_S3_ENDPOINT"
       },
-      "cmu-courses_courses_cdn_secret_access_key": {
+      "cmu-courses_courses_prod_cdn_secret_access_key": {
         "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.secret_access_key })}",
         "mount": "secret",
         "name": "secretspec/courses/prod/CDN_SECRET_ACCESS_KEY"
       },
-      "cmu-housing_housing_cdn_access_key_id": {
+      "cmu-courses_courses_staging_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.id })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/CDN_ACCESS_KEY_ID"
+      },
+      "cmu-courses_courses_staging_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/courses/\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/CDN_PUBLIC_URL"
+      },
+      "cmu-courses_courses_staging_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-courses\" })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/CDN_S3_BUCKET"
+      },
+      "cmu-courses_courses_staging_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/CDN_S3_ENDPOINT"
+      },
+      "cmu-courses_courses_staging_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-courses_courses.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/courses/staging/CDN_SECRET_ACCESS_KEY"
+      },
+      "cmu-housing_housing_dev_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.id })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/CDN_ACCESS_KEY_ID"
+      },
+      "cmu-housing_housing_dev_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/housing/\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/CDN_PUBLIC_URL"
+      },
+      "cmu-housing_housing_dev_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-housing\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/CDN_S3_BUCKET"
+      },
+      "cmu-housing_housing_dev_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/CDN_S3_ENDPOINT"
+      },
+      "cmu-housing_housing_dev_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/CDN_SECRET_ACCESS_KEY"
+      },
+      "cmu-housing_housing_preview_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.id })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/CDN_ACCESS_KEY_ID"
+      },
+      "cmu-housing_housing_preview_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/housing/\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/CDN_PUBLIC_URL"
+      },
+      "cmu-housing_housing_preview_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-housing\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/CDN_S3_BUCKET"
+      },
+      "cmu-housing_housing_preview_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/CDN_S3_ENDPOINT"
+      },
+      "cmu-housing_housing_preview_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/CDN_SECRET_ACCESS_KEY"
+      },
+      "cmu-housing_housing_prod_cdn_access_key_id": {
         "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.id })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/CDN_ACCESS_KEY_ID"
       },
-      "cmu-housing_housing_cdn_public_url": {
+      "cmu-housing_housing_prod_cdn_public_url": {
         "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/housing/\" })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/CDN_PUBLIC_URL"
       },
-      "cmu-housing_housing_cdn_s3_bucket": {
+      "cmu-housing_housing_prod_cdn_s3_bucket": {
         "data_json": "${jsonencode({ value = \"cdn-housing\" })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/CDN_S3_BUCKET"
       },
-      "cmu-housing_housing_cdn_s3_endpoint": {
+      "cmu-housing_housing_prod_cdn_s3_endpoint": {
         "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/CDN_S3_ENDPOINT"
       },
-      "cmu-housing_housing_cdn_secret_access_key": {
+      "cmu-housing_housing_prod_cdn_secret_access_key": {
         "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.secret_access_key })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/CDN_SECRET_ACCESS_KEY"
       },
-      "uia_scottylabs_org_cdn_access_key_id": {
+      "cmu-housing_housing_staging_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.id })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/CDN_ACCESS_KEY_ID"
+      },
+      "cmu-housing_housing_staging_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/housing/\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/CDN_PUBLIC_URL"
+      },
+      "cmu-housing_housing_staging_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-housing\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/CDN_S3_BUCKET"
+      },
+      "cmu-housing_housing_staging_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/CDN_S3_ENDPOINT"
+      },
+      "cmu-housing_housing_staging_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/CDN_SECRET_ACCESS_KEY"
+      },
+      "uia_scottylabs_org_dev_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.id })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/dev/CDN_ACCESS_KEY_ID"
+      },
+      "uia_scottylabs_org_dev_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/scottylabs-org/\" })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/dev/CDN_PUBLIC_URL"
+      },
+      "uia_scottylabs_org_dev_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-scottylabs-org\" })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/dev/CDN_S3_BUCKET"
+      },
+      "uia_scottylabs_org_dev_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/dev/CDN_S3_ENDPOINT"
+      },
+      "uia_scottylabs_org_dev_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/dev/CDN_SECRET_ACCESS_KEY"
+      },
+      "uia_scottylabs_org_preview_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.id })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/preview/CDN_ACCESS_KEY_ID"
+      },
+      "uia_scottylabs_org_preview_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/scottylabs-org/\" })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/preview/CDN_PUBLIC_URL"
+      },
+      "uia_scottylabs_org_preview_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-scottylabs-org\" })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/preview/CDN_S3_BUCKET"
+      },
+      "uia_scottylabs_org_preview_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/preview/CDN_S3_ENDPOINT"
+      },
+      "uia_scottylabs_org_preview_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/preview/CDN_SECRET_ACCESS_KEY"
+      },
+      "uia_scottylabs_org_prod_cdn_access_key_id": {
         "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.id })}",
         "mount": "secret",
         "name": "secretspec/scottylabs-org/prod/CDN_ACCESS_KEY_ID"
       },
-      "uia_scottylabs_org_cdn_public_url": {
+      "uia_scottylabs_org_prod_cdn_public_url": {
         "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/scottylabs-org/\" })}",
         "mount": "secret",
         "name": "secretspec/scottylabs-org/prod/CDN_PUBLIC_URL"
       },
-      "uia_scottylabs_org_cdn_s3_bucket": {
+      "uia_scottylabs_org_prod_cdn_s3_bucket": {
         "data_json": "${jsonencode({ value = \"cdn-scottylabs-org\" })}",
         "mount": "secret",
         "name": "secretspec/scottylabs-org/prod/CDN_S3_BUCKET"
       },
-      "uia_scottylabs_org_cdn_s3_endpoint": {
+      "uia_scottylabs_org_prod_cdn_s3_endpoint": {
         "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
         "mount": "secret",
         "name": "secretspec/scottylabs-org/prod/CDN_S3_ENDPOINT"
       },
-      "uia_scottylabs_org_cdn_secret_access_key": {
+      "uia_scottylabs_org_prod_cdn_secret_access_key": {
         "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.secret_access_key })}",
         "mount": "secret",
         "name": "secretspec/scottylabs-org/prod/CDN_SECRET_ACCESS_KEY"
+      },
+      "uia_scottylabs_org_staging_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.id })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/staging/CDN_ACCESS_KEY_ID"
+      },
+      "uia_scottylabs_org_staging_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/scottylabs-org/\" })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/staging/CDN_PUBLIC_URL"
+      },
+      "uia_scottylabs_org_staging_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-scottylabs-org\" })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/staging/CDN_S3_BUCKET"
+      },
+      "uia_scottylabs_org_staging_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/staging/CDN_S3_ENDPOINT"
+      },
+      "uia_scottylabs_org_staging_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/scottylabs-org/staging/CDN_SECRET_ACCESS_KEY"
       }
     }
   }

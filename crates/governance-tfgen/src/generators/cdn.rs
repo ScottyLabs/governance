@@ -53,15 +53,17 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
                     format!("\"${{var.cdn_base_url}}/{}/\"", repo.name),
                 ),
             ] {
-                tf.add_resource(
-                    "vault_kv_secret_v2",
-                    &format!("{key}_{}", name.to_lowercase()),
-                    json!({
-                        "mount": "secret",
-                        "name": format!("secretspec/{}/prod/{name}", repo.name),
-                        "data_json": format!("${{jsonencode({{ value = {value} }})}}"),
-                    }),
-                );
+                for profile in ["prod", "staging", "preview", "dev"] {
+                    tf.add_resource(
+                        "vault_kv_secret_v2",
+                        &format!("{key}_{profile}_{}", name.to_lowercase()),
+                        json!({
+                            "mount": "secret",
+                            "name": format!("secretspec/{}/{profile}/{name}", repo.name),
+                            "data_json": format!("${{jsonencode({{ value = {value} }})}}"),
+                        }),
+                    );
+                }
             }
         }
     }
