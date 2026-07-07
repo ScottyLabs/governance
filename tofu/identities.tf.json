@@ -166,6 +166,17 @@
           "codeberg_user": "maybe-yiyi"
         }
       },
+      "identity_o_zox_o": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "o-zox-o"
+        }
+      },
       "identity_pandaaured": {
         "program": [
           "governance",

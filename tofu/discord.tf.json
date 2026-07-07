@@ -300,6 +300,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_maybe_yiyi.result.discord_id}"
       },
+      "o_zox_o": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-housing.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_o_zox_o.result.discord_id}"
+      },
       "pandaaured": {
         "role": [
           {

@@ -81,6 +81,10 @@
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_manrajs.result.codeberg}"
       },
+      "cmu-housing_o_zox_o": {
+        "team_id": "${forgejo_team.cmu-housing.id}",
+        "user": "${data.external.identity_o_zox_o.result.codeberg}"
+      },
       "cmu-housing_tentype": {
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"

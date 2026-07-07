@@ -123,7 +123,8 @@
           "${data.external.identity_manrajs.result.cmu-saml}",
           "${data.external.identity_jessica_lr_song.result.cmu-saml}",
           "${data.external.identity_calpha.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
+          "${data.external.identity_o_zox_o.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
