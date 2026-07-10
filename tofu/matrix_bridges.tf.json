@@ -382,6 +382,24 @@
           "channel": "C0B7ANPMBL2"
         }
       },
+      "slack_bridge_login_org_purchase_request": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0AMLD8RXMM"
+        }
+      },
       "slack_bridge_login_org_quotes": {
         "provisioner": [
           {
@@ -788,6 +806,17 @@
         "project_name": "Project Updates",
         "project_slug": "project-updates",
         "slack_channel_id": "C0B7ANPMBL2",
+        "team_name": "ScottyLabs",
+        "team_slug": "org"
+      },
+      "org_purchase_request": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_org_purchase_request"
+        ],
+        "discord_channel_id": "1524962906947452928",
+        "project_name": "Purchase Request",
+        "project_slug": "purchase-request",
+        "slack_channel_id": "C0AMLD8RXMM",
         "team_name": "ScottyLabs",
         "team_slug": "org"
       },

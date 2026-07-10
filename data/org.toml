@@ -65,6 +65,18 @@ discord = "1506501481564602518"
 slack = "C04261ENHSR"
 
 [[org.communication.channels]]
+name = "Purchase Request"
+slug = "purchase-request"
+discord = "1524962906947452928"
+slack = "C0AMLD8RXMM"
+
+[[org.communication.channels]]
+name = "Merch"
+slug = "merch"
+discord = "1506501467929051246"
+slack = "C0AVBRB75SQ"
+
+[[org.communication.channels]]
 name = "Events"
 slug = "events"
 discord = "1510581627565117450"
@@ -99,12 +111,6 @@ name = "Quotes"
 slug = "quotes"
 discord = "1463357783985492081"
 slack = "C0392EKMJBD"
-
-[[org.communication.channels]]
-name = "Merch"
-slug = "merch"
-discord = "1506501467929051246"
-slack = "C0AVBRB75SQ"
 
 [[org.communication.channels]]
 name = "Schedules"
