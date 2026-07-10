@@ -142,7 +142,8 @@
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
           "${data.external.identity_thesuperrl.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
+          "${data.external.identity_stationedk_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -159,7 +160,8 @@
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
           "${data.external.identity_thesuperrl.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
+          "${data.external.identity_stationedk_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -176,7 +178,8 @@
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
           "${data.external.identity_thesuperrl.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
+          "${data.external.identity_stationedk_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -193,7 +196,8 @@
         "members": [
           "${data.external.identity_anish.result.cmu-saml}",
           "${data.external.identity_thesuperrl.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
+          "${data.external.identity_xboxbedrock.result.cmu-saml}",
+          "${data.external.identity_stationedk_06.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },

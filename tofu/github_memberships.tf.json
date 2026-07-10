@@ -91,6 +91,11 @@
         "team_id": "${github_team.devops.id}",
         "username": "${data.external.identity_anish.result.github}"
       },
+      "devops_stationedk_06": {
+        "role": "member",
+        "team_id": "${github_team.devops.id}",
+        "username": "${data.external.identity_stationedk_06.result.github}"
+      },
       "devops_thesuperrl": {
         "role": "maintainer",
         "team_id": "${github_team.devops.id}",

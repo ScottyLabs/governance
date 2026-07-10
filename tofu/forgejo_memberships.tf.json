@@ -141,6 +141,10 @@
         "team_id": "${forgejo_team.devops_leads.id}",
         "user": "${data.external.identity_thesuperrl.result.codeberg}"
       },
+      "devops_stationedk_06": {
+        "team_id": "${forgejo_team.devops.id}",
+        "user": "${data.external.identity_stationedk_06.result.codeberg}"
+      },
       "devops_thesuperrl": {
         "team_id": "${forgejo_team.devops.id}",
         "user": "${data.external.identity_thesuperrl.result.codeberg}"
