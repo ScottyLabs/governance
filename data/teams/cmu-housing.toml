@@ -4,7 +4,14 @@ slug = "cmu-housing"
 description = "Helping students discover housing options at CMU"
 public_url = "https://cmu.homes"
 leads = ["gostmeaper", "ecstaticpilot", "tentype"]
-members = ["amzoeee", "manrajs", "jessica-lr-song", "calpha", "xboxbedrock", "o-zox-o"]
+members = [
+    "amzoeee",
+    "manrajs",
+    "jessica-lr-song",
+    "calpha",
+    "xboxbedrock",
+    "o-zox-o",
+]
 
 [[team.repos]]
 name = "housing"
