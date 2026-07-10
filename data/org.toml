@@ -177,3 +177,9 @@ name = "Foundry"
 slug = "foundry"
 discord = "1524908627977310238"
 slack = "C0B0QH64430"
+
+[[org.communication.channels]]
+name = "Leadership"
+slug = "leadership"
+discord = "1393316374314483815"
+slack = "C0AMT6958H1"
