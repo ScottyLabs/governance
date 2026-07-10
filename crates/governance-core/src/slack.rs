@@ -26,6 +26,9 @@ pub fn join(channel: &str) -> Result<(), String> {
     let token = token()?;
     let info = get(&token, "conversations.info", &[("channel", channel)])?;
     check(&info, "info", channel, &[])?;
+    if info["channel"]["is_member"].as_bool() == Some(true) {
+        return Ok(());
+    }
     if info["channel"]["is_private"].as_bool() == Some(true) {
         return Err(format!(
             "channel {channel} is private; the slack relay login must be invited manually by an existing member"
