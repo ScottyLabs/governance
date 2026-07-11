@@ -39,6 +39,7 @@ name = "Announcements"
 slug = "announcements"
 discord = "1396542641440690336"
 slack = "C03EVH2A6"
+mirror_everyone = true
 
 [[org.communication.channels]]
 name = "Project Updates"
@@ -51,6 +52,7 @@ name = "General"
 slug = "general"
 discord = "1396542948509876270"
 slack = "C019R0WM1T4"
+mirror_everyone = true
 
 [[org.communication.channels]]
 name = "Random"
