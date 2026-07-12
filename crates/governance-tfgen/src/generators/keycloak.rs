@@ -134,6 +134,16 @@ pub fn generate_group_memberships(data: &GovernanceData) -> TfJsonFile {
         }
     }
 
+    tf.add_resource(
+        "keycloak_group_memberships",
+        "projects",
+        json!({
+            "realm_id": realm_id,
+            "group_id": "${keycloak_group.projects.id}",
+            "members": data.all_members().into_iter().map(user_id).collect::<Vec<_>>(),
+        }),
+    );
+
     tf
 }
 
