@@ -8,10 +8,6 @@
         "metadata": {
           "project": "collie"
         },
-        "tags": [
-          "devops",
-          "collie"
-        ],
         "team_id": "${litellm_team.devops.id}"
       },
       "collie_prod": {
@@ -21,10 +17,6 @@
         "metadata": {
           "project": "collie"
         },
-        "tags": [
-          "devops",
-          "collie"
-        ],
         "team_id": "${litellm_team.devops.id}"
       }
     },

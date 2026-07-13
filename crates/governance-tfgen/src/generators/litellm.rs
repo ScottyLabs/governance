@@ -41,7 +41,6 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
                         "team_id": format!("${{litellm_team.{team_key}.id}}"),
                         "max_budget": budget,
                         "budget_duration": "monthly",
-                        "tags": [team_slug, &repo.name],
                         "metadata": { "project": repo.name },
                     }),
                 );
