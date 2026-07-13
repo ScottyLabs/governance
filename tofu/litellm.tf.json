@@ -1,0 +1,79 @@
+{
+  "resource": {
+    "litellm_key": {
+      "collie_dev": {
+        "budget_duration": "monthly",
+        "key_alias": "collie-dev",
+        "max_budget": 5.0,
+        "metadata": {
+          "project": "collie"
+        },
+        "tags": [
+          "devops",
+          "collie"
+        ],
+        "team_id": "${litellm_team.devops.id}"
+      },
+      "collie_prod": {
+        "budget_duration": "monthly",
+        "key_alias": "collie-prod",
+        "max_budget": 20.0,
+        "metadata": {
+          "project": "collie"
+        },
+        "tags": [
+          "devops",
+          "collie"
+        ],
+        "team_id": "${litellm_team.devops.id}"
+      }
+    },
+    "litellm_team": {
+      "devops": {
+        "team_alias": "devops"
+      }
+    },
+    "vault_kv_secret_v2": {
+      "collie_dev_litellm_api_key": {
+        "data_json": "${jsonencode({ value = litellm_key.collie_dev.key })}",
+        "mount": "secret",
+        "name": "secretspec/collie/dev/LITELLM_API_KEY"
+      },
+      "collie_dev_litellm_base_url": {
+        "data_json": "${jsonencode({ value = var.litellm_url })}",
+        "mount": "secret",
+        "name": "secretspec/collie/dev/LITELLM_BASE_URL"
+      },
+      "collie_preview_litellm_api_key": {
+        "data_json": "${jsonencode({ value = litellm_key.collie_dev.key })}",
+        "mount": "secret",
+        "name": "secretspec/collie/preview/LITELLM_API_KEY"
+      },
+      "collie_preview_litellm_base_url": {
+        "data_json": "${jsonencode({ value = var.litellm_url })}",
+        "mount": "secret",
+        "name": "secretspec/collie/preview/LITELLM_BASE_URL"
+      },
+      "collie_prod_litellm_api_key": {
+        "data_json": "${jsonencode({ value = litellm_key.collie_prod.key })}",
+        "mount": "secret",
+        "name": "secretspec/collie/prod/LITELLM_API_KEY"
+      },
+      "collie_prod_litellm_base_url": {
+        "data_json": "${jsonencode({ value = var.litellm_url })}",
+        "mount": "secret",
+        "name": "secretspec/collie/prod/LITELLM_BASE_URL"
+      },
+      "collie_staging_litellm_api_key": {
+        "data_json": "${jsonencode({ value = litellm_key.collie_dev.key })}",
+        "mount": "secret",
+        "name": "secretspec/collie/staging/LITELLM_API_KEY"
+      },
+      "collie_staging_litellm_base_url": {
+        "data_json": "${jsonencode({ value = var.litellm_url })}",
+        "mount": "secret",
+        "name": "secretspec/collie/staging/LITELLM_BASE_URL"
+      }
+    }
+  }
+}

@@ -168,3 +168,8 @@ variable "cdn_base_url" {
     type    = string
     default = "https://cdn.scottylabs.org"
 }
+
+variable "litellm_url" {
+    type    = string
+    default = "https://litellm.scottylabs.org"
+}

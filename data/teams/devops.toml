@@ -16,11 +16,16 @@ description = "Definition and automation of the Tech Committee's governance mode
 [[team.repos]]
 name = "kennel"
 description = "Branch-based deployment platform"
-features = ["kennel", "sentry"]
+features = { kennel = {}, sentry = {} }
 
 [[team.repos]]
 name = "devenv"
 description = "Shared Nix development environment for ScottyLabs projects"
+
+[[team.repos]]
+name = "collie"
+description = "Traced, typed, effect-based agent kernel"
+features = { kennel = {}, ai_gateway = {} }
 
 [[team.projects]]
 name = "Observability"
@@ -52,4 +57,4 @@ public_url = "https://cmu.lol"
 
 [[team.projects.repos]]
 name = "link-shortener"
-features = ["kennel", "sentry", "posthog", "oidc_client"]
+features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {} }

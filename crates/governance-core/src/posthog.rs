@@ -1,7 +1,5 @@
 use std::collections::{BTreeMap, HashMap, HashSet};
 
-use governance_schema::team::Feature;
-
 use crate::keycloak::KeycloakClient;
 use crate::loader::GovernanceData;
 
@@ -31,13 +29,18 @@ pub fn invite_roster(data: &GovernanceData) -> BTreeMap<String, bool> {
             continue;
         }
 
-        if group.repos.iter().any(|r| r.has(Feature::Posthog)) {
+        if group.repos.iter().any(|r| r.features.posthog.is_some()) {
             for lead in &group.leads {
                 roster.entry(lead.clone()).or_insert(false);
             }
         }
         for project in &team.team.projects {
-            if !project.group.repos.iter().any(|r| r.has(Feature::Posthog)) {
+            if !project
+                .group
+                .repos
+                .iter()
+                .any(|r| r.features.posthog.is_some())
+            {
                 continue;
             }
             for lead in group.leads.iter().chain(project.group.leads.iter()) {

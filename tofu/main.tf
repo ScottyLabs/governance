@@ -72,6 +72,10 @@ terraform {
             source  = "registry.terraform.io/jkossis/garage"
             version = "~> 1.0"
         }
+        litellm = {
+            source  = "registry.terraform.io/vCra/litellm"
+            version = "~> 1.2"
+        }
     }
 }
 
@@ -84,6 +88,16 @@ provider "vault" {
             secret_id = var.vault_approle_secret_id
         }
     }
+}
+
+data "vault_kv_secret_v2" "litellm_master_key" {
+    mount = "secret"
+    name  = "infra/litellm-master-key"
+}
+
+provider "litellm" {
+    api_base = var.litellm_url
+    api_key  = data.vault_kv_secret_v2.litellm_master_key.data["MASTER_KEY"]
 }
 
 provider "github" {

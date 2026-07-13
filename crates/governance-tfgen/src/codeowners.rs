@@ -1,5 +1,5 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::team::{Feature, GroupFields};
+use governance_schema::team::GroupFields;
 
 pub fn generate_codeowners(data: &GovernanceData) -> String {
     let td = &data.org.org.tech_director;
@@ -52,7 +52,7 @@ pub fn generate_observability_codeowners(data: &GovernanceData) -> String {
         let owners = team_lead_handles(&team.team.group, &td_handle).join(" ");
         team.team
             .repos()
-            .filter(|r| r.has(Feature::Sentry))
+            .filter(|r| r.features.sentry.is_some())
             .flat_map(move |repo| {
                 [
                     format!("/dashboards/{}/ {owners}", repo.name),

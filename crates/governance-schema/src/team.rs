@@ -68,27 +68,65 @@ pub struct Project {
     pub group: GroupFields,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, Serialize, JsonSchema)]
-#[serde(rename_all = "lowercase")]
-pub enum DocsType {
-    Starlight,
-    Rust,
-    Openapi,
+/// A feature is enabled by its presence, an empty table enables it with defaults
+#[derive(Debug, Clone, PartialEq, Default, Deserialize, Serialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+pub struct Features {
+    pub kennel: Option<KennelFeature>,
+    pub sentry: Option<SentryFeature>,
+    pub posthog: Option<PosthogFeature>,
+    pub cdn: Option<CdnFeature>,
+    pub oidc_client: Option<OidcClientFeature>,
+    pub admin_client: Option<AdminClientFeature>,
+    pub ai_gateway: Option<AiGatewayFeature>,
+    pub docs: Option<DocsFeature>,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, Serialize, JsonSchema)]
-#[serde(rename_all = "snake_case")]
-pub enum Feature {
-    Kennel,
-    Sentry,
-    Posthog,
-    Cdn,
-    OidcClient,
-    AdminClient,
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+pub struct KennelFeature {}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+pub struct SentryFeature {}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+pub struct PosthogFeature {}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+pub struct CdnFeature {}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+pub struct OidcClientFeature {}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+pub struct AdminClientFeature {}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+pub struct AiGatewayFeature {
+    /// Monthly budget in USD for the prod key
+    #[serde(default = "default_prod_monthly_budget")]
+    pub prod_monthly_budget: f64,
+    /// Monthly budget in USD for the key shared by staging, preview, and dev
+    #[serde(default = "default_dev_monthly_budget")]
+    pub dev_monthly_budget: f64,
 }
 
-fn default_docs_enabled() -> bool {
-    true
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+pub struct DocsFeature {}
+
+fn default_prod_monthly_budget() -> f64 {
+    20.0
+}
+
+fn default_dev_monthly_budget() -> f64 {
+    5.0
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
@@ -100,18 +138,7 @@ pub struct Repo {
     #[serde(default)]
     pub topics: Vec<String>,
     #[serde(default)]
-    pub features: Vec<Feature>,
-    #[serde(default = "default_docs_enabled")]
-    pub docs: bool,
-    pub docs_type: Option<DocsType>,
-    pub openapi_spec: Option<String>,
-    pub export_command: Option<String>,
-}
-
-impl Repo {
-    pub fn has(&self, feature: Feature) -> bool {
-        self.features.contains(&feature)
-    }
+    pub features: Features,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]

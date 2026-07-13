@@ -18,7 +18,16 @@ Reference the [team schema](./schemas/team.schema.json) for an authoritative lis
 
 ### Features
 
-Each repository opts into capabilities through its `features` array:
+Each repository opts into capabilities through its `features` table. Presence enables a feature, an empty table enables it with defaults, and features with settings take them as keys:
+
+```toml
+[[team.repos]]
+name = "collie"
+features = { kennel = {}, sentry = {} }
+
+[team.repos.features.ai_gateway]
+prod_monthly_budget = 20.0
+```
 
 - `kennel` adds a Forgejo webhook that connects the repository to kennel for builds and deployments
 - `sentry` creates a Sentry project and writes its DSN to Vault
@@ -26,12 +35,14 @@ Each repository opts into capabilities through its `features` array:
 - `cdn` creates a public-read Garage bucket for the repository and writes its S3 credentials and public URL to Vault
 - `oidc_client` provisions prod and staging Keycloak OIDC clients with a fixed redirect URI and writes their credentials to Vault per profile
 - `admin_client` provisions a Keycloak service-account client with user-management roles and writes its credentials to Vault
+- `ai_gateway` provisions LiteLLM API keys with monthly budgets, a prod key and a lower-budget key shared by staging, preview, and dev, and writes the key and gateway URL to Vault per profile
+- `docs` registers the repository's `docs/` directory with the documentation hub
 
 How a project declares and consumes what these provision lives in the kennel docs: [Deploying a Project](https://docs.kennel.scottylabs.org/guides/deploying.html) and [Secrets](https://docs.kennel.scottylabs.org/guides/secrets.html).
 
 ## Description
 
-The following is a non-exhaustive list of platforms Governance manages:
+The following is a list of platforms Governance manages:
 
 1. Keycloak
    - Members are added to their team's Keycloak groups, which gives them permission to access environment variables and other project-specific resources
@@ -49,6 +60,8 @@ The following is a non-exhaustive list of platforms Governance manages:
 1. PostHog
    - Projects are provisioned under PostHog for product analytics
    - Leads of teams with a PostHog project are invited as organization members, and devops as owners
+1. LiteLLM
+   - Repositories with the AI gateway enabled receive budgeted API keys under their team, written to OpenBao per profile
 1. Kennel
    - Repositories automatically receive a deploy webhook that authorizes them to be deployed by [kennel](https://codeberg.org/scottylabs/kennel)
 1. Website

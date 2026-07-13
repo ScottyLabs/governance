@@ -11,6 +11,32 @@
     "team"
   ],
   "$defs": {
+    "AdminClientFeature": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "AiGatewayFeature": {
+      "type": "object",
+      "properties": {
+        "dev_monthly_budget": {
+          "description": "Monthly budget in USD for the key shared by staging, preview, and dev",
+          "type": "number",
+          "format": "double",
+          "default": 5.0
+        },
+        "prod_monthly_budget": {
+          "description": "Monthly budget in USD for the prod key",
+          "type": "number",
+          "format": "double",
+          "default": 20.0
+        }
+      },
+      "additionalProperties": false
+    },
+    "CdnFeature": {
+      "type": "object",
+      "additionalProperties": false
+    },
     "Channel": {
       "type": "object",
       "properties": {
@@ -28,24 +54,108 @@
         }
       }
     },
-    "DocsType": {
-      "type": "string",
-      "enum": [
-        "starlight",
-        "rust",
-        "openapi"
-      ]
+    "DocsFeature": {
+      "type": "object",
+      "additionalProperties": false
     },
-    "Feature": {
-      "type": "string",
-      "enum": [
-        "kennel",
-        "sentry",
-        "posthog",
-        "cdn",
-        "oidc_client",
-        "admin_client"
-      ]
+    "Features": {
+      "description": "A feature is enabled by its presence, an empty table enables it with defaults",
+      "type": "object",
+      "properties": {
+        "admin_client": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AdminClientFeature"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ai_gateway": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AiGatewayFeature"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cdn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CdnFeature"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "docs": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DocsFeature"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kennel": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/KennelFeature"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "oidc_client": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OidcClientFeature"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "posthog": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PosthogFeature"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sentry": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SentryFeature"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "KennelFeature": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "OidcClientFeature": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "PosthogFeature": {
+      "type": "object",
+      "additionalProperties": false
     },
     "Project": {
       "type": "object",
@@ -118,41 +228,21 @@
             "null"
           ]
         },
-        "docs": {
-          "type": "boolean",
-          "default": true
-        },
-        "docs_type": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/DocsType"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "export_command": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
         "features": {
-          "type": "array",
-          "default": [],
-          "items": {
-            "$ref": "#/$defs/Feature"
+          "$ref": "#/$defs/Features",
+          "default": {
+            "admin_client": null,
+            "ai_gateway": null,
+            "cdn": null,
+            "docs": null,
+            "kennel": null,
+            "oidc_client": null,
+            "posthog": null,
+            "sentry": null
           }
         },
         "name": {
           "type": "string"
-        },
-        "openapi_spec": {
-          "type": [
-            "string",
-            "null"
-          ]
         },
         "topics": {
           "type": "array",
@@ -188,6 +278,10 @@
         "public",
         "private"
       ]
+    },
+    "SentryFeature": {
+      "type": "object",
+      "additionalProperties": false
     },
     "Team": {
       "type": "object",

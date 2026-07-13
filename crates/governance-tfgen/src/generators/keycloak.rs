@@ -1,5 +1,5 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::{org::KeycloakConnection, team::Feature};
+use governance_schema::org::KeycloakConnection;
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -172,12 +172,12 @@ pub fn generate_clients(data: &GovernanceData) -> TfJsonFile {
             for repo in group
                 .repos
                 .iter()
-                .filter(|r| r.has(Feature::OidcClient) || r.has(Feature::AdminClient))
+                .filter(|r| r.features.oidc_client.is_some() || r.features.admin_client.is_some())
             {
                 let name = repo.name.as_str();
                 let key = name.replace('-', "_");
 
-                if repo.has(Feature::OidcClient) {
+                if repo.features.oidc_client.is_some() {
                     let staging_key = format!("{key}_staging");
                     let dev_key = format!("{key}_dev");
                     let staging_id = format!("{name}-staging");
@@ -211,7 +211,7 @@ pub fn generate_clients(data: &GovernanceData) -> TfJsonFile {
                     }
                 }
 
-                if repo.has(Feature::AdminClient) {
+                if repo.features.admin_client.is_some() {
                     needs_realm_management = true;
                     let admin_key = format!("{key}_admin");
                     add_admin_client(&mut tf, realm_id, &admin_key, &format!("{name}-admin"));

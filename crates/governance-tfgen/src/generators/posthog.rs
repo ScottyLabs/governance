@@ -1,5 +1,4 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::team::Feature;
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -8,7 +7,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
 
     for team in &data.teams {
-        for repo in team.team.repos().filter(|r| r.has(Feature::Posthog)) {
+        for repo in team.team.repos().filter(|r| r.features.posthog.is_some()) {
             let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
 
             tf.add_resource(

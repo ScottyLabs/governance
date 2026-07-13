@@ -33,6 +33,10 @@
         "enabled": false,
         "repository": "${github_repository.cmu-maps_maps.name}"
       },
+      "devops_collie_actions": {
+        "enabled": false,
+        "repository": "${github_repository.devops_collie.name}"
+      },
       "devops_devenv_actions": {
         "enabled": false,
         "repository": "${github_repository.devops_devenv.name}"
@@ -177,6 +181,16 @@
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/maps",
         "name": "maps",
+        "visibility": "public"
+      },
+      "devops_collie": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/collie",
+        "name": "collie",
         "visibility": "public"
       },
       "devops_devenv": {
@@ -387,6 +401,12 @@
         "key": "${restapi_object.cmu-maps_maps_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cmu-maps_maps.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "devops_collie_mirror_deploy_key": {
+        "key": "${restapi_object.devops_collie_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.devops_collie.name}",
         "title": "Codeberg Mirroring"
       },
       "devops_devenv_mirror_deploy_key": {
@@ -716,6 +736,36 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.cmu-maps_maps.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "devops_collie_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.devops_collie_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.devops_collie.name}",
         "rules": {
           "creation": true,
           "deletion": true,

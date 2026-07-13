@@ -113,6 +113,20 @@
         "private": false,
         "website": "https://cmumaps.com"
       },
+      "devops_collie": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Traced, typed, effect-based agent kernel",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "collie",
+        "owner": "ScottyLabs",
+        "private": false,
+        "website": ""
+      },
       "devops_devenv": {
         "auto_init": true,
         "default_branch": "main",

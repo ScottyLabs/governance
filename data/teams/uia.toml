@@ -11,7 +11,7 @@ public_url = "https://components.scottylabs.org"
 
 [[team.projects.repos]]
 name = "components"
-features = ["kennel"]
+features = { kennel = {} }
 
 [[team.projects]]
 name = "ScottyLabs Website"
@@ -21,7 +21,7 @@ public_url = "https://scottylabs.org"
 
 [[team.projects.repos]]
 name = "scottylabs-org"
-features = ["kennel", "posthog", "cdn"]
+features = { kennel = {}, posthog = {}, cdn = {} }
 
 [[team.channels]]
 discord = "1510885385461567589"

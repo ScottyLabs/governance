@@ -7,8 +7,8 @@ use governance_core::loader::GovernanceData;
 use governance_core::validator;
 use governance_tfgen::codeowners;
 use governance_tfgen::generators::{
-    cdn, discord, forgejo, github, google_groups, identities, keycloak, matrix_bridges, openbao,
-    posthog, sentry, slack, vaultwarden,
+    cdn, discord, forgejo, github, google_groups, identities, keycloak, litellm, matrix_bridges,
+    openbao, posthog, sentry, slack, vaultwarden,
 };
 use governance_tfgen::projects;
 
@@ -140,6 +140,7 @@ fn cmd_generate(data_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     sentry::generate(&data).write_to(&output_dir.join("sentry.tf.json"))?;
     posthog::generate(&data).write_to(&output_dir.join("posthog.tf.json"))?;
     cdn::generate(&data).write_to(&output_dir.join("cdn.tf.json"))?;
+    litellm::generate(&data).write_to(&output_dir.join("litellm.tf.json"))?;
 
     vaultwarden::generate(&data).write_to(&output_dir.join("vaultwarden.tf.json"))?;
     google_groups::generate(&data).write_to(&output_dir.join("google_groups.tf.json"))?;

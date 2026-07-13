@@ -1,5 +1,5 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::team::{Feature, Repo};
+use governance_schema::team::Repo;
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -11,7 +11,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         let repos: Vec<&Repo> = team
             .team
             .repos()
-            .filter(|r| r.has(Feature::Sentry))
+            .filter(|r| r.features.sentry.is_some())
             .collect();
         if repos.is_empty() {
             continue;

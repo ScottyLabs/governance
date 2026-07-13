@@ -1,5 +1,5 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::team::{Feature, GroupFields, TeamFile};
+use governance_schema::team::{GroupFields, TeamFile};
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -214,7 +214,7 @@ pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
 
     for team in &data.teams {
         for repo in team.team.repos() {
-            if !repo.has(Feature::Kennel) {
+            if !repo.features.kennel.is_some() {
                 continue;
             }
 
@@ -263,7 +263,7 @@ pub fn generate_docs_webhooks(data: &GovernanceData) -> TfJsonFile {
 
     for team in &data.teams {
         for repo in team.team.repos() {
-            if !repo.docs || repo.name == "documentation" {
+            if repo.features.docs.is_none() || repo.name == "documentation" {
                 continue;
             }
 
