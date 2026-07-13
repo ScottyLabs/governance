@@ -30,6 +30,7 @@
     },
     "litellm_team": {
       "devops": {
+        "blocked": false,
         "team_alias": "devops"
       }
     },
