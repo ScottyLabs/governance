@@ -70,6 +70,20 @@
       ],
       "type": "forgejo"
     },
+    "cmu-maps_maps_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request",
+        "delete"
+      ],
+      "type": "forgejo"
+    },
     "devops_kennel_kennel_webhook_data": {
       "active": true,
       "config": {
@@ -270,6 +284,15 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/housing/hooks",
+        "update_method": "PATCH"
+      },
+      "cmu-maps_maps_kennel_webhook": {
+        "data": "${jsonencode(local.cmu-maps_maps_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.cmu-maps_maps"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/maps/hooks",
         "update_method": "PATCH"
       },
       "devops_kennel_kennel_webhook": {

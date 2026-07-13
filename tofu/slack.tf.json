@@ -20,6 +20,63 @@
           "user": "${data.external.identity_anish.result.slack_id}"
         }
       },
+      "slack_cmu-maps_ch0_anish": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C05T7QRN4LF",
+          "user": "${data.external.identity_anish.result.slack_id}"
+        }
+      },
+      "slack_cmu-maps_ch0_krishsaxena": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C05T7QRN4LF",
+          "user": "${data.external.identity_krishsaxena.result.slack_id}"
+        }
+      },
+      "slack_cmu-maps_ch0_xboxbedrock": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C05T7QRN4LF",
+          "user": "${data.external.identity_xboxbedrock.result.slack_id}"
+        }
+      },
       "slack_devops_ch0_anish": {
         "provisioner": [
           {
@@ -740,6 +797,25 @@
         "triggers": {
           "channel": "C0AN1M0HDV0",
           "user": "${data.external.identity_thesuperrl.result.slack_id}"
+        }
+      },
+      "slack_leads_xboxbedrock": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C0AN1M0HDV0",
+          "user": "${data.external.identity_xboxbedrock.result.slack_id}"
         }
       },
       "slack_quest_ch0_anish": {

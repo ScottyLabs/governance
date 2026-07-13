@@ -183,6 +183,20 @@
         ],
         "type": "external"
       },
+      "maps_admins": {
+        "name": "maps-admins",
+        "policies": [
+          "maps-prod"
+        ],
+        "type": "external"
+      },
+      "maps_members": {
+        "name": "maps-members",
+        "policies": [
+          "maps-dev"
+        ],
+        "type": "external"
+      },
       "observability_admins": {
         "name": "observability-admins",
         "policies": [
@@ -385,6 +399,16 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/link-shortener"
       },
+      "maps_admins": {
+        "canonical_id": "${vault_identity_group.maps_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/maps/admins"
+      },
+      "maps_members": {
+        "canonical_id": "${vault_identity_group.maps_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/maps"
+      },
       "observability_admins": {
         "canonical_id": "${vault_identity_group.observability_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -540,6 +564,14 @@
       "link-shortener_prod": {
         "name": "link-shortener-prod",
         "policy": "path \"secret/data/secretspec/link-shortener/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/link-shortener/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "maps_dev": {
+        "name": "maps-dev",
+        "policy": "path \"secret/data/secretspec/maps/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/maps/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/maps/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/maps/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "maps_prod": {
+        "name": "maps-prod",
+        "policy": "path \"secret/data/secretspec/maps/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/maps/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/maps/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/maps/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "observability_dev": {
         "name": "observability-dev",

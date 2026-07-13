@@ -7,6 +7,9 @@
       "cmu-housing_housing": {
         "name": "housing"
       },
+      "cmu-maps_maps": {
+        "name": "maps"
+      },
       "devops_link_shortener": {
         "name": "link-shortener"
       },
@@ -46,6 +49,16 @@
         "data_json": "${jsonencode({ value = posthog_project.cmu-housing_housing.api_token })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/POSTHOG_KEY"
+      },
+      "cmu-maps_maps_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/POSTHOG_HOST"
+      },
+      "cmu-maps_maps_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.cmu-maps_maps.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/POSTHOG_KEY"
       },
       "devops_link_shortener_posthog_host": {
         "data_json": "${jsonencode({ value = var.posthog_host })}",

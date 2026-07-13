@@ -13,6 +13,10 @@
         "name": "CMU Housing",
         "privacy": "closed"
       },
+      "cmu-maps": {
+        "name": "CMU Maps",
+        "privacy": "closed"
+      },
       "devops": {
         "name": "DevOps",
         "privacy": "closed"

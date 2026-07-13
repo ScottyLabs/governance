@@ -93,6 +93,18 @@
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_xboxbedrock.result.codeberg}"
       },
+      "cmu-maps_anish": {
+        "team_id": "${forgejo_team.cmu-maps.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "cmu-maps_krishsaxena": {
+        "team_id": "${forgejo_team.cmu-maps.id}",
+        "user": "${data.external.identity_krishsaxena.result.codeberg}"
+      },
+      "cmu-maps_xboxbedrock": {
+        "team_id": "${forgejo_team.cmu-maps.id}",
+        "user": "${data.external.identity_xboxbedrock.result.codeberg}"
+      },
       "cmugpt-agent_leads_krishsaxena": {
         "team_id": "${forgejo_team.cmugpt-agent_leads.id}",
         "user": "${data.external.identity_krishsaxena.result.codeberg}"
@@ -184,6 +196,18 @@
       "link-shortener_leads_thesuperrl": {
         "team_id": "${forgejo_team.link-shortener_leads.id}",
         "user": "${data.external.identity_thesuperrl.result.codeberg}"
+      },
+      "maps_leads_anish": {
+        "team_id": "${forgejo_team.maps_leads.id}",
+        "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "maps_leads_krishsaxena": {
+        "team_id": "${forgejo_team.maps_leads.id}",
+        "user": "${data.external.identity_krishsaxena.result.codeberg}"
+      },
+      "maps_leads_xboxbedrock": {
+        "team_id": "${forgejo_team.maps_leads.id}",
+        "user": "${data.external.identity_xboxbedrock.result.codeberg}"
       },
       "observability_leads_anish": {
         "team_id": "${forgejo_team.observability_leads.id}",

@@ -99,6 +99,20 @@
         "private": false,
         "website": "https://cmu.homes"
       },
+      "cmu-maps_maps": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "Room-level, real-time navigation of Carnegie Mellon's campus",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "maps",
+        "owner": "ScottyLabs",
+        "private": false,
+        "website": "https://cmumaps.com"
+      },
       "devops_devenv": {
         "auto_init": true,
         "default_branch": "main",

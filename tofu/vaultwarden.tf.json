@@ -52,6 +52,10 @@
           {
             "id": "${data.bitwarden_org_member.vw_thesuperrl.id}",
             "manage": true
+          },
+          {
+            "id": "${data.bitwarden_org_member.vw_xboxbedrock.id}",
+            "manage": true
           }
         ],
         "name": "Tech/Tech Leads",
@@ -95,6 +99,10 @@
       },
       "vw_thesuperrl": {
         "email": "${data.external.identity_thesuperrl.result.cmu-saml}@andrew.cmu.edu",
+        "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
+      },
+      "vw_xboxbedrock": {
+        "email": "${data.external.identity_xboxbedrock.result.cmu-saml}@andrew.cmu.edu",
         "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
       }
     }

@@ -180,6 +180,48 @@
           "+"
         ]
       },
+      "maps": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "maps",
+        "direct_access_grants_enabled": false,
+        "name": "maps",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "maps_dev": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "maps-dev",
+        "direct_access_grants_enabled": false,
+        "name": "maps-dev",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "http://localhost:8090/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "maps_staging": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "maps-staging",
+        "direct_access_grants_enabled": false,
+        "name": "maps-staging",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
       "quest": {
         "access_type": "CONFIDENTIAL",
         "client_id": "quest",
@@ -444,6 +486,36 @@
         "add_to_userinfo": true,
         "claim_name": "groups",
         "client_id": "${keycloak_openid_client.link_shortener_staging.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "maps": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.maps.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "maps_dev": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.maps_dev.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "maps_staging": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.maps_staging.id}",
         "full_path": true,
         "name": "groups",
         "realm_id": "${data.keycloak_realm.this.id}"
@@ -1139,6 +1211,146 @@
         "data_json": "${jsonencode({ value = \"/projects/link-shortener\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/staging/PROJECT_GROUP"
+      },
+      "maps_dev_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/dev/KEYCLOAK_REALM"
+      },
+      "maps_dev_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/dev/KEYCLOAK_URL"
+      },
+      "maps_dev_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"http://localhost:8090/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/dev/OAUTH_RELAY_URL"
+      },
+      "maps_dev_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.maps_dev.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/maps/dev/OIDC_CLIENT_ID"
+      },
+      "maps_dev_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.maps_dev.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/maps/dev/OIDC_CLIENT_SECRET"
+      },
+      "maps_dev_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/maps/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/dev/PROJECT_ADMIN_GROUP"
+      },
+      "maps_dev_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/maps\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/dev/PROJECT_GROUP"
+      },
+      "maps_preview_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/preview/KEYCLOAK_REALM"
+      },
+      "maps_preview_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/preview/KEYCLOAK_URL"
+      },
+      "maps_preview_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/preview/OAUTH_RELAY_URL"
+      },
+      "maps_preview_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.maps_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/maps/preview/OIDC_CLIENT_ID"
+      },
+      "maps_preview_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.maps_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/maps/preview/OIDC_CLIENT_SECRET"
+      },
+      "maps_preview_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/maps/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/preview/PROJECT_ADMIN_GROUP"
+      },
+      "maps_preview_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/maps\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/preview/PROJECT_GROUP"
+      },
+      "maps_prod_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/KEYCLOAK_REALM"
+      },
+      "maps_prod_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/KEYCLOAK_URL"
+      },
+      "maps_prod_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/OAUTH_RELAY_URL"
+      },
+      "maps_prod_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.maps.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/OIDC_CLIENT_ID"
+      },
+      "maps_prod_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.maps.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/OIDC_CLIENT_SECRET"
+      },
+      "maps_prod_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/maps/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/PROJECT_ADMIN_GROUP"
+      },
+      "maps_prod_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/maps\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/PROJECT_GROUP"
+      },
+      "maps_staging_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/staging/KEYCLOAK_REALM"
+      },
+      "maps_staging_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/staging/KEYCLOAK_URL"
+      },
+      "maps_staging_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/staging/OAUTH_RELAY_URL"
+      },
+      "maps_staging_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.maps_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/maps/staging/OIDC_CLIENT_ID"
+      },
+      "maps_staging_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.maps_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/maps/staging/OIDC_CLIENT_SECRET"
+      },
+      "maps_staging_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/maps/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/staging/PROJECT_ADMIN_GROUP"
+      },
+      "maps_staging_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/maps\" })}",
+        "mount": "secret",
+        "name": "secretspec/maps/staging/PROJECT_GROUP"
       },
       "quest_dev_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",

@@ -26,6 +26,11 @@
         "organization": "${var.sentry_organization}",
         "project": "${sentry_project.cmu-housing_housing.slug}"
       },
+      "cmu-maps_maps": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.cmu-maps_maps.slug}"
+      },
       "devops_kennel": {
         "name": "default",
         "organization": "${var.sentry_organization}",
@@ -103,6 +108,14 @@
           "${sentry_team.cmu-housing.slug}"
         ]
       },
+      "cmu-maps_maps": {
+        "name": "maps",
+        "organization": "${var.sentry_organization}",
+        "slug": "maps",
+        "teams": [
+          "${sentry_team.cmu-maps.slug}"
+        ]
+      },
       "devops_kennel": {
         "name": "kennel",
         "organization": "${var.sentry_organization}",
@@ -176,6 +189,11 @@
         "organization": "${var.sentry_organization}",
         "slug": "cmu-housing"
       },
+      "cmu-maps": {
+        "name": "CMU Maps",
+        "organization": "${var.sentry_organization}",
+        "slug": "cmu-maps"
+      },
       "devops": {
         "name": "DevOps",
         "organization": "${var.sentry_organization}",
@@ -227,6 +245,11 @@
         "data_json": "${jsonencode({ value = sentry_key.cmu-housing_housing.dsn })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/SENTRY_DSN"
+      },
+      "cmu-maps_maps_sentry_dsn": {
+        "data_json": "${jsonencode({ value = sentry_key.cmu-maps_maps.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/maps/prod/SENTRY_DSN"
       },
       "devops_kennel_sentry_dsn": {
         "data_json": "${jsonencode({ value = sentry_key.devops_kennel.dsn })}",

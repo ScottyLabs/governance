@@ -71,6 +71,16 @@
         "parent_id": "${keycloak_group.project_cmu-housing.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cmu-maps_maps": {
+        "name": "maps",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-maps_maps_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_cmu-maps_maps.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops": {
         "name": "devops",
         "parent_id": "${keycloak_group.projects.id}",

@@ -1,0 +1,18 @@
+[team]
+name = "CMU Maps"
+slug = "cmu-maps"
+leads = ["krishsaxena", "anish", "xboxbedrock"]
+
+[[team.projects]]
+name = "CMU Maps"
+slug = "maps"
+description = "Room-level, real-time navigation of Carnegie Mellon's campus"
+public_url = "https://cmumaps.com"
+
+[[team.projects.repos]]
+name = "maps"
+features = ["kennel", "sentry", "posthog", "oidc_client"]
+
+[[team.channels]]
+discord = "1516632834104889464"
+slack = "C05T7QRN4LF"

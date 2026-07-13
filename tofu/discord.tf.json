@@ -37,6 +37,12 @@
         "overwrite_id": "${discord_role.cmu-housing.id}",
         "type": "role"
       },
+      "cmu-maps_ch0": {
+        "allow": 1024,
+        "channel_id": "1516632834104889464",
+        "overwrite_id": "${discord_role.cmu-maps.id}",
+        "type": "role"
+      },
       "devops_ch0": {
         "allow": 1024,
         "channel_id": "1461933322505818156",
@@ -100,6 +106,9 @@
           },
           {
             "role_id": "${discord_role.cmu-courses.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-maps.id}"
           },
           {
             "role_id": "${discord_role.devops.id}"
@@ -244,6 +253,9 @@
         "role": [
           {
             "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-maps.id}"
           },
           {
             "role_id": "${discord_role.slai.id}"
@@ -426,6 +438,9 @@
             "role_id": "${discord_role.cmu-housing.id}"
           },
           {
+            "role_id": "${discord_role.cmu-maps.id}"
+          },
+          {
             "role_id": "${discord_role.devops.id}"
           },
           {
@@ -433,6 +448,9 @@
           },
           {
             "role_id": "${discord_role.tartan-vote.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
           }
         ],
         "server_id": "1353118209024331948",
@@ -468,6 +486,10 @@
       },
       "cmu-housing": {
         "name": "CMU Housing",
+        "server_id": "1353118209024331948"
+      },
+      "cmu-maps": {
+        "name": "CMU Maps",
         "server_id": "1353118209024331948"
       },
       "devops": {

@@ -91,6 +91,15 @@
         "repository": "housing",
         "team_id": "${forgejo_team.cmu-housing_leads.id}"
       },
+      "cmu-maps_maps": {
+        "depends_on": [
+          "forgejo_repository.cmu-maps_maps",
+          "forgejo_team.cmu-maps"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "maps",
+        "team_id": "${forgejo_team.cmu-maps.id}"
+      },
       "cmugpt-agent_leads_cmugpt_agent": {
         "depends_on": [
           "forgejo_repository.slai_cmugpt_agent",
@@ -288,6 +297,15 @@
         "owner": "ScottyLabs",
         "repository": "link-shortener",
         "team_id": "${forgejo_team.link-shortener_leads.id}"
+      },
+      "maps_leads_maps": {
+        "depends_on": [
+          "forgejo_repository.cmu-maps_maps",
+          "forgejo_team.maps_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "maps",
+        "team_id": "${forgejo_team.maps_leads.id}"
       },
       "observability_leads_observability": {
         "depends_on": [

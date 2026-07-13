@@ -137,6 +137,24 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cmu-maps_maps": {
+        "group_id": "${keycloak_group.project_cmu-maps_maps.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}",
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-maps_maps_admins": {
+        "group_id": "${keycloak_group.project_cmu-maps_maps_admins.id}",
+        "members": [
+          "${data.external.identity_krishsaxena.result.cmu-saml}",
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops": {
         "group_id": "${keycloak_group.project_devops.id}",
         "members": [
