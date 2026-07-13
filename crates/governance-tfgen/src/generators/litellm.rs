@@ -23,7 +23,7 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         tf.add_resource(
             "litellm_team",
             &team_key,
-            json!({ "team_alias": team_slug, "blocked": false }),
+            json!({ "team_alias": team_slug, "blocked": false, "team_member_permissions": [] }),
         );
 
         for (repo, gateway) in gateway_repos {

@@ -31,7 +31,8 @@
     "litellm_team": {
       "devops": {
         "blocked": false,
-        "team_alias": "devops"
+        "team_alias": "devops",
+        "team_member_permissions": []
       }
     },
     "vault_kv_secret_v2": {
