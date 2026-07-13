@@ -15,7 +15,7 @@ members = [
 
 [[team.repos]]
 name = "housing"
-features = { kennel = {}, sentry = {}, posthog = {}, cdn = {} }
+features = { kennel = {}, sentry = {}, posthog = {}, cdn = {}, docs = {} }
 
 [[team.channels]]
 discord = "1482553494647996538"

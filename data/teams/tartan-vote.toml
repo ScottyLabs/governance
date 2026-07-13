@@ -15,7 +15,7 @@ members = [
 
 [[team.repos]]
 name = "tartan-vote"
-features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {} }
+features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {}, docs = {} }
 
 [[team.channels]]
 discord = "1472669361624842483"

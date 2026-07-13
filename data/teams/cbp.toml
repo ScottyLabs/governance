@@ -41,7 +41,7 @@ description = "Discord bot for CMU Courses, CMU Eats, and other ScottyLabs servi
 
 [[team.projects.repos]]
 name = "dalmatian"
-features = { kennel = {}, sentry = {} }
+features = { kennel = {}, sentry = {}, docs = {} }
 
 [[team.projects.channels]]
 discord = "1482594247961219307"

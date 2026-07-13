@@ -8,6 +8,7 @@ members = ["xboxbedrock", "stationedk-06"]
 [[team.repos]]
 name = "infrastructure"
 description = "NixOS configurations for ScottyLabs' VMs"
+features = { docs = {} }
 
 [[team.repos]]
 name = "governance"

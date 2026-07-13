@@ -1,1 +1,88 @@
-{}
+{
+  "locals": {
+    "cbp_dalmatian_docs_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "url": "${var.docs_webhook_url}"
+      },
+      "events": [
+        "push"
+      ],
+      "type": "forgejo"
+    },
+    "cmu-housing_housing_docs_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "url": "${var.docs_webhook_url}"
+      },
+      "events": [
+        "push"
+      ],
+      "type": "forgejo"
+    },
+    "devops_infrastructure_docs_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "url": "${var.docs_webhook_url}"
+      },
+      "events": [
+        "push"
+      ],
+      "type": "forgejo"
+    },
+    "tartan-vote_tartan_vote_docs_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "url": "${var.docs_webhook_url}"
+      },
+      "events": [
+        "push"
+      ],
+      "type": "forgejo"
+    }
+  },
+  "resource": {
+    "restapi_object": {
+      "cbp_dalmatian_docs_webhook": {
+        "data": "${jsonencode(local.cbp_dalmatian_docs_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.cbp_dalmatian"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/dalmatian/hooks",
+        "update_method": "PATCH"
+      },
+      "cmu-housing_housing_docs_webhook": {
+        "data": "${jsonencode(local.cmu-housing_housing_docs_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.cmu-housing_housing"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/housing/hooks",
+        "update_method": "PATCH"
+      },
+      "devops_infrastructure_docs_webhook": {
+        "data": "${jsonencode(local.devops_infrastructure_docs_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.devops_infrastructure"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/infrastructure/hooks",
+        "update_method": "PATCH"
+      },
+      "tartan-vote_tartan_vote_docs_webhook": {
+        "data": "${jsonencode(local.tartan-vote_tartan_vote_docs_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.tartan-vote_tartan_vote"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/tartan-vote/hooks",
+        "update_method": "PATCH"
+      }
+    }
+  }
+}
