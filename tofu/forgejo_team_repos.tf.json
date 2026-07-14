@@ -334,6 +334,42 @@
         "repository": "link-shortener",
         "team_id": "${forgejo_team.link-shortener_leads.id}"
       },
+      "lost-and-found_lost_and_found": {
+        "depends_on": [
+          "forgejo_repository.lost-and-found_lost_and_found",
+          "forgejo_team.lost-and-found"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "lost-and-found",
+        "team_id": "${forgejo_team.lost-and-found.id}"
+      },
+      "lost-and-found_lost_and_found_v2": {
+        "depends_on": [
+          "forgejo_repository.lost-and-found_lost_and_found_v2",
+          "forgejo_team.lost-and-found"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "lost-and-found-v2",
+        "team_id": "${forgejo_team.lost-and-found.id}"
+      },
+      "lost_leads_lost_and_found": {
+        "depends_on": [
+          "forgejo_repository.lost-and-found_lost_and_found",
+          "forgejo_team.lost_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "lost-and-found",
+        "team_id": "${forgejo_team.lost_leads.id}"
+      },
+      "lost_leads_lost_and_found_v2": {
+        "depends_on": [
+          "forgejo_repository.lost-and-found_lost_and_found_v2",
+          "forgejo_team.lost_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "lost-and-found-v2",
+        "team_id": "${forgejo_team.lost_leads.id}"
+      },
       "maps_leads_maps": {
         "depends_on": [
           "forgejo_repository.cmu-maps_maps",

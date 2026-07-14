@@ -241,6 +241,20 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_lost-and-found_lost": {
+        "group_id": "${keycloak_group.project_lost-and-found_lost.id}",
+        "members": [
+          "${data.external.identity_leonliu368.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_lost-and-found_lost_admins": {
+        "group_id": "${keycloak_group.project_lost-and-found_lost_admins.id}",
+        "members": [
+          "${data.external.identity_leonliu368.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_quest": {
         "group_id": "${keycloak_group.project_quest.id}",
         "members": [
@@ -424,6 +438,7 @@
           "${data.external.identity_kath45823.result.cmu-saml}",
           "${data.external.identity_krishsaxena.result.cmu-saml}",
           "${data.external.identity_kritdass.result.cmu-saml}",
+          "${data.external.identity_leonliu368.result.cmu-saml}",
           "${data.external.identity_manrajs.result.cmu-saml}",
           "${data.external.identity_maybe_yiyi.result.cmu-saml}",
           "${data.external.identity_o_zox_o.result.cmu-saml}",

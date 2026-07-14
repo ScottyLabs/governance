@@ -387,6 +387,37 @@
           "repo.wiki": "admin"
         }
       },
+      "lost-and-found": {
+        "description": "Lost and Found",
+        "name": "lost-and-found",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "write",
+        "units_map": {
+          "repo.code": "write",
+          "repo.issues": "write",
+          "repo.pulls": "write"
+        }
+      },
+      "lost_leads": {
+        "can_create_org_repo": false,
+        "description": "Lost and Found leads",
+        "includes_all_repositories": false,
+        "name": "lost-leads",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "admin",
+        "units_map": {
+          "repo.actions": "admin",
+          "repo.code": "admin",
+          "repo.ext_issues": "admin",
+          "repo.ext_wiki": "admin",
+          "repo.issues": "admin",
+          "repo.packages": "admin",
+          "repo.projects": "admin",
+          "repo.pulls": "admin",
+          "repo.releases": "admin",
+          "repo.wiki": "admin"
+        }
+      },
       "maps_leads": {
         "can_create_org_repo": false,
         "description": "CMU Maps leads",

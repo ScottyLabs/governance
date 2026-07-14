@@ -11,6 +11,11 @@
         "website_enabled": true,
         "website_index_document": "index.html"
       },
+      "cdn_lost-and-found_lost_and_found_v2": {
+        "global_alias": "cdn-lost-and-found-v2",
+        "website_enabled": true,
+        "website_index_document": "index.html"
+      },
       "cdn_uia_scottylabs_org": {
         "global_alias": "cdn-scottylabs-org",
         "website_enabled": true,
@@ -32,6 +37,13 @@
         "read": true,
         "write": true
       },
+      "cdn_lost-and-found_lost_and_found_v2": {
+        "access_key_id": "${garage_key.cdn_lost-and-found_lost_and_found_v2.id}",
+        "bucket_id": "${garage_bucket.cdn_lost-and-found_lost_and_found_v2.id}",
+        "owner": true,
+        "read": true,
+        "write": true
+      },
       "cdn_uia_scottylabs_org": {
         "access_key_id": "${garage_key.cdn_uia_scottylabs_org.id}",
         "bucket_id": "${garage_bucket.cdn_uia_scottylabs_org.id}",
@@ -46,6 +58,9 @@
       },
       "cdn_cmu-housing_housing": {
         "name": "cdn-housing"
+      },
+      "cdn_lost-and-found_lost_and_found_v2": {
+        "name": "cdn-lost-and-found-v2"
       },
       "cdn_uia_scottylabs_org": {
         "name": "cdn-scottylabs-org"
@@ -251,6 +266,106 @@
         "data_json": "${jsonencode({ value = garage_key.cdn_cmu-housing_housing.secret_access_key })}",
         "mount": "secret",
         "name": "secretspec/housing/staging/CDN_SECRET_ACCESS_KEY"
+      },
+      "lost-and-found_lost_and_found_v2_dev_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_lost-and-found_lost_and_found_v2.id })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/dev/CDN_ACCESS_KEY_ID"
+      },
+      "lost-and-found_lost_and_found_v2_dev_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/lost-and-found-v2/\" })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/dev/CDN_PUBLIC_URL"
+      },
+      "lost-and-found_lost_and_found_v2_dev_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-lost-and-found-v2\" })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/dev/CDN_S3_BUCKET"
+      },
+      "lost-and-found_lost_and_found_v2_dev_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/dev/CDN_S3_ENDPOINT"
+      },
+      "lost-and-found_lost_and_found_v2_dev_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_lost-and-found_lost_and_found_v2.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/dev/CDN_SECRET_ACCESS_KEY"
+      },
+      "lost-and-found_lost_and_found_v2_preview_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_lost-and-found_lost_and_found_v2.id })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/preview/CDN_ACCESS_KEY_ID"
+      },
+      "lost-and-found_lost_and_found_v2_preview_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/lost-and-found-v2/\" })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/preview/CDN_PUBLIC_URL"
+      },
+      "lost-and-found_lost_and_found_v2_preview_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-lost-and-found-v2\" })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/preview/CDN_S3_BUCKET"
+      },
+      "lost-and-found_lost_and_found_v2_preview_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/preview/CDN_S3_ENDPOINT"
+      },
+      "lost-and-found_lost_and_found_v2_preview_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_lost-and-found_lost_and_found_v2.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/preview/CDN_SECRET_ACCESS_KEY"
+      },
+      "lost-and-found_lost_and_found_v2_prod_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_lost-and-found_lost_and_found_v2.id })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/prod/CDN_ACCESS_KEY_ID"
+      },
+      "lost-and-found_lost_and_found_v2_prod_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/lost-and-found-v2/\" })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/prod/CDN_PUBLIC_URL"
+      },
+      "lost-and-found_lost_and_found_v2_prod_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-lost-and-found-v2\" })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/prod/CDN_S3_BUCKET"
+      },
+      "lost-and-found_lost_and_found_v2_prod_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/prod/CDN_S3_ENDPOINT"
+      },
+      "lost-and-found_lost_and_found_v2_prod_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_lost-and-found_lost_and_found_v2.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/prod/CDN_SECRET_ACCESS_KEY"
+      },
+      "lost-and-found_lost_and_found_v2_staging_cdn_access_key_id": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_lost-and-found_lost_and_found_v2.id })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/staging/CDN_ACCESS_KEY_ID"
+      },
+      "lost-and-found_lost_and_found_v2_staging_cdn_public_url": {
+        "data_json": "${jsonencode({ value = \"${var.cdn_base_url}/lost-and-found-v2/\" })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/staging/CDN_PUBLIC_URL"
+      },
+      "lost-and-found_lost_and_found_v2_staging_cdn_s3_bucket": {
+        "data_json": "${jsonencode({ value = \"cdn-lost-and-found-v2\" })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/staging/CDN_S3_BUCKET"
+      },
+      "lost-and-found_lost_and_found_v2_staging_cdn_s3_endpoint": {
+        "data_json": "${jsonencode({ value = var.garage_s3_endpoint })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/staging/CDN_S3_ENDPOINT"
+      },
+      "lost-and-found_lost_and_found_v2_staging_cdn_secret_access_key": {
+        "data_json": "${jsonencode({ value = garage_key.cdn_lost-and-found_lost_and_found_v2.secret_access_key })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/staging/CDN_SECRET_ACCESS_KEY"
       },
       "uia_scottylabs_org_dev_cdn_access_key_id": {
         "data_json": "${jsonencode({ value = garage_key.cdn_uia_scottylabs_org.id })}",

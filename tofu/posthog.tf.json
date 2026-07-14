@@ -16,6 +16,12 @@
       "devops_link_shortener": {
         "name": "link-shortener"
       },
+      "lost-and-found_lost_and_found": {
+        "name": "lost-and-found"
+      },
+      "lost-and-found_lost_and_found_v2": {
+        "name": "lost-and-found-v2"
+      },
       "quest_quest": {
         "name": "quest"
       },
@@ -82,6 +88,26 @@
         "data_json": "${jsonencode({ value = posthog_project.devops_link_shortener.api_token })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/prod/POSTHOG_KEY"
+      },
+      "lost-and-found_lost_and_found_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found/prod/POSTHOG_HOST"
+      },
+      "lost-and-found_lost_and_found_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.lost-and-found_lost_and_found.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found/prod/POSTHOG_KEY"
+      },
+      "lost-and-found_lost_and_found_v2_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/prod/POSTHOG_HOST"
+      },
+      "lost-and-found_lost_and_found_v2_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.lost-and-found_lost_and_found_v2.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/lost-and-found-v2/prod/POSTHOG_KEY"
       },
       "quest_quest_posthog_host": {
         "data_json": "${jsonencode({ value = var.posthog_host })}",

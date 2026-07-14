@@ -155,6 +155,17 @@
           "codeberg_user": "kritdass"
         }
       },
+      "identity_leonliu368": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "leonliu368"
+        }
+      },
       "identity_manrajs": {
         "program": [
           "governance",

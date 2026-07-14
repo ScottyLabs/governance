@@ -25,6 +25,10 @@
         "name": "DevOps",
         "privacy": "closed"
       },
+      "lost-and-found": {
+        "name": "Lost and Found",
+        "privacy": "closed"
+      },
       "quest": {
         "name": "Quest",
         "privacy": "closed"

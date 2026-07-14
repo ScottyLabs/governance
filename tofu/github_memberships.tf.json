@@ -126,6 +126,11 @@
         "team_id": "${github_team.devops.id}",
         "username": "${data.external.identity_xboxbedrock.result.github}"
       },
+      "lost-and-found_leonliu368": {
+        "role": "maintainer",
+        "team_id": "${github_team.lost-and-found.id}",
+        "username": "${data.external.identity_leonliu368.result.github}"
+      },
       "quest_anish": {
         "role": "maintainer",
         "team_id": "${github_team.quest.id}",

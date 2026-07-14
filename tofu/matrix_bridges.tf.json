@@ -76,6 +76,24 @@
           "channel": "C08K3Q77ZQF"
         }
       },
+      "slack_bridge_login_lost_and_found": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C01BAADS8U8"
+        }
+      },
       "slack_bridge_login_org_ai": {
         "provisioner": [
           {
@@ -671,6 +689,15 @@
         "slack_channel_id": "C08K3Q77ZQF",
         "team_name": "DevOps",
         "team_slug": "devops"
+      },
+      "lost_and_found": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_lost_and_found"
+        ],
+        "discord_channel_id": "1526510267607945326",
+        "slack_channel_id": "C01BAADS8U8",
+        "team_name": "Lost and Found",
+        "team_slug": "lost-and-found"
       },
       "org_ai": {
         "depends_on": [

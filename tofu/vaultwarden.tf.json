@@ -46,6 +46,10 @@
             "manage": true
           },
           {
+            "id": "${data.bitwarden_org_member.vw_leonliu368.id}",
+            "manage": true
+          },
+          {
             "id": "${data.bitwarden_org_member.vw_maybe_yiyi.id}",
             "manage": true
           },
@@ -95,6 +99,10 @@
       },
       "vw_kritdass": {
         "email": "${data.external.identity_kritdass.result.cmu-saml}@andrew.cmu.edu",
+        "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
+      },
+      "vw_leonliu368": {
+        "email": "${data.external.identity_leonliu368.result.cmu-saml}@andrew.cmu.edu",
         "organization_id": "3ef62a20-29b9-4a0f-a745-50a8e6dc13ea"
       },
       "vw_maybe_yiyi": {

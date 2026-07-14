@@ -1,0 +1,23 @@
+[team]
+name = "Lost and Found"
+slug = "lost-and-found"
+description = "Lost-and-found platform for the Carnegie Mellon University community"
+leads = ["LeonLiu368"]
+
+[[team.projects]]
+name = "Lost and Found"
+slug = "lost"
+description = "Official Carnegie Mellon University platform for reporting, managing, and finding lost items"
+public_url = "https://lostandfound.andrew.cmu.edu/"
+
+[[team.projects.repos]]
+name = "lost-and-found"
+features = { sentry = {}, posthog = {}, oidc_client = {}, docs = {} }
+
+[[team.projects.repos]]
+name = "lost-and-found-v2"
+features = { sentry = {}, posthog = {}, oidc_client = {}, cdn = {}, docs = {} }
+
+[[team.channels]]
+discord = "1526510267607945326"
+slack = "C01BAADS8U8"

@@ -131,6 +131,16 @@
         "parent_id": "${keycloak_group.project_devops_observability.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_lost-and-found_lost": {
+        "name": "lost",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_lost-and-found_lost_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_lost-and-found_lost.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_quest": {
         "name": "quest",
         "parent_id": "${keycloak_group.projects.id}",

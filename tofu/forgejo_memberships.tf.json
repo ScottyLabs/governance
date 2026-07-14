@@ -205,6 +205,14 @@
         "team_id": "${forgejo_team.link-shortener_leads.id}",
         "user": "${data.external.identity_thesuperrl.result.codeberg}"
       },
+      "lost-and-found_leonliu368": {
+        "team_id": "${forgejo_team.lost-and-found.id}",
+        "user": "${data.external.identity_leonliu368.result.codeberg}"
+      },
+      "lost_leads_leonliu368": {
+        "team_id": "${forgejo_team.lost_leads.id}",
+        "user": "${data.external.identity_leonliu368.result.codeberg}"
+      },
       "maps_leads_anish": {
         "team_id": "${forgejo_team.maps_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"

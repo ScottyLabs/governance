@@ -55,6 +55,12 @@
         "overwrite_id": "${discord_role.devops.id}",
         "type": "role"
       },
+      "lost-and-found_ch0": {
+        "allow": 1024,
+        "channel_id": "1526510267607945326",
+        "overwrite_id": "${discord_role.lost-and-found.id}",
+        "type": "role"
+      },
       "quest_ch0": {
         "allow": 1024,
         "channel_id": "1459385784615440471",
@@ -303,6 +309,21 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_kritdass.result.discord_id}"
       },
+      "leonliu368": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.lost-and-found.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_leonliu368.result.discord_id}"
+      },
       "manrajs": {
         "role": [
           {
@@ -519,6 +540,10 @@
       },
       "devops": {
         "name": "DevOps",
+        "server_id": "1353118209024331948"
+      },
+      "lost-and-found": {
+        "name": "Lost and Found",
         "server_id": "1353118209024331948"
       },
       "quest": {
