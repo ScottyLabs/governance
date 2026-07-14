@@ -24,6 +24,12 @@
       "sync_on_commit": true,
       "use_ssh": true
     },
+    "cmu-cal_cal_mirror_data": {
+      "interval": "8h0m0s",
+      "remote_address": "git@github.com:ScottyLabs/cal.git",
+      "sync_on_commit": true,
+      "use_ssh": true
+    },
     "cmu-courses_courses_mirror_data": {
       "interval": "8h0m0s",
       "remote_address": "git@github.com:ScottyLabs/courses.git",
@@ -184,6 +190,14 @@
         ],
         "id_attribute": "remote_name",
         "path": "/api/v1/repos/ScottyLabs/groupme-mirror/push_mirrors"
+      },
+      "cmu-cal_cal_push_mirror": {
+        "data": "${jsonencode(local.cmu-cal_cal_mirror_data)}",
+        "depends_on": [
+          "forgejo_repository.cmu-cal_cal"
+        ],
+        "id_attribute": "remote_name",
+        "path": "/api/v1/repos/ScottyLabs/cal/push_mirrors"
       },
       "cmu-courses_courses_push_mirror": {
         "data": "${jsonencode(local.cmu-courses_courses_mirror_data)}",

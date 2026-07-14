@@ -17,6 +17,10 @@
         "enabled": false,
         "repository": "${github_repository.cbp_groupme_mirror.name}"
       },
+      "cmu-cal_cal_actions": {
+        "enabled": false,
+        "repository": "${github_repository.cmu-cal_cal.name}"
+      },
       "cmu-courses_courses_actions": {
         "enabled": false,
         "repository": "${github_repository.cmu-courses_courses.name}"
@@ -141,6 +145,16 @@
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/groupme-mirror",
         "name": "groupme-mirror",
+        "visibility": "public"
+      },
+      "cmu-cal_cal": {
+        "description": "READ-ONLY MIRROR",
+        "has_discussions": false,
+        "has_issues": false,
+        "has_projects": false,
+        "has_wiki": false,
+        "homepage_url": "https://codeberg.org/ScottyLabs/cal",
+        "name": "cal",
         "visibility": "public"
       },
       "cmu-courses_courses": {
@@ -377,6 +391,12 @@
         "key": "${restapi_object.cbp_groupme_mirror_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cbp_groupme_mirror.name}",
+        "title": "Codeberg Mirroring"
+      },
+      "cmu-cal_cal_mirror_deploy_key": {
+        "key": "${restapi_object.cmu-cal_cal_push_mirror.api_data.public_key}",
+        "read_only": false,
+        "repository": "${github_repository.cmu-cal_cal.name}",
         "title": "Codeberg Mirroring"
       },
       "cmu-courses_courses_mirror_deploy_key": {
@@ -616,6 +636,36 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.cbp_groupme_mirror.name}",
+        "rules": {
+          "creation": true,
+          "deletion": true,
+          "non_fast_forward": true,
+          "pull_request": {
+            "required_approving_review_count": 1
+          },
+          "update": true
+        },
+        "target": "branch"
+      },
+      "cmu-cal_cal_ruleset": {
+        "bypass_actors": [
+          {
+            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.cmu-cal_cal_mirror_deploy_key.id), 1))}",
+            "actor_type": "DeployKey",
+            "bypass_mode": "always"
+          }
+        ],
+        "conditions": {
+          "ref_name": {
+            "exclude": [],
+            "include": [
+              "~ALL"
+            ]
+          }
+        },
+        "enforcement": "active",
+        "name": "Default",
+        "repository": "${github_repository.cmu-cal_cal.name}",
         "rules": {
           "creation": true,
           "deletion": true,

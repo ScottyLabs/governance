@@ -21,9 +21,40 @@
           "repo.wiki": "admin"
         }
       },
+      "cal_leads": {
+        "can_create_org_repo": false,
+        "description": "CMU Cal leads",
+        "includes_all_repositories": false,
+        "name": "cal-leads",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "admin",
+        "units_map": {
+          "repo.actions": "admin",
+          "repo.code": "admin",
+          "repo.ext_issues": "admin",
+          "repo.ext_wiki": "admin",
+          "repo.issues": "admin",
+          "repo.packages": "admin",
+          "repo.projects": "admin",
+          "repo.pulls": "admin",
+          "repo.releases": "admin",
+          "repo.wiki": "admin"
+        }
+      },
       "cbp": {
         "description": "Community-Based Projects",
         "name": "cbp",
+        "organization_id": "${data.forgejo_organization.this.id}",
+        "permission": "write",
+        "units_map": {
+          "repo.code": "write",
+          "repo.issues": "write",
+          "repo.pulls": "write"
+        }
+      },
+      "cmu-cal": {
+        "description": "CMU Cal",
+        "name": "cmu-cal",
         "organization_id": "${data.forgejo_organization.this.id}",
         "permission": "write",
         "units_map": {

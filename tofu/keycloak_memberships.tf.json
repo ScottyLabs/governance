@@ -85,6 +85,20 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cmu-cal_cal": {
+        "group_id": "${keycloak_group.project_cmu-cal_cal.id}",
+        "members": [
+          "${data.external.identity_jalenluorion.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-cal_cal_admins": {
+        "group_id": "${keycloak_group.project_cmu-cal_cal_admins.id}",
+        "members": [
+          "${data.external.identity_jalenluorion.result.cmu-saml}"
+        ],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_cmu-courses": {
         "group_id": "${keycloak_group.project_cmu-courses.id}",
         "members": [
@@ -402,6 +416,7 @@
           "${data.external.identity_ecstaticpilot.result.cmu-saml}",
           "${data.external.identity_enkrypt7.result.cmu-saml}",
           "${data.external.identity_gostmeaper.result.cmu-saml}",
+          "${data.external.identity_jalenluorion.result.cmu-saml}",
           "${data.external.identity_jc_965.result.cmu-saml}",
           "${data.external.identity_jessica_lr_song.result.cmu-saml}",
           "${data.external.identity_jessiter.result.cmu-saml}",

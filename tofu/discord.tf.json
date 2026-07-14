@@ -25,6 +25,12 @@
         "overwrite_id": "${discord_role.cbp.id}",
         "type": "role"
       },
+      "cmu-cal_ch0": {
+        "allow": 1024,
+        "channel_id": "1526499095995219970",
+        "overwrite_id": "${discord_role.cmu-cal.id}",
+        "type": "role"
+      },
       "cmu-courses_ch0": {
         "allow": 1024,
         "channel_id": "1459389616007282709",
@@ -185,6 +191,21 @@
         ],
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_gostmeaper.result.discord_id}"
+      },
+      "jalenluorion": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-cal.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_jalenluorion.result.discord_id}"
       },
       "jc_965": {
         "role": [
@@ -478,6 +499,10 @@
     "discord_role": {
       "cbp": {
         "name": "Community-Based Projects",
+        "server_id": "1353118209024331948"
+      },
+      "cmu-cal": {
+        "name": "CMU Cal",
         "server_id": "1353118209024331948"
       },
       "cmu-courses": {

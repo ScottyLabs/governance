@@ -1,6 +1,48 @@
 {
   "resource": {
     "keycloak_openid_client": {
+      "cal": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "cal",
+        "direct_access_grants_enabled": false,
+        "name": "cal",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "cal_dev": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "cal-dev",
+        "direct_access_grants_enabled": false,
+        "name": "cal-dev",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "http://localhost:8090/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "cal_staging": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "cal-staging",
+        "direct_access_grants_enabled": false,
+        "name": "cal-staging",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
       "cmugpt_surface": {
         "access_type": "CONFIDENTIAL",
         "client_id": "cmugpt-surface",
@@ -370,6 +412,36 @@
       }
     },
     "keycloak_openid_group_membership_protocol_mapper": {
+      "cal": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.cal.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "cal_dev": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.cal_dev.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "cal_staging": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.cal_staging.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "cmugpt_surface": {
         "add_to_access_token": true,
         "add_to_id_token": true,
@@ -612,6 +684,146 @@
       }
     },
     "vault_kv_secret_v2": {
+      "cal_dev_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/dev/KEYCLOAK_REALM"
+      },
+      "cal_dev_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/dev/KEYCLOAK_URL"
+      },
+      "cal_dev_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"http://localhost:8090/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/dev/OAUTH_RELAY_URL"
+      },
+      "cal_dev_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.cal_dev.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/cal/dev/OIDC_CLIENT_ID"
+      },
+      "cal_dev_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.cal_dev.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/cal/dev/OIDC_CLIENT_SECRET"
+      },
+      "cal_dev_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cal/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/dev/PROJECT_ADMIN_GROUP"
+      },
+      "cal_dev_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cal\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/dev/PROJECT_GROUP"
+      },
+      "cal_preview_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/preview/KEYCLOAK_REALM"
+      },
+      "cal_preview_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/preview/KEYCLOAK_URL"
+      },
+      "cal_preview_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/preview/OAUTH_RELAY_URL"
+      },
+      "cal_preview_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.cal_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/cal/preview/OIDC_CLIENT_ID"
+      },
+      "cal_preview_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.cal_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/cal/preview/OIDC_CLIENT_SECRET"
+      },
+      "cal_preview_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cal/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/preview/PROJECT_ADMIN_GROUP"
+      },
+      "cal_preview_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cal\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/preview/PROJECT_GROUP"
+      },
+      "cal_prod_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/KEYCLOAK_REALM"
+      },
+      "cal_prod_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/KEYCLOAK_URL"
+      },
+      "cal_prod_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/OAUTH_RELAY_URL"
+      },
+      "cal_prod_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.cal.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/OIDC_CLIENT_ID"
+      },
+      "cal_prod_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.cal.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/OIDC_CLIENT_SECRET"
+      },
+      "cal_prod_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cal/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/PROJECT_ADMIN_GROUP"
+      },
+      "cal_prod_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cal\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/PROJECT_GROUP"
+      },
+      "cal_staging_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/staging/KEYCLOAK_REALM"
+      },
+      "cal_staging_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/staging/KEYCLOAK_URL"
+      },
+      "cal_staging_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/staging/OAUTH_RELAY_URL"
+      },
+      "cal_staging_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.cal_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/cal/staging/OIDC_CLIENT_ID"
+      },
+      "cal_staging_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.cal_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/cal/staging/OIDC_CLIENT_SECRET"
+      },
+      "cal_staging_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cal/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/staging/PROJECT_ADMIN_GROUP"
+      },
+      "cal_staging_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cal\" })}",
+        "mount": "secret",
+        "name": "secretspec/cal/staging/PROJECT_GROUP"
+      },
       "cmugpt_surface_dev_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",

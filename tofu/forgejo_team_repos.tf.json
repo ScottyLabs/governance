@@ -10,6 +10,15 @@
         "repository": "bus-sign",
         "team_id": "${forgejo_team.bus-sign_leads.id}"
       },
+      "cal_leads_cal": {
+        "depends_on": [
+          "forgejo_repository.cmu-cal_cal",
+          "forgejo_team.cal_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "cal",
+        "team_id": "${forgejo_team.cal_leads.id}"
+      },
       "cbp_bus_sign": {
         "depends_on": [
           "forgejo_repository.cbp_bus_sign",
@@ -45,6 +54,15 @@
         "owner": "ScottyLabs",
         "repository": "groupme-mirror",
         "team_id": "${forgejo_team.cbp.id}"
+      },
+      "cmu-cal_cal": {
+        "depends_on": [
+          "forgejo_repository.cmu-cal_cal",
+          "forgejo_team.cmu-cal"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "cal",
+        "team_id": "${forgejo_team.cmu-cal.id}"
       },
       "cmu-courses_courses": {
         "depends_on": [

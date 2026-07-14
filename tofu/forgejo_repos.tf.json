@@ -57,6 +57,20 @@
         "private": false,
         "website": ""
       },
+      "cmu-cal_cal": {
+        "auto_init": true,
+        "default_branch": "main",
+        "description": "A unified web calendar for all CMU academic events",
+        "lifecycle": {
+          "ignore_changes": [
+            "clone_addr"
+          ]
+        },
+        "name": "cal",
+        "owner": "ScottyLabs",
+        "private": false,
+        "website": "https://cmucal.com"
+      },
       "cmu-courses_courses": {
         "auto_init": true,
         "default_branch": "main",

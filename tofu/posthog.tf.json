@@ -1,6 +1,9 @@
 {
   "resource": {
     "posthog_project": {
+      "cmu-cal_cal": {
+        "name": "cal"
+      },
       "cmu-courses_courses": {
         "name": "courses"
       },
@@ -30,6 +33,16 @@
       }
     },
     "vault_kv_secret_v2": {
+      "cmu-cal_cal_posthog_host": {
+        "data_json": "${jsonencode({ value = var.posthog_host })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/POSTHOG_HOST"
+      },
+      "cmu-cal_cal_posthog_key": {
+        "data_json": "${jsonencode({ value = posthog_project.cmu-cal_cal.api_token })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/POSTHOG_KEY"
+      },
       "cmu-courses_courses_posthog_host": {
         "data_json": "${jsonencode({ value = var.posthog_host })}",
         "mount": "secret",

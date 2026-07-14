@@ -67,6 +67,17 @@
           "codeberg_user": "gostmeaper"
         }
       },
+      "identity_jalenluorion": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "jalenluorion"
+        }
+      },
       "identity_jc_965": {
         "program": [
           "governance",

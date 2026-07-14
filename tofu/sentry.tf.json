@@ -16,6 +16,11 @@
         "organization": "${var.sentry_organization}",
         "project": "${sentry_project.cbp_discord_verify.slug}"
       },
+      "cmu-cal_cal": {
+        "name": "default",
+        "organization": "${var.sentry_organization}",
+        "project": "${sentry_project.cmu-cal_cal.slug}"
+      },
       "cmu-courses_courses": {
         "name": "default",
         "organization": "${var.sentry_organization}",
@@ -90,6 +95,14 @@
         "slug": "discord-verify",
         "teams": [
           "${sentry_team.cbp.slug}"
+        ]
+      },
+      "cmu-cal_cal": {
+        "name": "cal",
+        "organization": "${var.sentry_organization}",
+        "slug": "cal",
+        "teams": [
+          "${sentry_team.cmu-cal.slug}"
         ]
       },
       "cmu-courses_courses": {
@@ -179,6 +192,11 @@
         "organization": "${var.sentry_organization}",
         "slug": "cbp"
       },
+      "cmu-cal": {
+        "name": "CMU Cal",
+        "organization": "${var.sentry_organization}",
+        "slug": "cmu-cal"
+      },
       "cmu-courses": {
         "name": "CMU Courses",
         "organization": "${var.sentry_organization}",
@@ -235,6 +253,11 @@
         "data_json": "${jsonencode({ value = sentry_key.cbp_discord_verify.dsn })}",
         "mount": "secret",
         "name": "secretspec/discord-verify/prod/SENTRY_DSN"
+      },
+      "cmu-cal_cal_sentry_dsn": {
+        "data_json": "${jsonencode({ value = sentry_key.cmu-cal_cal.dsn })}",
+        "mount": "secret",
+        "name": "secretspec/cal/prod/SENTRY_DSN"
       },
       "cmu-courses_courses_sentry_dsn": {
         "data_json": "${jsonencode({ value = sentry_key.cmu-courses_courses.dsn })}",

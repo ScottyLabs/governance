@@ -15,6 +15,20 @@
         ],
         "type": "external"
       },
+      "cal_admins": {
+        "name": "cal-admins",
+        "policies": [
+          "cal-prod"
+        ],
+        "type": "external"
+      },
+      "cal_members": {
+        "name": "cal-members",
+        "policies": [
+          "cal-dev"
+        ],
+        "type": "external"
+      },
       "cmu-housing_admins": {
         "name": "cmu-housing-admins",
         "policies": [
@@ -279,6 +293,16 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/bus-sign"
       },
+      "cal_admins": {
+        "canonical_id": "${vault_identity_group.cal_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cal/admins"
+      },
+      "cal_members": {
+        "canonical_id": "${vault_identity_group.cal_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/cal"
+      },
       "cmu-housing_admins": {
         "canonical_id": "${vault_identity_group.cmu-housing_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -468,6 +492,14 @@
       "bus-sign_prod": {
         "name": "bus-sign-prod",
         "policy": "path \"secret/data/secretspec/bus-sign/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/bus-sign/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/bus-sign/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cal_dev": {
+        "name": "cal-dev",
+        "policy": "path \"secret/data/secretspec/cal/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cal/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cal/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cal/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "cal_prod": {
+        "name": "cal-prod",
+        "policy": "path \"secret/data/secretspec/cal/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cal/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cal/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cal/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "cmu-housing_dev": {
         "name": "cmu-housing-dev",

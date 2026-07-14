@@ -1,0 +1,18 @@
+[team]
+name = "CMU Cal"
+slug = "cmu-cal"
+leads = ["jalenluorion"]
+
+[[team.projects]]
+name = "CMU Cal"
+slug = "cal"
+description = "A unified web calendar for all CMU academic events"
+public_url = "https://cmucal.com"
+
+[[team.projects.repos]]
+name = "cal"
+features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {} }
+
+[[team.channels]]
+discord = "1526499095995219970"
+slack = "C05TNBPHVTL"

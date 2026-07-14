@@ -41,6 +41,16 @@
         "parent_id": "${keycloak_group.project_cbp_groupme-mirror.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_cmu-cal_cal": {
+        "name": "cal",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_cmu-cal_cal_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_cmu-cal_cal.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_cmu-courses": {
         "name": "cmu-courses",
         "parent_id": "${keycloak_group.projects.id}",

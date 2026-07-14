@@ -42,6 +42,20 @@
       ],
       "type": "forgejo"
     },
+    "cmu-cal_cal_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request",
+        "delete"
+      ],
+      "type": "forgejo"
+    },
     "cmu-courses_courses_kennel_webhook_data": {
       "active": true,
       "config": {
@@ -280,6 +294,15 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/discord-verify/hooks",
+        "update_method": "PATCH"
+      },
+      "cmu-cal_cal_kennel_webhook": {
+        "data": "${jsonencode(local.cmu-cal_cal_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.cmu-cal_cal"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/cal/hooks",
         "update_method": "PATCH"
       },
       "cmu-courses_courses_kennel_webhook": {
