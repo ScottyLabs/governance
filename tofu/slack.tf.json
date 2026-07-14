@@ -1,6 +1,139 @@
 {
   "resource": {
     "null_resource": {
+      "slack_cbp_ch0_gostmeaper": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08S56CJ8R2",
+          "user": "${data.external.identity_gostmeaper.result.slack_id}"
+        }
+      },
+      "slack_cbp_ch0_maybe_yiyi": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08S56CJ8R2",
+          "user": "${data.external.identity_maybe_yiyi.result.slack_id}"
+        }
+      },
+      "slack_cbp_ch0_pandaaured": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08S56CJ8R2",
+          "user": "${data.external.identity_pandaaured.result.slack_id}"
+        }
+      },
+      "slack_cbp_ch0_stationedk_06": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08S56CJ8R2",
+          "user": "${data.external.identity_stationedk_06.result.slack_id}"
+        }
+      },
+      "slack_cbp_ch0_tentype": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08S56CJ8R2",
+          "user": "${data.external.identity_tentype.result.slack_id}"
+        }
+      },
+      "slack_cbp_ch0_xboxbedrock": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08S56CJ8R2",
+          "user": "${data.external.identity_xboxbedrock.result.slack_id}"
+        }
+      },
+      "slack_cbp_ch0_zeyuyaoy": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08S56CJ8R2",
+          "user": "${data.external.identity_zeyuyaoy.result.slack_id}"
+        }
+      },
       "slack_cmu-cal_ch0_jalenluorion": {
         "provisioner": [
           {

@@ -12,6 +12,7 @@ members = [
 
 [[team.channels]]
 discord = "1450023430224216237"
+slack = "C08S56CJ8R2"
 
 [[team.projects]]
 name = "Bus Sign"

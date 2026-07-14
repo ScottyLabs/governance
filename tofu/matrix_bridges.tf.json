@@ -4,6 +4,24 @@
   },
   "resource": {
     "null_resource": {
+      "slack_bridge_login_cbp": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-join --channel ${self.triggers.channel}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-leave --channel ${self.triggers.channel}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08S56CJ8R2"
+        }
+      },
       "slack_bridge_login_cmu_cal": {
         "provisioner": [
           {
@@ -654,6 +672,15 @@
       }
     },
     "synapse_mautrix_slack_link": {
+      "cbp": {
+        "depends_on": [
+          "null_resource.slack_bridge_login_cbp"
+        ],
+        "discord_channel_id": "1450023430224216237",
+        "slack_channel_id": "C08S56CJ8R2",
+        "team_name": "Community-Based Projects",
+        "team_slug": "cbp"
+      },
       "cmu_cal": {
         "depends_on": [
           "null_resource.slack_bridge_login_cmu_cal"
