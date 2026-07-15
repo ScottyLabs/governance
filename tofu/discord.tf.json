@@ -498,6 +498,21 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_xboxbedrock.result.discord_id}"
       },
+      "yl25946": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-courses.id}"
+          },
+          {
+            "role_id": "${discord_role.tech_lead.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_yl25946.result.discord_id}"
+      },
       "zeyuyaoy": {
         "role": [
           {

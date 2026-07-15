@@ -46,6 +46,11 @@
         "team_id": "${github_team.cmu-courses.id}",
         "username": "${data.external.identity_anish.result.github}"
       },
+      "cmu-courses_yl25946": {
+        "role": "maintainer",
+        "team_id": "${github_team.cmu-courses.id}",
+        "username": "${data.external.identity_yl25946.result.github}"
+      },
       "cmu-housing_amzoeee": {
         "role": "member",
         "team_id": "${github_team.cmu-housing.id}",

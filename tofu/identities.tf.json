@@ -287,6 +287,17 @@
           "codeberg_user": "xboxbedrock"
         }
       },
+      "identity_yl25946": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "yl25946"
+        }
+      },
       "identity_zeyuyaoy": {
         "program": [
           "governance",

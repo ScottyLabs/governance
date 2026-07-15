@@ -53,6 +53,14 @@
         "team_id": "${forgejo_team.cmu-courses_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
+      "cmu-courses_leads_yl25946": {
+        "team_id": "${forgejo_team.cmu-courses_leads.id}",
+        "user": "${data.external.identity_yl25946.result.codeberg}"
+      },
+      "cmu-courses_yl25946": {
+        "team_id": "${forgejo_team.cmu-courses.id}",
+        "user": "${data.external.identity_yl25946.result.codeberg}"
+      },
       "cmu-housing_amzoeee": {
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_amzoeee.result.codeberg}"
@@ -140,6 +148,10 @@
       "courses_leads_anish": {
         "team_id": "${forgejo_team.courses_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
+      },
+      "courses_leads_yl25946": {
+        "team_id": "${forgejo_team.courses_leads.id}",
+        "user": "${data.external.identity_yl25946.result.codeberg}"
       },
       "dalmatian_leads_maybe_yiyi": {
         "team_id": "${forgejo_team.dalmatian_leads.id}",

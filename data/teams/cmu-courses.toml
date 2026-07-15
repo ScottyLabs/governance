@@ -1,7 +1,7 @@
 [team]
 name = "CMU Courses"
 slug = "cmu-courses"
-leads = ["anish"]
+leads = ["anish", "yl25946"]
 
 [[team.repos]]
 name = "internet-archive"
