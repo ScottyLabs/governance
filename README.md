@@ -1,4 +1,8 @@
-# Governance
+<div align="center">
+  <h1>
+    <pre>governance</pre>
+  </h1>
+</div>
 
 This repository is the source of truth for the Tech Committee's governance model. It declaratively manages teams, repositories, and membership using [OpenTofu](https://opentofu.org/) and [Atlantis](https://www.runatlantis.io/).
 
