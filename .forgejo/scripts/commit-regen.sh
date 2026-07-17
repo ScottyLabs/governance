@@ -47,7 +47,7 @@ git config user.signingkey "$key"
 git config commit.gpgsign true
 
 git add tofu schemas .forgejo/CODEOWNERS
-git commit -m "chore: regenerate tofu, schemas, CODEOWNERS"
+git commit -m "chore: regenerate tofu, schemas, CODEOWNERS [skip ci]"
 
 push_url="${HEAD_CLONE_URL/https:\/\//https://scottylabs-bot:${BOT_TOKEN}@}"
 retry 5 git push "$push_url" "HEAD:refs/heads/${HEAD_REF}"
