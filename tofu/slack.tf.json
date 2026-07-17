@@ -1,6 +1,25 @@
 {
   "resource": {
     "null_resource": {
+      "slack_cbp_ch0_ecstaticpilot": {
+        "provisioner": [
+          {
+            "local-exec": {
+              "command": "governance slack-invite --channel ${self.triggers.channel} --user ${self.triggers.user}"
+            }
+          },
+          {
+            "local-exec": {
+              "command": "governance slack-kick --channel ${self.triggers.channel} --user ${self.triggers.user}",
+              "when": "destroy"
+            }
+          }
+        ],
+        "triggers": {
+          "channel": "C08S56CJ8R2",
+          "user": "${data.external.identity_ecstaticpilot.result.slack_id}"
+        }
+      },
       "slack_cbp_ch0_gostmeaper": {
         "provisioner": [
           {

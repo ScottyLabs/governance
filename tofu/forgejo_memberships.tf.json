@@ -13,6 +13,10 @@
         "team_id": "${forgejo_team.cal_leads.id}",
         "user": "${data.external.identity_jalenluorion.result.codeberg}"
       },
+      "cbp_ecstaticpilot": {
+        "team_id": "${forgejo_team.cbp.id}",
+        "user": "${data.external.identity_ecstaticpilot.result.codeberg}"
+      },
       "cbp_gostmeaper": {
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_gostmeaper.result.codeberg}"

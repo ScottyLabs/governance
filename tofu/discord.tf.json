@@ -159,6 +159,9 @@
             "role_id": "${discord_role.tech.id}"
           },
           {
+            "role_id": "${discord_role.cbp.id}"
+          },
+          {
             "role_id": "${discord_role.cmu-housing.id}"
           },
           {

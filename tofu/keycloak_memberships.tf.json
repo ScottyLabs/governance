@@ -11,7 +11,8 @@
           "${data.external.identity_pandaaured.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}",
           "${data.external.identity_stationedk_06.result.cmu-saml}",
-          "${data.external.identity_jay3332.result.cmu-saml}"
+          "${data.external.identity_jay3332.result.cmu-saml}",
+          "${data.external.identity_ecstaticpilot.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -33,7 +34,8 @@
           "${data.external.identity_pandaaured.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}",
           "${data.external.identity_stationedk_06.result.cmu-saml}",
-          "${data.external.identity_jay3332.result.cmu-saml}"
+          "${data.external.identity_jay3332.result.cmu-saml}",
+          "${data.external.identity_ecstaticpilot.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -55,7 +57,8 @@
           "${data.external.identity_pandaaured.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}",
           "${data.external.identity_stationedk_06.result.cmu-saml}",
-          "${data.external.identity_jay3332.result.cmu-saml}"
+          "${data.external.identity_jay3332.result.cmu-saml}",
+          "${data.external.identity_ecstaticpilot.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -77,7 +80,8 @@
           "${data.external.identity_pandaaured.result.cmu-saml}",
           "${data.external.identity_zeyuyaoy.result.cmu-saml}",
           "${data.external.identity_stationedk_06.result.cmu-saml}",
-          "${data.external.identity_jay3332.result.cmu-saml}"
+          "${data.external.identity_jay3332.result.cmu-saml}",
+          "${data.external.identity_ecstaticpilot.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
