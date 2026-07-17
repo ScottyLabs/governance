@@ -17,6 +17,10 @@
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_gostmeaper.result.codeberg}"
       },
+      "cbp_jay3332": {
+        "team_id": "${forgejo_team.cbp.id}",
+        "user": "${data.external.identity_jay3332.result.codeberg}"
+      },
       "cbp_maybe_yiyi": {
         "team_id": "${forgejo_team.cbp.id}",
         "user": "${data.external.identity_maybe_yiyi.result.codeberg}"

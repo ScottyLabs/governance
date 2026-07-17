@@ -78,6 +78,17 @@
           "codeberg_user": "jalenluorion"
         }
       },
+      "identity_jay3332": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "jay3332"
+        }
+      },
       "identity_jc_965": {
         "program": [
           "governance",
