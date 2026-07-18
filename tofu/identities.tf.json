@@ -232,6 +232,17 @@
           "codeberg_user": "riztofu"
         }
       },
+      "identity_rohansen08": {
+        "program": [
+          "governance",
+          "--data-dir",
+          "../data",
+          "resolve-identity"
+        ],
+        "query": {
+          "codeberg_user": "rohansen08"
+        }
+      },
       "identity_sayevikk": {
         "program": [
           "governance",

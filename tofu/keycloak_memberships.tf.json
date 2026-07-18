@@ -150,7 +150,8 @@
           "${data.external.identity_jessica_lr_song.result.cmu-saml}",
           "${data.external.identity_calpha.result.cmu-saml}",
           "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_o_zox_o.result.cmu-saml}"
+          "${data.external.identity_o_zox_o.result.cmu-saml}",
+          "${data.external.identity_rohansen08.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
@@ -457,6 +458,7 @@
           "${data.external.identity_o_zox_o.result.cmu-saml}",
           "${data.external.identity_pandaaured.result.cmu-saml}",
           "${data.external.identity_riztofu.result.cmu-saml}",
+          "${data.external.identity_rohansen08.result.cmu-saml}",
           "${data.external.identity_sayevikk.result.cmu-saml}",
           "${data.external.identity_stationedk_06.result.cmu-saml}",
           "${data.external.identity_tentype.result.cmu-saml}",

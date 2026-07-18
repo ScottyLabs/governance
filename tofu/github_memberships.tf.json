@@ -96,6 +96,11 @@
         "team_id": "${github_team.cmu-housing.id}",
         "username": "${data.external.identity_o_zox_o.result.github}"
       },
+      "cmu-housing_rohansen08": {
+        "role": "member",
+        "team_id": "${github_team.cmu-housing.id}",
+        "username": "${data.external.identity_rohansen08.result.github}"
+      },
       "cmu-housing_tentype": {
         "role": "maintainer",
         "team_id": "${github_team.cmu-housing.id}",

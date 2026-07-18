@@ -405,6 +405,18 @@
         "server_id": "1353118209024331948",
         "user_id": "${data.external.identity_riztofu.result.discord_id}"
       },
+      "rohansen08": {
+        "role": [
+          {
+            "role_id": "${discord_role.tech.id}"
+          },
+          {
+            "role_id": "${discord_role.cmu-housing.id}"
+          }
+        ],
+        "server_id": "1353118209024331948",
+        "user_id": "${data.external.identity_rohansen08.result.discord_id}"
+      },
       "sayevikk": {
         "role": [
           {
