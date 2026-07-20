@@ -107,27 +107,44 @@ pub struct OidcClientFeature {}
 pub struct AdminClientFeature {}
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
-#[serde(deny_unknown_fields)]
+#[serde(default, deny_unknown_fields)]
 pub struct AiGatewayFeature {
     /// Monthly budget in USD for the prod key
-    #[serde(default = "default_prod_monthly_budget")]
     pub prod_monthly_budget: f64,
     /// Monthly budget in USD for the key shared by staging, preview, and dev
-    #[serde(default = "default_dev_monthly_budget")]
     pub dev_monthly_budget: f64,
+    /// Requests per minute for the prod key
+    pub prod_rpm_limit: i64,
+    /// Requests per minute for the shared non-prod key
+    pub dev_rpm_limit: i64,
+    /// Tokens per minute for the prod key
+    pub prod_tpm_limit: i64,
+    /// Tokens per minute for the shared non-prod key
+    pub dev_tpm_limit: i64,
+    /// Concurrent in-flight requests for the prod key
+    pub prod_max_parallel_requests: i64,
+    /// Concurrent in-flight requests for the shared non-prod key
+    pub dev_max_parallel_requests: i64,
+}
+
+impl Default for AiGatewayFeature {
+    fn default() -> Self {
+        Self {
+            prod_monthly_budget: 20.0,
+            dev_monthly_budget: 5.0,
+            prod_rpm_limit: 1000,
+            dev_rpm_limit: 200,
+            prod_tpm_limit: 4_000_000,
+            dev_tpm_limit: 1_000_000,
+            prod_max_parallel_requests: 100,
+            dev_max_parallel_requests: 20,
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct DocsFeature {}
-
-fn default_prod_monthly_budget() -> f64 {
-    20.0
-}
-
-fn default_dev_monthly_budget() -> f64 {
-    5.0
-}
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 pub struct Repo {

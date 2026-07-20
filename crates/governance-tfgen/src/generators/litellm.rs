@@ -29,9 +29,21 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         for (repo, gateway) in gateway_repos {
             let key = repo.name.replace('-', "_");
 
-            for (env, budget) in [
-                ("prod", gateway.prod_monthly_budget),
-                ("dev", gateway.dev_monthly_budget),
+            for (env, budget, rpm, tpm, parallel) in [
+                (
+                    "prod",
+                    gateway.prod_monthly_budget,
+                    gateway.prod_rpm_limit,
+                    gateway.prod_tpm_limit,
+                    gateway.prod_max_parallel_requests,
+                ),
+                (
+                    "dev",
+                    gateway.dev_monthly_budget,
+                    gateway.dev_rpm_limit,
+                    gateway.dev_tpm_limit,
+                    gateway.dev_max_parallel_requests,
+                ),
             ] {
                 tf.add_resource(
                     "litellm_key",
@@ -41,6 +53,9 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
                         "team_id": format!("${{litellm_team.{team_key}.id}}"),
                         "max_budget": budget,
                         "budget_duration": "monthly",
+                        "rpm_limit": rpm,
+                        "tpm_limit": tpm,
+                        "max_parallel_requests": parallel,
                         "metadata": { "project": repo.name },
                     }),
                 );
