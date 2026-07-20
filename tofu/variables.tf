@@ -70,7 +70,7 @@ variable "google_project_id" {
 
 variable "vault_addr" {
     type    = string
-    default = "https://secrets2.scottylabs.org"
+    default = "https://secrets.scottylabs.org"
 }
 
 variable "vault_approle_role_id" {
