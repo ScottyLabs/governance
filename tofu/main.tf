@@ -73,8 +73,8 @@ terraform {
             version = "~> 1.0"
         }
         litellm = {
-            source  = "registry.terraform.io/vCra/litellm"
-            version = "~> 1.2"
+            source  = "registry.terraform.io/ncecere/litellm"
+            version = "~> 2.0"
         }
     }
 }
