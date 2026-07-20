@@ -18,17 +18,53 @@
     "AiGatewayFeature": {
       "type": "object",
       "properties": {
+        "dev_max_parallel_requests": {
+          "description": "Concurrent in-flight requests for the shared non-prod key",
+          "type": "integer",
+          "format": "int64",
+          "default": 20
+        },
         "dev_monthly_budget": {
           "description": "Monthly budget in USD for the key shared by staging, preview, and dev",
           "type": "number",
           "format": "double",
           "default": 5.0
         },
+        "dev_rpm_limit": {
+          "description": "Requests per minute for the shared non-prod key",
+          "type": "integer",
+          "format": "int64",
+          "default": 200
+        },
+        "dev_tpm_limit": {
+          "description": "Tokens per minute for the shared non-prod key",
+          "type": "integer",
+          "format": "int64",
+          "default": 1000000
+        },
+        "prod_max_parallel_requests": {
+          "description": "Concurrent in-flight requests for the prod key",
+          "type": "integer",
+          "format": "int64",
+          "default": 100
+        },
         "prod_monthly_budget": {
           "description": "Monthly budget in USD for the prod key",
           "type": "number",
           "format": "double",
           "default": 20.0
+        },
+        "prod_rpm_limit": {
+          "description": "Requests per minute for the prod key",
+          "type": "integer",
+          "format": "int64",
+          "default": 1000
+        },
+        "prod_tpm_limit": {
+          "description": "Tokens per minute for the prod key",
+          "type": "integer",
+          "format": "int64",
+          "default": 4000000
         }
       },
       "additionalProperties": false

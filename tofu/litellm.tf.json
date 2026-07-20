@@ -5,19 +5,25 @@
         "budget_duration": "monthly",
         "key_alias": "collie-dev",
         "max_budget": 5.0,
+        "max_parallel_requests": 20,
         "metadata": {
           "project": "collie"
         },
-        "team_id": "${litellm_team.devops.id}"
+        "rpm_limit": 200,
+        "team_id": "${litellm_team.devops.id}",
+        "tpm_limit": 1000000
       },
       "collie_prod": {
         "budget_duration": "monthly",
         "key_alias": "collie-prod",
         "max_budget": 20.0,
+        "max_parallel_requests": 100,
         "metadata": {
           "project": "collie"
         },
-        "team_id": "${litellm_team.devops.id}"
+        "rpm_limit": 1000,
+        "team_id": "${litellm_team.devops.id}",
+        "tpm_limit": 4000000
       }
     },
     "litellm_team": {
