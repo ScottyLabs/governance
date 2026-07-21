@@ -77,7 +77,6 @@ pub struct Features {
     pub posthog: Option<PosthogFeature>,
     pub cdn: Option<CdnFeature>,
     pub oidc_client: Option<OidcClientFeature>,
-    pub admin_client: Option<AdminClientFeature>,
     pub ai_gateway: Option<AiGatewayFeature>,
     pub docs: Option<DocsFeature>,
 }
@@ -86,9 +85,13 @@ pub struct Features {
 #[serde(deny_unknown_fields)]
 pub struct KennelFeature {}
 
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
-#[serde(deny_unknown_fields)]
-pub struct SentryFeature {}
+#[derive(Debug, Clone, PartialEq, Default, Deserialize, Serialize, JsonSchema)]
+#[serde(default, deny_unknown_fields)]
+pub struct SentryFeature {
+    /// Sentry platform slug for the project, e.g. "rust" or "python"
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub platform: Option<String>,
+}
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
@@ -98,13 +101,12 @@ pub struct PosthogFeature {}
 #[serde(deny_unknown_fields)]
 pub struct CdnFeature {}
 
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
-#[serde(deny_unknown_fields)]
-pub struct OidcClientFeature {}
-
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
-#[serde(deny_unknown_fields)]
-pub struct AdminClientFeature {}
+#[derive(Debug, Clone, PartialEq, Default, Deserialize, Serialize, JsonSchema)]
+#[serde(default, deny_unknown_fields)]
+pub struct OidcClientFeature {
+    /// Also provision a Keycloak admin client with realm-management access
+    pub admin: bool,
+}
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 #[serde(default, deny_unknown_fields)]

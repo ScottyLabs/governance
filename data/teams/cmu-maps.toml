@@ -11,7 +11,14 @@ public_url = "https://cmumaps.com"
 
 [[team.projects.repos]]
 name = "maps"
-features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {} }
+
+[team.projects.repos.features]
+kennel = {}
+posthog = {}
+oidc_client = {}
+
+[team.projects.repos.features.sentry]
+platform = "deno"
 
 [[team.channels]]
 discord = "1516632834104889464"

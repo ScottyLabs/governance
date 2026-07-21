@@ -15,7 +15,15 @@ public_url = "https://cmu.courses"
 
 [[team.projects.repos]]
 name = "courses"
-features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {}, cdn = {} }
+
+[team.projects.repos.features]
+kennel = {}
+posthog = {}
+oidc_client = {}
+cdn = {}
+
+[team.projects.repos.features.sentry]
+platform = "rust"
 
 [[team.channels]]
 discord = "1459389616007282709"

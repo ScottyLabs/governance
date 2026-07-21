@@ -37,8 +37,7 @@ prod_monthly_budget = 20.0
 - `sentry` creates a Sentry project and writes its DSN to Vault
 - `posthog` creates a PostHog project and writes its key and host to Vault
 - `cdn` creates a public-read Garage bucket for the repository and writes its S3 credentials and public URL to Vault
-- `oidc_client` provisions prod and staging Keycloak OIDC clients with a fixed redirect URI and writes their credentials to Vault per profile
-- `admin_client` provisions a Keycloak service-account client with user-management roles and writes its credentials to Vault
+- `oidc_client` provisions prod and staging Keycloak OIDC clients with a fixed redirect URI and writes their credentials to Vault per profile; set `admin = true` to also provision a service-account client with user-management roles and write its credentials to Vault
 - `ai_gateway` provisions LiteLLM API keys with monthly budgets, a prod key and a lower-budget key shared by staging, preview, and dev, and writes the key and gateway URL to Vault per profile
 - `docs` registers the repository's `docs/` directory with the documentation hub
 

@@ -7,7 +7,14 @@ leads = ["kritdass", "anish"]
 
 [[team.repos]]
 name = "terrier"
-features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {} }
+
+[team.repos.features]
+kennel = {}
+posthog = {}
+oidc_client = {}
+
+[team.repos.features.sentry]
+platform = "rust"
 
 [[team.channels]]
 discord = "1454745778642878527"

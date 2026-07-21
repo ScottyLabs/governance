@@ -7,7 +7,14 @@ leads = ["anish"]
 
 [[team.repos]]
 name = "quest"
-features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {} }
+
+[team.repos.features]
+kennel = {}
+posthog = {}
+oidc_client = {}
+
+[team.repos.features.sentry]
+platform = "rust"
 
 [[team.channels]]
 discord = "1459385784615440471"

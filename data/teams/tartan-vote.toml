@@ -4,18 +4,19 @@ slug = "tartan-vote"
 description = "Voting app for the Undergraduate Senate and other student orgs"
 public_url = "https://tartan.vote"
 leads = ["maybe-yiyi"]
-members = [
-    "vloh",
-    "xboxbedrock",
-    "tentype",
-    "riztofu",
-    "zeyuyaoy",
-    "stationedk-06",
-]
+members = ["vloh", "xboxbedrock", "tentype", "riztofu", "zeyuyaoy", "stationedk-06"]
 
 [[team.repos]]
 name = "tartan-vote"
-features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {}, docs = {} }
+
+[team.repos.features]
+kennel = {}
+posthog = {}
+oidc_client = {}
+docs = {}
+
+[team.repos.features.sentry]
+platform = "rust"
 
 [[team.channels]]
 discord = "1472669361624842483"

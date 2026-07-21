@@ -8,16 +8,22 @@ members = ["xboxbedrock", "stationedk-06"]
 [[team.repos]]
 name = "infrastructure"
 description = "NixOS configurations for ScottyLabs' VMs"
-features = { docs = {} }
+features = { kennel = {} }
 
 [[team.repos]]
 name = "governance"
 description = "Definition and automation of the Tech Committee's governance model"
+features = { kennel = {} }
 
 [[team.repos]]
 name = "kennel"
 description = "Branch-based deployment platform"
-features = { kennel = {}, sentry = {} }
+
+[team.repos.features]
+kennel = {}
+
+[team.repos.features.sentry]
+platform = "rust"
 
 [[team.repos]]
 name = "devenv"
@@ -58,4 +64,11 @@ public_url = "https://cmu.lol"
 
 [[team.projects.repos]]
 name = "link-shortener"
-features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {} }
+
+[team.projects.repos.features]
+kennel = {}
+posthog = {}
+oidc_client = {}
+
+[team.projects.repos.features.sentry]
+platform = "rust"

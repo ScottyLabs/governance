@@ -24,7 +24,12 @@ public_url = "https://bus-sign.scottylabs.org"
 
 [[team.projects.repos]]
 name = "bus-sign"
-features = { kennel = {}, sentry = {} }
+
+[team.projects.repos.features]
+kennel = {}
+
+[team.projects.repos.features.sentry]
+platform = "rust"
 
 [[team.projects.channels]]
 discord = "1472669342108750087"
@@ -44,7 +49,13 @@ description = "Discord bot for CMU Courses, CMU Eats, and other ScottyLabs servi
 
 [[team.projects.repos]]
 name = "dalmatian"
-features = { kennel = {}, sentry = {}, docs = {} }
+
+[team.projects.repos.features]
+kennel = {}
+docs = {}
+
+[team.projects.repos.features.sentry]
+platform = "deno"
 
 [[team.projects.channels]]
 discord = "1482594247961219307"
@@ -57,7 +68,15 @@ public_url = "https://verify.scottylabs.org"
 
 [[team.projects.repos]]
 name = "discord-verify"
-features = { kennel = {}, sentry = {}, oidc_client = {}, admin_client = {} }
+
+[team.projects.repos.features]
+kennel = {}
+
+[team.projects.repos.features.sentry]
+platform = "rust"
+
+[team.projects.repos.features.oidc_client]
+admin = true
 
 [[team.projects.channels]]
 discord = "1450023447185854575"

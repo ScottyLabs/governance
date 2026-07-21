@@ -172,7 +172,7 @@ pub fn generate_clients(data: &GovernanceData) -> TfJsonFile {
             for repo in group
                 .repos
                 .iter()
-                .filter(|r| r.features.oidc_client.is_some() || r.features.admin_client.is_some())
+                .filter(|r| r.features.oidc_client.is_some())
             {
                 let name = repo.name.as_str();
                 let key = name.replace('-', "_");
@@ -211,7 +211,7 @@ pub fn generate_clients(data: &GovernanceData) -> TfJsonFile {
                     }
                 }
 
-                if repo.features.admin_client.is_some() {
+                if repo.features.oidc_client.as_ref().is_some_and(|o| o.admin) {
                     needs_realm_management = true;
                     let admin_key = format!("{key}_admin");
                     add_admin_client(&mut tf, realm_id, &admin_key, &format!("{name}-admin"));

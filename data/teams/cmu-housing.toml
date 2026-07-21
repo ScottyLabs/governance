@@ -2,7 +2,7 @@
 name = "CMU Housing"
 slug = "cmu-housing"
 description = "Helping students discover housing options at CMU"
-public_url = "https://cmu.homes"
+public_url = "https://cmuhousing.com"
 leads = ["gostmeaper", "ecstaticpilot", "tentype"]
 members = [
     "amzoeee",
@@ -16,7 +16,16 @@ members = [
 
 [[team.repos]]
 name = "housing"
-features = { kennel = {}, sentry = {}, posthog = {}, cdn = {}, docs = {} }
+
+[team.repos.features]
+kennel = {}
+posthog = {}
+oidc_client = {}
+cdn = {}
+docs = {}
+
+[team.repos.features.sentry]
+platform = "deno"
 
 [[team.channels]]
 discord = "1482553494647996538"

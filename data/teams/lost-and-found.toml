@@ -12,11 +12,10 @@ public_url = "https://lostandfound.andrew.cmu.edu/"
 
 [[team.projects.repos]]
 name = "lost-and-found"
-features = { sentry = {}, posthog = {}, oidc_client = {}, docs = {} }
 
 [[team.projects.repos]]
 name = "lost-and-found-v2"
-features = { sentry = {}, posthog = {}, oidc_client = {}, cdn = {}, docs = {} }
+features = { oidc_client = {}, cdn = {} }
 
 [[team.channels]]
 discord = "1526510267607945326"

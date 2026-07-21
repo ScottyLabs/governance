@@ -20,7 +20,14 @@ public_url = "https://cmugpt.com"
 
 [[team.projects.repos]]
 name = "cmugpt-surface"
-features = { kennel = {}, sentry = {}, posthog = {}, oidc_client = {} }
+
+[team.projects.repos.features]
+kennel = {}
+posthog = {}
+oidc_client = {}
+
+[team.projects.repos.features.sentry]
+platform = "deno"
 
 [[team.projects]]
 name = "CMU GPT Agent"
@@ -47,7 +54,12 @@ description = "SMS interface for CMU GPT"
 
 [[team.projects.repos]]
 name = "cmugpt-sms-surface"
-features = { kennel = {}, sentry = {} }
+
+[team.projects.repos.features]
+kennel = {}
+
+[team.projects.repos.features.sentry]
+platform = "python"
 
 [[team.channels]]
 slack = "C08SRUGUQ05"

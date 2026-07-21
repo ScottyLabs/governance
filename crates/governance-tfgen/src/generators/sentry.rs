@@ -33,16 +33,22 @@ pub fn generate(data: &GovernanceData) -> TfJsonFile {
         for repo in repos {
             let key = format!("{}_{}", team_slug, repo.name.replace('-', "_"));
 
-            tf.add_resource(
-                "sentry_project",
-                &key,
-                json!({
-                    "organization": "${var.sentry_organization}",
-                    "teams": [format!("${{sentry_team.{team_slug}.slug}}")],
-                    "name": repo.name.clone(),
-                    "slug": repo.name.clone(),
-                }),
-            );
+            let mut project = json!({
+                "organization": "${var.sentry_organization}",
+                "teams": [format!("${{sentry_team.{team_slug}.slug}}")],
+                "name": repo.name.clone(),
+                "slug": repo.name.clone(),
+            });
+            match repo
+                .features
+                .sentry
+                .as_ref()
+                .and_then(|s| s.platform.as_ref())
+            {
+                Some(platform) => project["platform"] = json!(platform),
+                None => project["lifecycle"] = json!({ "ignore_changes": ["platform"] }),
+            }
+            tf.add_resource("sentry_project", &key, project);
 
             tf.add_resource(
                 "sentry_key",
