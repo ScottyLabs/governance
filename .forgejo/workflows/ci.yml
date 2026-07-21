@@ -1,0 +1,13 @@
+name: CI
+
+on:
+  push:
+    branches: [main, staging, dev]
+  pull_request:
+
+jobs:
+  check:
+    uses: ScottyLabs/devenv/.forgejo/workflows/ci.yml@main
+    with:
+      build: false
+    secrets: inherit

@@ -2,5 +2,5 @@
 # Regenerates tofu/, schemas/, and .forgejo/CODEOWNERS from data/.
 set -euo pipefail
 
-./target/debug/governance generate --output-dir tofu
-./target/debug/governance schema --output-dir schemas
+cargo run -q -p governance -- generate --output-dir tofu
+cargo run -q -p governance -- schema --output-dir schemas

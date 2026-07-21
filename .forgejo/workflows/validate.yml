@@ -2,60 +2,25 @@ name: Validate
 on: [pull_request_target]
 
 jobs:
-  editorconfig:
-    name: EditorConfig
-    if: ${{ github.actor != 'scottylabs-bot' }}
-    runs-on: docker
-    steps:
-      - uses: https://code.forgejo.org/actions/checkout@v6
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false
-
-      - uses: https://github.com/taiki-e/install-action@v2
-        with:
-          tool: editorconfig-checker
-          fallback: none
-
-      - run: editorconfig-checker
-
-  toml:
-    name: TOML
-    if: ${{ github.actor != 'scottylabs-bot' }}
-    runs-on: docker
-    steps:
-      - uses: https://code.forgejo.org/actions/checkout@v6
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false
-
-      - uses: https://github.com/taiki-e/install-action@v2
-        with:
-          tool: taplo
-          fallback: none
-
-      - run: taplo fmt --check
-      - run: taplo check
-
   governance:
     name: Governance
     if: ${{ github.actor != 'scottylabs-bot' }}
     runs-on: docker
+    env:
+      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
-      - uses: https://code.forgejo.org/actions/checkout@v6
+      - uses: https://code.forgejo.org/actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
           fetch-depth: 0
 
-      - uses: https://github.com/dtolnay/rust-toolchain@stable
-
-      - uses: https://github.com/Swatinem/rust-cache@v2
-
-      - run: cargo build -p governance
+      - uses: ScottyLabs/devenv/.forgejo/actions/prepare@main
 
       - name: Validate
-        run: ./target/debug/governance validate
+        run: devenv shell -- cargo run -q -p governance -- validate
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
@@ -64,7 +29,7 @@ jobs:
           MATRIX_ADMIN_TOKEN: ${{ secrets.MATRIX_ADMIN_TOKEN }}
 
       - name: Regenerate tofu, schemas, CODEOWNERS
-        run: ./.forgejo/scripts/regenerate.sh
+        run: devenv shell -- ./.forgejo/scripts/regenerate.sh
 
       - name: Commit regenerated files if changed
         env:
