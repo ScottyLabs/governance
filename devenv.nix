@@ -6,6 +6,9 @@
   scottylabs = {
     enable = true;
     project.name = "governance";
+
     rust.enable = true;
+
+    editorconfig.enable = true;
   };
 }
