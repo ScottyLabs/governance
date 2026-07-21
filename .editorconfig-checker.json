@@ -2,6 +2,7 @@
     "Exclude": [
         "tofu/",
         "schemas/",
+        "devenv.lock",
         ".forgejo/CODEOWNERS",
         "LICENSE-MIT",
         "LICENSE-APACHE-2.0"
