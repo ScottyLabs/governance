@@ -10,10 +10,7 @@ governance-schema.workspace = true
 governance-core.workspace = true
 governance-tfgen.workspace = true
 schemars.workspace = true
-serde.workspace = true
 serde_json.workspace = true
-toml.workspace = true
 clap.workspace = true
 anyhow.workspace = true
 dotenvy = "0.15.7"
-ureq = { version = "3.3.0", features = ["json"] }

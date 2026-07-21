@@ -270,10 +270,7 @@ dependencies = [
  "governance-schema",
  "governance-tfgen",
  "schemars",
- "serde",
  "serde_json",
- "toml",
- "ureq",
 ]
 
 [[package]]
@@ -295,7 +292,6 @@ version = "0.1.0"
 dependencies = [
  "schemars",
  "serde",
- "serde_json",
 ]
 
 [[package]]
