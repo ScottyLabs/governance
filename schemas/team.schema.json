@@ -11,10 +11,6 @@
     "team"
   ],
   "$defs": {
-    "AdminClientFeature": {
-      "type": "object",
-      "additionalProperties": false
-    },
     "AiGatewayFeature": {
       "type": "object",
       "properties": {
@@ -98,16 +94,6 @@
       "description": "A feature is enabled by its presence, an empty table enables it with defaults",
       "type": "object",
       "properties": {
-        "admin_client": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/AdminClientFeature"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
         "ai_gateway": {
           "anyOf": [
             {
@@ -187,6 +173,13 @@
     },
     "OidcClientFeature": {
       "type": "object",
+      "properties": {
+        "admin": {
+          "description": "Also provision a Keycloak admin client with realm-management access",
+          "type": "boolean",
+          "default": false
+        }
+      },
       "additionalProperties": false
     },
     "PosthogFeature": {
@@ -267,7 +260,6 @@
         "features": {
           "$ref": "#/$defs/Features",
           "default": {
-            "admin_client": null,
             "ai_gateway": null,
             "cdn": null,
             "docs": null,
@@ -317,6 +309,15 @@
     },
     "SentryFeature": {
       "type": "object",
+      "properties": {
+        "platform": {
+          "description": "Sentry platform slug for the project, e.g. \"rust\" or \"python\"",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
       "additionalProperties": false
     },
     "Team": {

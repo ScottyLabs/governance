@@ -46,16 +46,6 @@
         "organization": "${var.sentry_organization}",
         "project": "${sentry_project.devops_link_shortener.slug}"
       },
-      "lost-and-found_lost_and_found": {
-        "name": "default",
-        "organization": "${var.sentry_organization}",
-        "project": "${sentry_project.lost-and-found_lost_and_found.slug}"
-      },
-      "lost-and-found_lost_and_found_v2": {
-        "name": "default",
-        "organization": "${var.sentry_organization}",
-        "project": "${sentry_project.lost-and-found_lost_and_found_v2.slug}"
-      },
       "quest_quest": {
         "name": "default",
         "organization": "${var.sentry_organization}",
@@ -86,6 +76,7 @@
       "cbp_bus_sign": {
         "name": "bus-sign",
         "organization": "${var.sentry_organization}",
+        "platform": "rust",
         "slug": "bus-sign",
         "teams": [
           "${sentry_team.cbp.slug}"
@@ -94,6 +85,7 @@
       "cbp_dalmatian": {
         "name": "dalmatian",
         "organization": "${var.sentry_organization}",
+        "platform": "deno",
         "slug": "dalmatian",
         "teams": [
           "${sentry_team.cbp.slug}"
@@ -102,12 +94,18 @@
       "cbp_discord_verify": {
         "name": "discord-verify",
         "organization": "${var.sentry_organization}",
+        "platform": "rust",
         "slug": "discord-verify",
         "teams": [
           "${sentry_team.cbp.slug}"
         ]
       },
       "cmu-cal_cal": {
+        "lifecycle": {
+          "ignore_changes": [
+            "platform"
+          ]
+        },
         "name": "cal",
         "organization": "${var.sentry_organization}",
         "slug": "cal",
@@ -118,6 +116,7 @@
       "cmu-courses_courses": {
         "name": "courses",
         "organization": "${var.sentry_organization}",
+        "platform": "rust",
         "slug": "courses",
         "teams": [
           "${sentry_team.cmu-courses.slug}"
@@ -126,6 +125,7 @@
       "cmu-housing_housing": {
         "name": "housing",
         "organization": "${var.sentry_organization}",
+        "platform": "deno",
         "slug": "housing",
         "teams": [
           "${sentry_team.cmu-housing.slug}"
@@ -134,6 +134,7 @@
       "cmu-maps_maps": {
         "name": "maps",
         "organization": "${var.sentry_organization}",
+        "platform": "deno",
         "slug": "maps",
         "teams": [
           "${sentry_team.cmu-maps.slug}"
@@ -142,6 +143,7 @@
       "devops_kennel": {
         "name": "kennel",
         "organization": "${var.sentry_organization}",
+        "platform": "rust",
         "slug": "kennel",
         "teams": [
           "${sentry_team.devops.slug}"
@@ -150,30 +152,16 @@
       "devops_link_shortener": {
         "name": "link-shortener",
         "organization": "${var.sentry_organization}",
+        "platform": "rust",
         "slug": "link-shortener",
         "teams": [
           "${sentry_team.devops.slug}"
         ]
       },
-      "lost-and-found_lost_and_found": {
-        "name": "lost-and-found",
-        "organization": "${var.sentry_organization}",
-        "slug": "lost-and-found",
-        "teams": [
-          "${sentry_team.lost-and-found.slug}"
-        ]
-      },
-      "lost-and-found_lost_and_found_v2": {
-        "name": "lost-and-found-v2",
-        "organization": "${var.sentry_organization}",
-        "slug": "lost-and-found-v2",
-        "teams": [
-          "${sentry_team.lost-and-found.slug}"
-        ]
-      },
       "quest_quest": {
         "name": "quest",
         "organization": "${var.sentry_organization}",
+        "platform": "rust",
         "slug": "quest",
         "teams": [
           "${sentry_team.quest.slug}"
@@ -182,6 +170,7 @@
       "slai_cmugpt_sms_surface": {
         "name": "cmugpt-sms-surface",
         "organization": "${var.sentry_organization}",
+        "platform": "python",
         "slug": "cmugpt-sms-surface",
         "teams": [
           "${sentry_team.slai.slug}"
@@ -190,6 +179,7 @@
       "slai_cmugpt_surface": {
         "name": "cmugpt-surface",
         "organization": "${var.sentry_organization}",
+        "platform": "deno",
         "slug": "cmugpt-surface",
         "teams": [
           "${sentry_team.slai.slug}"
@@ -198,6 +188,7 @@
       "tartan-vote_tartan_vote": {
         "name": "tartan-vote",
         "organization": "${var.sentry_organization}",
+        "platform": "rust",
         "slug": "tartan-vote",
         "teams": [
           "${sentry_team.tartan-vote.slug}"
@@ -206,6 +197,7 @@
       "terrier_terrier": {
         "name": "terrier",
         "organization": "${var.sentry_organization}",
+        "platform": "rust",
         "slug": "terrier",
         "teams": [
           "${sentry_team.terrier.slug}"
@@ -242,11 +234,6 @@
         "name": "DevOps",
         "organization": "${var.sentry_organization}",
         "slug": "devops"
-      },
-      "lost-and-found": {
-        "name": "Lost and Found",
-        "organization": "${var.sentry_organization}",
-        "slug": "lost-and-found"
       },
       "quest": {
         "name": "Quest",
@@ -314,16 +301,6 @@
         "data_json": "${jsonencode({ value = sentry_key.devops_link_shortener.dsn })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/prod/SENTRY_DSN"
-      },
-      "lost-and-found_lost_and_found_sentry_dsn": {
-        "data_json": "${jsonencode({ value = sentry_key.lost-and-found_lost_and_found.dsn })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/prod/SENTRY_DSN"
-      },
-      "lost-and-found_lost_and_found_v2_sentry_dsn": {
-        "data_json": "${jsonencode({ value = sentry_key.lost-and-found_lost_and_found_v2.dsn })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found-v2/prod/SENTRY_DSN"
       },
       "quest_quest_sentry_dsn": {
         "data_json": "${jsonencode({ value = sentry_key.quest_quest.dsn })}",

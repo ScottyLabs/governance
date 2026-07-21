@@ -112,6 +112,34 @@
       ],
       "type": "forgejo"
     },
+    "devops_governance_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request",
+        "delete"
+      ],
+      "type": "forgejo"
+    },
+    "devops_infrastructure_kennel_webhook_data": {
+      "active": true,
+      "config": {
+        "content_type": "json",
+        "secret": "${random_password.kennel_webhook_secret.result}",
+        "url": "${var.kennel_webhook_url}"
+      },
+      "events": [
+        "push",
+        "pull_request",
+        "delete"
+      ],
+      "type": "forgejo"
+    },
     "devops_kennel_kennel_webhook_data": {
       "active": true,
       "config": {
@@ -339,6 +367,24 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/collie/hooks",
+        "update_method": "PATCH"
+      },
+      "devops_governance_kennel_webhook": {
+        "data": "${jsonencode(local.devops_governance_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.devops_governance"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/governance/hooks",
+        "update_method": "PATCH"
+      },
+      "devops_infrastructure_kennel_webhook": {
+        "data": "${jsonencode(local.devops_infrastructure_kennel_webhook_data)}",
+        "depends_on": [
+          "forgejo_repository.devops_infrastructure"
+        ],
+        "id_attribute": "id",
+        "path": "/api/v1/repos/ScottyLabs/infrastructure/hooks",
         "update_method": "PATCH"
       },
       "devops_kennel_kennel_webhook": {

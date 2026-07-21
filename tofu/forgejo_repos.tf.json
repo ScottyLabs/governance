@@ -111,7 +111,7 @@
         "name": "housing",
         "owner": "ScottyLabs",
         "private": false,
-        "website": "https://cmu.homes"
+        "website": "https://cmuhousing.com"
       },
       "cmu-maps_maps": {
         "auto_init": true,

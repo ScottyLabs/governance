@@ -180,6 +180,48 @@
           "+"
         ]
       },
+      "housing": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "housing",
+        "direct_access_grants_enabled": false,
+        "name": "housing",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "housing_dev": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "housing-dev",
+        "direct_access_grants_enabled": false,
+        "name": "housing-dev",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "http://localhost:8090/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
+      "housing_staging": {
+        "access_type": "CONFIDENTIAL",
+        "client_id": "housing-staging",
+        "direct_access_grants_enabled": false,
+        "name": "housing-staging",
+        "realm_id": "${data.keycloak_realm.this.id}",
+        "standard_flow_enabled": true,
+        "valid_redirect_uris": [
+          "https://oauth.scottylabs.org/oauth2/callback"
+        ],
+        "web_origins": [
+          "+"
+        ]
+      },
       "link_shortener": {
         "access_type": "CONFIDENTIAL",
         "client_id": "link-shortener",
@@ -213,48 +255,6 @@
         "client_id": "link-shortener-staging",
         "direct_access_grants_enabled": false,
         "name": "link-shortener-staging",
-        "realm_id": "${data.keycloak_realm.this.id}",
-        "standard_flow_enabled": true,
-        "valid_redirect_uris": [
-          "https://oauth.scottylabs.org/oauth2/callback"
-        ],
-        "web_origins": [
-          "+"
-        ]
-      },
-      "lost_and_found": {
-        "access_type": "CONFIDENTIAL",
-        "client_id": "lost-and-found",
-        "direct_access_grants_enabled": false,
-        "name": "lost-and-found",
-        "realm_id": "${data.keycloak_realm.this.id}",
-        "standard_flow_enabled": true,
-        "valid_redirect_uris": [
-          "https://oauth.scottylabs.org/oauth2/callback"
-        ],
-        "web_origins": [
-          "+"
-        ]
-      },
-      "lost_and_found_dev": {
-        "access_type": "CONFIDENTIAL",
-        "client_id": "lost-and-found-dev",
-        "direct_access_grants_enabled": false,
-        "name": "lost-and-found-dev",
-        "realm_id": "${data.keycloak_realm.this.id}",
-        "standard_flow_enabled": true,
-        "valid_redirect_uris": [
-          "http://localhost:8090/oauth2/callback"
-        ],
-        "web_origins": [
-          "+"
-        ]
-      },
-      "lost_and_found_staging": {
-        "access_type": "CONFIDENTIAL",
-        "client_id": "lost-and-found-staging",
-        "direct_access_grants_enabled": false,
-        "name": "lost-and-found-staging",
         "realm_id": "${data.keycloak_realm.this.id}",
         "standard_flow_enabled": true,
         "valid_redirect_uris": [
@@ -616,6 +616,36 @@
         "name": "groups",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "housing": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.housing.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "housing_dev": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.housing_dev.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "housing_staging": {
+        "add_to_access_token": true,
+        "add_to_id_token": true,
+        "add_to_userinfo": true,
+        "claim_name": "groups",
+        "client_id": "${keycloak_openid_client.housing_staging.id}",
+        "full_path": true,
+        "name": "groups",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "link_shortener": {
         "add_to_access_token": true,
         "add_to_id_token": true,
@@ -642,36 +672,6 @@
         "add_to_userinfo": true,
         "claim_name": "groups",
         "client_id": "${keycloak_openid_client.link_shortener_staging.id}",
-        "full_path": true,
-        "name": "groups",
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "lost_and_found": {
-        "add_to_access_token": true,
-        "add_to_id_token": true,
-        "add_to_userinfo": true,
-        "claim_name": "groups",
-        "client_id": "${keycloak_openid_client.lost_and_found.id}",
-        "full_path": true,
-        "name": "groups",
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "lost_and_found_dev": {
-        "add_to_access_token": true,
-        "add_to_id_token": true,
-        "add_to_userinfo": true,
-        "claim_name": "groups",
-        "client_id": "${keycloak_openid_client.lost_and_found_dev.id}",
-        "full_path": true,
-        "name": "groups",
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "lost_and_found_staging": {
-        "add_to_access_token": true,
-        "add_to_id_token": true,
-        "add_to_userinfo": true,
-        "claim_name": "groups",
-        "client_id": "${keycloak_openid_client.lost_and_found_staging.id}",
         "full_path": true,
         "name": "groups",
         "realm_id": "${data.keycloak_realm.this.id}"
@@ -1428,6 +1428,146 @@
         "mount": "secret",
         "name": "secretspec/discord-verify/staging/PROJECT_GROUP"
       },
+      "housing_dev_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/KEYCLOAK_REALM"
+      },
+      "housing_dev_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/KEYCLOAK_URL"
+      },
+      "housing_dev_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"http://localhost:8090/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/OAUTH_RELAY_URL"
+      },
+      "housing_dev_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.housing_dev.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/OIDC_CLIENT_ID"
+      },
+      "housing_dev_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.housing_dev.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/OIDC_CLIENT_SECRET"
+      },
+      "housing_dev_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-housing/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/PROJECT_ADMIN_GROUP"
+      },
+      "housing_dev_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-housing\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/dev/PROJECT_GROUP"
+      },
+      "housing_preview_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/KEYCLOAK_REALM"
+      },
+      "housing_preview_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/KEYCLOAK_URL"
+      },
+      "housing_preview_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/OAUTH_RELAY_URL"
+      },
+      "housing_preview_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.housing_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/OIDC_CLIENT_ID"
+      },
+      "housing_preview_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.housing_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/OIDC_CLIENT_SECRET"
+      },
+      "housing_preview_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-housing/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/PROJECT_ADMIN_GROUP"
+      },
+      "housing_preview_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-housing\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/preview/PROJECT_GROUP"
+      },
+      "housing_prod_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/KEYCLOAK_REALM"
+      },
+      "housing_prod_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/KEYCLOAK_URL"
+      },
+      "housing_prod_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/OAUTH_RELAY_URL"
+      },
+      "housing_prod_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.housing.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/OIDC_CLIENT_ID"
+      },
+      "housing_prod_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.housing.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/OIDC_CLIENT_SECRET"
+      },
+      "housing_prod_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-housing/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/PROJECT_ADMIN_GROUP"
+      },
+      "housing_prod_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-housing\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/prod/PROJECT_GROUP"
+      },
+      "housing_staging_keycloak_realm": {
+        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/KEYCLOAK_REALM"
+      },
+      "housing_staging_keycloak_url": {
+        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/KEYCLOAK_URL"
+      },
+      "housing_staging_oauth_relay_url": {
+        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/OAUTH_RELAY_URL"
+      },
+      "housing_staging_oidc_client_id": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.housing_staging.client_id })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/OIDC_CLIENT_ID"
+      },
+      "housing_staging_oidc_client_secret": {
+        "data_json": "${jsonencode({ value = keycloak_openid_client.housing_staging.client_secret })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/OIDC_CLIENT_SECRET"
+      },
+      "housing_staging_project_admin_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-housing/admins\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/PROJECT_ADMIN_GROUP"
+      },
+      "housing_staging_project_group": {
+        "data_json": "${jsonencode({ value = \"/projects/cmu-housing\" })}",
+        "mount": "secret",
+        "name": "secretspec/housing/staging/PROJECT_GROUP"
+      },
       "link_shortener_dev_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",
         "mount": "secret",
@@ -1567,146 +1707,6 @@
         "data_json": "${jsonencode({ value = \"/projects/link-shortener\" })}",
         "mount": "secret",
         "name": "secretspec/link-shortener/staging/PROJECT_GROUP"
-      },
-      "lost_and_found_dev_keycloak_realm": {
-        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/dev/KEYCLOAK_REALM"
-      },
-      "lost_and_found_dev_keycloak_url": {
-        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/dev/KEYCLOAK_URL"
-      },
-      "lost_and_found_dev_oauth_relay_url": {
-        "data_json": "${jsonencode({ value = \"http://localhost:8090/oauth2/callback\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/dev/OAUTH_RELAY_URL"
-      },
-      "lost_and_found_dev_oidc_client_id": {
-        "data_json": "${jsonencode({ value = keycloak_openid_client.lost_and_found_dev.client_id })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/dev/OIDC_CLIENT_ID"
-      },
-      "lost_and_found_dev_oidc_client_secret": {
-        "data_json": "${jsonencode({ value = keycloak_openid_client.lost_and_found_dev.client_secret })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/dev/OIDC_CLIENT_SECRET"
-      },
-      "lost_and_found_dev_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost/admins\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/dev/PROJECT_ADMIN_GROUP"
-      },
-      "lost_and_found_dev_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/dev/PROJECT_GROUP"
-      },
-      "lost_and_found_preview_keycloak_realm": {
-        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/preview/KEYCLOAK_REALM"
-      },
-      "lost_and_found_preview_keycloak_url": {
-        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/preview/KEYCLOAK_URL"
-      },
-      "lost_and_found_preview_oauth_relay_url": {
-        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/preview/OAUTH_RELAY_URL"
-      },
-      "lost_and_found_preview_oidc_client_id": {
-        "data_json": "${jsonencode({ value = keycloak_openid_client.lost_and_found_staging.client_id })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/preview/OIDC_CLIENT_ID"
-      },
-      "lost_and_found_preview_oidc_client_secret": {
-        "data_json": "${jsonencode({ value = keycloak_openid_client.lost_and_found_staging.client_secret })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/preview/OIDC_CLIENT_SECRET"
-      },
-      "lost_and_found_preview_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost/admins\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/preview/PROJECT_ADMIN_GROUP"
-      },
-      "lost_and_found_preview_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/preview/PROJECT_GROUP"
-      },
-      "lost_and_found_prod_keycloak_realm": {
-        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/prod/KEYCLOAK_REALM"
-      },
-      "lost_and_found_prod_keycloak_url": {
-        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/prod/KEYCLOAK_URL"
-      },
-      "lost_and_found_prod_oauth_relay_url": {
-        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/prod/OAUTH_RELAY_URL"
-      },
-      "lost_and_found_prod_oidc_client_id": {
-        "data_json": "${jsonencode({ value = keycloak_openid_client.lost_and_found.client_id })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/prod/OIDC_CLIENT_ID"
-      },
-      "lost_and_found_prod_oidc_client_secret": {
-        "data_json": "${jsonencode({ value = keycloak_openid_client.lost_and_found.client_secret })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/prod/OIDC_CLIENT_SECRET"
-      },
-      "lost_and_found_prod_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost/admins\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/prod/PROJECT_ADMIN_GROUP"
-      },
-      "lost_and_found_prod_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/prod/PROJECT_GROUP"
-      },
-      "lost_and_found_staging_keycloak_realm": {
-        "data_json": "${jsonencode({ value = \"scottylabs\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/staging/KEYCLOAK_REALM"
-      },
-      "lost_and_found_staging_keycloak_url": {
-        "data_json": "${jsonencode({ value = \"https://idp.scottylabs.org\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/staging/KEYCLOAK_URL"
-      },
-      "lost_and_found_staging_oauth_relay_url": {
-        "data_json": "${jsonencode({ value = \"https://oauth.scottylabs.org/oauth2/callback\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/staging/OAUTH_RELAY_URL"
-      },
-      "lost_and_found_staging_oidc_client_id": {
-        "data_json": "${jsonencode({ value = keycloak_openid_client.lost_and_found_staging.client_id })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/staging/OIDC_CLIENT_ID"
-      },
-      "lost_and_found_staging_oidc_client_secret": {
-        "data_json": "${jsonencode({ value = keycloak_openid_client.lost_and_found_staging.client_secret })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/staging/OIDC_CLIENT_SECRET"
-      },
-      "lost_and_found_staging_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost/admins\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/staging/PROJECT_ADMIN_GROUP"
-      },
-      "lost_and_found_staging_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost\" })}",
-        "mount": "secret",
-        "name": "secretspec/lost-and-found/staging/PROJECT_GROUP"
       },
       "lost_and_found_v2_dev_keycloak_realm": {
         "data_json": "${jsonencode({ value = \"scottylabs\" })}",

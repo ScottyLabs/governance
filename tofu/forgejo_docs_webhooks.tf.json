@@ -22,39 +22,6 @@
       ],
       "type": "forgejo"
     },
-    "devops_infrastructure_docs_webhook_data": {
-      "active": true,
-      "config": {
-        "content_type": "json",
-        "url": "${var.docs_webhook_url}"
-      },
-      "events": [
-        "push"
-      ],
-      "type": "forgejo"
-    },
-    "lost-and-found_lost_and_found_docs_webhook_data": {
-      "active": true,
-      "config": {
-        "content_type": "json",
-        "url": "${var.docs_webhook_url}"
-      },
-      "events": [
-        "push"
-      ],
-      "type": "forgejo"
-    },
-    "lost-and-found_lost_and_found_v2_docs_webhook_data": {
-      "active": true,
-      "config": {
-        "content_type": "json",
-        "url": "${var.docs_webhook_url}"
-      },
-      "events": [
-        "push"
-      ],
-      "type": "forgejo"
-    },
     "tartan-vote_tartan_vote_docs_webhook_data": {
       "active": true,
       "config": {
@@ -85,33 +52,6 @@
         ],
         "id_attribute": "id",
         "path": "/api/v1/repos/ScottyLabs/housing/hooks",
-        "update_method": "PATCH"
-      },
-      "devops_infrastructure_docs_webhook": {
-        "data": "${jsonencode(local.devops_infrastructure_docs_webhook_data)}",
-        "depends_on": [
-          "forgejo_repository.devops_infrastructure"
-        ],
-        "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/infrastructure/hooks",
-        "update_method": "PATCH"
-      },
-      "lost-and-found_lost_and_found_docs_webhook": {
-        "data": "${jsonencode(local.lost-and-found_lost_and_found_docs_webhook_data)}",
-        "depends_on": [
-          "forgejo_repository.lost-and-found_lost_and_found"
-        ],
-        "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/lost-and-found/hooks",
-        "update_method": "PATCH"
-      },
-      "lost-and-found_lost_and_found_v2_docs_webhook": {
-        "data": "${jsonencode(local.lost-and-found_lost_and_found_v2_docs_webhook_data)}",
-        "depends_on": [
-          "forgejo_repository.lost-and-found_lost_and_found_v2"
-        ],
-        "id_attribute": "id",
-        "path": "/api/v1/repos/ScottyLabs/lost-and-found-v2/hooks",
         "update_method": "PATCH"
       },
       "tartan-vote_tartan_vote_docs_webhook": {
