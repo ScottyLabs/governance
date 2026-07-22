@@ -19,7 +19,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      - uses: ScottyLabs/devenv/.forgejo/actions/prepare@main
+      - uses: https://codeberg.org/ScottyLabs/devenv/.forgejo/actions/prepare@main
 
       - name: Validate
         run: devenv shell -- cargo run -q -p governance -- validate
