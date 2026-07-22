@@ -21,9 +21,6 @@ pub fn validate(data: &GovernanceData) -> Vec<ValidationError> {
     errors
 }
 
-// Secrets live at secretspec/{repo.name}, but the OpenBao policy is keyed by the
-// group slug (openbao.rs), so they align only when the slug equals the repo name.
-// devops manages Vault by hand and is exempt.
 fn validate_secret_namespaces(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
     for team in &data.teams {
         if team.team.group.slug == "devops" {

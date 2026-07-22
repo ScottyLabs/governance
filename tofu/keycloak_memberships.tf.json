@@ -139,8 +139,8 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_cmu-housing": {
-        "group_id": "${keycloak_group.project_cmu-housing.id}",
+      "project_cmu-housing_housing": {
+        "group_id": "${keycloak_group.project_cmu-housing_housing.id}",
         "members": [
           "${data.external.identity_gostmeaper.result.cmu-saml}",
           "${data.external.identity_ecstaticpilot.result.cmu-saml}",
@@ -155,8 +155,8 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_cmu-housing_admins": {
-        "group_id": "${keycloak_group.project_cmu-housing_admins.id}",
+      "project_cmu-housing_housing_admins": {
+        "group_id": "${keycloak_group.project_cmu-housing_housing_admins.id}",
         "members": [
           "${data.external.identity_gostmeaper.result.cmu-saml}",
           "${data.external.identity_ecstaticpilot.result.cmu-saml}",
@@ -254,15 +254,15 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_lost-and-found_lost": {
-        "group_id": "${keycloak_group.project_lost-and-found_lost.id}",
+      "project_lost-and-found_lost-and-found-v2": {
+        "group_id": "${keycloak_group.project_lost-and-found_lost-and-found-v2.id}",
         "members": [
           "${data.external.identity_leonliu368.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_lost-and-found_lost_admins": {
-        "group_id": "${keycloak_group.project_lost-and-found_lost_admins.id}",
+      "project_lost-and-found_lost-and-found-v2_admins": {
+        "group_id": "${keycloak_group.project_lost-and-found_lost-and-found-v2_admins.id}",
         "members": [
           "${data.external.identity_leonliu368.result.cmu-saml}"
         ],

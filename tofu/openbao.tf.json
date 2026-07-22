@@ -29,20 +29,6 @@
         ],
         "type": "external"
       },
-      "cmu-housing_admins": {
-        "name": "cmu-housing-admins",
-        "policies": [
-          "cmu-housing-prod"
-        ],
-        "type": "external"
-      },
-      "cmu-housing_members": {
-        "name": "cmu-housing-members",
-        "policies": [
-          "cmu-housing-dev"
-        ],
-        "type": "external"
-      },
       "cmugpt-agent_admins": {
         "name": "cmugpt-agent-admins",
         "policies": [
@@ -183,6 +169,20 @@
         ],
         "type": "external"
       },
+      "housing_admins": {
+        "name": "housing-admins",
+        "policies": [
+          "housing-prod"
+        ],
+        "type": "external"
+      },
+      "housing_members": {
+        "name": "housing-members",
+        "policies": [
+          "housing-dev"
+        ],
+        "type": "external"
+      },
       "link-shortener_admins": {
         "name": "link-shortener-admins",
         "policies": [
@@ -197,17 +197,17 @@
         ],
         "type": "external"
       },
-      "lost_admins": {
-        "name": "lost-admins",
+      "lost-and-found-v2_admins": {
+        "name": "lost-and-found-v2-admins",
         "policies": [
-          "lost-prod"
+          "lost-and-found-v2-prod"
         ],
         "type": "external"
       },
-      "lost_members": {
-        "name": "lost-members",
+      "lost-and-found-v2_members": {
+        "name": "lost-and-found-v2-members",
         "policies": [
-          "lost-dev"
+          "lost-and-found-v2-dev"
         ],
         "type": "external"
       },
@@ -317,16 +317,6 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/cal"
       },
-      "cmu-housing_admins": {
-        "canonical_id": "${vault_identity_group.cmu-housing_admins.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/cmu-housing/admins"
-      },
-      "cmu-housing_members": {
-        "canonical_id": "${vault_identity_group.cmu-housing_members.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/cmu-housing"
-      },
       "cmugpt-agent_admins": {
         "canonical_id": "${vault_identity_group.cmugpt-agent_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -427,6 +417,16 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/groupme-mirror"
       },
+      "housing_admins": {
+        "canonical_id": "${vault_identity_group.housing_admins.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/housing/admins"
+      },
+      "housing_members": {
+        "canonical_id": "${vault_identity_group.housing_members.id}",
+        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
+        "name": "/projects/housing"
+      },
       "link-shortener_admins": {
         "canonical_id": "${vault_identity_group.link-shortener_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -437,15 +437,15 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/link-shortener"
       },
-      "lost_admins": {
-        "canonical_id": "${vault_identity_group.lost_admins.id}",
+      "lost-and-found-v2_admins": {
+        "canonical_id": "${vault_identity_group.lost-and-found-v2_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/lost/admins"
+        "name": "/projects/lost-and-found-v2/admins"
       },
-      "lost_members": {
-        "canonical_id": "${vault_identity_group.lost_members.id}",
+      "lost-and-found-v2_members": {
+        "canonical_id": "${vault_identity_group.lost-and-found-v2_members.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/lost"
+        "name": "/projects/lost-and-found-v2"
       },
       "maps_admins": {
         "canonical_id": "${vault_identity_group.maps_admins.id}",
@@ -524,14 +524,6 @@
       "cal_prod": {
         "name": "cal-prod",
         "policy": "path \"secret/data/secretspec/cal/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cal/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cal/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cal/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "cmu-housing_dev": {
-        "name": "cmu-housing-dev",
-        "policy": "path \"secret/data/secretspec/cmu-housing/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-housing/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "cmu-housing_prod": {
-        "name": "cmu-housing-prod",
-        "policy": "path \"secret/data/secretspec/cmu-housing/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/cmu-housing/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/cmu-housing/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "cmugpt-agent_dev": {
         "name": "cmugpt-agent-dev",
@@ -613,6 +605,14 @@
         "name": "groupme-mirror-prod",
         "policy": "path \"secret/data/secretspec/groupme-mirror/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/groupme-mirror/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/groupme-mirror/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/groupme-mirror/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
+      "housing_dev": {
+        "name": "housing-dev",
+        "policy": "path \"secret/data/secretspec/housing/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/housing/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/housing/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/housing/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
+      "housing_prod": {
+        "name": "housing-prod",
+        "policy": "path \"secret/data/secretspec/housing/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/housing/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/housing/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/housing/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      },
       "link-shortener_dev": {
         "name": "link-shortener-dev",
         "policy": "path \"secret/data/secretspec/link-shortener/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/link-shortener/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
@@ -621,13 +621,13 @@
         "name": "link-shortener-prod",
         "policy": "path \"secret/data/secretspec/link-shortener/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/link-shortener/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/link-shortener/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
-      "lost_dev": {
-        "name": "lost-dev",
-        "policy": "path \"secret/data/secretspec/lost/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/lost/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/lost/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/lost/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      "lost-and-found-v2_dev": {
+        "name": "lost-and-found-v2-dev",
+        "policy": "path \"secret/data/secretspec/lost-and-found-v2/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/lost-and-found-v2/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/lost-and-found-v2/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/lost-and-found-v2/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
-      "lost_prod": {
-        "name": "lost-prod",
-        "policy": "path \"secret/data/secretspec/lost/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/lost/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/lost/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/lost/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
+      "lost-and-found-v2_prod": {
+        "name": "lost-and-found-v2-prod",
+        "policy": "path \"secret/data/secretspec/lost-and-found-v2/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/lost-and-found-v2/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/lost-and-found-v2/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/lost-and-found-v2/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "maps_dev": {
         "name": "maps-dev",

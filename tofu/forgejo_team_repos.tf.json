@@ -100,15 +100,6 @@
         "repository": "housing",
         "team_id": "${forgejo_team.cmu-housing.id}"
       },
-      "cmu-housing_leads_housing": {
-        "depends_on": [
-          "forgejo_repository.cmu-housing_housing",
-          "forgejo_team.cmu-housing_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "housing",
-        "team_id": "${forgejo_team.cmu-housing_leads.id}"
-      },
       "cmu-maps_maps": {
         "depends_on": [
           "forgejo_repository.cmu-maps_maps",
@@ -325,6 +316,15 @@
         "repository": "groupme-mirror",
         "team_id": "${forgejo_team.groupme-mirror_leads.id}"
       },
+      "housing_leads_housing": {
+        "depends_on": [
+          "forgejo_repository.cmu-housing_housing",
+          "forgejo_team.housing_leads"
+        ],
+        "owner": "ScottyLabs",
+        "repository": "housing",
+        "team_id": "${forgejo_team.housing_leads.id}"
+      },
       "link-shortener_leads_link_shortener": {
         "depends_on": [
           "forgejo_repository.devops_link_shortener",
@@ -334,14 +334,14 @@
         "repository": "link-shortener",
         "team_id": "${forgejo_team.link-shortener_leads.id}"
       },
-      "lost-and-found_lost_and_found": {
+      "lost-and-found-v2_leads_lost_and_found_v2": {
         "depends_on": [
-          "forgejo_repository.lost-and-found_lost_and_found",
-          "forgejo_team.lost-and-found"
+          "forgejo_repository.lost-and-found_lost_and_found_v2",
+          "forgejo_team.lost-and-found-v2_leads"
         ],
         "owner": "ScottyLabs",
-        "repository": "lost-and-found",
-        "team_id": "${forgejo_team.lost-and-found.id}"
+        "repository": "lost-and-found-v2",
+        "team_id": "${forgejo_team.lost-and-found-v2_leads.id}"
       },
       "lost-and-found_lost_and_found_v2": {
         "depends_on": [
@@ -351,24 +351,6 @@
         "owner": "ScottyLabs",
         "repository": "lost-and-found-v2",
         "team_id": "${forgejo_team.lost-and-found.id}"
-      },
-      "lost_leads_lost_and_found": {
-        "depends_on": [
-          "forgejo_repository.lost-and-found_lost_and_found",
-          "forgejo_team.lost_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "lost-and-found",
-        "team_id": "${forgejo_team.lost_leads.id}"
-      },
-      "lost_leads_lost_and_found_v2": {
-        "depends_on": [
-          "forgejo_repository.lost-and-found_lost_and_found_v2",
-          "forgejo_team.lost_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "lost-and-found-v2",
-        "team_id": "${forgejo_team.lost_leads.id}"
       },
       "maps_leads_maps": {
         "depends_on": [

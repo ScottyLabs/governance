@@ -71,14 +71,14 @@
         "parent_id": "${keycloak_group.project_cmu-courses_courses.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_cmu-housing": {
-        "name": "cmu-housing",
+      "project_cmu-housing_housing": {
+        "name": "housing",
         "parent_id": "${keycloak_group.projects.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_cmu-housing_admins": {
+      "project_cmu-housing_housing_admins": {
         "name": "admins",
-        "parent_id": "${keycloak_group.project_cmu-housing.id}",
+        "parent_id": "${keycloak_group.project_cmu-housing_housing.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-maps_maps": {
@@ -131,14 +131,14 @@
         "parent_id": "${keycloak_group.project_devops_observability.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_lost-and-found_lost": {
-        "name": "lost",
+      "project_lost-and-found_lost-and-found-v2": {
+        "name": "lost-and-found-v2",
         "parent_id": "${keycloak_group.projects.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_lost-and-found_lost_admins": {
+      "project_lost-and-found_lost-and-found-v2_admins": {
         "name": "admins",
-        "parent_id": "${keycloak_group.project_lost-and-found_lost.id}",
+        "parent_id": "${keycloak_group.project_lost-and-found_lost-and-found-v2.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_quest": {

@@ -89,18 +89,6 @@
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_jessica_lr_song.result.codeberg}"
       },
-      "cmu-housing_leads_ecstaticpilot": {
-        "team_id": "${forgejo_team.cmu-housing_leads.id}",
-        "user": "${data.external.identity_ecstaticpilot.result.codeberg}"
-      },
-      "cmu-housing_leads_gostmeaper": {
-        "team_id": "${forgejo_team.cmu-housing_leads.id}",
-        "user": "${data.external.identity_gostmeaper.result.codeberg}"
-      },
-      "cmu-housing_leads_tentype": {
-        "team_id": "${forgejo_team.cmu-housing_leads.id}",
-        "user": "${data.external.identity_tentype.result.codeberg}"
-      },
       "cmu-housing_manrajs": {
         "team_id": "${forgejo_team.cmu-housing.id}",
         "user": "${data.external.identity_manrajs.result.codeberg}"
@@ -221,6 +209,18 @@
         "team_id": "${forgejo_team.groupme-mirror_leads.id}",
         "user": "${data.external.identity_tentype.result.codeberg}"
       },
+      "housing_leads_ecstaticpilot": {
+        "team_id": "${forgejo_team.housing_leads.id}",
+        "user": "${data.external.identity_ecstaticpilot.result.codeberg}"
+      },
+      "housing_leads_gostmeaper": {
+        "team_id": "${forgejo_team.housing_leads.id}",
+        "user": "${data.external.identity_gostmeaper.result.codeberg}"
+      },
+      "housing_leads_tentype": {
+        "team_id": "${forgejo_team.housing_leads.id}",
+        "user": "${data.external.identity_tentype.result.codeberg}"
+      },
       "link-shortener_leads_anish": {
         "team_id": "${forgejo_team.link-shortener_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
@@ -229,12 +229,12 @@
         "team_id": "${forgejo_team.link-shortener_leads.id}",
         "user": "${data.external.identity_thesuperrl.result.codeberg}"
       },
-      "lost-and-found_leonliu368": {
-        "team_id": "${forgejo_team.lost-and-found.id}",
+      "lost-and-found-v2_leads_leonliu368": {
+        "team_id": "${forgejo_team.lost-and-found-v2_leads.id}",
         "user": "${data.external.identity_leonliu368.result.codeberg}"
       },
-      "lost_leads_leonliu368": {
-        "team_id": "${forgejo_team.lost_leads.id}",
+      "lost-and-found_leonliu368": {
+        "team_id": "${forgejo_team.lost-and-found.id}",
         "user": "${data.external.identity_leonliu368.result.codeberg}"
       },
       "maps_leads_anish": {

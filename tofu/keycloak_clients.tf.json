@@ -1454,12 +1454,12 @@
         "name": "secretspec/housing/dev/OIDC_CLIENT_SECRET"
       },
       "housing_dev_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-housing/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/housing/admins\" })}",
         "mount": "secret",
         "name": "secretspec/housing/dev/PROJECT_ADMIN_GROUP"
       },
       "housing_dev_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-housing\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/housing\" })}",
         "mount": "secret",
         "name": "secretspec/housing/dev/PROJECT_GROUP"
       },
@@ -1489,12 +1489,12 @@
         "name": "secretspec/housing/preview/OIDC_CLIENT_SECRET"
       },
       "housing_preview_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-housing/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/housing/admins\" })}",
         "mount": "secret",
         "name": "secretspec/housing/preview/PROJECT_ADMIN_GROUP"
       },
       "housing_preview_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-housing\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/housing\" })}",
         "mount": "secret",
         "name": "secretspec/housing/preview/PROJECT_GROUP"
       },
@@ -1524,12 +1524,12 @@
         "name": "secretspec/housing/prod/OIDC_CLIENT_SECRET"
       },
       "housing_prod_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-housing/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/housing/admins\" })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/PROJECT_ADMIN_GROUP"
       },
       "housing_prod_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-housing\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/housing\" })}",
         "mount": "secret",
         "name": "secretspec/housing/prod/PROJECT_GROUP"
       },
@@ -1559,12 +1559,12 @@
         "name": "secretspec/housing/staging/OIDC_CLIENT_SECRET"
       },
       "housing_staging_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-housing/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/housing/admins\" })}",
         "mount": "secret",
         "name": "secretspec/housing/staging/PROJECT_ADMIN_GROUP"
       },
       "housing_staging_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/cmu-housing\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/housing\" })}",
         "mount": "secret",
         "name": "secretspec/housing/staging/PROJECT_GROUP"
       },
@@ -1734,12 +1734,12 @@
         "name": "secretspec/lost-and-found-v2/dev/OIDC_CLIENT_SECRET"
       },
       "lost_and_found_v2_dev_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/lost-and-found-v2/admins\" })}",
         "mount": "secret",
         "name": "secretspec/lost-and-found-v2/dev/PROJECT_ADMIN_GROUP"
       },
       "lost_and_found_v2_dev_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/lost-and-found-v2\" })}",
         "mount": "secret",
         "name": "secretspec/lost-and-found-v2/dev/PROJECT_GROUP"
       },
@@ -1769,12 +1769,12 @@
         "name": "secretspec/lost-and-found-v2/preview/OIDC_CLIENT_SECRET"
       },
       "lost_and_found_v2_preview_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/lost-and-found-v2/admins\" })}",
         "mount": "secret",
         "name": "secretspec/lost-and-found-v2/preview/PROJECT_ADMIN_GROUP"
       },
       "lost_and_found_v2_preview_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/lost-and-found-v2\" })}",
         "mount": "secret",
         "name": "secretspec/lost-and-found-v2/preview/PROJECT_GROUP"
       },
@@ -1804,12 +1804,12 @@
         "name": "secretspec/lost-and-found-v2/prod/OIDC_CLIENT_SECRET"
       },
       "lost_and_found_v2_prod_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/lost-and-found-v2/admins\" })}",
         "mount": "secret",
         "name": "secretspec/lost-and-found-v2/prod/PROJECT_ADMIN_GROUP"
       },
       "lost_and_found_v2_prod_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/lost-and-found-v2\" })}",
         "mount": "secret",
         "name": "secretspec/lost-and-found-v2/prod/PROJECT_GROUP"
       },
@@ -1839,12 +1839,12 @@
         "name": "secretspec/lost-and-found-v2/staging/OIDC_CLIENT_SECRET"
       },
       "lost_and_found_v2_staging_project_admin_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost/admins\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/lost-and-found-v2/admins\" })}",
         "mount": "secret",
         "name": "secretspec/lost-and-found-v2/staging/PROJECT_ADMIN_GROUP"
       },
       "lost_and_found_v2_staging_project_group": {
-        "data_json": "${jsonencode({ value = \"/projects/lost\" })}",
+        "data_json": "${jsonencode({ value = \"/projects/lost-and-found-v2\" })}",
         "mount": "secret",
         "name": "secretspec/lost-and-found-v2/staging/PROJECT_GROUP"
       },

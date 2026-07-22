@@ -6,12 +6,12 @@ leads = ["LeonLiu368"]
 
 [[team.projects]]
 name = "Lost and Found"
-slug = "lost-and-found"
+slug = "lost-and-found-v2"
 description = "Official Carnegie Mellon University platform for reporting, managing, and finding lost items"
 public_url = "https://lostandfound.andrew.cmu.edu/"
 
 [[team.projects.repos]]
-name = "lost-and-found"
+name = "lost-and-found-v2"
 features = { oidc_client = {}, cdn = {} }
 
 [[team.channels]]

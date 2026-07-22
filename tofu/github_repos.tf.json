@@ -69,10 +69,6 @@
         "enabled": false,
         "repository": "${github_repository.devops_observability.name}"
       },
-      "lost-and-found_lost_and_found_actions": {
-        "enabled": false,
-        "repository": "${github_repository.lost-and-found_lost_and_found.name}"
-      },
       "lost-and-found_lost_and_found_v2_actions": {
         "enabled": false,
         "repository": "${github_repository.lost-and-found_lost_and_found_v2.name}"
@@ -285,16 +281,6 @@
         "name": "observability",
         "visibility": "public"
       },
-      "lost-and-found_lost_and_found": {
-        "description": "READ-ONLY MIRROR",
-        "has_discussions": false,
-        "has_issues": false,
-        "has_projects": false,
-        "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/lost-and-found",
-        "name": "lost-and-found",
-        "visibility": "public"
-      },
       "lost-and-found_lost_and_found_v2": {
         "description": "READ-ONLY MIRROR",
         "has_discussions": false,
@@ -497,12 +483,6 @@
         "key": "${restapi_object.devops_observability_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_observability.name}",
-        "title": "Codeberg Mirroring"
-      },
-      "lost-and-found_lost_and_found_mirror_deploy_key": {
-        "key": "${restapi_object.lost-and-found_lost_and_found_push_mirror.api_data.public_key}",
-        "read_only": false,
-        "repository": "${github_repository.lost-and-found_lost_and_found.name}",
         "title": "Codeberg Mirroring"
       },
       "lost-and-found_lost_and_found_v2_mirror_deploy_key": {
@@ -1066,36 +1046,6 @@
         "enforcement": "active",
         "name": "Default",
         "repository": "${github_repository.devops_observability.name}",
-        "rules": {
-          "creation": true,
-          "deletion": true,
-          "non_fast_forward": true,
-          "pull_request": {
-            "required_approving_review_count": 1
-          },
-          "update": true
-        },
-        "target": "branch"
-      },
-      "lost-and-found_lost_and_found_ruleset": {
-        "bypass_actors": [
-          {
-            "actor_id": "${tonumber(element(split(\":\", github_repository_deploy_key.lost-and-found_lost_and_found_mirror_deploy_key.id), 1))}",
-            "actor_type": "DeployKey",
-            "bypass_mode": "always"
-          }
-        ],
-        "conditions": {
-          "ref_name": {
-            "exclude": [],
-            "include": [
-              "~ALL"
-            ]
-          }
-        },
-        "enforcement": "active",
-        "name": "Default",
-        "repository": "${github_repository.lost-and-found_lost_and_found.name}",
         "rules": {
           "creation": true,
           "deletion": true,

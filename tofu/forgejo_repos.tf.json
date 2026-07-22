@@ -239,20 +239,6 @@
         "private": false,
         "website": "https://grafana.scottylabs.org"
       },
-      "lost-and-found_lost_and_found": {
-        "auto_init": true,
-        "default_branch": "main",
-        "description": "Official Carnegie Mellon University platform for reporting, managing, and finding lost items",
-        "lifecycle": {
-          "ignore_changes": [
-            "clone_addr"
-          ]
-        },
-        "name": "lost-and-found",
-        "owner": "ScottyLabs",
-        "private": false,
-        "website": "https://lostandfound.andrew.cmu.edu/"
-      },
       "lost-and-found_lost_and_found_v2": {
         "auto_init": true,
         "default_branch": "main",
