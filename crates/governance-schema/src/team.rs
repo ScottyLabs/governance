@@ -81,6 +81,17 @@ pub struct Features {
     pub docs: Option<DocsFeature>,
 }
 
+impl Features {
+    // True when the repo provisions secrets into its secretspec namespace
+    pub fn writes_secrets(&self) -> bool {
+        self.oidc_client.is_some()
+            || self.cdn.is_some()
+            || self.posthog.is_some()
+            || self.sentry.is_some()
+            || self.ai_gateway.is_some()
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct KennelFeature {}

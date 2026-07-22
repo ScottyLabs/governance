@@ -38,6 +38,12 @@ pub enum ValidationError {
     #[error("team {team}: lead {lead} also listed as member")]
     LeadAlsoMember { team: String, lead: String },
 
+    #[error("repo {repo}: secrets at secretspec/{repo} but policy grants secretspec/{policy}")]
+    SecretNamespaceMismatch { repo: String, policy: String },
+
+    #[error("repo {repo} in team {team} writes secrets but has no policy")]
+    SecretHasNoPolicy { repo: String, team: String },
+
     #[error("forge not configured: {0}")]
     ForgeNotConfigured(String),
 

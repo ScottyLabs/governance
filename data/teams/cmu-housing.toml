@@ -1,8 +1,6 @@
 [team]
 name = "CMU Housing"
 slug = "cmu-housing"
-description = "Helping students discover housing options at CMU"
-public_url = "https://cmuhousing.com"
 leads = ["gostmeaper", "ecstaticpilot", "tentype"]
 members = [
     "amzoeee",
@@ -14,17 +12,23 @@ members = [
     "rohansen08",
 ]
 
-[[team.repos]]
+[[team.projects]]
+name = "CMU Housing"
+slug = "housing"
+description = "Helping students discover housing options at CMU"
+public_url = "https://cmuhousing.com"
+
+[[team.projects.repos]]
 name = "housing"
 
-[team.repos.features]
+[team.projects.repos.features]
 kennel = {}
 posthog = {}
 oidc_client = {}
 cdn = {}
 docs = {}
 
-[team.repos.features.sentry]
+[team.projects.repos.features.sentry]
 platform = "deno"
 
 [[team.channels]]

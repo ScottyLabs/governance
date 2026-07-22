@@ -12,12 +12,55 @@ pub fn validate(data: &GovernanceData) -> Vec<ValidationError> {
 
     validate_team_slugs(data, &mut errors);
     validate_repo_names(data, &mut errors);
+    validate_secret_namespaces(data, &mut errors);
     validate_groups(data, &mut errors);
     validate_channels(data, &mut errors);
     validate_identities(data, &mut errors);
     validate_matrix(data, &mut errors);
 
     errors
+}
+
+// Secrets live at secretspec/{repo.name}, but the OpenBao policy is keyed by the
+// group slug (openbao.rs), so they align only when the slug equals the repo name.
+// devops manages Vault by hand and is exempt.
+fn validate_secret_namespaces(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
+    for team in &data.teams {
+        if team.team.group.slug == "devops" {
+            continue;
+        }
+        if team.team.projects.is_empty() {
+            let ns = team.team.group.slug.as_str();
+            for repo in &team.team.group.repos {
+                if repo.features.writes_secrets() && repo.name != ns {
+                    errors.push(ValidationError::SecretNamespaceMismatch {
+                        repo: repo.name.clone(),
+                        policy: ns.to_string(),
+                    });
+                }
+            }
+        } else {
+            for repo in &team.team.group.repos {
+                if repo.features.writes_secrets() {
+                    errors.push(ValidationError::SecretHasNoPolicy {
+                        repo: repo.name.clone(),
+                        team: team.team.group.slug.clone(),
+                    });
+                }
+            }
+            for project in &team.team.projects {
+                let ns = project.group.slug.as_str();
+                for repo in &project.group.repos {
+                    if repo.features.writes_secrets() && repo.name != ns {
+                        errors.push(ValidationError::SecretNamespaceMismatch {
+                            repo: repo.name.clone(),
+                            policy: ns.to_string(),
+                        });
+                    }
+                }
+            }
+        }
+    }
 }
 
 fn validate_team_slugs(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
