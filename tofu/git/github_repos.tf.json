@@ -110,6 +110,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/bus-sign",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "bus-sign",
         "visibility": "public"
       },
@@ -120,6 +125,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/dalmatian",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "dalmatian",
         "visibility": "public"
       },
@@ -130,6 +140,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/discord-verify",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "discord-verify",
         "visibility": "public"
       },
@@ -140,6 +155,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/groupme-mirror",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "groupme-mirror",
         "visibility": "public"
       },
@@ -150,6 +170,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/cal",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "cal",
         "visibility": "public"
       },
@@ -160,6 +185,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/courses",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "courses",
         "visibility": "public"
       },
@@ -170,6 +200,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/internet-archive",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "internet-archive",
         "visibility": "public"
       },
@@ -180,6 +215,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/housing",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "housing",
         "visibility": "public"
       },
@@ -190,6 +230,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/maps",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "maps",
         "visibility": "public"
       },
@@ -200,6 +245,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/collie",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "collie",
         "visibility": "public"
       },
@@ -210,6 +260,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/documentation",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "documentation",
         "visibility": "public"
       },
@@ -220,6 +275,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/governance",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "governance",
         "visibility": "public"
       },
@@ -230,6 +290,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/infrastructure",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "infrastructure",
         "visibility": "public"
       },
@@ -240,6 +305,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/kennel",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "kennel",
         "visibility": "public"
       },
@@ -250,6 +320,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/link-shortener",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "link-shortener",
         "visibility": "public"
       },
@@ -260,6 +335,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/lost-and-found-v2",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "lost-and-found-v2",
         "visibility": "public"
       },
@@ -270,6 +350,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/quest",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "quest",
         "visibility": "public"
       },
@@ -280,6 +365,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/cmugpt-agent",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "cmugpt-agent",
         "visibility": "public"
       },
@@ -290,6 +380,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/cmugpt-sms-surface",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "cmugpt-sms-surface",
         "visibility": "public"
       },
@@ -300,6 +395,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/cmugpt-surface",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "cmugpt-surface",
         "visibility": "public"
       },
@@ -310,6 +410,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/mcp-server",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "mcp-server",
         "visibility": "public"
       },
@@ -320,6 +425,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/tartan-vote",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "tartan-vote",
         "visibility": "public"
       },
@@ -330,6 +440,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/terrier",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "terrier",
         "visibility": "public"
       },
@@ -340,6 +455,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/components",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "components",
         "visibility": "public"
       },
@@ -350,6 +470,11 @@
         "has_projects": false,
         "has_wiki": false,
         "homepage_url": "https://codeberg.org/ScottyLabs/scottylabs-org",
+        "lifecycle": {
+          "ignore_changes": [
+            "template"
+          ]
+        },
         "name": "scottylabs-org",
         "visibility": "public"
       }
