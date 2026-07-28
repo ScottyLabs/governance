@@ -1,0 +1,63 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "tofu-state",
+        "endpoints": {
+          "s3": "https://s3.scottylabs.org"
+        },
+        "key": "governance/litellm.tfstate",
+        "region": "us-east-1",
+        "skip_credentials_validation": true,
+        "skip_metadata_api_check": true,
+        "skip_region_validation": true,
+        "skip_requesting_account_id": true,
+        "use_path_style": true
+      }
+    },
+    "required_providers": {
+      "litellm": {
+        "source": "registry.terraform.io/ncecere/litellm",
+        "version": "~> 2.0"
+      },
+      "vault": {
+        "source": "hashicorp/vault",
+        "version": "~> 5.0"
+      }
+    }
+  },
+  "provider": {
+    "litellm": {
+      "api_base": "${var.litellm_url}",
+      "api_key": "${data.vault_kv_secret_v2.litellm_master_key.data[\"MASTER_KEY\"]}"
+    },
+    "vault": {
+      "address": "${var.vault_addr}",
+      "auth_login": {
+        "parameters": {
+          "role_id": "${var.vault_approle_role_id}",
+          "secret_id": "${var.vault_approle_secret_id}"
+        },
+        "path": "auth/approle/login"
+      }
+    }
+  },
+  "variable": {
+    "litellm_url": {
+      "default": "https://litellm.scottylabs.org",
+      "type": "string"
+    },
+    "vault_addr": {
+      "default": "https://secrets.scottylabs.org",
+      "type": "string"
+    },
+    "vault_approle_role_id": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "vault_approle_secret_id": {
+      "sensitive": true,
+      "type": "string"
+    }
+  }
+}

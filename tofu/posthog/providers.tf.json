@@ -1,0 +1,71 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "tofu-state",
+        "endpoints": {
+          "s3": "https://s3.scottylabs.org"
+        },
+        "key": "governance/posthog.tfstate",
+        "region": "us-east-1",
+        "skip_credentials_validation": true,
+        "skip_metadata_api_check": true,
+        "skip_region_validation": true,
+        "skip_requesting_account_id": true,
+        "use_path_style": true
+      }
+    },
+    "required_providers": {
+      "posthog": {
+        "source": "PostHog/posthog",
+        "version": "~> 1.0"
+      },
+      "vault": {
+        "source": "hashicorp/vault",
+        "version": "~> 5.0"
+      }
+    }
+  },
+  "provider": {
+    "posthog": {
+      "api_key": "${var.posthog_token}",
+      "host": "${var.posthog_host}",
+      "organization_id": "${var.posthog_organization_id}"
+    },
+    "vault": {
+      "address": "${var.vault_addr}",
+      "auth_login": {
+        "parameters": {
+          "role_id": "${var.vault_approle_role_id}",
+          "secret_id": "${var.vault_approle_secret_id}"
+        },
+        "path": "auth/approle/login"
+      }
+    }
+  },
+  "variable": {
+    "posthog_host": {
+      "default": "https://us.posthog.com",
+      "type": "string"
+    },
+    "posthog_organization_id": {
+      "type": "string"
+    },
+    "posthog_token": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "vault_addr": {
+      "default": "https://secrets.scottylabs.org",
+      "type": "string"
+    },
+    "vault_approle_role_id": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "vault_approle_secret_id": {
+      "sensitive": true,
+      "type": "string"
+    }
+  }
+}

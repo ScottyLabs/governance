@@ -1,0 +1,75 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "tofu-state",
+        "endpoints": {
+          "s3": "https://s3.scottylabs.org"
+        },
+        "key": "governance/cdn.tfstate",
+        "region": "us-east-1",
+        "skip_credentials_validation": true,
+        "skip_metadata_api_check": true,
+        "skip_region_validation": true,
+        "skip_requesting_account_id": true,
+        "use_path_style": true
+      }
+    },
+    "required_providers": {
+      "garage": {
+        "source": "registry.terraform.io/jkossis/garage",
+        "version": "~> 1.0"
+      },
+      "vault": {
+        "source": "hashicorp/vault",
+        "version": "~> 5.0"
+      }
+    }
+  },
+  "provider": {
+    "garage": {
+      "endpoint": "${var.garage_admin_endpoint}",
+      "token": "${var.garage_admin_token}"
+    },
+    "vault": {
+      "address": "${var.vault_addr}",
+      "auth_login": {
+        "parameters": {
+          "role_id": "${var.vault_approle_role_id}",
+          "secret_id": "${var.vault_approle_secret_id}"
+        },
+        "path": "auth/approle/login"
+      }
+    }
+  },
+  "variable": {
+    "cdn_base_url": {
+      "default": "https://cdn.scottylabs.org",
+      "type": "string"
+    },
+    "garage_admin_endpoint": {
+      "default": "http://127.0.0.1:3903",
+      "type": "string"
+    },
+    "garage_admin_token": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "garage_s3_endpoint": {
+      "default": "https://s3.scottylabs.org",
+      "type": "string"
+    },
+    "vault_addr": {
+      "default": "https://secrets.scottylabs.org",
+      "type": "string"
+    },
+    "vault_approle_role_id": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "vault_approle_secret_id": {
+      "sensitive": true,
+      "type": "string"
+    }
+  }
+}

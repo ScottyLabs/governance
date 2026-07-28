@@ -1,3 +1,4 @@
+pub mod axes;
 pub mod codeowners;
 pub mod generators;
 pub mod projects;

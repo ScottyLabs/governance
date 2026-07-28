@@ -1,0 +1,81 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "tofu-state",
+        "endpoints": {
+          "s3": "https://s3.scottylabs.org"
+        },
+        "key": "governance/keycloak.tfstate",
+        "region": "us-east-1",
+        "skip_credentials_validation": true,
+        "skip_metadata_api_check": true,
+        "skip_region_validation": true,
+        "skip_requesting_account_id": true,
+        "use_path_style": true
+      }
+    },
+    "required_providers": {
+      "external": {
+        "source": "hashicorp/external",
+        "version": "~> 2.0"
+      },
+      "keycloak": {
+        "source": "keycloak/keycloak",
+        "version": "~> 5.0"
+      },
+      "vault": {
+        "source": "hashicorp/vault",
+        "version": "~> 5.0"
+      }
+    }
+  },
+  "provider": {
+    "keycloak": {
+      "client_id": "${var.keycloak_client_id}",
+      "client_secret": "${var.keycloak_client_secret}",
+      "realm": "${var.keycloak_realm}",
+      "url": "${var.keycloak_url}"
+    },
+    "vault": {
+      "address": "${var.vault_addr}",
+      "auth_login": {
+        "parameters": {
+          "role_id": "${var.vault_approle_role_id}",
+          "secret_id": "${var.vault_approle_secret_id}"
+        },
+        "path": "auth/approle/login"
+      }
+    }
+  },
+  "variable": {
+    "keycloak_client_id": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "keycloak_client_secret": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "keycloak_realm": {
+      "default": "scottylabs",
+      "type": "string"
+    },
+    "keycloak_url": {
+      "default": "https://idp.scottylabs.org",
+      "type": "string"
+    },
+    "vault_addr": {
+      "default": "https://secrets.scottylabs.org",
+      "type": "string"
+    },
+    "vault_approle_role_id": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "vault_approle_secret_id": {
+      "sensitive": true,
+      "type": "string"
+    }
+  }
+}

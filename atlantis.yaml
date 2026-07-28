@@ -1,7 +1,97 @@
 version: 3
+parallel_plan: true
+parallel_apply: true
 projects:
-  - name: governance
-    dir: tofu
+  - name: keycloak
+    dir: tofu/keycloak
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: git
+    dir: tofu/git
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: openbao
+    dir: tofu/openbao
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: google_groups
+    dir: tofu/google_groups
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: discord
+    dir: tofu/discord
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: slack
+    dir: tofu/slack
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: posthog
+    dir: tofu/posthog
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: sentry
+    dir: tofu/sentry
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: litellm
+    dir: tofu/litellm
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: vaultwarden
+    dir: tofu/vaultwarden
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: cdn
+    dir: tofu/cdn
+    autoplan:
+      enabled: true
+      when_modified:
+        - "*.tf"
+        - "*.tf.json"
+    apply_requirements: [mergeable, undiverged]
+  - name: matrix_bridges
+    dir: tofu/matrix_bridges
     autoplan:
       enabled: true
       when_modified:

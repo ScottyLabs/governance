@@ -1,4 +1,23 @@
 {
+  "data": {
+    "google_cloud_identity_group_lookup": {
+      "admin": {
+        "group_key": {
+          "id": "sl-admin@andrew.cmu.edu"
+        }
+      },
+      "ops": {
+        "group_key": {
+          "id": "sl-ops@andrew.cmu.edu"
+        }
+      },
+      "tech": {
+        "group_key": {
+          "id": "sl-tech@andrew.cmu.edu"
+        }
+      }
+    }
+  },
   "resource": {
     "google_cloud_identity_group_membership": {
       "admin_anish": {
@@ -504,25 +523,6 @@
             "name": "MEMBER"
           }
         ]
-      }
-    }
-  },
-  "data": {
-    "google_cloud_identity_group_lookup": {
-      "admin": {
-        "group_key": {
-          "id": "sl-admin@andrew.cmu.edu"
-        }
-      },
-      "ops": {
-        "group_key": {
-          "id": "sl-ops@andrew.cmu.edu"
-        }
-      },
-      "tech": {
-        "group_key": {
-          "id": "sl-tech@andrew.cmu.edu"
-        }
       }
     }
   }

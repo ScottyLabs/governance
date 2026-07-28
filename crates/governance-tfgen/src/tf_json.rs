@@ -6,12 +6,18 @@ use serde_json::Value;
 
 #[derive(Default, Serialize)]
 pub struct TfJsonFile {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub terraform: Option<Value>,
+    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
+    pub provider: BTreeMap<String, Value>,
+    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
+    pub variable: BTreeMap<String, Value>,
     #[serde(skip_serializing_if = "BTreeMap::is_empty")]
     pub locals: BTreeMap<String, Value>,
     #[serde(skip_serializing_if = "BTreeMap::is_empty")]
-    pub resource: BTreeMap<String, BTreeMap<String, Value>>,
-    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
     pub data: BTreeMap<String, BTreeMap<String, Value>>,
+    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
+    pub resource: BTreeMap<String, BTreeMap<String, Value>>,
 }
 
 impl TfJsonFile {
@@ -31,6 +37,18 @@ impl TfJsonFile {
             .entry(data_type.to_string())
             .or_default()
             .insert(name.to_string(), body);
+    }
+
+    pub fn set_terraform(&mut self, value: Value) {
+        self.terraform = Some(value);
+    }
+
+    pub fn add_provider(&mut self, name: &str, body: Value) {
+        self.provider.insert(name.to_string(), body);
+    }
+
+    pub fn add_variable(&mut self, name: &str, body: Value) {
+        self.variable.insert(name.to_string(), body);
     }
 
     pub fn write_to(&self, path: &Path) -> std::io::Result<()> {

@@ -296,6 +296,12 @@
     }
   },
   "resource": {
+    "random_password": {
+      "kennel_webhook_secret": {
+        "length": 64,
+        "special": false
+      }
+    },
     "restapi_object": {
       "cbp_bus_sign_kennel_webhook": {
         "data": "${jsonencode(local.cbp_bus_sign_kennel_webhook_data)}",

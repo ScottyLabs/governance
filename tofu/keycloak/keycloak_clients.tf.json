@@ -1,4 +1,12 @@
 {
+  "data": {
+    "keycloak_openid_client": {
+      "realm_management": {
+        "client_id": "realm-management",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      }
+    }
+  },
   "resource": {
     "keycloak_openid_client": {
       "cal": {
@@ -2407,14 +2415,6 @@
         "data_json": "${jsonencode({ value = \"/projects/terrier\" })}",
         "mount": "secret",
         "name": "secretspec/terrier/staging/PROJECT_GROUP"
-      }
-    }
-  },
-  "data": {
-    "keycloak_openid_client": {
-      "realm_management": {
-        "client_id": "realm-management",
-        "realm_id": "${data.keycloak_realm.this.id}"
       }
     }
   }

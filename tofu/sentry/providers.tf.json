@@ -1,0 +1,71 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "tofu-state",
+        "endpoints": {
+          "s3": "https://s3.scottylabs.org"
+        },
+        "key": "governance/sentry.tfstate",
+        "region": "us-east-1",
+        "skip_credentials_validation": true,
+        "skip_metadata_api_check": true,
+        "skip_region_validation": true,
+        "skip_requesting_account_id": true,
+        "use_path_style": true
+      }
+    },
+    "required_providers": {
+      "sentry": {
+        "source": "jianyuan/sentry",
+        "version": "~> 0.14.0"
+      },
+      "vault": {
+        "source": "hashicorp/vault",
+        "version": "~> 5.0"
+      }
+    }
+  },
+  "provider": {
+    "sentry": {
+      "base_url": "${var.sentry_base_url}",
+      "token": "${var.sentry_token}"
+    },
+    "vault": {
+      "address": "${var.vault_addr}",
+      "auth_login": {
+        "parameters": {
+          "role_id": "${var.vault_approle_role_id}",
+          "secret_id": "${var.vault_approle_secret_id}"
+        },
+        "path": "auth/approle/login"
+      }
+    }
+  },
+  "variable": {
+    "sentry_base_url": {
+      "default": "https://sentry.io/api/",
+      "type": "string"
+    },
+    "sentry_organization": {
+      "default": "scottylabs",
+      "type": "string"
+    },
+    "sentry_token": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "vault_addr": {
+      "default": "https://secrets.scottylabs.org",
+      "type": "string"
+    },
+    "vault_approle_role_id": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "vault_approle_secret_id": {
+      "sensitive": true,
+      "type": "string"
+    }
+  }
+}

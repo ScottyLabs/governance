@@ -1,0 +1,54 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "tofu-state",
+        "endpoints": {
+          "s3": "https://s3.scottylabs.org"
+        },
+        "key": "governance/vaultwarden.tfstate",
+        "region": "us-east-1",
+        "skip_credentials_validation": true,
+        "skip_metadata_api_check": true,
+        "skip_region_validation": true,
+        "skip_requesting_account_id": true,
+        "use_path_style": true
+      }
+    },
+    "required_providers": {
+      "bitwarden": {
+        "source": "registry.terraform.io/maxlaverse/bitwarden",
+        "version": "~> 0.8"
+      },
+      "external": {
+        "source": "hashicorp/external",
+        "version": "~> 2.0"
+      }
+    }
+  },
+  "provider": {
+    "bitwarden": {
+      "client_implementation": "embedded",
+      "email": "${var.vaultwarden_email}",
+      "experimental": {
+        "disable_sync_after_write_verification": true
+      },
+      "master_password": "${var.vaultwarden_master_password}",
+      "server": "${var.vaultwarden_url}"
+    }
+  },
+  "variable": {
+    "vaultwarden_email": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "vaultwarden_master_password": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "vaultwarden_url": {
+      "default": "https://vault.scottylabs.org",
+      "type": "string"
+    }
+  }
+}

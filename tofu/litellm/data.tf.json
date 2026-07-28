@@ -1,0 +1,10 @@
+{
+  "data": {
+    "vault_kv_secret_v2": {
+      "litellm_master_key": {
+        "mount": "secret",
+        "name": "infra/litellm-master-key"
+      }
+    }
+  }
+}

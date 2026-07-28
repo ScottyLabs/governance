@@ -5,7 +5,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -16,7 +16,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -27,7 +27,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -38,7 +38,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -49,7 +49,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -60,7 +60,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -71,7 +71,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -82,7 +82,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -93,7 +93,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -104,7 +104,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -115,7 +115,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -126,7 +126,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -137,7 +137,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -148,7 +148,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -159,7 +159,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -170,7 +170,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -181,7 +181,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -192,7 +192,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -203,7 +203,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -214,7 +214,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -225,7 +225,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -236,7 +236,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -247,7 +247,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -258,7 +258,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -269,7 +269,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -280,7 +280,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -291,7 +291,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -302,7 +302,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -313,7 +313,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {
@@ -324,7 +324,7 @@
         "program": [
           "governance",
           "--data-dir",
-          "../data",
+          "../../data",
           "resolve-identity"
         ],
         "query": {

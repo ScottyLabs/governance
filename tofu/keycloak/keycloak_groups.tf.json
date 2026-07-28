@@ -220,6 +220,10 @@
         "name": "admins",
         "parent_id": "${keycloak_group.project_uia_scottylabs-org.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "projects": {
+        "name": "projects",
+        "realm_id": "${data.keycloak_realm.this.id}"
       }
     }
   }

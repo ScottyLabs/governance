@@ -1,0 +1,9 @@
+{
+  "data": {
+    "keycloak_realm": {
+      "this": {
+        "realm": "scottylabs"
+      }
+    }
+  }
+}

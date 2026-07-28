@@ -8,4 +8,5 @@ cp .forgejo/CODEOWNERS /tmp/CODEOWNERS-old
 ./target/debug/governance schema --output-dir /tmp/schemas
 diff -r /tmp/tofu tofu/ --exclude='*.tf' --exclude='.gitignore'
 diff -r /tmp/schemas schemas/
+diff /tmp/atlantis.yaml atlantis.yaml
 diff /tmp/CODEOWNERS-old .forgejo/CODEOWNERS

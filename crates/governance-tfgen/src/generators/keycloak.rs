@@ -12,6 +12,15 @@ pub fn generate_groups(data: &GovernanceData) -> TfJsonFile {
     let realm_id = "${data.keycloak_realm.this.id}";
     let projects_id = "${keycloak_group.projects.id}".to_string();
 
+    tf.add_resource(
+        "keycloak_group",
+        "projects",
+        json!({
+            "realm_id": realm_id,
+            "name": "projects",
+        }),
+    );
+
     for team in &data.teams {
         let slug = &team.team.group.slug;
 

@@ -1,0 +1,85 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "tofu-state",
+        "endpoints": {
+          "s3": "https://s3.scottylabs.org"
+        },
+        "key": "governance/git.tfstate",
+        "region": "us-east-1",
+        "skip_credentials_validation": true,
+        "skip_metadata_api_check": true,
+        "skip_region_validation": true,
+        "skip_requesting_account_id": true,
+        "use_path_style": true
+      }
+    },
+    "required_providers": {
+      "external": {
+        "source": "hashicorp/external",
+        "version": "~> 2.0"
+      },
+      "forgejo": {
+        "source": "svalabs/forgejo",
+        "version": "~> 1.0"
+      },
+      "github": {
+        "source": "integrations/github",
+        "version": "~> 6.0"
+      },
+      "random": {
+        "source": "hashicorp/random",
+        "version": "~> 3.0"
+      },
+      "restapi": {
+        "source": "Mastercard/restapi",
+        "version": "~> 1.0"
+      }
+    }
+  },
+  "provider": {
+    "forgejo": {
+      "api_token": "${var.forgejo_token}",
+      "host": "${var.forgejo_url}"
+    },
+    "github": {
+      "owner": "${var.github_org}",
+      "token": "${var.github_token}"
+    },
+    "restapi": {
+      "headers": {
+        "Authorization": "token ${var.forgejo_token}",
+        "Content-Type": "application/json"
+      },
+      "uri": "${var.forgejo_url}",
+      "write_returns_object": true
+    }
+  },
+  "variable": {
+    "docs_webhook_url": {
+      "default": "https://webhooks.scottylabs.org/hooks/docs-diagrams",
+      "type": "string"
+    },
+    "forgejo_token": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "forgejo_url": {
+      "default": "https://codeberg.org",
+      "type": "string"
+    },
+    "github_org": {
+      "default": "ScottyLabs",
+      "type": "string"
+    },
+    "github_token": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "kennel_webhook_url": {
+      "default": "https://kennel.scottylabs.org/webhook",
+      "type": "string"
+    }
+  }
+}

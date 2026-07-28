@@ -36,39 +36,6 @@ pub fn generate_codeowners(data: &GovernanceData) -> String {
         .join("\n")
 }
 
-pub fn generate_observability_codeowners(data: &GovernanceData) -> String {
-    let td = &data.org.org.tech_director;
-    let td_handle = format!("@{td}");
-    let devops = team_owners(data, "devops", &td_handle).join(" ");
-
-    let header = [
-        "# AUTO-GENERATED".to_string(),
-        format!("* {devops}"),
-        format!("/dashboards/infra/ {devops}"),
-        format!("/alerts/infra/ {devops}"),
-    ];
-
-    let teams = data.teams.iter().flat_map(|team| {
-        let owners = team_lead_handles(&team.team.group, &td_handle).join(" ");
-        team.team
-            .repos()
-            .filter(|r| r.features.sentry.is_some())
-            .flat_map(move |repo| {
-                [
-                    format!("/dashboards/{}/ {owners}", repo.name),
-                    format!("/alerts/{}/ {owners}", repo.name),
-                ]
-            })
-    });
-
-    header
-        .into_iter()
-        .chain(teams)
-        .chain([String::new()])
-        .collect::<Vec<_>>()
-        .join("\n")
-}
-
 fn team_owners(data: &GovernanceData, slug: &str, td_handle: &str) -> Vec<String> {
     data.teams
         .iter()

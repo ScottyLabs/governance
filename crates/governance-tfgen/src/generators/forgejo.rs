@@ -212,6 +212,12 @@ pub fn generate_kennel_webhooks(data: &GovernanceData) -> TfJsonFile {
         return tf;
     };
 
+    tf.add_resource(
+        "random_password",
+        "kennel_webhook_secret",
+        json!({ "length": 64, "special": false }),
+    );
+
     for team in &data.teams {
         for repo in team.team.repos() {
             if !repo.features.kennel.is_some() {

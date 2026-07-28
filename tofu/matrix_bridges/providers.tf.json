@@ -1,0 +1,63 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "tofu-state",
+        "endpoints": {
+          "s3": "https://s3.scottylabs.org"
+        },
+        "key": "governance/matrix_bridges.tfstate",
+        "region": "us-east-1",
+        "skip_credentials_validation": true,
+        "skip_metadata_api_check": true,
+        "skip_region_validation": true,
+        "skip_requesting_account_id": true,
+        "use_path_style": true
+      }
+    },
+    "required_providers": {
+      "null": {
+        "source": "hashicorp/null",
+        "version": "~> 3.0"
+      },
+      "synapse": {
+        "source": "thesuperrl/synapse",
+        "version": "0.2.0"
+      }
+    }
+  },
+  "provider": {
+    "synapse": {
+      "admin_token": "${var.matrix_admin_token}",
+      "bridge_command_room_id": "${var.matrix_bridge_command_room_id}",
+      "domain": "${var.matrix_domain}",
+      "homeserver_url": "${var.matrix_homeserver_url}",
+      "slack_relay_login_id": "${var.matrix_slack_relay_login_id}",
+      "slack_team_id": "${try(local.matrix_slack_team_id, \"\")}"
+    }
+  },
+  "variable": {
+    "matrix_admin_token": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "matrix_bridge_command_room_id": {
+      "default": "",
+      "description": "Optional Matrix room ID for !discord create-portal when a portal is missing.",
+      "type": "string"
+    },
+    "matrix_domain": {
+      "default": "doggylabs.org",
+      "type": "string"
+    },
+    "matrix_homeserver_url": {
+      "default": "https://matrix.doggylabs.org",
+      "type": "string"
+    },
+    "matrix_slack_relay_login_id": {
+      "default": "",
+      "description": "mautrix-slack relay login ID from `list-logins` after `login app` in @slack",
+      "type": "string"
+    }
+  }
+}

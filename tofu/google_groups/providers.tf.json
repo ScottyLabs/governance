@@ -1,0 +1,47 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "tofu-state",
+        "endpoints": {
+          "s3": "https://s3.scottylabs.org"
+        },
+        "key": "governance/google_groups.tfstate",
+        "region": "us-east-1",
+        "skip_credentials_validation": true,
+        "skip_metadata_api_check": true,
+        "skip_region_validation": true,
+        "skip_requesting_account_id": true,
+        "use_path_style": true
+      }
+    },
+    "required_providers": {
+      "external": {
+        "source": "hashicorp/external",
+        "version": "~> 2.0"
+      },
+      "google": {
+        "source": "hashicorp/google",
+        "version": "~> 5.0"
+      }
+    }
+  },
+  "provider": {
+    "google": {
+      "billing_project": "${var.google_project_id}",
+      "credentials": "${var.google_credentials_json}",
+      "project": "${var.google_project_id}",
+      "user_project_override": true
+    }
+  },
+  "variable": {
+    "google_credentials_json": {
+      "sensitive": true,
+      "type": "string"
+    },
+    "google_project_id": {
+      "default": "sl-governance",
+      "type": "string"
+    }
+  }
+}

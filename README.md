@@ -59,7 +59,7 @@ The following is a list of platforms Governance manages:
 1. Google
    - Members are automatically added to ScottyLabs' and Tech's mailing lists (Google Groups)
 1. Sentry
-   - Projects are provisioned under [Sentry](https://scottylabs.sentry.io) and registered under ScottyLabs' [observability stack](https://codeberg.org/scottylabs/observability)
+   - Projects are provisioned under [Sentry](https://scottylabs.sentry.io)
 1. PostHog
    - Projects are provisioned under PostHog for product analytics
    - Leads of teams with a PostHog project are invited as organization members, and devops as owners
