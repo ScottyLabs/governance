@@ -90,6 +90,10 @@ provider "vault" {
     }
 }
 
+data "vault_auth_backend" "oidc" {
+    path = "oidc"
+}
+
 data "vault_kv_secret_v2" "litellm_master_key" {
     mount = "secret"
     name  = "infra/litellm-master-key"
@@ -108,6 +112,10 @@ provider "github" {
 provider "forgejo" {
     host      = var.forgejo_url
     api_token = var.forgejo_token
+}
+
+data "forgejo_organization" "this" {
+    name = "ScottyLabs"
 }
 
 provider "keycloak" {

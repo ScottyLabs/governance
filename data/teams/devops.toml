@@ -26,22 +26,9 @@ kennel = {}
 platform = "rust"
 
 [[team.repos]]
-name = "devenv"
-description = "Shared Nix development environment for ScottyLabs projects"
-
-[[team.repos]]
 name = "collie"
 description = "Traced, typed, effect-based agent kernel"
 features = { kennel = {}, ai_gateway = {} }
-
-[[team.projects]]
-name = "Observability"
-slug = "observability"
-description = "Grafana dashboards and alert rules for ScottyLabs services"
-public_url = "https://grafana.scottylabs.org"
-
-[[team.projects.repos]]
-name = "observability"
 
 [[team.projects]]
 name = "Documentation"

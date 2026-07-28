@@ -236,24 +236,6 @@
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_devops_observability": {
-        "group_id": "${keycloak_group.project_devops_observability.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperrl.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}"
-        ],
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "project_devops_observability_admins": {
-        "group_id": "${keycloak_group.project_devops_observability_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperrl.result.cmu-saml}"
-        ],
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
       "project_lost-and-found_lost-and-found-v2": {
         "group_id": "${keycloak_group.project_lost-and-found_lost-and-found-v2.id}",
         "members": [

@@ -141,20 +141,6 @@
         "private": false,
         "website": ""
       },
-      "devops_devenv": {
-        "auto_init": true,
-        "default_branch": "main",
-        "description": "Shared Nix development environment for ScottyLabs projects",
-        "lifecycle": {
-          "ignore_changes": [
-            "clone_addr"
-          ]
-        },
-        "name": "devenv",
-        "owner": "ScottyLabs",
-        "private": false,
-        "website": ""
-      },
       "devops_documentation": {
         "auto_init": true,
         "default_branch": "main",
@@ -224,20 +210,6 @@
         "owner": "ScottyLabs",
         "private": false,
         "website": "https://cmu.lol"
-      },
-      "devops_observability": {
-        "auto_init": true,
-        "default_branch": "main",
-        "description": "Grafana dashboards and alert rules for ScottyLabs services",
-        "lifecycle": {
-          "ignore_changes": [
-            "clone_addr"
-          ]
-        },
-        "name": "observability",
-        "owner": "ScottyLabs",
-        "private": false,
-        "website": "https://grafana.scottylabs.org"
       },
       "lost-and-found_lost_and_found_v2": {
         "auto_init": true,

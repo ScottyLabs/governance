@@ -225,20 +225,6 @@
         ],
         "type": "external"
       },
-      "observability_admins": {
-        "name": "observability-admins",
-        "policies": [
-          "observability-prod"
-        ],
-        "type": "external"
-      },
-      "observability_members": {
-        "name": "observability-members",
-        "policies": [
-          "observability-dev"
-        ],
-        "type": "external"
-      },
       "quest_admins": {
         "name": "quest-admins",
         "policies": [
@@ -457,16 +443,6 @@
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
         "name": "/projects/maps"
       },
-      "observability_admins": {
-        "canonical_id": "${vault_identity_group.observability_admins.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/observability/admins"
-      },
-      "observability_members": {
-        "canonical_id": "${vault_identity_group.observability_members.id}",
-        "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
-        "name": "/projects/observability"
-      },
       "quest_admins": {
         "canonical_id": "${vault_identity_group.quest_admins.id}",
         "mount_accessor": "${data.vault_auth_backend.oidc.accessor}",
@@ -636,14 +612,6 @@
       "maps_prod": {
         "name": "maps-prod",
         "policy": "path \"secret/data/secretspec/maps/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/maps/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/maps/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/maps/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "observability_dev": {
-        "name": "observability-dev",
-        "policy": "path \"secret/data/secretspec/observability/dev/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/observability/dev/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/observability/preview/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/observability/preview/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
-      },
-      "observability_prod": {
-        "name": "observability-prod",
-        "policy": "path \"secret/data/secretspec/observability/prod/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/observability/prod/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}\n\npath \"secret/data/secretspec/observability/staging/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}\n\npath \"secret/metadata/secretspec/observability/staging/*\" {\n  capabilities = [\"list\", \"read\", \"delete\"]\n}"
       },
       "quest_dev": {
         "name": "quest-dev",

@@ -249,14 +249,6 @@
         "team_id": "${forgejo_team.maps_leads.id}",
         "user": "${data.external.identity_xboxbedrock.result.codeberg}"
       },
-      "observability_leads_anish": {
-        "team_id": "${forgejo_team.observability_leads.id}",
-        "user": "${data.external.identity_anish.result.codeberg}"
-      },
-      "observability_leads_thesuperrl": {
-        "team_id": "${forgejo_team.observability_leads.id}",
-        "user": "${data.external.identity_thesuperrl.result.codeberg}"
-      },
       "quest_anish": {
         "team_id": "${forgejo_team.quest.id}",
         "user": "${data.external.identity_anish.result.codeberg}"

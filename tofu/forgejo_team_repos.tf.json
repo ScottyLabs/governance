@@ -181,15 +181,6 @@
         "repository": "collie",
         "team_id": "${forgejo_team.devops.id}"
       },
-      "devops_devenv": {
-        "depends_on": [
-          "forgejo_repository.devops_devenv",
-          "forgejo_team.devops"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "devenv",
-        "team_id": "${forgejo_team.devops.id}"
-      },
       "devops_documentation": {
         "depends_on": [
           "forgejo_repository.devops_documentation",
@@ -235,15 +226,6 @@
         "repository": "collie",
         "team_id": "${forgejo_team.devops_leads.id}"
       },
-      "devops_leads_devenv": {
-        "depends_on": [
-          "forgejo_repository.devops_devenv",
-          "forgejo_team.devops_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "devenv",
-        "team_id": "${forgejo_team.devops_leads.id}"
-      },
       "devops_leads_governance": {
         "depends_on": [
           "forgejo_repository.devops_governance",
@@ -278,15 +260,6 @@
         ],
         "owner": "ScottyLabs",
         "repository": "link-shortener",
-        "team_id": "${forgejo_team.devops.id}"
-      },
-      "devops_observability": {
-        "depends_on": [
-          "forgejo_repository.devops_observability",
-          "forgejo_team.devops"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "observability",
         "team_id": "${forgejo_team.devops.id}"
       },
       "discord-verify_leads_discord_verify": {
@@ -360,15 +333,6 @@
         "owner": "ScottyLabs",
         "repository": "maps",
         "team_id": "${forgejo_team.maps_leads.id}"
-      },
-      "observability_leads_observability": {
-        "depends_on": [
-          "forgejo_repository.devops_observability",
-          "forgejo_team.observability_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "observability",
-        "team_id": "${forgejo_team.observability_leads.id}"
       },
       "quest_leads_quest": {
         "depends_on": [

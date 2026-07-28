@@ -121,16 +121,6 @@
         "parent_id": "${keycloak_group.project_devops_link-shortener.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
-      "project_devops_observability": {
-        "name": "observability",
-        "parent_id": "${keycloak_group.projects.id}",
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
-      "project_devops_observability_admins": {
-        "name": "admins",
-        "parent_id": "${keycloak_group.project_devops_observability.id}",
-        "realm_id": "${data.keycloak_realm.this.id}"
-      },
       "project_lost-and-found_lost-and-found-v2": {
         "name": "lost-and-found-v2",
         "parent_id": "${keycloak_group.projects.id}",
