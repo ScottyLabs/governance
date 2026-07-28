@@ -34,6 +34,7 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                     "has_projects": false,
                     "has_wiki": false,
                     "has_discussions": false,
+                    "lifecycle": { "ignore_changes": ["template"] },
                 }),
             );
 
