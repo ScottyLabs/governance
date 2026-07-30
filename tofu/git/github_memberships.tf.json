@@ -156,6 +156,11 @@
         "team_id": "${github_team.quest.id}",
         "username": "${data.external.identity_anish.result.github}"
       },
+      "quest_xboxbedrock": {
+        "role": "maintainer",
+        "team_id": "${github_team.quest.id}",
+        "username": "${data.external.identity_xboxbedrock.result.github}"
+      },
       "slai_enkrypt7": {
         "role": "member",
         "team_id": "${github_team.slai.id}",

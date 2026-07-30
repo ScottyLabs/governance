@@ -257,6 +257,14 @@
         "team_id": "${forgejo_team.quest_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"
       },
+      "quest_leads_xboxbedrock": {
+        "team_id": "${forgejo_team.quest_leads.id}",
+        "user": "${data.external.identity_xboxbedrock.result.codeberg}"
+      },
+      "quest_xboxbedrock": {
+        "team_id": "${forgejo_team.quest.id}",
+        "user": "${data.external.identity_xboxbedrock.result.codeberg}"
+      },
       "scottylabs-org_leads_anish": {
         "team_id": "${forgejo_team.scottylabs-org_leads.id}",
         "user": "${data.external.identity_anish.result.codeberg}"

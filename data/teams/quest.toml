@@ -3,7 +3,7 @@ name = "Quest"
 slug = "quest"
 description = "First-year orientation scavenger hunt"
 public_url = "https://cmu.quest"
-leads = ["anish"]
+leads = ["anish", "xboxbedrock"]
 
 [[team.repos]]
 name = "quest"

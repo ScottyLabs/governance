@@ -253,14 +253,16 @@
       "project_quest": {
         "group_id": "${keycloak_group.project_quest.id}",
         "members": [
-          "${data.external.identity_anish.result.cmu-saml}"
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_quest_admins": {
         "group_id": "${keycloak_group.project_quest_admins.id}",
         "members": [
-          "${data.external.identity_anish.result.cmu-saml}"
+          "${data.external.identity_anish.result.cmu-saml}",
+          "${data.external.identity_xboxbedrock.result.cmu-saml}"
         ],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
