@@ -6,7 +6,12 @@ use crate::tf_json::TfJsonFile;
 pub fn generate_identity_data_sources(data: &GovernanceData) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
 
-    for username in data.all_members() {
+    let mut usernames = data.all_members();
+    usernames.push(data.org.org.tech_director.as_str());
+    usernames.sort_unstable();
+    usernames.dedup();
+
+    for username in usernames {
         let key = username.replace('-', "_");
         tf.add_data(
             "external",
@@ -14,7 +19,7 @@ pub fn generate_identity_data_sources(data: &GovernanceData) -> TfJsonFile {
             json!({
                 "program": ["governance", "--data-dir", "../../data", "resolve-identity"],
                 "query": {
-                    "codeberg_user": username,
+                    "forgejo_user": username,
                 },
             }),
         );

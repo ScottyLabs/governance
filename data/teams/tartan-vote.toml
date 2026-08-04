@@ -3,15 +3,15 @@ name = "Tartan Vote"
 slug = "tartan-vote"
 description = "Voting app for the Undergraduate Senate and other student orgs"
 public_url = "https://tartan.vote"
-leads = ["maybe-yiyi"]
-members = [
-    "vloh",
-    "xboxbedrock",
-    "tentype",
-    "riztofu",
-    "zeyuyaoy",
-    "stationedk-06",
-]
+# leads = ["maybe-yiyi"]
+# members = [
+#     "vloh",
+#     "xboxbedrock",
+#     "tentype",
+#     "riztofu",
+#     "zeyuyaoy",
+#     "stationedk-06",
+# ]
 
 [[team.repos]]
 name = "tartan-vote"

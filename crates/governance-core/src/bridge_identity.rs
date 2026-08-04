@@ -49,7 +49,7 @@ pub fn generate_bridge_identity_map(data: &GovernanceData) -> Result<BridgeIdent
         .org
         .forgejo
         .as_ref()
-        .map(|f| f.url().to_string())
+        .map(|f| f.url.to_string())
         .unwrap_or_default();
 
     let mut links = Vec::new();

@@ -164,10 +164,10 @@ fn provider_vars(name: &str) -> &'static [&'static str] {
 fn variable_decl(name: &str) -> Value {
     let string_default = |d: &str| json!({ "type": "string", "default": d });
     let sensitive = json!({ "type": "string", "sensitive": true });
+
     match name {
         "github_org" => string_default("ScottyLabs"),
         "github_token" => sensitive,
-        "forgejo_url" => string_default("https://codeberg.org"),
         "forgejo_token" => sensitive,
         "keycloak_url" => string_default("https://idp.scottylabs.org"),
         "keycloak_realm" => string_default("scottylabs"),
@@ -212,7 +212,12 @@ fn variable_decl(name: &str) -> Value {
     }
 }
 
-pub fn framework(axis: &str, providers: &[&str], extra_vars: &[&str]) -> TfJsonFile {
+pub fn framework(
+    axis: &str,
+    providers: &[&str],
+    extra_vars: &[&str],
+    forgejo_url: &str,
+) -> TfJsonFile {
     let mut tf = TfJsonFile::default();
 
     let mut required = Map::new();
@@ -236,7 +241,12 @@ pub fn framework(axis: &str, providers: &[&str], extra_vars: &[&str]) -> TfJsonF
     }
     vars.extend(extra_vars.iter().copied());
     for v in vars {
-        tf.add_variable(v, variable_decl(v));
+        let decl = if v == "forgejo_url" {
+            json!({ "type": "string", "default": forgejo_url })
+        } else {
+            variable_decl(v)
+        };
+        tf.add_variable(v, decl);
     }
 
     tf

@@ -68,17 +68,11 @@ pub enum ValidationError {
     #[error("KEYCLOAK_CLIENT_ID and KEYCLOAK_CLIENT_SECRET must be set")]
     MissingKeycloakCredentials,
 
-    #[error("user {user} not found in keycloak (no linked codeberg account)")]
+    #[error("user {user} not found in keycloak (no linked forgejo account)")]
     KeycloakUserNotFound { user: String },
 
     #[error("user {user} has not linked their {provider} account in keycloak")]
     MissingIdentityLink { user: String, provider: String },
-
-    #[error("user {0} has not registered on Matrix")]
-    MissingMatrixAccount(String),
-
-    #[error("matrix API error: {0}")]
-    MatrixApiError(String),
 
     #[error("keycloak API error: {0}")]
     KeycloakApiError(String),

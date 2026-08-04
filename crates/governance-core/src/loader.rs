@@ -93,7 +93,7 @@ fn load_teams(data_dir: &Path) -> Result<Vec<TeamFile>, GovernanceError> {
     Ok(teams)
 }
 
-// Codeberg usernames are case-insensitive so lowercase them to keep terraform resource keys stable
+// Forgejo usernames are case-insensitive, lowercase them to keep terraform resource keys stable
 fn normalize_usernames(org: &mut OrgFile, teams: &mut [TeamFile]) {
     org.org.tech_director = org.org.tech_director.to_lowercase();
     for team in teams {

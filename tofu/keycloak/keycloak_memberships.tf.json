@@ -3,455 +3,227 @@
     "keycloak_group_memberships": {
       "project_cbp_bus-sign": {
         "group_id": "${keycloak_group.project_cbp_bus-sign.id}",
-        "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_pandaaured.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}",
-          "${data.external.identity_jay3332.result.cmu-saml}",
-          "${data.external.identity_ecstaticpilot.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cbp_bus-sign_admins": {
         "group_id": "${keycloak_group.project_cbp_bus-sign_admins.id}",
-        "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cbp_dalmatian": {
         "group_id": "${keycloak_group.project_cbp_dalmatian.id}",
-        "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_pandaaured.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}",
-          "${data.external.identity_jay3332.result.cmu-saml}",
-          "${data.external.identity_ecstaticpilot.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cbp_dalmatian_admins": {
         "group_id": "${keycloak_group.project_cbp_dalmatian_admins.id}",
-        "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cbp_discord-verify": {
         "group_id": "${keycloak_group.project_cbp_discord-verify.id}",
-        "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_pandaaured.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}",
-          "${data.external.identity_jay3332.result.cmu-saml}",
-          "${data.external.identity_ecstaticpilot.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cbp_discord-verify_admins": {
         "group_id": "${keycloak_group.project_cbp_discord-verify_admins.id}",
-        "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cbp_groupme-mirror": {
         "group_id": "${keycloak_group.project_cbp_groupme-mirror.id}",
-        "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_pandaaured.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}",
-          "${data.external.identity_jay3332.result.cmu-saml}",
-          "${data.external.identity_ecstaticpilot.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cbp_groupme-mirror_admins": {
         "group_id": "${keycloak_group.project_cbp_groupme-mirror_admins.id}",
-        "members": [
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-cal_cal": {
         "group_id": "${keycloak_group.project_cmu-cal_cal.id}",
-        "members": [
-          "${data.external.identity_jalenluorion.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-cal_cal_admins": {
         "group_id": "${keycloak_group.project_cmu-cal_cal_admins.id}",
-        "members": [
-          "${data.external.identity_jalenluorion.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-courses": {
         "group_id": "${keycloak_group.project_cmu-courses.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_yl25946.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-courses_admins": {
         "group_id": "${keycloak_group.project_cmu-courses_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_yl25946.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-courses_courses": {
         "group_id": "${keycloak_group.project_cmu-courses_courses.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_yl25946.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-courses_courses_admins": {
         "group_id": "${keycloak_group.project_cmu-courses_courses_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_yl25946.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-housing_housing": {
         "group_id": "${keycloak_group.project_cmu-housing_housing.id}",
-        "members": [
-          "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_ecstaticpilot.result.cmu-saml}",
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_amzoeee.result.cmu-saml}",
-          "${data.external.identity_manrajs.result.cmu-saml}",
-          "${data.external.identity_jessica_lr_song.result.cmu-saml}",
-          "${data.external.identity_calpha.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_o_zox_o.result.cmu-saml}",
-          "${data.external.identity_rohansen08.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-housing_housing_admins": {
         "group_id": "${keycloak_group.project_cmu-housing_housing_admins.id}",
-        "members": [
-          "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_ecstaticpilot.result.cmu-saml}",
-          "${data.external.identity_tentype.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-maps_maps": {
         "group_id": "${keycloak_group.project_cmu-maps_maps.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_cmu-maps_maps_admins": {
         "group_id": "${keycloak_group.project_cmu-maps_maps_admins.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_devops": {
         "group_id": "${keycloak_group.project_devops.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperrl.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_devops_admins": {
         "group_id": "${keycloak_group.project_devops_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperrl.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_devops_documentation": {
         "group_id": "${keycloak_group.project_devops_documentation.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperrl.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_devops_documentation_admins": {
         "group_id": "${keycloak_group.project_devops_documentation_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperrl.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_devops_link-shortener": {
         "group_id": "${keycloak_group.project_devops_link-shortener.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperrl.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_devops_link-shortener_admins": {
         "group_id": "${keycloak_group.project_devops_link-shortener_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_thesuperrl.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_lost-and-found_lost-and-found-v2": {
         "group_id": "${keycloak_group.project_lost-and-found_lost-and-found-v2.id}",
-        "members": [
-          "${data.external.identity_leonliu368.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_lost-and-found_lost-and-found-v2_admins": {
         "group_id": "${keycloak_group.project_lost-and-found_lost-and-found-v2_admins.id}",
-        "members": [
-          "${data.external.identity_leonliu368.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_quest": {
         "group_id": "${keycloak_group.project_quest.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_quest_admins": {
         "group_id": "${keycloak_group.project_quest_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_slai_cmugpt-agent": {
         "group_id": "${keycloak_group.project_slai_cmugpt-agent.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_jc_965.result.cmu-saml}",
-          "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_jiya2301.result.cmu-saml}",
-          "${data.external.identity_enkrypt7.result.cmu-saml}",
-          "${data.external.identity_sayevikk.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_slai_cmugpt-agent_admins": {
         "group_id": "${keycloak_group.project_slai_cmugpt-agent_admins.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_slai_cmugpt-mcp-server": {
         "group_id": "${keycloak_group.project_slai_cmugpt-mcp-server.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_jc_965.result.cmu-saml}",
-          "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_jiya2301.result.cmu-saml}",
-          "${data.external.identity_enkrypt7.result.cmu-saml}",
-          "${data.external.identity_sayevikk.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_slai_cmugpt-mcp-server_admins": {
         "group_id": "${keycloak_group.project_slai_cmugpt-mcp-server_admins.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_slai_cmugpt-sms-surface": {
         "group_id": "${keycloak_group.project_slai_cmugpt-sms-surface.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_jc_965.result.cmu-saml}",
-          "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_jiya2301.result.cmu-saml}",
-          "${data.external.identity_enkrypt7.result.cmu-saml}",
-          "${data.external.identity_sayevikk.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_slai_cmugpt-sms-surface_admins": {
         "group_id": "${keycloak_group.project_slai_cmugpt-sms-surface_admins.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_slai_cmugpt-surface": {
         "group_id": "${keycloak_group.project_slai_cmugpt-surface.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_jc_965.result.cmu-saml}",
-          "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_jiya2301.result.cmu-saml}",
-          "${data.external.identity_enkrypt7.result.cmu-saml}",
-          "${data.external.identity_sayevikk.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_slai_cmugpt-surface_admins": {
         "group_id": "${keycloak_group.project_slai_cmugpt-surface_admins.id}",
-        "members": [
-          "${data.external.identity_krishsaxena.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_tartan-vote": {
         "group_id": "${keycloak_group.project_tartan-vote.id}",
-        "members": [
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_vloh.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_riztofu.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_tartan-vote_admins": {
         "group_id": "${keycloak_group.project_tartan-vote_admins.id}",
-        "members": [
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_terrier": {
         "group_id": "${keycloak_group.project_terrier.id}",
-        "members": [
-          "${data.external.identity_kritdass.result.cmu-saml}",
-          "${data.external.identity_anish.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_terrier_admins": {
         "group_id": "${keycloak_group.project_terrier_admins.id}",
-        "members": [
-          "${data.external.identity_kritdass.result.cmu-saml}",
-          "${data.external.identity_anish.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_uia_components": {
         "group_id": "${keycloak_group.project_uia_components.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_jessiter.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_uia_components_admins": {
         "group_id": "${keycloak_group.project_uia_components_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_jessiter.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_uia_scottylabs-org": {
         "group_id": "${keycloak_group.project_uia_scottylabs-org.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_jessiter.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "project_uia_scottylabs-org_admins": {
         "group_id": "${keycloak_group.project_uia_scottylabs-org_admins.id}",
-        "members": [
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_jessiter.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
       "projects": {
         "group_id": "${keycloak_group.projects.id}",
-        "members": [
-          "${data.external.identity_amzoeee.result.cmu-saml}",
-          "${data.external.identity_anish.result.cmu-saml}",
-          "${data.external.identity_calpha.result.cmu-saml}",
-          "${data.external.identity_ecstaticpilot.result.cmu-saml}",
-          "${data.external.identity_enkrypt7.result.cmu-saml}",
-          "${data.external.identity_gostmeaper.result.cmu-saml}",
-          "${data.external.identity_jalenluorion.result.cmu-saml}",
-          "${data.external.identity_jay3332.result.cmu-saml}",
-          "${data.external.identity_jc_965.result.cmu-saml}",
-          "${data.external.identity_jessica_lr_song.result.cmu-saml}",
-          "${data.external.identity_jessiter.result.cmu-saml}",
-          "${data.external.identity_jiya2301.result.cmu-saml}",
-          "${data.external.identity_kath45823.result.cmu-saml}",
-          "${data.external.identity_krishsaxena.result.cmu-saml}",
-          "${data.external.identity_kritdass.result.cmu-saml}",
-          "${data.external.identity_leonliu368.result.cmu-saml}",
-          "${data.external.identity_manrajs.result.cmu-saml}",
-          "${data.external.identity_maybe_yiyi.result.cmu-saml}",
-          "${data.external.identity_o_zox_o.result.cmu-saml}",
-          "${data.external.identity_pandaaured.result.cmu-saml}",
-          "${data.external.identity_riztofu.result.cmu-saml}",
-          "${data.external.identity_rohansen08.result.cmu-saml}",
-          "${data.external.identity_sayevikk.result.cmu-saml}",
-          "${data.external.identity_stationedk_06.result.cmu-saml}",
-          "${data.external.identity_tentype.result.cmu-saml}",
-          "${data.external.identity_thesuperrl.result.cmu-saml}",
-          "${data.external.identity_vloh.result.cmu-saml}",
-          "${data.external.identity_xboxbedrock.result.cmu-saml}",
-          "${data.external.identity_yl25946.result.cmu-saml}",
-          "${data.external.identity_zeyuyaoy.result.cmu-saml}"
-        ],
+        "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       }
     }

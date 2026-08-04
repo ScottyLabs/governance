@@ -41,18 +41,18 @@ impl KeycloakClient {
 
     pub fn lookup_identity_links(
         &self,
-        codeberg_user: &str,
+        forgejo_user: &str,
         forgejo_url: &str,
     ) -> Result<HashMap<String, String>, String> {
-        let codeberg_id = resolve_forgejo_user_id(forgejo_url, codeberg_user)?;
+        let forgejo_id = resolve_forgejo_user_id(forgejo_url, forgejo_user)?;
         let users_url = format!(
-            "{}/admin/realms/{}/users?idpAlias=codeberg&idpUserId={codeberg_id}",
+            "{}/admin/realms/{}/users?idpAlias=cmu-dev&idpUserId={forgejo_id}",
             self.url, self.realm
         );
         let mut resp = ureq::get(&users_url)
             .header("Authorization", &format!("Bearer {}", self.token))
             .call()
-            .map_err(|e| format!("user lookup for {codeberg_user}: {e}"))?;
+            .map_err(|e| format!("user lookup for {forgejo_user}: {e}"))?;
 
         let users: Vec<serde_json::Value> = resp
             .body_mut()
@@ -61,7 +61,7 @@ impl KeycloakClient {
 
         let user = users
             .first()
-            .ok_or_else(|| format!("no keycloak user found for codeberg user {codeberg_user}"))?;
+            .ok_or_else(|| format!("no keycloak user found for forgejo user {forgejo_user}"))?;
 
         let user_id = user["id"]
             .as_str()
@@ -74,7 +74,7 @@ impl KeycloakClient {
         let mut links_resp = ureq::get(&links_url)
             .header("Authorization", &format!("Bearer {}", self.token))
             .call()
-            .map_err(|e| format!("identity links for {codeberg_user}: {e}"))?;
+            .map_err(|e| format!("identity links for {forgejo_user}: {e}"))?;
 
         let links: Vec<serde_json::Value> = links_resp
             .body_mut()
@@ -103,7 +103,7 @@ fn resolve_forgejo_user_id(forgejo_url: &str, username: &str) -> Result<String, 
     let api_url = format!("{forgejo_url}/api/v1/users/{username}");
     let mut resp = ureq::get(&api_url)
         .call()
-        .map_err(|e| format!("codeberg user lookup for {username}: {e}"))?;
+        .map_err(|e| format!("forgejo user lookup for {username}: {e}"))?;
 
     let body: serde_json::Value = resp
         .body_mut()
@@ -113,5 +113,5 @@ fn resolve_forgejo_user_id(forgejo_url: &str, username: &str) -> Result<String, 
     body["id"]
         .as_i64()
         .map(|id| id.to_string())
-        .ok_or_else(|| format!("codeberg user {username} has no id"))
+        .ok_or_else(|| format!("forgejo user {username} has no id"))
 }

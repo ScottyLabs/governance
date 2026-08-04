@@ -1,7 +1,7 @@
 [team]
 name = "CMU Maps"
 slug = "cmu-maps"
-leads = ["krishsaxena", "anish", "xboxbedrock"]
+# leads = ["krishsaxena", "anish", "xboxbedrock"]
 
 [[team.projects]]
 name = "CMU Maps"

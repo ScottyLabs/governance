@@ -26,25 +26,12 @@ pub struct OrgConfig {
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
 pub struct ForgejoConfig {
     pub org: String,
-    pub url: Option<String>,
-}
-
-impl ForgejoConfig {
-    pub fn url(&self) -> &str {
-        self.url.as_deref().unwrap_or("https://codeberg.org")
-    }
+    pub url: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
 pub struct GithubConfig {
     pub org: String,
-    pub url: Option<String>,
-}
-
-impl GithubConfig {
-    pub fn url(&self) -> &str {
-        self.url.as_deref().unwrap_or("https://github.com")
-    }
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
@@ -53,23 +40,14 @@ pub struct CommunicationConfig {
     pub discord_hub_channel_id: String,
     pub discord_leads_channel_id: String,
     pub slack_workspace: String,
-    /// Slack workspace ID (e.g. T03EVH29W) for mautrix-slack bridge chat IDs.
     pub slack_team_id: String,
     pub slack_hub_channel_id: String,
     pub slack_leads_channel_id: String,
     pub matrix_domain: String,
     pub matrix_homeserver_url: String,
-    /// When true, governance validate checks that each team member has a Matrix account.
-    #[serde(default = "default_matrix_account_required")]
-    pub matrix_account_required: bool,
-    /// Org-wide channels that are not owned by a team (e.g. open-source, merch, finance).
-    /// Set both `slack` and `discord` to bridge via Matrix.
+    /// Org-wide channels that are not owned by a team (e.g. open-source, merch, finance)
     #[serde(default)]
     pub channels: Vec<OrgChannel>,
-}
-
-fn default_matrix_account_required() -> bool {
-    false
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]

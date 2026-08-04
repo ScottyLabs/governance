@@ -1,16 +1,16 @@
 [team]
 name = "ScottyLabs AI"
 slug = "slai"
-leads = ["krishsaxena"]
-members = [
-    "jc-965",
-    "kath45823",
-    "jiya2301",
-    "enkrypt7",
-    "sayevikk",
-    "zeyuyaoy",
-    "xboxbedrock",
-]
+# leads = ["krishsaxena"]
+# members = [
+#     "jc-965",
+#     "kath45823",
+#     "jiya2301",
+#     "enkrypt7",
+#     "sayevikk",
+#     "zeyuyaoy",
+#     "xboxbedrock",
+# ]
 
 [[team.projects]]
 name = "CMU GPT Surface"

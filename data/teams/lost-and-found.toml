@@ -2,7 +2,7 @@
 name = "Lost and Found"
 slug = "lost-and-found"
 description = "Lost-and-found platform for the Carnegie Mellon University community"
-leads = ["LeonLiu368"]
+# leads = ["LeonLiu368"]
 
 [[team.projects]]
 name = "Lost and Found"

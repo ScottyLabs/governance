@@ -1,5 +1,4 @@
 use governance_core::loader::GovernanceData;
-use governance_schema::org::ForgejoConfig;
 use serde_json::json;
 
 use crate::tf_json::TfJsonFile;
@@ -10,17 +9,15 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
     if org.github.is_none() {
         return tf;
     }
-    let forgejo_url = org.forgejo.as_ref().map(ForgejoConfig::url);
+    let forgejo = org
+        .forgejo
+        .as_ref()
+        .expect("[org.forgejo] required for mirrors");
 
     for team in &data.teams {
         for repo in team.team.repos() {
             let key = format!("{}_{}", team.team.group.slug, repo.name.replace('-', "_"));
-            let codeberg_url = format!(
-                "{}/{}/{}",
-                forgejo_url.unwrap_or("https://codeberg.org"),
-                org.forgejo.as_ref().map_or("", |f| f.org.as_str()),
-                repo.name
-            );
+            let source_url = format!("{}/{}/{}", forgejo.url, forgejo.org, repo.name);
 
             tf.add_resource(
                 "github_repository",
@@ -28,7 +25,7 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                 json!({
                     "name": repo.name,
                     "description": "READ-ONLY MIRROR",
-                    "homepage_url": codeberg_url,
+                    "homepage_url": source_url,
                     "visibility": "public",
                     "has_issues": false,
                     "has_projects": false,
@@ -42,7 +39,7 @@ pub fn generate_repos(data: &GovernanceData) -> TfJsonFile {
                 &format!("{key}_mirror_deploy_key"),
                 json!({
                     "repository": format!("${{github_repository.{key}.name}}"),
-                    "title": "Codeberg Mirroring",
+                    "title": "Forgejo mirror",
                     "key": format!("${{restapi_object.{key}_push_mirror.api_data.public_key}}"),
                     "read_only": false,
                 }),

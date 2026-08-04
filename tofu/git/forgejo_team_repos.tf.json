@@ -1,24 +1,6 @@
 {
   "resource": {
     "forgejo_team_repository": {
-      "bus-sign_leads_bus_sign": {
-        "depends_on": [
-          "forgejo_repository.cbp_bus_sign",
-          "forgejo_team.bus-sign_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "bus-sign",
-        "team_id": "${forgejo_team.bus-sign_leads.id}"
-      },
-      "cal_leads_cal": {
-        "depends_on": [
-          "forgejo_repository.cmu-cal_cal",
-          "forgejo_team.cal_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "cal",
-        "team_id": "${forgejo_team.cal_leads.id}"
-      },
       "cbp_bus_sign": {
         "depends_on": [
           "forgejo_repository.cbp_bus_sign",
@@ -82,15 +64,6 @@
         "repository": "internet-archive",
         "team_id": "${forgejo_team.cmu-courses.id}"
       },
-      "cmu-courses_leads_internet_archive": {
-        "depends_on": [
-          "forgejo_repository.cmu-courses_internet_archive",
-          "forgejo_team.cmu-courses_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "internet-archive",
-        "team_id": "${forgejo_team.cmu-courses_leads.id}"
-      },
       "cmu-housing_housing": {
         "depends_on": [
           "forgejo_repository.cmu-housing_housing",
@@ -108,69 +81,6 @@
         "owner": "ScottyLabs",
         "repository": "maps",
         "team_id": "${forgejo_team.cmu-maps.id}"
-      },
-      "cmugpt-agent_leads_cmugpt_agent": {
-        "depends_on": [
-          "forgejo_repository.slai_cmugpt_agent",
-          "forgejo_team.cmugpt-agent_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "cmugpt-agent",
-        "team_id": "${forgejo_team.cmugpt-agent_leads.id}"
-      },
-      "cmugpt-mcp-server_leads_mcp_server": {
-        "depends_on": [
-          "forgejo_repository.slai_mcp_server",
-          "forgejo_team.cmugpt-mcp-server_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "mcp-server",
-        "team_id": "${forgejo_team.cmugpt-mcp-server_leads.id}"
-      },
-      "cmugpt-sms-surface_leads_cmugpt_sms_surface": {
-        "depends_on": [
-          "forgejo_repository.slai_cmugpt_sms_surface",
-          "forgejo_team.cmugpt-sms-surface_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "cmugpt-sms-surface",
-        "team_id": "${forgejo_team.cmugpt-sms-surface_leads.id}"
-      },
-      "cmugpt-surface_leads_cmugpt_surface": {
-        "depends_on": [
-          "forgejo_repository.slai_cmugpt_surface",
-          "forgejo_team.cmugpt-surface_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "cmugpt-surface",
-        "team_id": "${forgejo_team.cmugpt-surface_leads.id}"
-      },
-      "components_leads_components": {
-        "depends_on": [
-          "forgejo_repository.uia_components",
-          "forgejo_team.components_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "components",
-        "team_id": "${forgejo_team.components_leads.id}"
-      },
-      "courses_leads_courses": {
-        "depends_on": [
-          "forgejo_repository.cmu-courses_courses",
-          "forgejo_team.courses_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "courses",
-        "team_id": "${forgejo_team.courses_leads.id}"
-      },
-      "dalmatian_leads_dalmatian": {
-        "depends_on": [
-          "forgejo_repository.cbp_dalmatian",
-          "forgejo_team.dalmatian_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "dalmatian",
-        "team_id": "${forgejo_team.dalmatian_leads.id}"
       },
       "devops_collie": {
         "depends_on": [
@@ -217,42 +127,6 @@
         "repository": "kennel",
         "team_id": "${forgejo_team.devops.id}"
       },
-      "devops_leads_collie": {
-        "depends_on": [
-          "forgejo_repository.devops_collie",
-          "forgejo_team.devops_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "collie",
-        "team_id": "${forgejo_team.devops_leads.id}"
-      },
-      "devops_leads_governance": {
-        "depends_on": [
-          "forgejo_repository.devops_governance",
-          "forgejo_team.devops_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "governance",
-        "team_id": "${forgejo_team.devops_leads.id}"
-      },
-      "devops_leads_infrastructure": {
-        "depends_on": [
-          "forgejo_repository.devops_infrastructure",
-          "forgejo_team.devops_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "infrastructure",
-        "team_id": "${forgejo_team.devops_leads.id}"
-      },
-      "devops_leads_kennel": {
-        "depends_on": [
-          "forgejo_repository.devops_kennel",
-          "forgejo_team.devops_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "kennel",
-        "team_id": "${forgejo_team.devops_leads.id}"
-      },
       "devops_link_shortener": {
         "depends_on": [
           "forgejo_repository.devops_link_shortener",
@@ -261,60 +135,6 @@
         "owner": "ScottyLabs",
         "repository": "link-shortener",
         "team_id": "${forgejo_team.devops.id}"
-      },
-      "discord-verify_leads_discord_verify": {
-        "depends_on": [
-          "forgejo_repository.cbp_discord_verify",
-          "forgejo_team.discord-verify_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "discord-verify",
-        "team_id": "${forgejo_team.discord-verify_leads.id}"
-      },
-      "documentation_leads_documentation": {
-        "depends_on": [
-          "forgejo_repository.devops_documentation",
-          "forgejo_team.documentation_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "documentation",
-        "team_id": "${forgejo_team.documentation_leads.id}"
-      },
-      "groupme-mirror_leads_groupme_mirror": {
-        "depends_on": [
-          "forgejo_repository.cbp_groupme_mirror",
-          "forgejo_team.groupme-mirror_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "groupme-mirror",
-        "team_id": "${forgejo_team.groupme-mirror_leads.id}"
-      },
-      "housing_leads_housing": {
-        "depends_on": [
-          "forgejo_repository.cmu-housing_housing",
-          "forgejo_team.housing_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "housing",
-        "team_id": "${forgejo_team.housing_leads.id}"
-      },
-      "link-shortener_leads_link_shortener": {
-        "depends_on": [
-          "forgejo_repository.devops_link_shortener",
-          "forgejo_team.link-shortener_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "link-shortener",
-        "team_id": "${forgejo_team.link-shortener_leads.id}"
-      },
-      "lost-and-found-v2_leads_lost_and_found_v2": {
-        "depends_on": [
-          "forgejo_repository.lost-and-found_lost_and_found_v2",
-          "forgejo_team.lost-and-found-v2_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "lost-and-found-v2",
-        "team_id": "${forgejo_team.lost-and-found-v2_leads.id}"
       },
       "lost-and-found_lost_and_found_v2": {
         "depends_on": [
@@ -325,24 +145,6 @@
         "repository": "lost-and-found-v2",
         "team_id": "${forgejo_team.lost-and-found.id}"
       },
-      "maps_leads_maps": {
-        "depends_on": [
-          "forgejo_repository.cmu-maps_maps",
-          "forgejo_team.maps_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "maps",
-        "team_id": "${forgejo_team.maps_leads.id}"
-      },
-      "quest_leads_quest": {
-        "depends_on": [
-          "forgejo_repository.quest_quest",
-          "forgejo_team.quest_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "quest",
-        "team_id": "${forgejo_team.quest_leads.id}"
-      },
       "quest_quest": {
         "depends_on": [
           "forgejo_repository.quest_quest",
@@ -351,15 +153,6 @@
         "owner": "ScottyLabs",
         "repository": "quest",
         "team_id": "${forgejo_team.quest.id}"
-      },
-      "scottylabs-org_leads_scottylabs_org": {
-        "depends_on": [
-          "forgejo_repository.uia_scottylabs_org",
-          "forgejo_team.scottylabs-org_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "scottylabs-org",
-        "team_id": "${forgejo_team.scottylabs-org_leads.id}"
       },
       "slai_cmugpt_agent": {
         "depends_on": [
@@ -397,15 +190,6 @@
         "repository": "mcp-server",
         "team_id": "${forgejo_team.slai.id}"
       },
-      "tartan-vote_leads_tartan_vote": {
-        "depends_on": [
-          "forgejo_repository.tartan-vote_tartan_vote",
-          "forgejo_team.tartan-vote_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "tartan-vote",
-        "team_id": "${forgejo_team.tartan-vote_leads.id}"
-      },
       "tartan-vote_tartan_vote": {
         "depends_on": [
           "forgejo_repository.tartan-vote_tartan_vote",
@@ -414,15 +198,6 @@
         "owner": "ScottyLabs",
         "repository": "tartan-vote",
         "team_id": "${forgejo_team.tartan-vote.id}"
-      },
-      "terrier_leads_terrier": {
-        "depends_on": [
-          "forgejo_repository.terrier_terrier",
-          "forgejo_team.terrier_leads"
-        ],
-        "owner": "ScottyLabs",
-        "repository": "terrier",
-        "team_id": "${forgejo_team.terrier_leads.id}"
       },
       "terrier_terrier": {
         "depends_on": [

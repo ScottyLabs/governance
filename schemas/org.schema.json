@@ -15,7 +15,7 @@
       "type": "object",
       "properties": {
         "channels": {
-          "description": "Org-wide channels that are not owned by a team (e.g. open-source, merch, finance).\nSet both `slack` and `discord` to bridge via Matrix.",
+          "description": "Org-wide channels that are not owned by a team (e.g. open-source, merch, finance)",
           "type": "array",
           "default": [],
           "items": {
@@ -31,11 +31,6 @@
         "discord_leads_channel_id": {
           "type": "string"
         },
-        "matrix_account_required": {
-          "description": "When true, governance validate checks that each team member has a Matrix account.",
-          "type": "boolean",
-          "default": false
-        },
         "matrix_domain": {
           "type": "string"
         },
@@ -49,7 +44,6 @@
           "type": "string"
         },
         "slack_team_id": {
-          "description": "Slack workspace ID (e.g. T03EVH29W) for mautrix-slack bridge chat IDs.",
           "type": "string"
         },
         "slack_workspace": {
@@ -90,14 +84,12 @@
           "type": "string"
         },
         "url": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         }
       },
       "required": [
-        "org"
+        "org",
+        "url"
       ]
     },
     "GithubConfig": {
@@ -105,12 +97,6 @@
       "properties": {
         "org": {
           "type": "string"
-        },
-        "url": {
-          "type": [
-            "string",
-            "null"
-          ]
         }
       },
       "required": [

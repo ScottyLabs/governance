@@ -16,7 +16,6 @@ pub fn validate(data: &GovernanceData) -> Vec<ValidationError> {
     validate_groups(data, &mut errors);
     validate_channels(data, &mut errors);
     validate_identities(data, &mut errors);
-    validate_matrix(data, &mut errors);
 
     errors
 }
@@ -226,7 +225,7 @@ fn validate_identities(data: &GovernanceData, errors: &mut Vec<ValidationError>)
     let org = &data.org.org;
     let mut required_providers: Vec<&str> = vec!["cmu-saml"];
     if org.forgejo.is_some() {
-        required_providers.push("codeberg");
+        required_providers.push("cmu-dev");
     }
     if org.github.is_some() {
         required_providers.push("github");
@@ -262,7 +261,7 @@ fn validate_identities(data: &GovernanceData, errors: &mut Vec<ValidationError>)
             let forgejo_url = org
                 .forgejo
                 .as_ref()
-                .map(|f| f.url().to_string())
+                .map(|f| f.url.to_string())
                 .unwrap_or_default();
             s.spawn(
                 move || match kc.lookup_identity_links(username, &forgejo_url) {
@@ -297,102 +296,4 @@ fn validate_identities(data: &GovernanceData, errors: &mut Vec<ValidationError>)
     });
 
     errors.extend(collected_errors.into_inner().unwrap());
-}
-
-fn validate_matrix(data: &GovernanceData, errors: &mut Vec<ValidationError>) {
-    let Some(comm) = data.org.org.communication.as_ref() else {
-        return;
-    };
-    if !comm.matrix_account_required {
-        return;
-    }
-
-    let admin_token = match std::env::var("MATRIX_ADMIN_TOKEN") {
-        Ok(token) if !token.is_empty() => token,
-        _ => return,
-    };
-
-    let homeserver_url = comm.matrix_homeserver_url.clone();
-    let matrix_domain = comm.matrix_domain.clone();
-    let members = data.all_members();
-    let collected_errors: Mutex<Vec<ValidationError>> = Mutex::new(Vec::new());
-
-    thread::scope(|s| {
-        for username in &members {
-            let token = admin_token.clone();
-            let homeserver_url = homeserver_url.clone();
-            let matrix_domain = matrix_domain.clone();
-            let errs = &collected_errors;
-
-            s.spawn(move || {
-                if let Err(e) =
-                    check_matrix_account(username, &homeserver_url, &matrix_domain, &token)
-                {
-                    errs.lock().unwrap().push(e);
-                }
-            });
-        }
-    });
-
-    errors.extend(collected_errors.into_inner().unwrap());
-}
-
-fn check_matrix_account(
-    username: &str,
-    homeserver_url: &str,
-    matrix_domain: &str,
-    admin_token: &str,
-) -> Result<(), ValidationError> {
-    let lower = username.to_lowercase();
-    let localparts: Vec<&str> = if lower == username {
-        vec![username]
-    } else {
-        vec![username, &lower]
-    };
-
-    let mut last_api_error = None;
-
-    for localpart in localparts {
-        match lookup_matrix_user(localpart, homeserver_url, matrix_domain, admin_token) {
-            Ok(()) => return Ok(()),
-            Err(LookupMatrixUserError::NotFound) => {}
-            Err(LookupMatrixUserError::Api(e)) => last_api_error = Some(e),
-        }
-    }
-
-    if let Some(e) = last_api_error {
-        return Err(ValidationError::MatrixApiError(format!(
-            "user {username}: {e}"
-        )));
-    }
-
-    Err(ValidationError::MissingMatrixAccount(username.to_string()))
-}
-
-enum LookupMatrixUserError {
-    NotFound,
-    Api(String),
-}
-
-fn lookup_matrix_user(
-    localpart: &str,
-    homeserver_url: &str,
-    matrix_domain: &str,
-    admin_token: &str,
-) -> Result<(), LookupMatrixUserError> {
-    let mxid = format!("@{localpart}:{matrix_domain}");
-    let encoded = mxid.replace('@', "%40").replace(':', "%3A");
-    let url = format!(
-        "{}/_synapse/admin/v2/users/{encoded}",
-        homeserver_url.trim_end_matches('/')
-    );
-
-    match ureq::get(&url)
-        .header("Authorization", &format!("Bearer {admin_token}"))
-        .call()
-    {
-        Ok(_) => Ok(()),
-        Err(ureq::Error::StatusCode(404)) => Err(LookupMatrixUserError::NotFound),
-        Err(e) => Err(LookupMatrixUserError::Api(format!("{e}"))),
-    }
 }

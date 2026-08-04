@@ -1,46 +1,6 @@
 {
   "resource": {
     "forgejo_team": {
-      "bus-sign_leads": {
-        "can_create_org_repo": false,
-        "description": "Bus Sign leads",
-        "includes_all_repositories": false,
-        "name": "bus-sign-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "cal_leads": {
-        "can_create_org_repo": false,
-        "description": "CMU Cal leads",
-        "includes_all_repositories": false,
-        "name": "cal-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
       "cbp": {
         "description": "Community-Based Projects",
         "name": "cbp",
@@ -74,26 +34,6 @@
           "repo.pulls": "write"
         }
       },
-      "cmu-courses_leads": {
-        "can_create_org_repo": false,
-        "description": "CMU Courses leads",
-        "includes_all_repositories": false,
-        "name": "cmu-courses-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
       "cmu-housing": {
         "description": "CMU Housing",
         "name": "cmu-housing",
@@ -116,146 +56,6 @@
           "repo.pulls": "write"
         }
       },
-      "cmugpt-agent_leads": {
-        "can_create_org_repo": false,
-        "description": "CMU GPT Agent leads",
-        "includes_all_repositories": false,
-        "name": "cmugpt-agent-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "cmugpt-mcp-server_leads": {
-        "can_create_org_repo": false,
-        "description": "CMU GPT MCP Server leads",
-        "includes_all_repositories": false,
-        "name": "cmugpt-mcp-server-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "cmugpt-sms-surface_leads": {
-        "can_create_org_repo": false,
-        "description": "CMU GPT SMS leads",
-        "includes_all_repositories": false,
-        "name": "cmugpt-sms-surface-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "cmugpt-surface_leads": {
-        "can_create_org_repo": false,
-        "description": "CMU GPT Surface leads",
-        "includes_all_repositories": false,
-        "name": "cmugpt-surface-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "components_leads": {
-        "can_create_org_repo": false,
-        "description": "Components leads",
-        "includes_all_repositories": false,
-        "name": "components-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "courses_leads": {
-        "can_create_org_repo": false,
-        "description": "CMU Courses leads",
-        "includes_all_repositories": false,
-        "name": "courses-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "dalmatian_leads": {
-        "can_create_org_repo": false,
-        "description": "Dalmatian leads",
-        "includes_all_repositories": false,
-        "name": "dalmatian-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
       "devops": {
         "description": "DevOps",
         "name": "devops",
@@ -265,126 +65,6 @@
           "repo.code": "write",
           "repo.issues": "write",
           "repo.pulls": "write"
-        }
-      },
-      "devops_leads": {
-        "can_create_org_repo": false,
-        "description": "DevOps leads",
-        "includes_all_repositories": false,
-        "name": "devops-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "discord-verify_leads": {
-        "can_create_org_repo": false,
-        "description": "Discord Verify leads",
-        "includes_all_repositories": false,
-        "name": "discord-verify-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "documentation_leads": {
-        "can_create_org_repo": false,
-        "description": "Documentation leads",
-        "includes_all_repositories": false,
-        "name": "documentation-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "groupme-mirror_leads": {
-        "can_create_org_repo": false,
-        "description": "GroupMe Mirror leads",
-        "includes_all_repositories": false,
-        "name": "groupme-mirror-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "housing_leads": {
-        "can_create_org_repo": false,
-        "description": "CMU Housing leads",
-        "includes_all_repositories": false,
-        "name": "housing-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "link-shortener_leads": {
-        "can_create_org_repo": false,
-        "description": "Link Shortener leads",
-        "includes_all_repositories": false,
-        "name": "link-shortener-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
         }
       },
       "lost-and-found": {
@@ -398,46 +78,6 @@
           "repo.pulls": "write"
         }
       },
-      "lost-and-found-v2_leads": {
-        "can_create_org_repo": false,
-        "description": "Lost and Found leads",
-        "includes_all_repositories": false,
-        "name": "lost-and-found-v2-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "maps_leads": {
-        "can_create_org_repo": false,
-        "description": "CMU Maps leads",
-        "includes_all_repositories": false,
-        "name": "maps-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
       "quest": {
         "description": "Quest",
         "name": "quest",
@@ -447,46 +87,6 @@
           "repo.code": "write",
           "repo.issues": "write",
           "repo.pulls": "write"
-        }
-      },
-      "quest_leads": {
-        "can_create_org_repo": false,
-        "description": "Quest leads",
-        "includes_all_repositories": false,
-        "name": "quest-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
-      "scottylabs-org_leads": {
-        "can_create_org_repo": false,
-        "description": "ScottyLabs Website leads",
-        "includes_all_repositories": false,
-        "name": "scottylabs-org-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
         }
       },
       "slai": {
@@ -511,26 +111,6 @@
           "repo.pulls": "write"
         }
       },
-      "tartan-vote_leads": {
-        "can_create_org_repo": false,
-        "description": "Tartan Vote leads",
-        "includes_all_repositories": false,
-        "name": "tartan-vote-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
-        }
-      },
       "terrier": {
         "description": "Terrier",
         "name": "terrier",
@@ -540,26 +120,6 @@
           "repo.code": "write",
           "repo.issues": "write",
           "repo.pulls": "write"
-        }
-      },
-      "terrier_leads": {
-        "can_create_org_repo": false,
-        "description": "Terrier leads",
-        "includes_all_repositories": false,
-        "name": "terrier-leads",
-        "organization_id": "${data.forgejo_organization.this.id}",
-        "permission": "admin",
-        "units_map": {
-          "repo.actions": "admin",
-          "repo.code": "admin",
-          "repo.ext_issues": "admin",
-          "repo.ext_wiki": "admin",
-          "repo.issues": "admin",
-          "repo.packages": "admin",
-          "repo.projects": "admin",
-          "repo.pulls": "admin",
-          "repo.releases": "admin",
-          "repo.wiki": "admin"
         }
       },
       "uia": {

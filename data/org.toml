@@ -4,6 +4,7 @@ tech_director = "anish"
 
 [org.forgejo]
 org = "ScottyLabs"
+url = "https://git.cmu.dev"
 
 [org.github]
 org = "ScottyLabs"

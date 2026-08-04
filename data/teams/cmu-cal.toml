@@ -1,7 +1,7 @@
 [team]
 name = "CMU Cal"
 slug = "cmu-cal"
-leads = ["jalenluorion"]
+# leads = ["jalenluorion"]
 
 [[team.projects]]
 name = "CMU Cal"

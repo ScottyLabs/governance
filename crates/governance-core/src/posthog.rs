@@ -76,7 +76,7 @@ pub fn reconcile_invites(data: &GovernanceData, dry_run: bool) -> Result<(), Str
         .org
         .forgejo
         .as_ref()
-        .map(|f| f.url().to_string())
+        .map(|f| f.url.to_string())
         .unwrap_or_default();
 
     let client = PosthogClient::from_env()?;

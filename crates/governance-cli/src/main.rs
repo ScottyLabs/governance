@@ -107,6 +107,14 @@ fn cmd_validate(data_dir: &Path) -> anyhow::Result<()> {
 
 fn cmd_generate(data_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     let data = GovernanceData::load(data_dir)?;
+    let forgejo_url = data
+        .org
+        .org
+        .forgejo
+        .as_ref()
+        .expect("[org.forgejo] must be set in org.toml")
+        .url
+        .as_str();
     std::fs::create_dir_all(output_dir)?;
 
     std::fs::create_dir_all(".forgejo")?;
@@ -124,8 +132,13 @@ fn cmd_generate(data_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
 
     let dir = output_dir.join("keycloak");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("keycloak", &["keycloak", "vault", "external"], &[])
-        .write_to(&dir.join("providers.tf.json"))?;
+    axes::framework(
+        "keycloak",
+        &["keycloak", "vault", "external"],
+        &[],
+        forgejo_url,
+    )
+    .write_to(&dir.join("providers.tf.json"))?;
     shared("keycloak_realm").write_to(&dir.join("data.tf.json"))?;
     identities::generate_identity_data_sources(&data).write_to(&dir.join("identities.tf.json"))?;
     keycloak::generate_groups(&data).write_to(&dir.join("keycloak_groups.tf.json"))?;
@@ -139,6 +152,7 @@ fn cmd_generate(data_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
         "git",
         &["forgejo", "github", "restapi", "random", "external"],
         &["kennel_webhook_url", "docs_webhook_url"],
+        forgejo_url,
     )
     .write_to(&dir.join("providers.tf.json"))?;
     shared("forgejo_organization").write_to(&dir.join("data.tf.json"))?;
@@ -157,53 +171,59 @@ fn cmd_generate(data_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
 
     let dir = output_dir.join("openbao");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("openbao", &["vault"], &[]).write_to(&dir.join("providers.tf.json"))?;
+    axes::framework("openbao", &["vault"], &[], forgejo_url)
+        .write_to(&dir.join("providers.tf.json"))?;
     shared("vault_auth_backend_oidc").write_to(&dir.join("data.tf.json"))?;
     openbao::generate_project_policies(&data).write_to(&dir.join("openbao.tf.json"))?;
 
     let dir = output_dir.join("google_groups");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("google_groups", &["google", "external"], &[])
+    axes::framework("google_groups", &["google", "external"], &[], forgejo_url)
         .write_to(&dir.join("providers.tf.json"))?;
     identities::generate_identity_data_sources(&data).write_to(&dir.join("identities.tf.json"))?;
     google_groups::generate(&data).write_to(&dir.join("google_groups.tf.json"))?;
 
     let dir = output_dir.join("discord");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("discord", &["discord", "external"], &[])
+    axes::framework("discord", &["discord", "external"], &[], forgejo_url)
         .write_to(&dir.join("providers.tf.json"))?;
     identities::generate_identity_data_sources(&data).write_to(&dir.join("identities.tf.json"))?;
     discord::generate(&data).write_to(&dir.join("discord.tf.json"))?;
 
     let dir = output_dir.join("slack");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("slack", &["null", "external"], &[])
+    axes::framework("slack", &["null", "external"], &[], forgejo_url)
         .write_to(&dir.join("providers.tf.json"))?;
     identities::generate_identity_data_sources(&data).write_to(&dir.join("identities.tf.json"))?;
     slack::generate(&data).write_to(&dir.join("slack.tf.json"))?;
 
     let dir = output_dir.join("posthog");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("posthog", &["posthog", "vault"], &[])
+    axes::framework("posthog", &["posthog", "vault"], &[], forgejo_url)
         .write_to(&dir.join("providers.tf.json"))?;
     posthog::generate(&data).write_to(&dir.join("posthog.tf.json"))?;
 
     let dir = output_dir.join("sentry");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("sentry", &["sentry", "vault"], &["sentry_organization"])
-        .write_to(&dir.join("providers.tf.json"))?;
+    axes::framework(
+        "sentry",
+        &["sentry", "vault"],
+        &["sentry_organization"],
+        forgejo_url,
+    )
+    .write_to(&dir.join("providers.tf.json"))?;
     sentry::generate(&data).write_to(&dir.join("sentry.tf.json"))?;
 
     let dir = output_dir.join("litellm");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("litellm", &["vault", "litellm"], &[])
+    axes::framework("litellm", &["vault", "litellm"], &[], forgejo_url)
         .write_to(&dir.join("providers.tf.json"))?;
     shared("litellm_master_key").write_to(&dir.join("data.tf.json"))?;
     litellm::generate(&data).write_to(&dir.join("litellm.tf.json"))?;
 
     let dir = output_dir.join("vaultwarden");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("vaultwarden", &["bitwarden", "external"], &[])
+    axes::framework("vaultwarden", &["bitwarden", "external"], &[], forgejo_url)
         .write_to(&dir.join("providers.tf.json"))?;
     identities::generate_identity_data_sources(&data).write_to(&dir.join("identities.tf.json"))?;
     vaultwarden::generate(&data).write_to(&dir.join("vaultwarden.tf.json"))?;
@@ -214,13 +234,14 @@ fn cmd_generate(data_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
         "cdn",
         &["garage", "vault"],
         &["cdn_base_url", "garage_s3_endpoint"],
+        forgejo_url,
     )
     .write_to(&dir.join("providers.tf.json"))?;
     cdn::generate(&data).write_to(&dir.join("cdn.tf.json"))?;
 
     let dir = output_dir.join("matrix_bridges");
     std::fs::create_dir_all(&dir)?;
-    axes::framework("matrix_bridges", &["synapse", "null"], &[])
+    axes::framework("matrix_bridges", &["synapse", "null"], &[], forgejo_url)
         .write_to(&dir.join("providers.tf.json"))?;
     matrix_bridges::generate(&data).write_to(&dir.join("matrix_bridges.tf.json"))?;
 
@@ -278,9 +299,9 @@ fn cmd_bridge_identity_map(data_dir: &Path, output: &Path) -> anyhow::Result<()>
 
 fn cmd_resolve_identity(data_dir: &Path) -> anyhow::Result<()> {
     let query: serde_json::Value = serde_json::from_reader(std::io::stdin())?;
-    let codeberg_user = query["codeberg_user"]
+    let forgejo_user = query["forgejo_user"]
         .as_str()
-        .ok_or_else(|| anyhow::anyhow!("missing codeberg_user in query"))?;
+        .ok_or_else(|| anyhow::anyhow!("missing forgejo_user in query"))?;
 
     let data = GovernanceData::load(data_dir)?;
     let keycloak_conf = data
@@ -308,11 +329,11 @@ fn cmd_resolve_identity(data_dir: &Path) -> anyhow::Result<()> {
         .org
         .forgejo
         .as_ref()
-        .map(|f| f.url().to_string())
+        .map(|f| f.url.to_string())
         .unwrap_or_default();
 
     let result = kc
-        .lookup_identity_links(codeberg_user, &forgejo_url)
+        .lookup_identity_links(forgejo_user, &forgejo_url)
         .map_err(|e| anyhow::anyhow!(e))?;
 
     println!("{}", serde_json::to_string(&result)?);

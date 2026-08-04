@@ -9,7 +9,7 @@ This repository is the source of truth for the Tech Committee's governance model
 ## Joining a team
 
 1. [Link all available accounts](https://idp.scottylabs.org/realms/scottylabs/account/account-security/linked-accounts) in Keycloak.
-1. Add your Codeberg username to the `members` array in the desired team `.toml` file under `data/`.
+1. Add your [git.cmu.dev](https://git.cmu.dev) username to the `members` array in the desired team `.toml` file under `data/`.
 1. Open a PR using a [conventional](https://www.conventionalcommits.org/en/v1.0.0/) PR title.
 
 Note that only team leads are allowed to modify other people's memberships.
@@ -53,9 +53,9 @@ The following is a list of platforms Governance manages:
    - For projects with it enabled, OIDC clients are provisioned
 1. OpenBao
    - Keycloak groups are given the appropriate access to secret paths on OpenBao
-1. Codeberg
-   - Members are added to their Codeberg teams, which gives them appropriate access to the team's repositories
-   - Codeberg repositories are set up to automatically sync to GitHub for visibility
+1. [git.cmu.dev](https://git.cmu.dev)
+   - Members are added to their Forgejo teams, which gives them appropriate access to the team's repositories
+   - Forgejo repositories are set up to automatically sync to GitHub for visibility
 1. Google
    - Members are automatically added to ScottyLabs' and Tech's mailing lists (Google Groups)
 1. Sentry
@@ -66,7 +66,7 @@ The following is a list of platforms Governance manages:
 1. LiteLLM
    - Repositories with the AI gateway enabled receive budgeted API keys under their team, written to OpenBao per profile
 1. Kennel
-   - Repositories automatically receive a deploy webhook that authorizes them to be deployed by [kennel](https://codeberg.org/scottylabs/kennel)
+   - Repositories automatically receive a deploy webhook that authorizes them to be deployed by [kennel](https://git.cmu.dev/ScottyLabs/kennel)
 1. Website
    - Groups with a `public_url` are published to the scottylabs.org project catalog
 1. Discord and Slack

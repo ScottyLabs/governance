@@ -109,7 +109,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/bus-sign",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/bus-sign",
         "name": "bus-sign",
         "visibility": "public"
       },
@@ -119,7 +119,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/dalmatian",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/dalmatian",
         "name": "dalmatian",
         "visibility": "public"
       },
@@ -129,7 +129,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/discord-verify",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/discord-verify",
         "name": "discord-verify",
         "visibility": "public"
       },
@@ -139,7 +139,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/groupme-mirror",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/groupme-mirror",
         "name": "groupme-mirror",
         "visibility": "public"
       },
@@ -149,7 +149,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/cal",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/cal",
         "name": "cal",
         "visibility": "public"
       },
@@ -159,7 +159,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/courses",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/courses",
         "name": "courses",
         "visibility": "public"
       },
@@ -169,7 +169,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/internet-archive",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/internet-archive",
         "name": "internet-archive",
         "visibility": "public"
       },
@@ -179,7 +179,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/housing",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/housing",
         "name": "housing",
         "visibility": "public"
       },
@@ -189,7 +189,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/maps",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/maps",
         "name": "maps",
         "visibility": "public"
       },
@@ -199,7 +199,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/collie",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/collie",
         "name": "collie",
         "visibility": "public"
       },
@@ -209,7 +209,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/documentation",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/documentation",
         "name": "documentation",
         "visibility": "public"
       },
@@ -219,7 +219,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/governance",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/governance",
         "name": "governance",
         "visibility": "public"
       },
@@ -229,7 +229,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/infrastructure",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/infrastructure",
         "name": "infrastructure",
         "visibility": "public"
       },
@@ -239,7 +239,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/kennel",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/kennel",
         "name": "kennel",
         "visibility": "public"
       },
@@ -249,7 +249,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/link-shortener",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/link-shortener",
         "name": "link-shortener",
         "visibility": "public"
       },
@@ -259,7 +259,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/lost-and-found-v2",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/lost-and-found-v2",
         "name": "lost-and-found-v2",
         "visibility": "public"
       },
@@ -269,7 +269,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/quest",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/quest",
         "name": "quest",
         "visibility": "public"
       },
@@ -279,7 +279,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/cmugpt-agent",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/cmugpt-agent",
         "name": "cmugpt-agent",
         "visibility": "public"
       },
@@ -289,7 +289,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/cmugpt-sms-surface",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/cmugpt-sms-surface",
         "name": "cmugpt-sms-surface",
         "visibility": "public"
       },
@@ -299,7 +299,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/cmugpt-surface",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/cmugpt-surface",
         "name": "cmugpt-surface",
         "visibility": "public"
       },
@@ -309,7 +309,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/mcp-server",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/mcp-server",
         "name": "mcp-server",
         "visibility": "public"
       },
@@ -319,7 +319,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/tartan-vote",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/tartan-vote",
         "name": "tartan-vote",
         "visibility": "public"
       },
@@ -329,7 +329,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/terrier",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/terrier",
         "name": "terrier",
         "visibility": "public"
       },
@@ -339,7 +339,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/components",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/components",
         "name": "components",
         "visibility": "public"
       },
@@ -349,7 +349,7 @@
         "has_issues": false,
         "has_projects": false,
         "has_wiki": false,
-        "homepage_url": "https://codeberg.org/ScottyLabs/scottylabs-org",
+        "homepage_url": "https://git.cmu.dev/ScottyLabs/scottylabs-org",
         "name": "scottylabs-org",
         "visibility": "public"
       }
@@ -359,151 +359,151 @@
         "key": "${restapi_object.cbp_bus_sign_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cbp_bus_sign.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "cbp_dalmatian_mirror_deploy_key": {
         "key": "${restapi_object.cbp_dalmatian_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cbp_dalmatian.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "cbp_discord_verify_mirror_deploy_key": {
         "key": "${restapi_object.cbp_discord_verify_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cbp_discord_verify.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "cbp_groupme_mirror_mirror_deploy_key": {
         "key": "${restapi_object.cbp_groupme_mirror_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cbp_groupme_mirror.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "cmu-cal_cal_mirror_deploy_key": {
         "key": "${restapi_object.cmu-cal_cal_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cmu-cal_cal.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "cmu-courses_courses_mirror_deploy_key": {
         "key": "${restapi_object.cmu-courses_courses_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cmu-courses_courses.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "cmu-courses_internet_archive_mirror_deploy_key": {
         "key": "${restapi_object.cmu-courses_internet_archive_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cmu-courses_internet_archive.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "cmu-housing_housing_mirror_deploy_key": {
         "key": "${restapi_object.cmu-housing_housing_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cmu-housing_housing.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "cmu-maps_maps_mirror_deploy_key": {
         "key": "${restapi_object.cmu-maps_maps_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.cmu-maps_maps.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "devops_collie_mirror_deploy_key": {
         "key": "${restapi_object.devops_collie_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_collie.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "devops_documentation_mirror_deploy_key": {
         "key": "${restapi_object.devops_documentation_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_documentation.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "devops_governance_mirror_deploy_key": {
         "key": "${restapi_object.devops_governance_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_governance.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "devops_infrastructure_mirror_deploy_key": {
         "key": "${restapi_object.devops_infrastructure_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_infrastructure.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "devops_kennel_mirror_deploy_key": {
         "key": "${restapi_object.devops_kennel_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_kennel.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "devops_link_shortener_mirror_deploy_key": {
         "key": "${restapi_object.devops_link_shortener_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.devops_link_shortener.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "lost-and-found_lost_and_found_v2_mirror_deploy_key": {
         "key": "${restapi_object.lost-and-found_lost_and_found_v2_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.lost-and-found_lost_and_found_v2.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "quest_quest_mirror_deploy_key": {
         "key": "${restapi_object.quest_quest_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.quest_quest.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "slai_cmugpt_agent_mirror_deploy_key": {
         "key": "${restapi_object.slai_cmugpt_agent_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.slai_cmugpt_agent.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "slai_cmugpt_sms_surface_mirror_deploy_key": {
         "key": "${restapi_object.slai_cmugpt_sms_surface_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.slai_cmugpt_sms_surface.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "slai_cmugpt_surface_mirror_deploy_key": {
         "key": "${restapi_object.slai_cmugpt_surface_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.slai_cmugpt_surface.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "slai_mcp_server_mirror_deploy_key": {
         "key": "${restapi_object.slai_mcp_server_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.slai_mcp_server.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "tartan-vote_tartan_vote_mirror_deploy_key": {
         "key": "${restapi_object.tartan-vote_tartan_vote_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.tartan-vote_tartan_vote.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "terrier_terrier_mirror_deploy_key": {
         "key": "${restapi_object.terrier_terrier_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.terrier_terrier.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "uia_components_mirror_deploy_key": {
         "key": "${restapi_object.uia_components_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.uia_components.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       },
       "uia_scottylabs_org_mirror_deploy_key": {
         "key": "${restapi_object.uia_scottylabs_org_push_mirror.api_data.public_key}",
         "read_only": false,
         "repository": "${github_repository.uia_scottylabs_org.name}",
-        "title": "Codeberg Mirroring"
+        "title": "Forgejo mirror"
       }
     },
     "github_repository_ruleset": {

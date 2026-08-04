@@ -136,7 +136,7 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
                 &format!("{slug}_{key}"),
                 json!({
                     "team_id": team_id,
-                    "user": format!("${{data.external.identity_{key}.result.codeberg}}"),
+                    "user": format!("${{data.external.identity_{key}.result[\"cmu-dev\"]}}"),
                 }),
             );
         }
@@ -151,7 +151,7 @@ pub fn generate_team_memberships(data: &GovernanceData) -> TfJsonFile {
                 &format!("{}_{key}", scope.key),
                 json!({
                     "team_id": leads_id,
-                    "user": format!("${{data.external.identity_{key}.result.codeberg}}"),
+                    "user": format!("${{data.external.identity_{key}.result[\"cmu-dev\"]}}"),
                 }),
             );
         }
