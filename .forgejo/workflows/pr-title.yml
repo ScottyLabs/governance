@@ -8,7 +8,7 @@ jobs:
   conventional-commits:
     name: Conventional Commits
     if: ${{ github.actor != 'scottylabs-bot' }}
-    runs-on: docker
+    runs-on: native
     steps:
       - uses: https://github.com/ytanikin/pr-conventional-commits@639145d78959c53c43112365837e3abd21ed67c1 # 1.5.2
         with:

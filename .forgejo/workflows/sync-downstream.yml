@@ -13,7 +13,7 @@ on:
 jobs:
   docs:
     name: Sync docs
-    runs-on: docker
+    runs-on: native
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
         with:
@@ -26,7 +26,7 @@ jobs:
 
   projects:
     name: Sync projects.json
-    runs-on: docker
+    runs-on: native
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
         with:
@@ -44,7 +44,7 @@ jobs:
 
   posthog-invite:
     name: Reconcile PostHog invites
-    runs-on: docker
+    runs-on: native
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v6
         with:
