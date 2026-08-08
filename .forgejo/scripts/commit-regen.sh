@@ -41,7 +41,7 @@ echo "$SIGNING_KEY" > "$key"
 chmod 600 "$key"
 
 git config user.name "scottylabs-bot"
-git config user.email "ops+codeberg@scottylabs.org"
+git config user.email "ops+cmu-dev@scottylabs.org"
 git config gpg.format ssh
 git config user.signingkey "$key"
 git config commit.gpgsign true

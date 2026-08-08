@@ -9,9 +9,8 @@ jobs:
     if: ${{ github.actor != 'scottylabs-bot' }}
     runs-on: native
     env:
-      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      SECRETSPEC_PROFILE: ci
+    enable-openid-connect: true
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v7
         with:
@@ -23,23 +22,15 @@ jobs:
 
       - name: Validate
         run: devenv shell -- cargo run -q -p governance -- validate
-        env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-          KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
-          KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
-          MATRIX_ADMIN_TOKEN: ${{ secrets.MATRIX_ADMIN_TOKEN }}
 
       - name: Regenerate tofu, schemas, CODEOWNERS
         run: devenv shell -- ./.forgejo/scripts/regenerate.sh
 
       - name: Commit regenerated files if changed
         env:
-          BOT_TOKEN: ${{ secrets.CB_GOVERNANCE_TOKEN }}
-          SIGNING_KEY: ${{ secrets.BOT_SSH_SIGNING_KEY }}
           HEAD_CLONE_URL: ${{ github.event.pull_request.head.repo.clone_url }}
           HEAD_FULL: ${{ github.event.pull_request.head.repo.full_name }}
           BASE_FULL: ${{ github.event.pull_request.base.repo.full_name }}
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
           ALLOW_EDIT: ${{ github.event.pull_request.allow_maintainer_edit }}
-        run: ./.forgejo/scripts/commit-regen.sh
+        run: devenv shell -- ./.forgejo/scripts/commit-regen.sh

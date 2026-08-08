@@ -1,0 +1,26 @@
+name: Reconcile PostHog Invites
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "crates/**"
+      - ".forgejo/workflows/posthog-invite.yml"
+
+jobs:
+  posthog-invite:
+    name: Reconcile PostHog invites
+    runs-on: native
+    env:
+      SECRETSPEC_PROFILE: ci
+    enable-openid-connect: true
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: https://git.cmu.dev/ScottyLabs/kennel/.forgejo/actions/prepare@main
+
+      - name: Reconcile PostHog invites
+        run: devenv shell -- cargo run -q -p governance -- posthog-invite
