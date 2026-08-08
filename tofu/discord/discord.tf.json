@@ -55,6 +55,12 @@
         "overwrite_id": "${discord_role.devops.id}",
         "type": "role"
       },
+      "devops_ch1": {
+        "allow": 1024,
+        "channel_id": "1535385133958307871",
+        "overwrite_id": "${discord_role.devops.id}",
+        "type": "role"
+      },
       "lost-and-found_ch0": {
         "allow": 1024,
         "channel_id": "1526510267607945326",

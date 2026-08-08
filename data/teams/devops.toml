@@ -59,3 +59,12 @@ oidc_client = {}
 
 [team.projects.repos.features.sentry]
 platform = "rust"
+
+[[team.projects]]
+name = "Changelog"
+slug = "changelog"
+description = "Changelog generation from commits"
+
+[[team.projects.channels]]
+discord = "1535385133958307871"
+slack = "C0BNV84NUTC"

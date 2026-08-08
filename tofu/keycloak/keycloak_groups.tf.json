@@ -101,6 +101,16 @@
         "parent_id": "${keycloak_group.project_devops.id}",
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_devops_changelog": {
+        "name": "changelog",
+        "parent_id": "${keycloak_group.projects.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_changelog_admins": {
+        "name": "admins",
+        "parent_id": "${keycloak_group.project_devops_changelog.id}",
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops_documentation": {
         "name": "documentation",
         "parent_id": "${keycloak_group.projects.id}",

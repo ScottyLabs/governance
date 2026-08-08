@@ -101,6 +101,16 @@
         "members": [],
         "realm_id": "${data.keycloak_realm.this.id}"
       },
+      "project_devops_changelog": {
+        "group_id": "${keycloak_group.project_devops_changelog.id}",
+        "members": [],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
+      "project_devops_changelog_admins": {
+        "group_id": "${keycloak_group.project_devops_changelog_admins.id}",
+        "members": [],
+        "realm_id": "${data.keycloak_realm.this.id}"
+      },
       "project_devops_documentation": {
         "group_id": "${keycloak_group.project_devops_documentation.id}",
         "members": [],
